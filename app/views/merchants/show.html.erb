@@ -1,0 +1,9 @@
+<h1><%= @merchant.name %></h1>
+
+<section class='address'>
+  <p><%= @merchant.address %></p>
+  <p><%= @merchant.city %> <%= @merchant.state %> <%= @merchant.zip %></p>
+</section>
+
+<%= button_to 'Edit', "/merchants/#{@merchant.id}/edit", method: :get %>
+<%= button_to 'Delete', "/merchants/#{@merchant.id}", method: :delete %>
