@@ -1,0 +1,9 @@
+<h1><%= @item.name %></h1>
+<p><%= @item.description %></p>
+<img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTaLM_vbg2Rh-mZ-B4t-RSU9AmSfEEq_SN9xPP_qrA2I6Ftq_D9Qw">
+<p>Price: <%= number_to_currency(@item.price) %></p>
+<p>Sold by: <%= link_to @item.merchant.name, "/merchants/#{@item.merchant_id}" %>, Inventory: <%= @item.inventory %></p>
+<p><%= @item.active ? "Active" : "Inactive" %></p>
+
+<%= link_to 'Update Item', "/items/#{@item.id}/edit" %>
+<%= link_to 'Delete', "/items/#{@item.id}", method: :delete %>
