@@ -1,3 +1,4 @@
+<h2>Edit Item</h2>
 <%= form_tag "/items/#{@item.id}", method: :patch do %>
   <%= label_tag :name %>
   <%= text_field_tag :name %>

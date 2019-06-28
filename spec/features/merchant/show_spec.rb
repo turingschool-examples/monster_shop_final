@@ -17,5 +17,13 @@ RSpec.describe 'Merchant Show Page' do
         expect(page).to have_content("#{@megan.city} #{@megan.state} #{@megan.zip}")
       end
     end
+
+    it 'I see a link to this merchants items' do
+      visit "/merchants/#{@megan.id}"
+
+      click_link "Items"
+
+      
+    end
   end
 end
