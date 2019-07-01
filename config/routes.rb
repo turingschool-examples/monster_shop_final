@@ -4,5 +4,8 @@ Rails.application.routes.draw do
   resources :merchants do
     resources :items, only: [:index, :new, :create]
   end
+
   resources :items, only: [:index, :show, :edit, :update, :destroy]
+
+  post '/cart/:item_id', to: 'cart#add_item', as: :cart
 end
