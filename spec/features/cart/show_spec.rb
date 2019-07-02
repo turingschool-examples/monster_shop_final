@@ -90,6 +90,47 @@ RSpec.describe 'Cart Show Page' do
         expect(page).to have_content('Cart: 1')
         expect(page).to have_content("#{@ogre.name}")
       end
+
+      it 'I can add quantity to an item in my cart' do
+        visit item_path(@ogre)
+        click_button 'Add to Cart'
+        visit item_path(@hippo)
+        click_button 'Add to Cart'
+        visit item_path(@hippo)
+        click_button 'Add to Cart'
+
+        visit '/cart'
+
+        within "#item-#{@hippo.id}" do
+          click_button('More of This!')
+        end
+
+        expect(current_path).to eq('/cart')
+        within "#item-#{@hippo.id}" do
+          expect(page).to have_content('Quantity: 3')
+        end
+      end
+
+      it 'I can not add more quantity than the items inventory' do
+        visit item_path(@hippo)
+        click_button 'Add to Cart'
+        visit item_path(@hippo)
+        click_button 'Add to Cart'
+        visit item_path(@hippo)
+        click_button 'Add to Cart'
+
+        visit '/cart'
+
+        within "#item-#{@hippo.id}" do
+          expect(page).to_not have_button('More of This!')
+        end
+
+        visit "/items/#{@hippo.id}"
+
+        click_button 'Add to Cart'
+
+        expect(page).to have_content("You have all the item's inventory in your cart already!")
+      end
     end
   end
 end
