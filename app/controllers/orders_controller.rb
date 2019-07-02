@@ -1,7 +1,8 @@
 class OrdersController < ApplicationController
   def show
+    @order = Order.find(params[:id])
   end
-  
+
   def new
   end
 
@@ -14,6 +15,7 @@ class OrdersController < ApplicationController
         price: item.price
         })
     end
+    session.delete(:cart)
     redirect_to order_path(order)
   end
 
