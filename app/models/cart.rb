@@ -6,8 +6,12 @@ class Cart
     @contents.default = 0
   end
 
-  def add_item(item)
-    @contents[item] += 1
+  def add_item(item_id)
+    @contents[item_id] += 1
+  end
+
+  def less_item(item_id)
+    @contents[item_id] -= 1
   end
 
   def count

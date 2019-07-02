@@ -27,7 +27,12 @@ class CartController < ApplicationController
   end
 
   def update_quantity
-    cart.add_item(params[:item_id])
+    if params[:change] == "more"
+      cart.add_item(params[:item_id])
+    elsif params[:change] == "less"
+      cart.less_item(params[:item_id])
+      return remove_item if cart.count_of(params[:item_id]) == 0
+    end
     session[:cart] = cart.contents
     redirect_to '/cart'
   end

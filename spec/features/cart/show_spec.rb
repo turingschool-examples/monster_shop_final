@@ -131,6 +131,41 @@ RSpec.describe 'Cart Show Page' do
 
         expect(page).to have_content("You have all the item's inventory in your cart already!")
       end
+
+      it 'I can reduce the quantity of an item in my cart' do
+        visit item_path(@hippo)
+        click_button 'Add to Cart'
+        visit item_path(@hippo)
+        click_button 'Add to Cart'
+        visit item_path(@hippo)
+        click_button 'Add to Cart'
+
+        visit '/cart'
+
+        within "#item-#{@hippo.id}" do
+          click_button('Less of This!')
+        end
+
+        expect(current_path).to eq('/cart')
+        within "#item-#{@hippo.id}" do
+          expect(page).to have_content('Quantity: 2')
+        end
+      end
+
+      it 'if I reduce the quantity to zero, the item is removed from my cart' do
+        visit item_path(@hippo)
+        click_button 'Add to Cart'
+
+        visit '/cart'
+
+        within "#item-#{@hippo.id}" do
+          click_button('Less of This!')
+        end
+
+        expect(current_path).to eq('/cart')
+        expect(page).to_not have_content("#{@hippo.name}")
+        expect(page).to have_content("Cart: 0")
+      end
     end
   end
 end

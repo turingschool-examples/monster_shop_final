@@ -57,5 +57,11 @@ RSpec.describe Cart do
       expect(@cart.limit_reached?(@ogre.id)).to eq(false)
       expect(@cart.limit_reached?(@giant.id)).to eq(true)
     end
+
+    it '.less_item()' do
+      @cart.less_item(@giant.id.to_s)
+
+      expect(@cart.count_of(@giant.id)).to eq(1)
+    end
   end
 end
