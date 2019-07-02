@@ -70,6 +70,26 @@ RSpec.describe 'Cart Show Page' do
         expect(page).to have_content('Cart: 0')
         expect(page).to_not have_button('Empty Cart')
       end
+
+      it 'I can remove one item from my cart' do
+        visit item_path(@ogre)
+        click_button 'Add to Cart'
+        visit item_path(@hippo)
+        click_button 'Add to Cart'
+        visit item_path(@hippo)
+        click_button 'Add to Cart'
+
+        visit '/cart'
+
+        within "#item-#{@hippo.id}" do
+          click_button('Remove')
+        end
+
+        expect(current_path).to eq('/cart')
+        expect(page).to_not have_content("#{@hippo.name}")
+        expect(page).to have_content('Cart: 1')
+        expect(page).to have_content("#{@ogre.name}")
+      end
     end
   end
 end

@@ -11,6 +11,7 @@
       <p>Quantity: <%= cart.count_of(item.id) %></p>
       <p>Subtotal: <%= number_to_currency(cart.subtotal_of(item.id)) %></p>
       <p>Sold by: <%= link_to item.merchant.name, "/merchants/#{item.merchant_id}" %>, Inventory: <%= item.inventory %></p>
+      <%= button_to 'Remove', "/cart/#{item.id}", method: :delete %>
     </section>
   <% end %>
   <%= button_to 'Empty Cart', '/cart', method: :delete %>
