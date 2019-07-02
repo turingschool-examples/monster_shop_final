@@ -16,5 +16,6 @@
       <%= button_to 'Remove', "/cart/#{item.id}", method: :delete %>
     </section>
   <% end %>
+  <%= button_to 'Check Out', new_order_path, method: :get %>
   <%= button_to 'Empty Cart', '/cart', method: :delete %>
 <% end %>
