@@ -13,4 +13,5 @@
       <p>Sold by: <%= link_to item.merchant.name, "/merchants/#{item.merchant_id}" %>, Inventory: <%= item.inventory %></p>
     </section>
   <% end %>
+  <%= button_to 'Empty Cart', '/cart', method: :delete %>
 <% end %>
