@@ -42,5 +42,12 @@ RSpec.describe 'Cart Show Page' do
         expect(page).to have_link(@brian.name)
       end
     end
+
+    it "I can visit an empty cart page" do
+      visit '/cart'
+
+      expect(page).to have_content('Your Cart is Empty!')
+      expect(page).to_not have_button('Empty Cart')
+    end
   end
 end
