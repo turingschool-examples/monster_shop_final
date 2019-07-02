@@ -13,7 +13,6 @@ class CartController < ApplicationController
   end
 
   def show
-    @items = cart.items
   end
 
   def empty

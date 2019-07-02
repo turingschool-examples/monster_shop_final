@@ -1,0 +1,29 @@
+<h3>Total: <%= number_to_currency(cart.grand_total) %></h3>
+  <% cart.items.each do |item| %>
+    <section id='item-<%= item.id%>'>
+      <h2><%= link_to item.name, "/items/#{item.id}" %></h2>
+      <p>Price: <%= number_to_currency(item.price) %></p>
+      <p>Quantity: <%= cart.count_of(item.id) %></p>
+      <p>Subtotal: <%= number_to_currency(cart.subtotal_of(item.id)) %></p>
+      <p>Sold by: <%= link_to item.merchant.name, "/merchants/#{item.merchant_id}" %>, Inventory: <%= item.inventory %></p>
+    </section>
+  <% end %>
+
+<%= form_tag orders_path do %>
+  <%= label_tag :name %>
+  <%= text_field_tag :name %>
+
+  <%= label_tag :address %>
+  <%= text_field_tag :address %>
+
+  <%= label_tag :city %>
+  <%= text_field_tag :city %>
+
+  <%= label_tag :state %>
+  <%= text_field_tag :state %>
+
+  <%= label_tag :zip %>
+  <%= number_field_tag :zip %>
+
+  <%= submit_tag 'Create Order' %>
+<% end %>

@@ -23,6 +23,53 @@ RSpec.describe 'Create Order' do
       click_button 'Check Out'
 
       expect(current_path).to eq(new_order_path)
+      expect(page).to have_content("Total: #{number_to_currency((@ogre.price * 1) + (@hippo.price * 2))}")
+
+      within "#item-#{@ogre.id}" do
+        expect(page).to have_link(@ogre.name)
+        expect(page).to have_content("Price: #{number_to_currency(@ogre.price)}")
+        expect(page).to have_content("Quantity: 1")
+        expect(page).to have_content("Subtotal: #{number_to_currency(@ogre.price * 1)}")
+        expect(page).to have_content("Sold by: #{@megan.name}")
+        expect(page).to have_link(@megan.name)
+      end
+
+      within "#item-#{@hippo.id}" do
+        expect(page).to have_link(@hippo.name)
+        expect(page).to have_content("Price: #{number_to_currency(@hippo.price)}")
+        expect(page).to have_content("Quantity: 2")
+        expect(page).to have_content("Subtotal: #{number_to_currency(@hippo.price * 2)}")
+        expect(page).to have_content("Sold by: #{@brian.name}")
+        expect(page).to have_link(@brian.name)
+      end
+    end
+
+    it 'I can create an order from the new order page' do
+      visit item_path(@ogre)
+      click_button 'Add to Cart'
+      visit item_path(@hippo)
+      click_button 'Add to Cart'
+      visit item_path(@hippo)
+      click_button 'Add to Cart'
+
+      name = 'Megan M'
+      address = '123 Main St'
+      city = 'Denver'
+      state = 'CO'
+      zip = '80218'
+
+      visit new_order_path
+
+      fill_in 'Name', with: name
+      fill_in 'Address', with: address
+      fill_in 'City', with: city
+      fill_in 'State', with: state
+      fill_in 'Zip', with: zip
+      click_button 'Create Order'
+
+      new_order = Order.last
+
+      expect(current_path).to eq(order_path(new_order))
     end
   end
 end
