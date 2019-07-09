@@ -9,3 +9,18 @@
 
 <%= link_to 'Update Item', "/items/#{@item.id}/edit" %>
 <%= link_to 'Delete', "/items/#{@item.id}", method: :delete %>
+
+<section class='reviews'>
+  <h2>Reviews</h2>
+  <% if @item.reviews.empty? %>
+    <p>No Reviews Yet!</p>
+  <% else %>
+    <% @item.reviews.each do |review| %>
+      <section id='review-<%= review.id %>'>
+        <h3><%= review.title %></h3>
+        <p><%= review.description %></p>
+        <p>Rating: <%= review.rating %></p>
+      </section>
+    <% end %>
+  <% end %>
+</section>
