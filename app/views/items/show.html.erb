@@ -15,6 +15,23 @@
   <% if @item.reviews.empty? %>
     <p>No Reviews Yet!</p>
   <% else %>
+    <h3>Average Rating: <%= @item.average_rating.round(2) %></h3>
+    <section id='top-three-reviews'>
+      <h3>Top 3 Reviews</h3>
+      <ul>
+        <% @item.sorted_reviews(3, :desc).each do |review| %>
+          <li><%= review.title %></li>
+        <% end %>
+      </ul>
+    </section>
+    <section id='bottom-three-reviews'>
+      <h3>Bottom 3 Reviews</h3>
+      <ul>
+        <% @item.sorted_reviews(3, :asc).each do |review| %>
+          <li><%= review.title %></li>
+        <% end %>
+      </ul>
+    </section>
     <% @item.reviews.each do |review| %>
       <section id='review-<%= review.id %>'>
         <h3><%= review.title %></h3>
