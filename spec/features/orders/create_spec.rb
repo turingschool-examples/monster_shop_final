@@ -96,5 +96,24 @@ RSpec.describe 'Create Order' do
         expect(page).to have_link(@brian.name)
       end
     end
+
+    it 'I must include all shipping address fields to create an order' do
+      visit item_path(@hippo)
+      click_button 'Add to Cart'
+
+      name = 'Megan M'
+      address = '123 Main St'
+      city = 'Denver'
+      state = 'CO'
+      zip = '80218'
+
+      visit new_order_path
+
+      fill_in 'Name', with: name
+      fill_in 'Address', with: address
+      click_button 'Create Order'
+
+      expect(page).to have_content("Please complete address form to create an order.")
+    end
   end
 end

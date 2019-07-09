@@ -6,6 +6,14 @@ RSpec.describe Order do
     it {should have_many(:items).through(:order_items)}
   end
 
+  describe 'validations' do
+    it {should validate_presence_of :name}
+    it {should validate_presence_of :address}
+    it {should validate_presence_of :city}
+    it {should validate_presence_of :state}
+    it {should validate_presence_of :zip} 
+  end
+
   describe 'instance methods' do
     before :each do
       @megan = Merchant.create!(name: 'Megans Marmalades', address: '123 Main St', city: 'Denver', state: 'CO', zip: 80218)
@@ -19,6 +27,7 @@ RSpec.describe Order do
       @order_1.order_items.create!(item: @hippo, price: @hippo.price, quantity: 3)
       @order_2.order_items.create!(item: @hippo, price: @hippo.price, quantity: 2)
     end
+
     it '.grand_total' do
       expect(@order_1.grand_total).to eq(190.5)
       expect(@order_2.grand_total).to eq(100)

@@ -7,16 +7,21 @@ class OrdersController < ApplicationController
   end
 
   def create
-    order = Order.create(order_params)
-    cart.items.each do |item|
-      order.order_items.create({
-        item: item,
-        quantity: cart.count_of(item.id),
-        price: item.price
-        })
+    order = Order.new(order_params)
+    if order.save
+      cart.items.each do |item|
+        order.order_items.create({
+          item: item,
+          quantity: cart.count_of(item.id),
+          price: item.price
+          })
+      end
+      session.delete(:cart)
+      redirect_to order_path(order)
+    else
+      flash[:notice] = "Please complete address form to create an order."
+      render :new
     end
-    session.delete(:cart)
-    redirect_to order_path(order)
   end
 
   private
