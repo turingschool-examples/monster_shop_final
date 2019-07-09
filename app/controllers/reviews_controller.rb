@@ -22,7 +22,7 @@ class ReviewsController < ApplicationController
 
   def generate_flash(review)
     review.errors.messages.each do |validation, message|
-      flash[validation] = message
+      flash[:notice] = "#{validation}: #{message}"
     end
   end
 end

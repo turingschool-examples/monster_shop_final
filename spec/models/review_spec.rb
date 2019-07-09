@@ -9,5 +9,7 @@ RSpec.describe Review do
     it {should validate_inclusion_of(:rating)
           .in_range(1..5)
           .with_message("Rating must be 1 - 5")}
+    it {should validate_presence_of :title}
+    it {should validate_presence_of :description}
   end
 end

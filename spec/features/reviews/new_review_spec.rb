@@ -74,5 +74,35 @@ RSpec.describe 'New Review Creation' do
       expect(page).to have_content("Rating must be 1 - 5")
       expect(page).to have_button 'Create Review'
     end
+
+    it 'I can not create a review without a title' do
+      visit new_item_review_path(@ogre)
+
+      title = 'Super'
+      description = 'It was pretty good'
+      rating = 4
+
+      fill_in 'Description', with: description
+      fill_in 'Rating', with: rating
+      click_button 'Create Review'
+
+      expect(page).to have_content("title: [\"can't be blank\"]")
+      expect(page).to have_button 'Create Review'
+    end
+
+    it 'I can not create a review without a description' do
+      visit new_item_review_path(@ogre)
+
+      title = 'Super'
+      description = 'It was pretty good'
+      rating = 4
+
+      fill_in 'Title', with: title
+      fill_in 'Rating', with: rating
+      click_button 'Create Review'
+
+      expect(page).to have_content("description: [\"can't be blank\"]")
+      expect(page).to have_button 'Create Review'
+    end
   end
 end
