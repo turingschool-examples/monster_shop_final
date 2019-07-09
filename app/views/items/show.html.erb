@@ -38,6 +38,7 @@
         <p><%= review.description %></p>
         <p>Rating: <%= review.rating %></p>
         <%= button_to 'Edit', edit_review_path(review), method: :get %>
+        <%= button_to 'Delete', review_path(review), method: :delete %>
       </section>
     <% end %>
   <% end %>

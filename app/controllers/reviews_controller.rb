@@ -24,6 +24,12 @@ class ReviewsController < ApplicationController
     redirect_to item_path(@review.item)
   end
 
+  def destroy
+    review = Review.find(params[:id])
+    review.destroy
+    redirect_to(item_path(review.item))
+  end
+
   private
 
   def review_params
@@ -32,7 +38,7 @@ class ReviewsController < ApplicationController
 
   def generate_flash(review)
     review.errors.messages.each do |validation, message|
-      flash[:notice] = "#{validation}: #{message}"
+      flash[validation] = "#{validation}: #{message}"
     end
   end
 end

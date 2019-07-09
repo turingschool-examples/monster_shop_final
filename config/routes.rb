@@ -9,7 +9,7 @@ Rails.application.routes.draw do
     resources :reviews, only: [:new, :create]
   end
 
-  resources :reviews, only: [:edit, :update]
+  resources :reviews, only: [:edit, :update, :destroy]
 
   get '/cart', to: 'cart#show'
   post '/cart/:item_id', to: 'cart#add_item'
