@@ -35,10 +35,4 @@ class ReviewsController < ApplicationController
   def review_params
     params.permit(:title, :description, :rating)
   end
-
-  def generate_flash(review)
-    review.errors.messages.each do |validation, message|
-      flash[validation] = "#{validation}: #{message}"
-    end
-  end
 end

@@ -30,5 +30,21 @@ RSpec.describe 'New Merchant Creation' do
       expect(current_path).to eq('/merchants')
       expect(page).to have_link(name)
     end
+
+    it 'I can not create a merchant with an incomplete form' do
+      visit '/merchants/new'
+
+      name = 'Megans Marmalades'
+
+      fill_in 'Name', with: name
+
+      click_button 'Create Merchant'
+
+      expect(page).to have_content("address: [\"can't be blank\"]")
+      expect(page).to have_content("city: [\"can't be blank\"]")
+      expect(page).to have_content("state: [\"can't be blank\"]")
+      expect(page).to have_content("zip: [\"can't be blank\"]")
+      expect(page).to have_button('Create Merchant')
+    end
   end
 end

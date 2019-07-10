@@ -40,5 +40,22 @@ RSpec.describe 'Existing Merchant Update' do
         expect(page).to have_content("#{city} #{state} #{zip}")
       end
     end
+
+
+    it 'I can not edit a merchant with an incomplete form' do
+      visit "/merchants/#{@megan.id}/edit"
+
+      name = 'Megans Marmalades'
+
+      fill_in 'Name', with: name
+
+      click_button 'Update Merchant'
+
+      expect(page).to have_content("address: [\"can't be blank\"]")
+      expect(page).to have_content("city: [\"can't be blank\"]")
+      expect(page).to have_content("state: [\"can't be blank\"]")
+      expect(page).to have_content("zip: [\"can't be blank\"]")
+      expect(page).to have_button('Update Merchant')
+    end
   end
 end
