@@ -35,8 +35,12 @@ class ItemsController < ApplicationController
   end
 
   def destroy
-    Item.destroy(params[:id])
-
+    item = Item.find(params[:id])
+    if item.orders.empty?
+      item.destroy
+    else
+      flash[:notice] = "#{item.name} can not be deleted - it has been ordered!"
+    end
     redirect_to '/items'
   end
 
