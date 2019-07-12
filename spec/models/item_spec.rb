@@ -8,6 +8,14 @@ RSpec.describe Item do
     it {should have_many :reviews}
   end
 
+  describe 'Validations' do
+    it {should validate_presence_of :name}
+    it {should validate_presence_of :description}
+    it {should validate_presence_of :image}
+    it {should validate_presence_of :price}
+    it {should validate_presence_of :inventory}
+  end
+
   describe 'Instance Methods' do
     before :each do
       @megan = Merchant.create!(name: 'Megans Marmalades', address: '123 Main St', city: 'Denver', state: 'CO', zip: 80218)

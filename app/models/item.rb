@@ -4,6 +4,12 @@ class Item < ApplicationRecord
   has_many :orders, through: :order_items
   has_many :reviews, dependent: :destroy
 
+  validates_presence_of :name,
+                        :description,
+                        :image,
+                        :price,
+                        :inventory
+
   def sorted_reviews(limit = nil, order = :asc)
     reviews.order(rating: order).limit(limit)
   end
