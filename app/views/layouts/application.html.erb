@@ -10,10 +10,12 @@
 
   <body>
     <nav>
+      <%= link_to 'Home', root_path %>
       <%= link_to 'Register', registration_path %>
+      <%= link_to 'Log In', login_path %>
       <%= link_to 'Merchants', '/merchants' %>
       <%= link_to 'Items', '/items' %>
-      <p>Cart: <%= cart.count %></p>
+      <%= link_to "Cart: #{cart.count}", cart_path %>
     </nav>
     <% flash.each do |type, message| %>
     <p><%= message %></p>
