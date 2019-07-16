@@ -6,8 +6,7 @@ class User < ApplicationRecord
                         :city,
                         :state,
                         :zip,
-                        :email,
-                        :password
+                        :email
 
   validates_uniqueness_of :email
 end
