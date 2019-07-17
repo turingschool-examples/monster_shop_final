@@ -17,13 +17,15 @@
         <%= link_to 'Log Out', logout_path %>
         <%= link_to 'Profile', profile_path %>
         <p>Logged in as <%= current_user.name %></p>
-        <% if current_merchant_user %>
+        <% if current_merchant_user? %>
           <%= link_to 'Merchant Dashboard', merchant_dashboard_path %>
+        <% elsif current_admin? %>
+          <%= link_to 'Admin Dashboard', admin_dashboard_path %>
         <% end %>
       <% end %>
       <%= link_to 'Merchants', '/merchants' %>
       <%= link_to 'Items', '/items' %>
-      <%= link_to "Cart: #{cart.count}", cart_path %>
+      <%= link_to "Cart: #{cart.count}", cart_path unless current_user && current_admin?%>
     </nav>
     <% flash.each do |type, message| %>
     <p><%= message %></p>

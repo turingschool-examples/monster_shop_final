@@ -3,7 +3,8 @@ class ApplicationController < ActionController::Base
 
   helper_method :cart,
                 :current_user,
-                :current_merchant_user
+                :current_merchant_user?,
+                :current_admin?
 
   def cart
     @cart ||= Cart.new(session[:cart])
@@ -13,8 +14,12 @@ class ApplicationController < ActionController::Base
     @current_user ||= User.find(session[:user_id]) if session[:user_id]
   end
 
-  def current_merchant_user
+  def current_merchant_user?
     current_user.merchant_id
+  end
+
+  def current_admin?
+    current_user.admin?
   end
 
   def generate_flash(resource)

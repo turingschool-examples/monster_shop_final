@@ -6,9 +6,6 @@ Rails.application.routes.draw do
     resources :items, only: [:index, :new, :create]
   end
 
-  namespace :merchant do
-    get '/', to: 'dashboard#index', as: :dashboard
-  end
 
   resources :items, only: [:index, :show, :edit, :update, :destroy] do
     resources :reviews, only: [:new, :create]
@@ -30,4 +27,12 @@ Rails.application.routes.draw do
 
   get '/login', to: 'sessions#new'
   get '/logout', to: 'sessions#logout'
+
+  namespace :merchant do
+    get '/', to: 'dashboard#index', as: :dashboard
+  end
+
+  namespace :admin do
+    get '/', to: 'dashboard#index', as: :dashboard
+  end
 end
