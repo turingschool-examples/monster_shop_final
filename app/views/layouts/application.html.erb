@@ -17,6 +17,9 @@
         <%= link_to 'Log Out', logout_path %>
         <%= link_to 'Profile', profile_path %>
         <p>Logged in as <%= current_user.name %></p>
+        <% if current_merchant_user %>
+          <%= link_to 'Merchant Dashboard', merchant_dashboard_path %>
+        <% end %>
       <% end %>
       <%= link_to 'Merchants', '/merchants' %>
       <%= link_to 'Items', '/items' %>

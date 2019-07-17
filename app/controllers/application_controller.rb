@@ -1,7 +1,9 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
 
-  helper_method :cart, :current_user
+  helper_method :cart,
+                :current_user,
+                :current_merchant_user
 
   def cart
     @cart ||= Cart.new(session[:cart])
@@ -9,6 +11,10 @@ class ApplicationController < ActionController::Base
 
   def current_user
     @current_user ||= User.find(session[:user_id]) if session[:user_id]
+  end
+
+  def current_merchant_user
+    current_user.merchant_id
   end
 
   def generate_flash(resource)
