@@ -9,4 +9,6 @@ class User < ApplicationRecord
                         :email
 
   validates_uniqueness_of :email
+
+  enum role: ['default', 'merchant_admin', 'admin']
 end
