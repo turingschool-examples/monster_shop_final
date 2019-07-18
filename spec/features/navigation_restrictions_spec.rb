@@ -20,6 +20,11 @@ RSpec.describe 'Navigation Restrictions' do
   end
 
   describe 'As a Default User' do
+    before :each do
+      @user = User.create(name: 'Megan', address: '123 Main St', city: 'Denver', state: 'CO', zip: 80218, email: 'megan@example.com', password: 'securepassword')
+      allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(@user)
+    end
+
     it 'I cannot visit the merchant dashboard' do
       visit '/merchant'
     end
