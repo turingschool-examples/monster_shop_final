@@ -56,4 +56,32 @@ RSpec.describe 'User Login and Log Out' do
       end
     end
   end
+
+  describe 'A registered user can not log in with bad credentials' do
+    before :each do
+      @user = User.create(name: 'Megan', address: '123 Main St', city: 'Denver', state: 'CO', zip: 80218, email: 'megan@example.com', password: 'securepassword')
+    end
+
+    it 'incorrect email' do
+      visit login_path
+
+      fill_in 'Email', with: 'bad@email.com'
+      fill_in 'Password', with: @user.password
+      click_button 'Log In'
+
+      expect(page).to have_content('Your email or password was incorrect!')
+      expect(page).to have_button('Log In')
+    end
+
+    it 'incorrect password' do
+      visit login_path
+
+      fill_in 'Email', with: @user.email
+      fill_in 'Password', with: 'bad password'
+      click_button 'Log In'
+
+      expect(page).to have_content('Your email or password was incorrect!')
+      expect(page).to have_button('Log In')
+    end
+  end
 end
