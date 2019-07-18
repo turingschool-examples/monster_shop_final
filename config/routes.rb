@@ -26,6 +26,7 @@ Rails.application.routes.draw do
   get '/profile', to: 'users#show'
 
   get '/login', to: 'sessions#new'
+  post '/login', to: 'sessions#login'
   get '/logout', to: 'sessions#logout'
 
   namespace :merchant do
