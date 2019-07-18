@@ -53,4 +53,27 @@ RSpec.describe 'Navigation Restrictions' do
       expect(page.status_code).to eq(404)
     end
   end
+
+  describe 'As an Admin' do
+    before :each do
+      @admin = User.create(name: 'Megan', address: '123 Main St', city: 'Denver', state: 'CO', zip: 80218, email: 'megan@example.com', password: 'securepassword', role: :admin)
+      allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(@admin)
+    end
+
+    it 'I can not visit the user profile' do
+      visit '/profile'
+    end
+
+    it 'I cannot visit the merchant dashboard' do
+      visit '/merchant'
+    end
+
+    it 'I cannot visit a cart' do
+      visit '/cart'
+    end
+
+    after :each do
+      expect(page.status_code).to eq(404)
+    end
+  end
 end
