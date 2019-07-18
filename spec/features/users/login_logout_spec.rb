@@ -17,13 +17,21 @@ RSpec.describe 'User Login and Log Out' do
         expect(current_path).to eq(profile_path)
         expect(page).to have_content("Logged in as #{@user.name}")
       end
+
+      it 'users already logged in will be redirected' do
+        allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(@user)
+
+        visit login_path
+
+        expect(current_path).to eq(profile_path)
+        expect(page).to have_content('You are already logged in!')
+      end
     end
 
     describe 'As a merchant user' do
       before :each do
         @merchant = Merchant.create!(name: 'Megans Marmalades', address: '123 Main St', city: 'Denver', state: 'CO', zip: 80218)
         @m_user = @merchant.users.create(name: 'Megan', address: '123 Main St', city: 'Denver', state: 'CO', zip: 80218, email: 'megan@example.com', password: 'securepassword')
-        allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(@m_user)
       end
 
       it 'with correct credentials' do
@@ -36,12 +44,20 @@ RSpec.describe 'User Login and Log Out' do
         expect(current_path).to eq(merchant_dashboard_path)
         expect(page).to have_content("Logged in as #{@m_user.name}")
       end
+
+      it 'users already logged in will be redirected' do
+        allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(@m_user)
+
+        visit login_path
+
+        expect(current_path).to eq(merchant_dashboard_path)
+        expect(page).to have_content('You are already logged in!')
+      end
     end
 
     describe 'As admin user' do
       before :each do
         @admin = User.create(name: 'Megan', address: '123 Main St', city: 'Denver', state: 'CO', zip: 80218, email: 'megan@example.com', password: 'securepassword', role: :admin)
-        allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(@admin)
       end
 
       it 'with correct credentials' do
@@ -53,6 +69,15 @@ RSpec.describe 'User Login and Log Out' do
 
         expect(current_path).to eq(admin_dashboard_path)
         expect(page).to have_content("Logged in as #{@admin.name}")
+      end
+
+      it 'users already logged in will be redirected' do
+        allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(@admin)
+
+        visit login_path
+
+        expect(current_path).to eq(admin_dashboard_path)
+        expect(page).to have_content('You are already logged in!')
       end
     end
   end
