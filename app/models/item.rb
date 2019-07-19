@@ -10,6 +10,10 @@ class Item < ApplicationRecord
                         :price,
                         :inventory
 
+  def self.active_items
+    where(active: true)
+  end
+
   def sorted_reviews(limit = nil, order = :asc)
     reviews.order(rating: order).limit(limit)
   end
