@@ -5,6 +5,17 @@
   <h1>All Items</h1>
 <% end %>
 
+<section class='statistics'>
+  <h3>Most Popular Items:</h3>
+  <% @items.by_popularity(5, "DESC").each do |item| %>
+    <li><%= item.name %>: <%= item.total_sold %> sold</li>
+  <% end %>
+  <h3>Least Popular Items:</h3>
+  <% @items.by_popularity(5, "ASC").each do |item| %>
+    <li><%= item.name %>: <%= item.total_sold %> sold</li>
+  <% end %>
+</section>
+
 <% @items.each do |item| %>
   <section id='item-<%= item.id%>'>
     <h2><%= link_to item.name, "/items/#{item.id}" %></h2>

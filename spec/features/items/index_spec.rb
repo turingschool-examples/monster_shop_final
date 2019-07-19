@@ -10,6 +10,13 @@ RSpec.describe 'Item Index Page' do
       @giant = @megan.items.create!(name: 'Giant', description: "I'm a Giant!", price: 50, image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTaLM_vbg2Rh-mZ-B4t-RSU9AmSfEEq_SN9xPP_qrA2I6Ftq_D9Qw', active: true, inventory: 3 )
       @hippo = @brian.items.create!(name: 'Hippo', description: "I'm a Hippo!", price: 50, image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTaLM_vbg2Rh-mZ-B4t-RSU9AmSfEEq_SN9xPP_qrA2I6Ftq_D9Qw', active: true, inventory: 3 )
       @nessie = @brian.items.create!(name: 'Nessie', description: "I'm a Loch Monster!", price: 50, image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTaLM_vbg2Rh-mZ-B4t-RSU9AmSfEEq_SN9xPP_qrA2I6Ftq_D9Qw', active: false, inventory: 3 )
+      @order_1 = Order.create!(name: 'Megan M', address: '123 Main St', city: 'Denver', state: 'CO', zip: 80218)
+      @order_2 = Order.create!(name: 'Megan M', address: '123 Main St', city: 'Denver', state: 'CO', zip: 80218)
+      @order_3 = Order.create!(name: 'Megan M', address: '123 Main St', city: 'Denver', state: 'CO', zip: 80218)
+      @order_1.order_items.create!(item: @ogre, price: @ogre.price, quantity: 2)
+      @order_1.order_items.create!(item: @hippo, price: @hippo.price, quantity: 3)
+      @order_2.order_items.create!(item: @hippo, price: @hippo.price, quantity: 5)
+      @order_3.order_items.create!(item: @nessie, price: @nessie.price, quantity: 7)
     end
     it 'I can see a list of all active items' do
       visit '/items'
@@ -51,6 +58,15 @@ RSpec.describe 'Item Index Page' do
       end
 
       expect(page).to_not have_css("#item-#{@nessie.id}")
+    end
+
+    it 'I see the most and least popular items' do
+      visit items_path
+
+      within '.statistics' do
+        expect(page).to have_content("Most Popular Items:\n#{@hippo.name}: 8 sold #{@ogre.name}: 2 sold #{@giant.name}: 0 sold")
+        expect(page).to have_content("Least Popular Items:\n#{@giant.name}: 0 sold #{@ogre.name}: 2 sold #{@hippo.name}: 8 sold")
+      end
     end
   end
 end
