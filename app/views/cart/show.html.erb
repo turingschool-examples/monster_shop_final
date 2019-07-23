@@ -16,6 +16,12 @@
       <%= button_to 'Remove', "/cart/#{item.id}", method: :delete %>
     </section>
   <% end %>
-  <%= button_to 'Check Out', new_order_path, method: :get %>
+  <section id='checkout'>
+    <% if current_user %>
+      <%= button_to 'Check Out', new_order_path, method: :get %>
+    <% else %>
+      <p>You must <%= link_to 'register', registration_path %> or <%= link_to 'log in', login_path %> to checkout.</p>
+    <% end %>
+  </section>
   <%= button_to 'Empty Cart', '/cart', method: :delete %>
 <% end %>
