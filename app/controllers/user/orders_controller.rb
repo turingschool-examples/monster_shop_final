@@ -23,4 +23,10 @@ class User::OrdersController < ApplicationController
     flash[:notice] = "Order created successfully!"
     redirect_to '/profile/orders'
   end
+
+  def cancel
+    order = current_user.orders.find(params[:id])
+    order.cancel
+    redirect_to "/profile/orders/#{order.id}"
+  end
 end

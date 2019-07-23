@@ -28,6 +28,7 @@ Rails.application.routes.draw do
   post '/orders', to: 'user/orders#create'
   get '/profile/orders', to: 'user/orders#index'
   get '/profile/orders/:id', to: 'user/orders#show'
+  delete '/profile/orders/:id', to: 'user/orders#cancel'
 
   get '/login', to: 'sessions#new'
   post '/login', to: 'sessions#login'
