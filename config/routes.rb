@@ -27,6 +27,7 @@ Rails.application.routes.draw do
   get '/profile/edit_password', to: 'users#edit_password'
   post '/orders', to: 'user/orders#create'
   get '/profile/orders', to: 'user/orders#index'
+  get '/profile/orders/:id', to: 'user/orders#show'
 
   get '/login', to: 'sessions#new'
   post '/login', to: 'sessions#login'

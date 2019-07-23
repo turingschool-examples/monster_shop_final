@@ -5,6 +5,10 @@ class User::OrdersController < ApplicationController
     @orders = current_user.orders
   end
 
+  def show
+    @order = current_user.orders.find(params[:id])
+  end
+
   def create
     order = current_user.orders.new
     order.save
