@@ -52,5 +52,45 @@ RSpec.describe "User Profile Path" do
       expect(page).to have_content(address)
       expect(page).to have_content("#{city} #{state} #{zip}")
     end
+
+    it "I can update my password" do
+      visit login_path
+
+      fill_in 'Email', with: @user.email
+      fill_in 'Password', with: @user.password
+      click_button 'Log In'
+
+      click_link 'Change Password'
+
+      expect(current_path).to eq('/profile/edit_password')
+
+      password = "newpassword"
+
+      fill_in "Password", with: password
+      fill_in "Password confirmation", with: password
+      click_button 'Change Password'
+
+      expect(current_path).to eq(profile_path)
+
+      expect(page).to have_content('Profile has been updated!')
+
+      click_link 'Log Out'
+
+      visit login_path
+
+      fill_in 'Email', with: @user.email
+      fill_in 'Password', with: @user.password
+      click_button 'Log In'
+
+      expect(page).to have_content("Your email or password was incorrect!")
+
+      visit login_path
+
+      fill_in 'Email', with: @user.email
+      fill_in 'Password', with: "newpassword"
+      click_button 'Log In'
+
+      expect(current_path).to eq(profile_path)
+    end
   end
 end
