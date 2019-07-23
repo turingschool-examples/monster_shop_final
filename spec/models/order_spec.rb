@@ -26,5 +26,10 @@ RSpec.describe Order do
       expect(@order_1.grand_total).to eq(190.5)
       expect(@order_2.grand_total).to eq(100)
     end
+
+    it '.count_of_items' do
+      expect(@order_1.count_of_items).to eq(5)
+      expect(@order_2.count_of_items).to eq(2)
+    end
   end
 end
