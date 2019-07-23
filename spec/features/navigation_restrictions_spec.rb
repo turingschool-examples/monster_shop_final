@@ -10,6 +10,14 @@ RSpec.describe 'Navigation Restrictions' do
       visit '/merchant'
     end
 
+    it 'I cannot visit the merchant order show' do
+      visit '/merchant/orders/3'
+    end
+
+    it 'I cannot visit the merchant items index' do
+      visit '/merchant/items'
+    end
+
     it 'I can not visit the admin dashboard' do
       visit '/admin'
     end
@@ -27,6 +35,14 @@ RSpec.describe 'Navigation Restrictions' do
 
     it 'I cannot visit the merchant dashboard' do
       visit '/merchant'
+    end
+
+    it 'I cannot visit the merchant order show' do
+      visit '/merchant/orders/3'
+    end
+
+    it 'I cannot visit the merchant items index' do
+      visit '/merchant/items'
     end
 
     it 'I can not visit the admin dashboard' do
@@ -66,6 +82,14 @@ RSpec.describe 'Navigation Restrictions' do
 
     it 'I cannot visit the merchant dashboard' do
       visit '/merchant'
+    end
+
+    it 'I cannot visit the merchant order show' do
+      visit '/merchant/orders/3'
+    end
+
+    it 'I cannot visit the merchant items index' do
+      visit '/merchant/items'
     end
 
     it 'I cannot visit a cart' do
