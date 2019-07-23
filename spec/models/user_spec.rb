@@ -3,6 +3,7 @@ require 'rails_helper'
 RSpec.describe User do
   describe 'Relationships' do
     it {should belong_to(:merchant).optional}
+    it {should have_many :orders}
   end
 
   describe 'Validations' do

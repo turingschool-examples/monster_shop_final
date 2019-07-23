@@ -1,0 +1,7 @@
+<h1>My Orders</h1>
+
+<% @orders.each do |order| %>
+  <section id="order-<%= order.id %>">
+    <%= link_to order.id %>
+  </section>
+<% end %>
