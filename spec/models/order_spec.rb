@@ -18,13 +18,13 @@ RSpec.describe Order do
       @order_1 = @user.orders.create!(status: "packaged")
       @order_2 = @user.orders.create!(status: "pending")
       @order_item_1 = @order_1.order_items.create!(item: @ogre, price: @ogre.price, quantity: 5, fulfilled: true)
-      @order_item_2 = @order_2.order_items.create!(item: @giant, price: @hippo.price, quantity: 2, fulfilled: true)
-      @order_item_3 = @order_2.order_items.create!(item: @ogre, price: @hippo.price, quantity: 2, fulfilled: false)
+      @order_item_2 = @order_2.order_items.create!(item: @hippo, price: @hippo.price, quantity: 2, fulfilled: true)
+      @order_item_3 = @order_2.order_items.create!(item: @ogre, price: @ogre.price, quantity: 2, fulfilled: false)
     end
 
     it '.grand_total' do
       expect(@order_1.grand_total).to eq(101.25)
-      expect(@order_2.grand_total).to eq(200)
+      expect(@order_2.grand_total).to eq(140.5)
     end
 
     it '.count_of_items' do
@@ -42,6 +42,16 @@ RSpec.describe Order do
         expect(order_item.fulfilled).to eq(false)
         expect(order_item.item.inventory).to eq(5)
       end
+    end
+
+    it '.merchant_subtotal()' do
+      expect(@order_2.merchant_subtotal(@megan.id)).to eq(40.5)
+      expect(@order_2.merchant_subtotal(@brian.id)).to eq(100)
+    end
+
+    it '.merchant_quantity()' do
+      expect(@order_2.merchant_quantity(@megan.id)).to eq(2)
+      expect(@order_2.merchant_quantity(@brian.id)).to eq(2)
     end
   end
 end

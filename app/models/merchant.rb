@@ -1,6 +1,7 @@
 class Merchant < ApplicationRecord
   has_many :items, dependent: :destroy
   has_many :order_items, through: :items
+  has_many :orders, through: :order_items
   has_many :users
 
   validates_presence_of :name,
@@ -23,5 +24,9 @@ class Merchant < ApplicationRecord
                .order('city_state')
                .distinct
                .pluck("CONCAT_WS(', ', users.city, users.state) AS city_state")
+  end
+
+  def pending_orders
+    orders.where(status: 'pending')
   end
 end
