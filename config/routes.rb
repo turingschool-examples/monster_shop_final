@@ -22,8 +22,10 @@ Rails.application.routes.draw do
   resources :orders, only: [:new, :create, :show]
 
   get '/registration', to: 'users#new', as: :registration
-  post '/users', to: 'users#create'
+  resources :users, only: [:create, :update]
+  patch '/user/:id', to: 'users#update'
   get '/profile', to: 'users#show'
+  get '/profile/edit', to: 'users#edit'
 
   get '/login', to: 'sessions#new'
   post '/login', to: 'sessions#login'
