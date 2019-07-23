@@ -1,5 +1,4 @@
-class Admin::DashboardController < ApplicationController
-  before_action :require_admin
+class Admin::DashboardController < Admin::BaseController
   def index
   end
 end
