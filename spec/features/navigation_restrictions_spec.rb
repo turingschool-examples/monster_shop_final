@@ -26,6 +26,10 @@ RSpec.describe 'Navigation Restrictions' do
       visit '/admin/merchants/3'
     end
 
+    it 'I can not patch to /merchant/:id' do
+      page.driver.submit :patch, 'admin/merchants/3', {}
+    end
+
     after :each do
       expect(page.status_code).to eq(404)
     end
@@ -57,6 +61,10 @@ RSpec.describe 'Navigation Restrictions' do
       visit '/admin/merchants/3'
     end
 
+    it 'I can not patch to /merchant/:id' do
+      page.driver.submit :patch, 'admin/merchants/3', {}
+    end
+
     after :each do
       expect(page.status_code).to eq(404)
     end
@@ -75,6 +83,10 @@ RSpec.describe 'Navigation Restrictions' do
 
     it 'I can not visit the admin merchant show page' do
       visit '/admin/merchants/3'
+    end
+
+    it 'I can not patch to /merchant/:id' do
+      page.driver.submit :patch, 'admin/merchants/3', {}
     end
 
     after :each do
