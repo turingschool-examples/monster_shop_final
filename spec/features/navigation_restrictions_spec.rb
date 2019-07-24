@@ -18,6 +18,11 @@ RSpec.describe 'Navigation Restrictions' do
       visit '/merchant/items'
     end
 
+    it 'I can not patch to /merchant/items/:id' do
+      page.driver.submit :patch, '/merchant/items/3', {}
+    end
+
+
     it 'I can not visit the admin dashboard' do
       visit '/admin'
     end
@@ -51,6 +56,10 @@ RSpec.describe 'Navigation Restrictions' do
 
     it 'I cannot visit the merchant items index' do
       visit '/merchant/items'
+    end
+
+    it 'I can not patch to /merchant/items/:id' do
+      page.driver.submit :patch, '/merchant/items/3', {}
     end
 
     it 'I can not visit the admin dashboard' do
@@ -114,6 +123,10 @@ RSpec.describe 'Navigation Restrictions' do
 
     it 'I cannot visit the merchant items index' do
       visit '/merchant/items'
+    end
+
+    it 'I can not patch to /merchant/items/:id' do
+      page.driver.submit :patch, '/merchant/items/3', {}
     end
 
     it 'I cannot visit a cart' do
