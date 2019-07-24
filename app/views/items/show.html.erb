@@ -8,7 +8,6 @@
 <%= button_to 'Add to Cart', "/cart/#{@item.id}" %>
 
 <%= link_to 'Update Item', "/items/#{@item.id}/edit" %>
-<%= link_to 'Delete', "/items/#{@item.id}", method: :delete if @item.orders.empty? %>
 
 <section class='reviews'>
   <h2>Reviews</h2>
