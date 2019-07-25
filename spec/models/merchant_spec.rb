@@ -26,12 +26,12 @@ RSpec.describe Merchant do
       @user_1 = User.create!(name: 'Megan', address: '123 Main St', city: 'Denver', state: 'CO', zip: 80218, email: 'megan_1@example.com', password: 'securepassword')
       @user_2 = User.create!(name: 'Megan', address: '123 Main St', city: 'Denver', state: 'IA', zip: 80218, email: 'megan_2@example.com', password: 'securepassword')
       @order_1 = @user_1.orders.create!
-      @order_2 = @user_2.orders.create!
-      @order_2 = @user_2.orders.create!
-      @order_1.order_items.create!(item: @ogre, price: @ogre.price, quantity: 2)
-      @order_1.order_items.create!(item: @hippo, price: @hippo.price, quantity: 3)
-      @order_2.order_items.create!(item: @giant, price: @hippo.price, quantity: 2)
-      @order_2.order_items.create!(item: @ogre, price: @hippo.price, quantity: 2)
+      @order_2 = @user_2.orders.create!(status: 1)
+      @order_3 = @user_2.orders.create!(status: 1)
+      @order_item_1 = @order_1.order_items.create!(item: @ogre, price: @ogre.price, quantity: 2)
+      @order_item_2 = @order_1.order_items.create!(item: @hippo, price: @hippo.price, quantity: 3)
+      @order_item_3 = @order_2.order_items.create!(item: @giant, price: @hippo.price, quantity: 2)
+      @order_item_4 = @order_2.order_items.create!(item: @ogre, price: @hippo.price, quantity: 2)
     end
 
     it '.item_count' do
@@ -47,6 +47,14 @@ RSpec.describe Merchant do
 
     it '.distinct_cities' do
       expect(@megan.distinct_cities).to eq(['Denver, CO', 'Denver, IA'])
+    end
+
+    it '.pending_orders' do
+      expect(@megan.pending_orders).to eq([@order_1])
+    end
+
+    it '.order_items_by_order' do
+      expect(@megan.order_items_by_order(@order_1.id)).to eq([@order_item_1])
     end
   end
 end
