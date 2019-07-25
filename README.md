@@ -1,7 +1,5 @@
----
-layout: page
-title: Monster Shop Extensions
----
+# Monster Shop Extensions
+
 
 These "extension" stories are for the final week solo project for Backend Module 2 students.
 
