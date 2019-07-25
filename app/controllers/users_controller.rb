@@ -3,6 +3,7 @@ class UsersController < ApplicationController
   before_action :exclude_admin, only: :show
 
   def show
+    @user = current_user
   end
 
   def new
