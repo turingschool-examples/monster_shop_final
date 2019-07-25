@@ -20,7 +20,7 @@ Users will have more than one address associated with their profile. Each addres
 
 1. When a user registers they will still provide an address, this will become their first address entry in the database and nicknamed "home".
 1. Users need full CRUD ability for addresses from their Profile page.
-1. An address cannot be deleted or changed if it's been used in a "completed" order.
+1. An address cannot be deleted or changed if it's been used in a "shipped" order.
 1. When a user checks out on the cart show page, they will have the ability to choose one of their addresses where they'd like the order shipped.
 1. If a user deletes all of their addresses, they cannot check out and see an error telling them they need to add an address first. This should link to a page where they add an address.
 1. If an order is still pending, the user can change to which address they want their items shipped.
