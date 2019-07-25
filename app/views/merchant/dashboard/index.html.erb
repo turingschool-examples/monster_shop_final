@@ -1,0 +1,16 @@
+<h2><%= link_to @merchant.name %></h2>
+<p><%= @merchant.address %></p>
+<p><%= @merchant.city %> <%= @merchant.state %> <%= @merchant.zip %></p>
+
+<%= link_to 'My Items', '/merchant/items' %>
+
+<section class="orders">
+  <% @merchant.pending_orders.each do |order| %>
+    <section id="order-<%= order.id %>">
+      <%= link_to order.id, "/merchant/orders/#{order.id}" %>
+      <p>Potential Revenue: <%= order.merchant_subtotal(@merchant.id) %></p>
+      <p>Quantity of Items: <%= order.merchant_quantity(@merchant.id) %></p>
+      <p>Created: <%= order.created_at %></p>
+    </section>
+  <% end %>
+</section>

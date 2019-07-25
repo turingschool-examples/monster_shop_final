@@ -1,0 +1,12 @@
+<%= form_tag item_reviews_path(@item) do %>
+  <%= label_tag :title %>
+  <%= text_field_tag :title %>
+
+  <%= label_tag :description %>
+  <%= text_field_tag :description %>
+
+  <%= label_tag :rating %>
+  <%= number_field_tag :rating %>
+
+  <%= submit_tag 'Create Review' %>
+<% end %>

@@ -1,0 +1,28 @@
+<h1><%= @merchant.name %></h1>
+
+<section class='address'>
+  <p><%= @merchant.address %></p>
+  <p><%= @merchant.city %> <%= @merchant.state %> <%= @merchant.zip %></p>
+</section>
+
+<section class='statistics'>
+  <% if @merchant.items.empty? %>
+    <p>This Merchant has no Items, or Orders!</p>
+  <% else%>
+    <p>Item Count: <%= @merchant.item_count %></p>
+    <p>Average Item Price: <%= number_to_currency(@merchant.average_item_price) %></p>
+    <% if @merchant.order_items.empty? %>
+      <p>This Merchant has no Orders!</p>
+    <% else %>
+      <p>Cities Served:</p>
+      <ul>
+        <% @merchant.distinct_cities.each do |city_state| %>
+          <p><%= city_state %></p>
+        <% end %>
+      </ul>
+    <% end %>
+  <% end %>
+</section>
+
+<%= button_to 'Edit', "/merchants/#{@merchant.id}/edit", method: :get %>
+<%= button_to 'Delete', "/merchants/#{@merchant.id}", method: :delete  if @merchant.order_items.empty? %>

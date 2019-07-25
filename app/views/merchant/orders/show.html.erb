@@ -1,0 +1,19 @@
+<h2><%= @order.user.name %></h2>
+<p><%= @order.user.address %></p>
+<p><%= @order.user.city %> <%= @order.user.state %> <%= @order.user.zip %></p>
+<p>Status: <%= @order.status %></p>
+
+<% @merchant.order_items_by_order(@order.id).each do |order_item| %>
+  <section id="order-item-<%= order_item.id %>">
+    <%= link_to order_item.item.name, "/merchant/items/#{order_item.item.id}" %>
+    <p>Price: <%= number_to_currency(order_item.price) %></p>
+    <p>Quantity: <%= order_item.quantity %></p>
+    <% if order_item.fulfilled? %>
+      <p>Fulfilled</p>
+    <% elsif order_item.fulfillable? %>
+      <%= link_to 'Fulfill', "/merchant/orders/#{@order.id}/fulfill/#{order_item.id}" %>
+    <% else %>
+      <p>Insufficient Inventory</p>
+    <% end %>
+  </section>
+<% end %>

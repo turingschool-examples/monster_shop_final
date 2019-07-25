@@ -1,0 +1,43 @@
+<h1><%= @item.name %></h1>
+<p><%= @item.description %></p>
+<img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTaLM_vbg2Rh-mZ-B4t-RSU9AmSfEEq_SN9xPP_qrA2I6Ftq_D9Qw">
+<p>Price: <%= number_to_currency(@item.price) %></p>
+<p>Sold by: <%= link_to @item.merchant.name, "/merchants/#{@item.merchant_id}" %>, Inventory: <%= @item.inventory %></p>
+<p><%= @item.active ? "Active" : "Inactive" %></p>
+
+<%= button_to 'Add to Cart', "/cart/#{@item.id}" %>
+
+<section class='reviews'>
+  <h2>Reviews</h2>
+  <% if @item.reviews.empty? %>
+    <p>No Reviews Yet!</p>
+  <% else %>
+    <h3>Average Rating: <%= @item.average_rating.round(2) %></h3>
+    <section id='top-three-reviews'>
+      <h3>Top 3 Reviews</h3>
+      <ul>
+        <% @item.sorted_reviews(3, :desc).each do |review| %>
+          <li><%= review.title %></li>
+        <% end %>
+      </ul>
+    </section>
+    <section id='bottom-three-reviews'>
+      <h3>Bottom 3 Reviews</h3>
+      <ul>
+        <% @item.sorted_reviews(3, :asc).each do |review| %>
+          <li><%= review.title %></li>
+        <% end %>
+      </ul>
+    </section>
+    <% @item.reviews.each do |review| %>
+      <section id='review-<%= review.id %>'>
+        <h3><%= review.title %></h3>
+        <p><%= review.description %></p>
+        <p>Rating: <%= review.rating %></p>
+        <%= button_to 'Edit', edit_review_path(review), method: :get %>
+        <%= button_to 'Delete', review_path(review), method: :delete %>
+      </section>
+    <% end %>
+  <% end %>
+  <%= button_to 'Add Review', new_item_review_path(@item), method: :get %>
+</section>
