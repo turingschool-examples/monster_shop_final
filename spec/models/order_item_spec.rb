@@ -18,13 +18,27 @@ RSpec.describe OrderItem do
       @order_2 = @user.orders.create!
       @order_item_1 = @order_1.order_items.create!(item: @ogre, price: @ogre.price, quantity: 2)
       @order_item_2 = @order_1.order_items.create!(item: @hippo, price: @hippo.price, quantity: 3)
-      @order_item_3 = @order_2.order_items.create!(item: @hippo, price: @hippo.price, quantity: 2)
+      @order_item_3 = @order_2.order_items.create!(item: @hippo, price: @hippo.price, quantity: 27)
     end
 
     it '.subtotal' do
       expect(@order_item_1.subtotal).to eq(40.5)
       expect(@order_item_2.subtotal).to eq(150)
-      expect(@order_item_3.subtotal).to eq(100)
+      expect(@order_item_3.subtotal).to eq(1350)
+    end
+
+    it '.fulfillable?' do
+      expect(@order_item_1.fulfillable?).to eq(true)
+      expect(@order_item_3.fulfillable?).to eq(false)
+    end
+
+    it '.fulfill' do
+      @order_item_1.fulfill
+
+      @order_item_1.reload
+      @ogre.reload
+      expect(@order_item_1.fulfilled).to eq(true)
+      expect(@ogre.inventory).to eq(3)
     end
   end
 end

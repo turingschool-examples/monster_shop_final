@@ -53,5 +53,30 @@ RSpec.describe Order do
       expect(@order_2.merchant_quantity(@megan.id)).to eq(2)
       expect(@order_2.merchant_quantity(@brian.id)).to eq(2)
     end
+
+    it '.is_packaged?' do
+      @order_1.is_packaged?
+      @order_2.is_packaged?
+
+      @order_1.reload
+      @order_2.reload
+
+      expect(@order_1.status).to eq('packaged')
+      expect(@order_2.status).to eq('pending')
+    end
+  end
+
+  describe 'class methods' do
+    before :each do
+      @user = User.create!(name: 'Megan', address: '123 Main St', city: 'Denver', state: 'CO', zip: 80218, email: 'megan_1@example.com', password: 'securepassword')
+      @order_1 = @user.orders.create!(status: 1)
+      @order_2 = @user.orders.create!(status: 0)
+      @order_3 = @user.orders.create!(status: 3)
+      @order_4 = @user.orders.create!(status: 2)
+    end
+
+    it '.by_status' do
+      expect(Order.by_status).to eq([@order_2, @order_1, @order_4, @order_3])
+    end
   end
 end
