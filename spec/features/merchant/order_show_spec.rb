@@ -61,5 +61,16 @@ RSpec.describe 'Merchant Order Show Page' do
 
       expect(@ogre.inventory).to eq(3)
     end
+
+    it 'I can not fulfill order items where there is not enough inventory' do
+      @order_item_3.update(quantity: 8)
+      
+      visit "/merchant/orders/#{@order_2.id}"
+
+      within "#order-item-#{@order_item_3.id}" do
+        expect(page).to_not have_link('Fulfill')
+        expect(page).to have_content('Insufficient Inventory')
+      end
+    end
   end
 end

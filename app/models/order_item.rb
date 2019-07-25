@@ -10,4 +10,8 @@ class OrderItem < ApplicationRecord
     update(fulfilled: true)
     item.update(inventory: item.inventory - quantity)
   end
+
+  def fulfillable?
+    item.inventory >= quantity
+  end
 end
