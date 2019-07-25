@@ -38,4 +38,8 @@ class Order < ApplicationRecord
   def is_packaged?
     update(status: 1) if order_items.distinct.pluck(:fulfilled) == [true]
   end
+
+  def self.by_status
+    order(:status)
+  end
 end
