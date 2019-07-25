@@ -19,8 +19,6 @@ RSpec.describe 'Admin Dashboard' do
     it 'I can see all orders' do
       visit '/admin'
 
-      save_and_open_page
-
       expect(page.all('.order')[0]).to have_content(@order_2.id)
       expect(page.all('.order')[1]).to have_content(@order_1.id)
       expect(page.all('.order')[2]).to have_content(@order_3.id)
@@ -45,6 +43,18 @@ RSpec.describe 'Admin Dashboard' do
         expect(page).to have_content("Created: #{@order_3.created_at}")
         expect(page).to_not have_link('Ship')
       end
+    end
+
+    it 'I can ship an order' do
+      visit '/admin'
+
+      within "#order-#{@order_1.id}" do
+        click_link('Ship')
+      end
+
+      @order_1.reload
+
+      expect(@order_1.status).to eq('shipped')
     end
   end
 end
