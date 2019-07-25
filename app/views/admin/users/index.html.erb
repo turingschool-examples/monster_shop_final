@@ -1,0 +1,7 @@
+<% @users.each do |user| %>
+  <section id="user-<%= user.id %>">
+    <h2><%= link_to user.name, "/admin/users/#{user.id}" %></h2>
+    <p>Role: <%= user.role %></p>
+    <p>Registered: <%= user.created_at %></p>
+  </section>
+<% end %>
