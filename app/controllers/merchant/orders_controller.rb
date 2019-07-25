@@ -5,8 +5,10 @@ class Merchant::OrdersController < Merchant::BaseController
   end
 
   def fulfill
-    order_item = OrderItem.find(params[:order_item_id])
+    order = current_user.orders.find(params[:id])
+    order_item = order.order_items.find(params[:order_item_id])
     order_item.fulfill if order_item.fulfillable?
+    order.is_packaged?
     redirect_to "/merchant/orders/#{params[:id]}"
   end
 end

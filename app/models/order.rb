@@ -34,4 +34,8 @@ class Order < ApplicationRecord
       .where("items.merchant_id = #{merchant_id}")
       .sum('order_items.quantity')
   end
+
+  def is_packaged?
+    update(status: 1) if order_items.distinct.pluck(:fulfilled) == [true]
+  end
 end

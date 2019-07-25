@@ -64,13 +64,29 @@ RSpec.describe 'Merchant Order Show Page' do
 
     it 'I can not fulfill order items where there is not enough inventory' do
       @order_item_3.update(quantity: 8)
-      
+
       visit "/merchant/orders/#{@order_2.id}"
 
       within "#order-item-#{@order_item_3.id}" do
         expect(page).to_not have_link('Fulfill')
         expect(page).to have_content('Insufficient Inventory')
       end
+    end
+
+    it 'When all order items are fulfilled, order is packaged' do
+      visit "/merchant/orders/#{@order_2.id}"
+
+      within "#order-item-#{@order_item_3.id}" do
+        click_link('Fulfill')
+      end
+
+      expect(page).to have_content("Status: pending")
+
+      within "#order-item-#{@order_item_4.id}" do
+        click_link('Fulfill')
+      end
+
+      expect(page).to have_content("Status: packaged")
     end
   end
 end
