@@ -7,8 +7,6 @@
 
 <%= button_to 'Add to Cart', "/cart/#{@item.id}" %>
 
-<%= link_to 'Update Item', "/items/#{@item.id}/edit" %>
-
 <section class='reviews'>
   <h2>Reviews</h2>
   <% if @item.reviews.empty? %>

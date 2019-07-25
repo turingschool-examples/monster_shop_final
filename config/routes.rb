@@ -6,7 +6,7 @@ Rails.application.routes.draw do
     resources :items, only: [:index]
   end
 
-  resources :items, only: [:index, :show, :edit, :update] do
+  resources :items, only: [:index, :show] do
     resources :reviews, only: [:new, :create]
   end
 
@@ -36,7 +36,8 @@ Rails.application.routes.draw do
   namespace :merchant do
     get '/', to: 'dashboard#index', as: :dashboard
     resources :orders, only: :show
-      resources :items, only: [:index, :new, :create, :update, :destroy]
+    resources :items, only: [:index, :new, :create, :edit, :update, :destroy]
+    put '/items/:id/change_status', to: 'items#change_status'
   end
 
   namespace :admin do
