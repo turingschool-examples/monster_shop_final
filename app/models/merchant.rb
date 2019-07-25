@@ -29,4 +29,8 @@ class Merchant < ApplicationRecord
   def pending_orders
     orders.where(status: 'pending')
   end
+
+  def order_items_by_order(order_id)
+    order_items.where(order_id: order_id)
+  end
 end
