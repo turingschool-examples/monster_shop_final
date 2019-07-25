@@ -3,6 +3,20 @@ class Merchant::ItemsController < Merchant::BaseController
     @items = current_user.merchant.items
   end
 
+  def new
+  end
+
+  def create
+    merchant = current_user.merchant
+    item = merchant.items.new(item_params)
+    if item.save
+      redirect_to "/merchant/items"
+    else
+      generate_flash(item)
+      render :new
+    end
+  end
+
   def update
     item = Item.find(params[:id])
     item.update(active: !item.active)
@@ -22,5 +36,11 @@ class Merchant::ItemsController < Merchant::BaseController
       flash[:notice] = "#{item.name} can not be deleted - it has been ordered!"
     end
     redirect_to '/merchant/items'
+  end
+
+  private
+
+  def item_params
+    params.permit(:name, :description, :price, :image, :inventory)
   end
 end

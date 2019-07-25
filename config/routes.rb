@@ -3,7 +3,7 @@ Rails.application.routes.draw do
   get :root, to: 'welcome#index'
 
   resources :merchants do
-    resources :items, only: [:index, :new, :create]
+    resources :items, only: [:index]
   end
 
   resources :items, only: [:index, :show, :edit, :update] do
@@ -36,7 +36,7 @@ Rails.application.routes.draw do
   namespace :merchant do
     get '/', to: 'dashboard#index', as: :dashboard
     resources :orders, only: :show
-      resources :items, only: [:index, :update, :destroy]
+      resources :items, only: [:index, :new, :create, :update, :destroy]
   end
 
   namespace :admin do

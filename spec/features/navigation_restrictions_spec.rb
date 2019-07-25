@@ -26,6 +26,14 @@ RSpec.describe 'Navigation Restrictions' do
       page.driver.submit :delete, "/merchant/items/3", {}
     end
 
+    it 'I can not visit new merchant item' do
+      visit '/merchant/items/new'
+    end
+
+    it 'I can not post to /merchant/items' do
+      page.driver.submit :post, '/merchant/items', {}
+    end
+
     it 'I can not visit the admin dashboard' do
       visit '/admin'
     end
@@ -67,6 +75,14 @@ RSpec.describe 'Navigation Restrictions' do
 
     it 'I can not delete to /merchant/items/:id' do
       page.driver.submit :delete, "/merchant/items/3", {}
+    end
+
+    it 'I can not visit new merchant item' do
+      visit '/merchant/items/new'
+    end
+
+    it 'I can not post to /merchant/items' do
+      page.driver.submit :post, '/merchant/items', {}
     end
 
     it 'I can not visit the admin dashboard' do
@@ -138,6 +154,14 @@ RSpec.describe 'Navigation Restrictions' do
 
     it 'I can not delete to /merchant/items/:id' do
       page.driver.submit :delete, "/merchant/items/3", {}
+    end
+
+    it 'I can not visit new merchant item' do
+      visit '/merchant/items/new'
+    end
+
+    it 'I can not post to /merchant/items' do
+      page.driver.submit :post, '/merchant/items', {}
     end
 
     it 'I cannot visit a cart' do
