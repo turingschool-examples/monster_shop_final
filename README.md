@@ -9,6 +9,11 @@ For each feature, you'll see Completion Criteria and Implementation Guidelines. 
 
 You get to choose how to implement the story, presentation, routing, etc, as long as your work satisfies the Completion Criteria.
 
+## Instructions
+
+* Fork this repository
+* Clone your fork
+* When you are finished, push your code to your fork.
 
 # Required Extension: Users have multiple addresses
 
