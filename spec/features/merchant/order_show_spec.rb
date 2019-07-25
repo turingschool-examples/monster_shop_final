@@ -11,11 +11,10 @@ RSpec.describe 'Merchant Order Show Page' do
       @hippo = @merchant_2.items.create!(name: 'Hippo', description: "I'm a Hippo!", price: 50, image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTaLM_vbg2Rh-mZ-B4t-RSU9AmSfEEq_SN9xPP_qrA2I6Ftq_D9Qw', active: true, inventory: 1 )
       @order_1 = @m_user.orders.create!(status: "pending")
       @order_2 = @m_user.orders.create!(status: "pending")
-      @order_3 = @m_user.orders.create!(status: "pending")
       @order_item_1 = @order_1.order_items.create!(item: @hippo, price: @hippo.price, quantity: 2, fulfilled: false)
       @order_item_2 = @order_2.order_items.create!(item: @hippo, price: @hippo.price, quantity: 2, fulfilled: true)
       @order_item_3 = @order_2.order_items.create!(item: @ogre, price: @ogre.price, quantity: 2, fulfilled: false)
-      @order_item_4 = @order_3.order_items.create!(item: @giant, price: @giant.price, quantity: 2, fulfilled: false)
+      @order_item_4 = @order_2.order_items.create!(item: @giant, price: @giant.price, quantity: 2, fulfilled: false)
       allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(@m_user)
     end
 
@@ -35,6 +34,32 @@ RSpec.describe 'Merchant Order Show Page' do
       end
 
       expect(page).to_not have_css("#order-item-#{@order_item_2.id}")
+    end
+
+    it 'I can fulfill order items' do
+      visit "/merchant/orders/#{@order_2.id}"
+
+      expect(page).to have_content("Status: pending")
+
+      within "#order-item-#{@order_item_3.id}" do
+        expect(page).to_not have_content('Fulfilled')
+        click_link('Fulfill')
+      end
+
+      expect(current_path).to eq("/merchant/orders/#{@order_2.id}")
+
+      @m_user.reload
+      @ogre.reload
+
+      visit "/merchant/orders/#{@order_2.id}"
+      expect(page).to have_content("Status: pending")
+
+      within "#order-item-#{@order_item_3.id}" do
+        expect(page).to have_content('Fulfilled')
+        expect(page).to_not have_link('Fulfill')
+      end
+
+      expect(@ogre.inventory).to eq(3)
     end
   end
 end
