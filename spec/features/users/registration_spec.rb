@@ -44,7 +44,7 @@ RSpec.describe 'User Registration' do
       end
 
       it 'I use a non-unique email' do
-        user = User.create(name: 'Megan', address: '123 Main St', city: 'Denver', state: 'CO', zip: 80218, email: 'megan@example.com', password: 'securepassword')
+        user = User.create(name: 'Megan', email: 'megan@example.com', password: 'securepassword')
 
         visit registration_path
 
