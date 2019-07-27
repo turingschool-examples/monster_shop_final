@@ -1,7 +1,6 @@
 class Address < ApplicationRecord
 
-  has_many :user_addresses
-  has_many :users, through: :user_addresses
+  belongs_to :user
 
   validates_presence_of :street_address,
                         :city,

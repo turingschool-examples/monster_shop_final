@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20190726172659) do
+ActiveRecord::Schema.define(version: 20190726201409) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -23,6 +23,8 @@ ActiveRecord::Schema.define(version: 20190726172659) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "address_type", default: 0
+    t.bigint "user_id"
+    t.index ["user_id"], name: "index_addresses_on_user_id"
   end
 
   create_table "items", force: :cascade do |t|
@@ -79,15 +81,6 @@ ActiveRecord::Schema.define(version: 20190726172659) do
     t.index ["item_id"], name: "index_reviews_on_item_id"
   end
 
-  create_table "user_addresses", force: :cascade do |t|
-    t.bigint "user_id"
-    t.bigint "address_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["address_id"], name: "index_user_addresses_on_address_id"
-    t.index ["user_id"], name: "index_user_addresses_on_user_id"
-  end
-
   create_table "users", force: :cascade do |t|
     t.string "name"
     t.string "email"
@@ -99,12 +92,11 @@ ActiveRecord::Schema.define(version: 20190726172659) do
     t.index ["merchant_id"], name: "index_users_on_merchant_id"
   end
 
+  add_foreign_key "addresses", "users"
   add_foreign_key "items", "merchants"
   add_foreign_key "order_items", "items"
   add_foreign_key "order_items", "orders"
   add_foreign_key "orders", "users"
   add_foreign_key "reviews", "items"
-  add_foreign_key "user_addresses", "addresses"
-  add_foreign_key "user_addresses", "users"
   add_foreign_key "users", "merchants"
 end
