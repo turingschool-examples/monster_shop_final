@@ -6,10 +6,12 @@ class UsersController < ApplicationController
     @user = current_user
   end
 
+# will need to remove after adding to registration controller 
   def new
     @user = User.new
   end
 
+# REMOVE -- create will now occur on registration controller
   def create
     @user = User.new(user_params)
     if @user.save
