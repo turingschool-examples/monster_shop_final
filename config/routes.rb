@@ -18,8 +18,9 @@ Rails.application.routes.draw do
   patch '/cart/:change/:item_id', to: 'cart#update_quantity'
   delete '/cart/:item_id', to: 'cart#remove_item'
 
-  get '/registration', to: 'users#new', as: :registration
-  resources :users, only: [:create, :update]
+  get '/registration', to: 'registration#new', as: :registration
+  post '/registrations', to: 'registration#create', as: :registrations
+  resources :users, only: [:update]
   patch '/user/:id', to: 'users#update'
   get '/profile', to: 'users#show'
   get '/profile/edit', to: 'users#edit'
