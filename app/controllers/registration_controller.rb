@@ -4,15 +4,14 @@ class RegistrationController < ApplicationController
   end
 
   def create
-    @register = Registration.new(registration_params)
+    @registration = Registration.new(registration_params)
 
-    if @register.save
-      session[:user_id] = @user.id
-      flash[:notice] = "Welcome, #{@user.name}!"
+    if @registration.save
+      session[:user_id] = @registration.user.id
+      flash[:notice] = "Welcome, #{@registration.user.name}!"
       redirect_to profile_path
-      binding.pry
     else
-      generate_flash(@user)
+      generate_flash(@registration)
       render :new
     end
   end
