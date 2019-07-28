@@ -29,23 +29,15 @@ RSpec.describe "User Profile Path" do
       fill_in 'Password', with: @user.password
       click_button 'Log In'
 
-      click_link 'Edit'
+      click_link 'Edit Profile'
 
       expect(current_path).to eq('/profile/edit')
 
       name = 'New Name'
       email = 'new@example.com'
-      address = '124 new str'
-      city = 'new town'
-      state = 'NY'
-      zip = '12034'
 
       fill_in "Name", with: name
       fill_in "Email", with: email
-      fill_in "Address", with: address
-      fill_in "City", with: city
-      fill_in "State", with: state
-      fill_in "Zip", with: zip
       click_button 'Update Profile'
 
       expect(current_path).to eq(profile_path)
@@ -53,8 +45,6 @@ RSpec.describe "User Profile Path" do
       expect(page).to have_content('Profile has been updated!')
       expect(page).to have_content(name)
       expect(page).to have_content(email)
-      expect(page).to have_content(address)
-      expect(page).to have_content("#{city} #{state} #{zip}")
     end
 
     it "I can update my password" do
