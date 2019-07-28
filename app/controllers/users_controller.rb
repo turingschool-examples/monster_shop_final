@@ -6,23 +6,23 @@ class UsersController < ApplicationController
     @user = current_user
   end
 
-# will need to remove after adding to registration controller 
-  def new
-    @user = User.new
-  end
+# # will need to remove after adding to registration controller
+#   def new
+#     @user = User.new
+#   end
 
 # REMOVE -- create will now occur on registration controller
-  def create
-    @user = User.new(user_params)
-    if @user.save
-      session[:user_id] = @user.id
-      flash[:notice] = "Welcome, #{@user.name}!"
-      redirect_to profile_path
-    else
-      generate_flash(@user)
-      render :new
-    end
-  end
+  # def create
+  #   @user = User.new(user_params)
+  #   if @user.save
+  #     session[:user_id] = @user.id
+  #     flash[:notice] = "Welcome, #{@user.name}!"
+  #     redirect_to profile_path
+  #   else
+  #     generate_flash(@user)
+  #     render :new
+  #   end
+  # end
 
   def edit
     @user = current_user
