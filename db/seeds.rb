@@ -6,10 +6,11 @@
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
 
-Merchant.destroy_all
-Item.destroy_all
+Address.destroy_all
 User.destroy_all
+Item.destroy_all
 Order.destroy_all
+Merchant.destroy_all
 
 megan = Merchant.create!(name: 'Megans Marmalades', address: '123 Main St', city: 'Denver', state: 'CO', zip: 80218)
 brian = Merchant.create!(name: 'Brians Bagels', address: '125 Main St', city: 'Denver', state: 'CO', zip: 80218)
@@ -19,14 +20,23 @@ giant = megan.items.create!(name: 'Giant', description: "I'm a Giant!", price: 1
 hippo = brian.items.create!(name: 'Hippo', description: "I'm a Hippo!", price: 5, image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTaLM_vbg2Rh-mZ-B4t-RSU9AmSfEEq_SN9xPP_qrA2I6Ftq_D9Qw', active: true, inventory: 15 )
 lamp = brian.items.create!(name: 'Lamp', description: "I'm a Lamp!", price: 28, image: 'https://images.homedepot-static.com/productImages/967ebf56-03e4-48c3-90ea-43875341a53d/svn/rhodes-bronze-hampton-bay-table-lamps-hd09999tlbrzc-64_1000.jpg', active: true, inventory: 20 )
 
-sam = User.create!(name: "Sam", address: "1331 17th St.", city: "Denver", state: "CO", zip: 80202, email: "sam@gmail.com", password: "test", role: 0)
-lisa = User.create!(name: "Lisa", address: "13 Tree St.", city: "Miami", state: "FL", zip: 34102, email: "lisa@gmail.com", password: "1234", role: 0)
-joe = User.create!(name: "Joe", address: "200 25th Ave", city: "Atlanta", state: "GA", zip: 54372, email: "joe@gmail.com", password: "5678", role: 0)
-oswald = User.create!(name: "Oswald", address: "42 Woodward Way", city: "Boston", state: "MA", zip: 98471, email: "oswald@gmail.com", password: "9012", role: 0)
+sam = User.create!(name: "Sam", email: "sam@gmail.com", password: "test", role: 0)
+lisa = User.create!(name: "Lisa", email: "lisa@gmail.com", password: "1234", role: 0)
+joe = User.create!(name: "Joe", email: "joe@gmail.com", password: "5678", role: 0)
+oswald = User.create!(name: "Oswald", email: "oswald@gmail.com", password: "9012", role: 0)
 
-jack = User.create!(name: "Jack", address: "4 Green St.", city: "Austin", state: "TX", zip: 71352, email: "jack@gmail.com", password: "test", role: 1)
-diane = User.create!(name: "Diane", address: "1 Blue St.", city: "Denver", state: "CO", zip: 80202, email: "diane@gmail.com", password: "test", role: 2, merchant_id: megan.id)
-woody = User.create!(name: "Woody", address: "1 Blue St.", city: "Denver", state: "CO", zip: 80202, email: "woody@gmail.com", password: "test", role: 2, merchant_id: brian.id)
+sam_address = Address.create!(nickname: 'Home', address: '123 Main St', city: 'Denver', state: 'CO', zip: 80218, user_id: sam.id)
+lisa_address = Address.create!(nickname: 'Home', address: '123 Main St', city: 'Colorado Springs', state: 'CO', zip: 80218, user_id: lisa.id)
+joe_address = Address.create!(nickname: 'Home', address: '123 Main St', city: 'Boulder', state: 'CO', zip: 80218, user_id: joe.id)
+oswald_address = Address.create!(nickname: 'Home', address: '123 Main St', city: 'Ft Collins', state: 'CO', zip: 80218, user_id: oswald.id)
+
+jack = User.create!(name: "Jack", email: "jack@gmail.com", password: "test", role: 1)
+diane = User.create!(name: "Diane", email: "diane@gmail.com", password: "test", role: 2, merchant_id: megan.id)
+woody = User.create!(name: "Woody", email: "woody@gmail.com", password: "test", role: 2, merchant_id: brian.id)
+
+jack_address = Address.create!(nickname: 'Home', address: '123 Main St', city: 'Denver', state: 'CO', zip: 80218, user_id: jack.id)
+diane_address = Address.create!(nickname: 'Home', address: '123 Main St', city: 'Colorado Springs', state: 'CO', zip: 80218, user_id: diane.id)
+woody_address = Address.create!(nickname: 'Home', address: '123 Main St', city: 'Boulder', state: 'CO', zip: 80218, user_id: woody.id)
 
 order_1 = Order.create!(user: sam, status: "pending")
 order_2 = Order.create!(user: lisa, status: "pending")
