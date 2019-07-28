@@ -25,6 +25,7 @@ RSpec.describe 'User Registration' do
 
       expect(current_path).to eq(profile_path)
       expect(page).to have_content('Welcome, Megan!')
+      expect(page).to have_content('Nickname: Home')
     end
 
     describe 'I can not register as a user if' do
