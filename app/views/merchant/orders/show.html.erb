@@ -1,6 +1,6 @@
 <h2><%= @order.user.name %></h2>
-<p><%= @order.user.address %></p>
-<p><%= @order.user.city %> <%= @order.user.state %> <%= @order.user.zip %></p>
+<p><%= @order.address.address %></p>
+<p><%= @order.address.city %> <%= @order.address.state %> <%= @order.address.zip %></p>
 <p>Status: <%= @order.status %></p>
 
 <% @merchant.order_items_by_order(@order.id).each do |order_item| %>
