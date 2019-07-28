@@ -3,8 +3,11 @@ require 'rails_helper'
 RSpec.describe "User Profile Path" do
   describe "As a registered user" do
     before :each do
-      @user = User.create!(name: 'Megan', address: '123 Main St', city: 'Denver', state: 'CO', zip: 80218, email: 'megan@example.com', password: 'securepassword')
-      @admin = User.create!(name: 'Megan', address: '123 Main St', city: 'Denver', state: 'CO', zip: 80218, email: 'admin@example.com', password: 'securepassword')
+      @user = User.create!(name: 'Megan', email: 'megan@example.com', password: 'securepassword')
+      @admin = User.create!(name: 'Megan', email: 'admin@example.com', password: 'securepassword')
+
+      @address_1 = Address.create!(nickname: 'Home', address: '123 Main St', city: 'Denver', state: 'CO', zip: 80218, user_id: @user.id)
+      @address_2 = Address.create!(nickname: 'Home', address: '123 Main St', city: 'Denver', state: 'IA', zip: 80218, user_id: @admin.id)
     end
 
     it "I can view my profile page" do
@@ -13,8 +16,8 @@ RSpec.describe "User Profile Path" do
 
       expect(page).to have_content(@user.name)
       expect(page).to have_content(@user.email)
-      expect(page).to have_content(@user.address)
-      expect(page).to have_content("#{@user.city} #{@user.state} #{@user.zip}")
+      expect(page).to have_content(@address_1.address)
+      expect(page).to have_content("#{@address_1.city} #{@address_1.state} #{@address_1.zip}")
       expect(page).to_not have_content(@user.password)
       expect(page).to have_link('Edit')
     end
