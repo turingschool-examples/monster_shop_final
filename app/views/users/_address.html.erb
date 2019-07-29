@@ -5,6 +5,6 @@
     <p>Nickname: <%= address.nickname %></p>
     <p>Address: <%= address.address %></p>
     <p><%= address.city %> <%= address.state %> <%= address.zip %></p>
-    <p><%= link_to 'Edit Address', '/addresses/edit' %></p>
+    <p><%= link_to 'Edit Address', edit_address_path(address.id) %></p>
   </section>
 <% end %>
