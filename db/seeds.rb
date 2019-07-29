@@ -38,10 +38,10 @@ jack_address = Address.create!(nickname: 'Home', address: '123 Main St', city: '
 diane_address = Address.create!(nickname: 'Home', address: '123 Main St', city: 'Colorado Springs', state: 'CO', zip: 80218, user_id: diane.id)
 woody_address = Address.create!(nickname: 'Home', address: '123 Main St', city: 'Boulder', state: 'CO', zip: 80218, user_id: woody.id)
 
-order_1 = Order.create!(user: sam, status: "pending")
-order_2 = Order.create!(user: lisa, status: "pending")
-order_3 = Order.create!(user: joe, status: "pending")
-order_4 = Order.create!(user: oswald, status: "pending")
+order_1 = Order.create!(user: sam, status: "pending", address_id: sam.id)
+order_2 = Order.create!(user: lisa, status: "pending", address_id: lisa.id)
+order_3 = Order.create!(user: joe, status: "shipped", address_id: joe.id)
+order_4 = Order.create!(user: oswald, status: "packaged", address_id: oswald.id)
 
 order_item_1 = order_1.order_items.create!(item: ogre, price: ogre.price, quantity: 2)
 order_item_2 = order_1.order_items.create!(item: hippo, price: hippo.price, quantity: 4)
