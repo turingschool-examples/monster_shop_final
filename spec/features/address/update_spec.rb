@@ -4,7 +4,12 @@ RSpec.describe 'Edit User Address' do
   before :each do
     @user = User.create!(name: 'Megan', email: 'megan@example.com', password: 'securepassword')
     @address_1 = Address.create!(nickname: 'Home', address: '123 Main St', city: 'Denver', state: 'CO', zip: 80218, user_id: @user.id)
-    allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(@user)
+
+    visit login_path
+
+    fill_in 'Email', with: 'megan@example.com'
+    fill_in 'Password', with: 'securepassword'
+    click_button 'Log In'
   end
   describe 'As a registered user' do
     describe 'I see a link to edit each address I have in the system' do
@@ -29,9 +34,6 @@ RSpec.describe 'Edit User Address' do
         fill_in 'City', with: 'Boston'
         fill_in 'State', with: 'MA'
         click_button 'Update Address'
-
-        @user.addresses.reload
-        @address_1.reload
 
         expect(current_path).to eq(profile_path)
 
