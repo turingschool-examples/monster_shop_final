@@ -11,7 +11,6 @@ class AddressesController < ApplicationController
       generate_flash(address)
       render :new
     end
-    # binding.pry
   end
 
   private
