@@ -11,65 +11,75 @@ RSpec.describe 'User Profile Page' do
       @hippo = @brian.items.create!(name: 'Hippo', description: "I'm a Hippo!", price: 50, image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTaLM_vbg2Rh-mZ-B4t-RSU9AmSfEEq_SN9xPP_qrA2I6Ftq_D9Qw', active: true, inventory: 3 )
       @user = User.create!(name: 'Megan', email: 'megan_1@example.com', password: 'securepassword')
       @address = @user.addresses.create(streetname: "123 market", city: "Denver", state: "CO", zip: 80132)
-      @address2 = @user.addresses.create(streetname: "123 main", city: "Springfield", state: "IL", zip: 12345)
+      @address2 = @user.addresses.create(nickname: "work", streetname: "123 main", city: "Springfield", state: "IL", zip: 12345)
       @order_1 = @user.orders.create!(address_id: @address.id)
       @order_2 = @user.orders.create!(address_id: @address.id)
       @order_1.order_items.create!(item: @ogre, price: @ogre.price, quantity: 2)
       @order_2.order_items.create!(item: @giant, price: @hippo.price, quantity: 2)
       @order_2.order_items.create!(item: @ogre, price: @hippo.price, quantity: 2)
-      allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(@user)
-    end
-    it "user can create a new address" do
-      visit "/profile"
-
-      within ".address" do
-        click_on "New Address"
-        expect(current_path).to eq(address_new_path)
-      end
-
-      address2 = @user.addresses.create(streetname: "123 main", city: "Springfield", state: "IL", zip: 12345)
-
-
-      fill_in 'Streetname', with: address2.streetname
-      fill_in 'City', with: address2.city
-      fill_in 'State', with: address2.state
-      fill_in 'Zip', with: address2.zip
-
-      click_button "Submit"
-
-      expect(current_path).to eq(profile_path)
-
-      expect(page).to have_content(address2.nickname)
-      expect(page).to have_content(address2.streetname)
-      expect(page).to have_content(address2.city)
-      expect(page).to have_content(address2.state)
-      expect(page).to have_content(address2.zip)
-
     end
 
-    it "user can be sent back to new" do
-      visit "/profile"
+    it "user can edit an address" do
+      visit "/login"
 
-      within ".address" do
-        click_on "New Address"
-        expect(current_path).to eq(address_new_path)
+      fill_in 'Email', with: @user.email
+      fill_in 'Password', with: @user.password
+      click_button 'Log In'
+
+      visit profile_path
+
+      within "#address-#{@address.id}" do
+        click_on "Edit Address"
       end
+
+      expect(current_path).to eq(address_edit_path(@address.id))
+
+      streetname = "123 main"
+      city = "Springfield"
+      state = "IL"
+      zip = 67854
+
+      fill_in 'Streetname', with: "123 main"
+      fill_in 'City', with: "Springfield"
+      fill_in 'State', with: "IL"
+      fill_in 'Zip', with: 67854
+
+      click_on "Update"
+
+      expect(page).to have_content(zip)
+      expect(page).to_not have_content("80132")
+    end
+
+    it "user can fail at editing and be sent back" do
+      visit "/login"
+
+      fill_in 'Email', with: @user.email
+      fill_in 'Password', with: @user.password
+      click_button 'Log In'
+
+      visit profile_path
+
+      within "#address-#{@address.id}" do
+        click_on "Edit Address"
+      end
+
+      expect(current_path).to eq(address_edit_path(@address.id))
 
       streetname = "123 main"
       city = "Springfield"
       state = "IL"
 
-      fill_in 'Streetname', with: streetname
-      fill_in 'City', with: city
-      fill_in 'State', with: state
 
+      fill_in 'Streetname', with: "123 main"
+      fill_in 'City', with: "Springfield"
+      fill_in 'State', with: "IL"
+      fill_in 'Zip', with: ""
 
-      click_button "Submit"
-
+      click_on "Update"
 
       expect(page).to have_content("zip: [\"can't be blank\"]")
-
-
+      expect(page).to_not have_content("city: [\"can't be blank\"]")
+      expect(page).to_not have_content("state: [\"can't be blank\"]")
     end
 
   end

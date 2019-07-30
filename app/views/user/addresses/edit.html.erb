@@ -1,0 +1,20 @@
+<h1>Update <%= @address.nickname.capitalize %> Address</h1>
+
+<%= form_tag address_edit_path(@address), method: :patch do %>
+
+<%= label_tag :streetname %>
+<%= text_field_tag :streetname, @address.streetname %>
+
+<%= label_tag :city %>
+<%= text_field_tag :city, @address.city %>
+
+<%= label_tag :state %>
+<%= text_field_tag :state, @address.state %>
+
+<%= label_tag :zip%>
+<%= number_field_tag :zip,  @address.zip%>
+<br>
+
+<%= submit_tag "Update" %>
+
+<% end %>

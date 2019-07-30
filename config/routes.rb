@@ -28,6 +28,8 @@ Rails.application.routes.draw do
   get '/profile/orders', to: 'user/orders#index'
   get '/profile/orders/:id', to: 'user/orders#show'
   get '/profile/addresses/new', to: 'user/addresses#new', as: 'address_new'
+  get '/profile/addresses/:id/edit', to: 'user/addresses#edit', as: 'address_edit'
+  patch '/profile/addresses/:id/edit', to: 'user/addresses#update'
   post '/profile', to: 'user/addresses#create'
   delete '/profile/orders/:id', to: 'user/orders#cancel'
 
