@@ -21,11 +21,23 @@ class User::AddressesController < ApplicationController
     @address = Address.find(params[:id])
     @address.update(address_params)
     if @address.save
-      # binding.pry
       redirect_to profile_path
     else
       generate_flash(@address)
       render :edit
+    end
+  end
+
+  def destroy
+    @address = Address.find(params[:id])
+
+    if (@address.shipments_check == false) && (@address.nickname != "home")
+      @address.destroy
+      flash[:notice] = "Address Deleted Successfully."
+      redirect_to profile_path
+    elsif @address.nickname == "home"
+      flash[:notice] = "Address cannot be deleted. You need a home address."
+      redirect_to profile_path
     end
   end
 
