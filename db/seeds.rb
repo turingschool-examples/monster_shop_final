@@ -21,9 +21,9 @@ hippo = brian.items.create!(name: 'Hippo', description: "I'm a Hippo!", price: 5
 lamp = brian.items.create!(name: 'Lamp', description: "I'm a Lamp!", price: 28, image: 'https://images.homedepot-static.com/productImages/967ebf56-03e4-48c3-90ea-43875341a53d/svn/rhodes-bronze-hampton-bay-table-lamps-hd09999tlbrzc-64_1000.jpg', active: true, inventory: 20 )
 
 sam = User.create!(name: "Sam", email: "sam@gmail.com", password: "test", role: 0)
-lisa = User.create!(name: "Lisa", email: "lisa@gmail.com", password: "1234", role: 0)
-joe = User.create!(name: "Joe", email: "joe@gmail.com", password: "5678", role: 0)
-oswald = User.create!(name: "Oswald", email: "oswald@gmail.com", password: "9012", role: 0)
+lisa = User.create!(name: "Lisa", email: "lisa@gmail.com", password: "test", role: 0)
+joe = User.create!(name: "Joe", email: "joe@gmail.com", password: "test", role: 0)
+oswald = User.create!(name: "Oswald", email: "oswald@gmail.com", password: "test", role: 0)
 
 sam_address = Address.create!(nickname: 'Home', address: '123 Main St', city: 'Denver', state: 'CO', zip: 80218, user_id: sam.id)
 lisa_address = Address.create!(nickname: 'Home', address: '123 Main St', city: 'Colorado Springs', state: 'CO', zip: 80218, user_id: lisa.id)
