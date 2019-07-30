@@ -3,9 +3,15 @@ class User::AddressesController < ApplicationController
     @address = current_user.addresses.new
   end
 
+  def create
+    address = current_user.addresses.new
+    address.save(address_params)
+    redirect_to profile_path
+  end
+
 private
 
-  def user_params
-    params.require(:user).permit(:name, :address, :city, :state, :zip, :email, :password)
+  def address_params
+    params.permit(:address, :city, :state, :zip, :nickname)
   end
 end
