@@ -16,6 +16,7 @@ RSpec.describe 'Delete Address' do
     @address_1 = Address.create!(nickname: 'Home', address: '1776 Independence Blvd', city: 'Boston', state: 'MA', zip: 80218, user_id: @m_user.id)
     @address_2 = Address.create!(nickname: 'Work', address: '1790 Democracy Ln', city: 'Washington', state: 'DC', zip: 80218, user_id: @m_user.id)
     @address_3 = Address.create!(nickname: 'Vacation', address: '1969 Eagle Rd', city: 'Houston', state: 'TX', zip: 80218, user_id: @m_user.id)
+    @address_4 = Address.create!(nickname: 'Parents', address: '1212 Country Rd', city: 'Charlotte', state: 'NC', zip: 80218, user_id: @m_user.id)
 
     @ogre = @merchant_1.items.create!(name: 'Ogre', description: "I'm an Ogre!", price: 20.25, image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTaLM_vbg2Rh-mZ-B4t-RSU9AmSfEEq_SN9xPP_qrA2I6Ftq_D9Qw', active: true, inventory: 5 )
     @giant = @merchant_1.items.create!(name: 'Giant', description: "I'm a Giant!", price: 50, image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTaLM_vbg2Rh-mZ-B4t-RSU9AmSfEEq_SN9xPP_qrA2I6Ftq_D9Qw', active: true, inventory: 3 )
@@ -23,15 +24,17 @@ RSpec.describe 'Delete Address' do
 
     @order_1 = @m_user.orders.create!(status: "pending", address_id: @address_1.id)
     @order_2 = @m_user.orders.create!(status: "shipped", address_id: @address_2.id)
+    @order_3 = @m_user.orders.create!(status: "packaged", address_id: @address_4.id)
 
     @order_item_1 = @order_1.order_items.create!(item: @hippo, price: @hippo.price, quantity: 2, fulfilled: false)
     @order_item_2 = @order_2.order_items.create!(item: @hippo, price: @hippo.price, quantity: 2, fulfilled: true)
     @order_item_3 = @order_2.order_items.create!(item: @ogre, price: @ogre.price, quantity: 2, fulfilled: true)
     @order_item_4 = @order_2.order_items.create!(item: @giant, price: @giant.price, quantity: 2, fulfilled: true)
+    @order_item_5 = @order_3.order_items.create!(item: @giant, price: @giant.price, quantity: 2, fulfilled: true)
   end
 
   describe 'As a registered user, when I visit my profile page' do
-    it 'I can delete an address by clicking a link' do
+    it 'I can delete an address not associated to an order by clicking a link' do
         visit profile_path
 
         expect(current_path).to eq('/profile')
@@ -56,6 +59,7 @@ RSpec.describe 'Delete Address' do
         expect(page).to_not have_css("#address-#{@address_3.id}")
       end
     end
+
   describe 'As a registered user' do
     it 'I cannot delete an address if its associated to a shipped order' do
       visit profile_path
@@ -85,5 +89,35 @@ RSpec.describe 'Delete Address' do
         expect(page).to have_link('Delete Address')
       end
     end
+  end
+
+  it 'I can delete a address associated with a non shipped order ' do
+    visit profile_path
+
+    expect(current_path).to eq('/profile')
+
+    within "#address-#{@address_4.id}" do
+      expect(page).to have_content('Parents')
+      click_link 'Delete Address'
+    end
+
+    expect(current_path).to eq(profile_path)
+
+    within "#address-#{@address_3.id}" do
+      expect(page).to have_content('Vacation')
+      expect(page).to have_link('Delete Address')
+    end
+
+    within "#address-#{@address_2.id}" do
+      expect(page).to have_content('Work')
+      expect(page).to have_link('Delete Address')
+    end
+
+    within "#address-#{@address_1.id}" do
+      expect(page).to have_content('Home')
+      expect(page).to have_link('Delete Address')
+    end
+
+    expect(page).to_not have_css("#address-#{@address_4.id}")
   end
 end

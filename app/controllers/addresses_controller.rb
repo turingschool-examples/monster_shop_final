@@ -4,11 +4,11 @@ class AddressesController < ApplicationController
   end
 
   def create
-    address = current_user.addresses.new(address_params)
-    if address.save
+    @address = current_user.addresses.new(address_params)
+    if @address.save
       redirect_to profile_path
     else
-      generate_flash(address)
+      generate_flash(@address)
       render :new
     end
   end
@@ -36,6 +36,7 @@ class AddressesController < ApplicationController
         if order.status == 'shipped'
           flash[:error] = "Address can't be deleted"
         else
+          order.update(address_id: nil)
           address.destroy
         end
       end

@@ -37,4 +37,25 @@ RSpec.describe 'Create New Address' do
       end
     end
   end
+
+  it "I receive an error message if I leave any field blank" do
+    visit profile_path
+
+    expect(current_path).to eq('/profile')
+
+    click_link 'Create New Address'
+
+    expect(current_path).to eq(new_address_path)
+
+    fill_in 'Nickname', with: 'Work'
+    fill_in 'Address', with: ' '
+    fill_in 'City', with: ' '
+    fill_in 'State', with: 'MA'
+    fill_in 'Zip', with: '80218'
+    click_button 'Create Address'
+
+    expect(page).to have_button('Create Address')
+    expect(page).to have_content("address: [\"can't be blank\"]")
+    expect(page).to have_content("city: [\"can't be blank\"]")
+  end
 end
