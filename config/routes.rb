@@ -49,5 +49,5 @@ Rails.application.routes.draw do
     patch '/orders/:id/ship', to: 'orders#ship'
   end
 
-  resources :addresses, only: [:new, :create, :edit, :update]
+  resources :addresses
 end
