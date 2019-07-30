@@ -15,7 +15,7 @@ RSpec.describe 'New Review Creation' do
     fill_in 'State', with: "Colorado"
     fill_in 'Zip', with: "12345"
     fill_in 'Nickname', with: "Office"
-    click_button 'Add address'
+    click_button 'Add Address'
 end
   end
 end
