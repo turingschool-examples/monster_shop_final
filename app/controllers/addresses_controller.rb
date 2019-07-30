@@ -27,6 +27,22 @@ class AddressesController < ApplicationController
     end
   end
 
+  def destroy
+    address = Address.find(params[:id])
+    if address.orders.empty?
+      address.destroy
+    else
+      address.orders.each do |order|
+        if order.status == 'shipped'
+          flash[:error] = "Address can't be deleted"
+        else
+          address.destroy
+        end
+      end
+    end
+    redirect_to profile_path
+  end
+
   private
 
   def address_params
