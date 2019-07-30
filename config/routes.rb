@@ -25,8 +25,9 @@ Rails.application.routes.draw do
   get '/profile', to: 'users#show'
   get '/profile/edit', to: 'users#edit'
   get '/profile/edit_password', to: 'users#edit_password'
-  post '/orders', to: 'user/orders#create'
+  post '/orders/:address_id', to: 'user/orders#create', as: :orders
   get '/profile/orders', to: 'user/orders#index'
+  get 'profile/orders/addresses', to: 'user/orders#select_address', as: :select_address
   get '/profile/orders/:id', to: 'user/orders#show'
   delete '/profile/orders/:id', to: 'user/orders#cancel'
 
@@ -50,4 +51,5 @@ Rails.application.routes.draw do
   end
 
   resources :addresses
+
 end
