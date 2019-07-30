@@ -8,7 +8,7 @@ RSpec.describe 'New Review Creation' do
         @other_address  = @user.addresses.create(address:'123 South St', city: 'Houston', state: 'TX', zip: 77007, nickname: 2)
         allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(@user)
         visit profile_path
-        click_link "My Addresses", user_addresses_path
+        click_link "My Addresses"
       end
 
     describe "When I go to my Address Index page" do
@@ -22,7 +22,7 @@ RSpec.describe 'New Review Creation' do
         end
 
         within "#address-#{@other_address}" do
-          expect(page).to have_content(@other_address.address) 
+          expect(page).to have_content(@other_address.address)
           expect(page).to have_content(@other_address.city)
           expect(page).to have_content(@other_address.state)
           expect(page).to have_content(@other_address.zip)

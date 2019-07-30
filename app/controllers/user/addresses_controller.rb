@@ -1,4 +1,8 @@
 class User::AddressesController < ApplicationController
+  def index
+    @addresses = current_user.addresses.all
+  end
+  
   def new
     @address = current_user.addresses.new
   end
