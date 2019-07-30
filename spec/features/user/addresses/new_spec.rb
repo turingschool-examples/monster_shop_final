@@ -26,6 +26,7 @@ RSpec.describe 'User Profile Page' do
         click_on "New Address"
         expect(current_path).to eq(address_new_path)
       end
+
       address2 = @user.addresses.create(streetname: "123 main", city: "Springfield", state: "IL", zip: 12345)
 
 
@@ -35,6 +36,10 @@ RSpec.describe 'User Profile Page' do
       fill_in 'Zip', with: address2.zip
 
       click_button "Submit"
+
+      expect(current_path).to eq(profile_path)
+
+      expect(page).to have_content("123 main")
 
 
     end

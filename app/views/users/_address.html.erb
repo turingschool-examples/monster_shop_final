@@ -2,8 +2,10 @@
 <p><%= @user.email %></p>
 
 <% @user.addresses.map do |a| %>
+<%= a.nickname %>:
 <%= a.streetname %>
 <%= a.city %>
 <%= a.state %>
 <%= a.zip %>
+<br>
 <% end %>
