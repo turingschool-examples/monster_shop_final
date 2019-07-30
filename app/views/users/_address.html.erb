@@ -2,3 +2,5 @@
 <p><%= @user.email %></p>
 <p><%= @user.address %></p>
 <p><%= @user.city %> <%= @user.state %> <%= @user.zip %></p>
+
+<%= link_to "Add new address", new_user_address_path %>

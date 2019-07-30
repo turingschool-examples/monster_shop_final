@@ -47,4 +47,8 @@ Rails.application.routes.draw do
     resources :users, only: [:index, :show]
     patch '/orders/:id/ship', to: 'orders#ship'
   end
+
+  namespace :user do
+    resources :addresses
+  end
 end

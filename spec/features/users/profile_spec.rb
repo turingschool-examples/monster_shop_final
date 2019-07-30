@@ -105,5 +105,14 @@ RSpec.describe "User Profile Path" do
       expect(page).to have_content("email: [\"has already been taken\"]")
       expect(page).to have_button "Update Profile"
     end
+
+    it "I can add a new  Address" do
+      allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(@user)
+
+      visit profile_path
+      expect(page).to have_link("Add new address")
+      click_link "Add new address"
+      expect(current_path).to eq(new_user_address_path)
+    end
   end
 end
