@@ -38,4 +38,19 @@ class User::OrdersController < ApplicationController
     end
     @user_addresses = current_user.addresses
   end
+
+  def change_address
+    @user_addresses = current_user.addresses
+    @order = Order.find(params[:order_id])
+  end
+
+  def update_order_address
+    new_address = Address.find(params[:address_id])
+    order = Order.find(params[:order_id])
+    if order.status == 'pending'
+      order.update(address_id: new_address.id)
+      flash[:success] = "Address has been changed successfully"
+    end
+    redirect_to "/profile/orders/#{order.id}"
+  end
 end
