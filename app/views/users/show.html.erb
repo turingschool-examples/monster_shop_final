@@ -1,6 +1,6 @@
 <%= render 'address' %>
-<%= link_to 'Edit Profile', '/profile/edit' %>
-<%= link_to 'Change Password', '/profile/edit_password' %>
-<%= link_to 'Create New Address', '/addresses/new' %>
+<%= link_to 'Edit Profile', profile_edit_path %>
+<%= link_to 'Change Password', profile_edit_password_path %>
+<%= link_to 'Create New Address', new_address_path %>
 
-<%= link_to 'My Orders', '/profile/orders' %>
+<%= link_to 'My Orders', profile_orders_path %>
