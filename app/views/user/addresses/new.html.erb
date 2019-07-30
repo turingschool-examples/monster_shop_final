@@ -1,0 +1,17 @@
+<%= form_tag "/profile" do %>
+
+<%= label_tag :streetname %>
+<%= text_field_tag :streetname %>
+
+<%= label_tag :city %>
+<%= text_field_tag :city %>
+
+<%= label_tag :state %>
+<%= text_field_tag :state %>
+
+<%= label_tag :zip %>
+<%= number_field_tag :zip %>
+
+<%= submit_tag "Submit" %>
+
+<% end %>
