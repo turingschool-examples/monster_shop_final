@@ -6,5 +6,6 @@
     <p>Address: <%= address.address %></p>
     <p><%= address.city %> <%= address.state %> <%= address.zip %></p>
     <p><%= link_to 'Edit Address', edit_address_path(address.id) %></p>
+    <p><%= link_to 'Delete Address', address_path(address.id), method: :delete %></p>
   </section>
 <% end %>
