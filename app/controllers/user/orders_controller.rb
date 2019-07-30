@@ -32,6 +32,10 @@ class User::OrdersController < ApplicationController
   end
 
   def select_address
+    if current_user.addresses.empty?
+      redirect_to new_address_path
+      flash[:error] = "Address must be added to continue checkout"
+    end
     @user_addresses = current_user.addresses
   end
 end
