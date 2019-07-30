@@ -10,7 +10,7 @@ class User::OrdersController < ApplicationController
   end
 
   def create
-    address = current_user.addresses.first
+    address = Address.find(params[:address_id])
     order = current_user.orders.create!(address_id: address.id)
     order.save
       cart.items.each do |item|
@@ -29,5 +29,9 @@ class User::OrdersController < ApplicationController
     order = current_user.orders.find(params[:id])
     order.cancel
     redirect_to "/profile/orders/#{order.id}"
+  end
+
+  def select_address
+    @user_addresses = current_user.addresses
   end
 end
