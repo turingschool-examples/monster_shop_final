@@ -9,4 +9,11 @@ validates_presence_of :streetname,
 
 enum nickname: ["home", "work", "alternate"]
 
+  def shipments_check
+    orders.where(status: "shipped").any?
+  end
+
+  def home?
+    self.where(nickname: 0)
+  end
 end

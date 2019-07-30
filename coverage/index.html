@@ -14,7 +14,7 @@
       <img src="./assets/0.10.2/loading.gif" alt="loading"/>
     </div>
     <div id="wrapper" style="display:none;">
-      <div class="timestamp">Generated <abbr class="timeago" title="2019-07-30T12:18:35-06:00">2019-07-30T12:18:35-06:00</abbr></div>
+      <div class="timestamp">Generated <abbr class="timeago" title="2019-07-30T15:08:41-06:00">2019-07-30T15:08:41-06:00</abbr></div>
       <ul class="group_tabs"></ul>
 
       <div id="content">
@@ -32,8 +32,8 @@
   <a name="AllFiles"></a>
   <div>
     <b>31</b> files in total.
-    <b>431</b> relevant lines. 
-    <span class="green"><b>431</b> lines covered</span> and
+    <b>434</b> relevant lines. 
+    <span class="green"><b>434</b> lines covered</span> and
     <span class="red"><b>0</b> lines missed </span>
   </div>
   <table class="file_list">
@@ -63,11 +63,11 @@
       <tr>
         <td class="strong"><a href="#e61ecd5076650c83109f4a0b48fad2d7d0290644" class="src_link" title="app/models/address.rb">app/models/address.rb</a></td>
         <td class="green strong">100.0 %</td>
-        <td>12</td>
-        <td>5</td>
-        <td>5</td>
+        <td>15</td>
+        <td>7</td>
+        <td>7</td>
         <td>0</td>
-        <td>1.0</td>
+        <td>1.1</td>
       </tr>
       
       <tr>
@@ -273,9 +273,9 @@
       <tr>
         <td class="strong"><a href="#037be4dc19880e8fac1d57a7624bc6ad490758e7" class="src_link" title="config/routes.rb">config/routes.rb</a></td>
         <td class="green strong">100.0 %</td>
-        <td>54</td>
-        <td>40</td>
-        <td>40</td>
+        <td>55</td>
+        <td>41</td>
+        <td>41</td>
         <td>0</td>
         <td>1.0</td>
       </tr>
@@ -412,8 +412,8 @@
     <h3>app/models/address.rb</h3>
     <h4><span class="green">100.0 %</span> covered</h4>
     <div>
-      <b>5</b> relevant lines. 
-      <span class="green"><b>5</b> lines covered</span> and
+      <b>7</b> relevant lines. 
+      <span class="green"><b>7</b> lines covered</span> and
       <span class="red"><b>0</b> lines missed.</span>
     </div>
   </div>
@@ -487,7 +487,25 @@
           <code class="ruby"></code>
         </li>
       
-        <li class="never" data-hits="" data-linenumber="12">
+        <li class="covered" data-hits="1" data-linenumber="12">
+          <span class="hits">1</span>
+          
+          <code class="ruby">  def shipments_check</code>
+        </li>
+      
+        <li class="covered" data-hits="2" data-linenumber="13">
+          <span class="hits">2</span>
+          
+          <code class="ruby">    orders.where(status: &quot;shipped&quot;).any?</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="14">
+          
+          
+          <code class="ruby">  end</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="15">
           
           
           <code class="ruby">end</code>
@@ -1317,7 +1335,7 @@
         <li class="covered" data-hits="1" data-linenumber="5">
           <span class="hits">1</span>
           
-          <code class="ruby">  belongs_to :address</code>
+          <code class="ruby">  belongs_to :address, optional: true</code>
         </li>
       
         <li class="never" data-hits="" data-linenumber="6">
@@ -3001,8 +3019,8 @@
     <h3>config/routes.rb</h3>
     <h4><span class="green">100.0 %</span> covered</h4>
     <div>
-      <b>40</b> relevant lines. 
-      <span class="green"><b>40</b> lines covered</span> and
+      <b>41</b> relevant lines. 
+      <span class="green"><b>41</b> lines covered</span> and
       <span class="red"><b>0</b> lines missed.</span>
     </div>
   </div>
@@ -3211,124 +3229,130 @@
         <li class="covered" data-hits="1" data-linenumber="34">
           <span class="hits">1</span>
           
+          <code class="ruby">  delete &#39;/profile/addresses/:id&#39;, to: &#39;user/addresses#destroy&#39;, as: &#39;address_destroy&#39;</code>
+        </li>
+      
+        <li class="covered" data-hits="1" data-linenumber="35">
+          <span class="hits">1</span>
+          
           <code class="ruby">  delete &#39;/profile/orders/:id&#39;, to: &#39;user/orders#cancel&#39;</code>
         </li>
       
-        <li class="never" data-hits="" data-linenumber="35">
+        <li class="never" data-hits="" data-linenumber="36">
           
           
           <code class="ruby"></code>
-        </li>
-      
-        <li class="covered" data-hits="1" data-linenumber="36">
-          <span class="hits">1</span>
-          
-          <code class="ruby">  get &#39;/login&#39;, to: &#39;sessions#new&#39;</code>
         </li>
       
         <li class="covered" data-hits="1" data-linenumber="37">
           <span class="hits">1</span>
           
-          <code class="ruby">  post &#39;/login&#39;, to: &#39;sessions#login&#39;</code>
+          <code class="ruby">  get &#39;/login&#39;, to: &#39;sessions#new&#39;</code>
         </li>
       
         <li class="covered" data-hits="1" data-linenumber="38">
           <span class="hits">1</span>
           
+          <code class="ruby">  post &#39;/login&#39;, to: &#39;sessions#login&#39;</code>
+        </li>
+      
+        <li class="covered" data-hits="1" data-linenumber="39">
+          <span class="hits">1</span>
+          
           <code class="ruby">  get &#39;/logout&#39;, to: &#39;sessions#logout&#39;</code>
         </li>
       
-        <li class="never" data-hits="" data-linenumber="39">
+        <li class="never" data-hits="" data-linenumber="40">
           
           
           <code class="ruby"></code>
-        </li>
-      
-        <li class="covered" data-hits="1" data-linenumber="40">
-          <span class="hits">1</span>
-          
-          <code class="ruby">  namespace :merchant do</code>
         </li>
       
         <li class="covered" data-hits="1" data-linenumber="41">
           <span class="hits">1</span>
           
-          <code class="ruby">    get &#39;/&#39;, to: &#39;dashboard#index&#39;, as: :dashboard</code>
+          <code class="ruby">  namespace :merchant do</code>
         </li>
       
         <li class="covered" data-hits="1" data-linenumber="42">
           <span class="hits">1</span>
           
-          <code class="ruby">    resources :orders, only: :show</code>
+          <code class="ruby">    get &#39;/&#39;, to: &#39;dashboard#index&#39;, as: :dashboard</code>
         </li>
       
         <li class="covered" data-hits="1" data-linenumber="43">
           <span class="hits">1</span>
           
-          <code class="ruby">    resources :items, only: [:index, :new, :create, :edit, :update, :destroy]</code>
+          <code class="ruby">    resources :orders, only: :show</code>
         </li>
       
         <li class="covered" data-hits="1" data-linenumber="44">
           <span class="hits">1</span>
           
-          <code class="ruby">    put &#39;/items/:id/change_status&#39;, to: &#39;items#change_status&#39;</code>
+          <code class="ruby">    resources :items, only: [:index, :new, :create, :edit, :update, :destroy]</code>
         </li>
       
         <li class="covered" data-hits="1" data-linenumber="45">
           <span class="hits">1</span>
           
-          <code class="ruby">    get &#39;/orders/:id/fulfill/:order_item_id&#39;, to: &#39;orders#fulfill&#39;</code>
+          <code class="ruby">    put &#39;/items/:id/change_status&#39;, to: &#39;items#change_status&#39;</code>
         </li>
       
-        <li class="never" data-hits="" data-linenumber="46">
+        <li class="covered" data-hits="1" data-linenumber="46">
+          <span class="hits">1</span>
           
-          
-          <code class="ruby">  end</code>
+          <code class="ruby">    get &#39;/orders/:id/fulfill/:order_item_id&#39;, to: &#39;orders#fulfill&#39;</code>
         </li>
       
         <li class="never" data-hits="" data-linenumber="47">
           
           
-          <code class="ruby"></code>
+          <code class="ruby">  end</code>
         </li>
       
-        <li class="covered" data-hits="1" data-linenumber="48">
-          <span class="hits">1</span>
+        <li class="never" data-hits="" data-linenumber="48">
           
-          <code class="ruby">  namespace :admin do</code>
+          
+          <code class="ruby"></code>
         </li>
       
         <li class="covered" data-hits="1" data-linenumber="49">
           <span class="hits">1</span>
           
-          <code class="ruby">    get &#39;/&#39;, to: &#39;dashboard#index&#39;, as: :dashboard</code>
+          <code class="ruby">  namespace :admin do</code>
         </li>
       
         <li class="covered" data-hits="1" data-linenumber="50">
           <span class="hits">1</span>
           
-          <code class="ruby">    resources :merchants, only: [:show, :update]</code>
+          <code class="ruby">    get &#39;/&#39;, to: &#39;dashboard#index&#39;, as: :dashboard</code>
         </li>
       
         <li class="covered" data-hits="1" data-linenumber="51">
           <span class="hits">1</span>
           
-          <code class="ruby">    resources :users, only: [:index, :show]</code>
+          <code class="ruby">    resources :merchants, only: [:show, :update]</code>
         </li>
       
         <li class="covered" data-hits="1" data-linenumber="52">
           <span class="hits">1</span>
           
+          <code class="ruby">    resources :users, only: [:index, :show]</code>
+        </li>
+      
+        <li class="covered" data-hits="1" data-linenumber="53">
+          <span class="hits">1</span>
+          
           <code class="ruby">    patch &#39;/orders/:id/ship&#39;, to: &#39;orders#ship&#39;</code>
         </li>
       
-        <li class="never" data-hits="" data-linenumber="53">
+        <li class="never" data-hits="" data-linenumber="54">
           
           
           <code class="ruby">  end</code>
         </li>
       
-        <li class="never" data-hits="" data-linenumber="54">
+        <li class="never" data-hits="" data-linenumber="55">
           
           
           <code class="ruby">end</code>
