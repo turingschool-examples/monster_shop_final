@@ -7,6 +7,6 @@ validates_presence_of :streetname,
                       :state,
                       :zip
 
-enum nickname: ["home"]
+enum nickname: ["home", "work", "alternate"]
 
 end

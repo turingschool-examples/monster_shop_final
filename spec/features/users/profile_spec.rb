@@ -31,7 +31,7 @@ RSpec.describe "User Profile Path" do
       fill_in 'Password', with: @user.password
       click_button 'Log In'
 
-      click_link 'Edit'
+      click_link 'Edit Profile'
 
       expect(current_path).to eq('/profile/edit')
 
