@@ -1,0 +1,11 @@
+<h1>Address Selection</h1>
+<h3>Please select one of the following addresses</h3>
+
+<% @user_addresses.each do |address| %>
+  <section id='address-<%= address.id %>'>
+    <p>Nickname: <%= address.nickname %></p>
+    <p>Address: <%= address.address %></p>
+    <p><%= address.city %> <%= address.state %> <%= address.zip %></p>
+    <p><%= button_to 'Use this address', orders_path(address.id) %></p>
+  </section>
+<% end %>
