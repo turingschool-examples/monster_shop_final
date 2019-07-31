@@ -16,4 +16,12 @@ enum nickname: ["home", "work", "alternate"]
   def home?
     self.where(nickname: 0)
   end
+
+  def orders?
+    orders.empty?
+  end
+
+  
+
+
 end

@@ -47,6 +47,7 @@ RSpec.describe 'User Profile Page' do
       click_button 'Log In'
 
       visit profile_path
+      save_and_open_page
 
       within "#address-#{@address2.id}" do
         expect(page).to_not have_content("Delete Address")

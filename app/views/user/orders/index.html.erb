@@ -8,5 +8,8 @@
     <p>Status: <%= order.status %></p>
     <p><%= order.count_of_items %> items</p>
     <p>Total: <%= number_to_currency(order.grand_total) %></p>
+    <p>Address: <%= order.address.nickname.capitalize %>:
+      <%= order.address.streetname %></p>
+      <p><%= order.address.city %> <%= order.address.state %> <%= order.address.zip %></p>
   </section>
 <% end %>
