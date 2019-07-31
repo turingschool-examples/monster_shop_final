@@ -33,7 +33,6 @@ RSpec.describe Address, type: :model do
 
         expect(@address2.orders?).to eq(false)
         expect(@address1.orders?).to eq(true)
-
       end
 
     end

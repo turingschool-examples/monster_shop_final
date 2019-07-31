@@ -6,6 +6,8 @@
 
     <%= stylesheet_link_tag    'application', media: 'all' %>
     <%= javascript_include_tag 'application' %>
+    <%= stylesheet_link_tag "https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" %>
+
   </head>
 
   <body>
@@ -27,6 +29,7 @@
       <%= link_to 'Merchants', '/merchants' %>
       <%= link_to 'Items', '/items' %>
       <%= link_to "Cart: #{cart.count}", cart_path unless current_user && current_admin?%>
+
     </nav>
     <% flash.each do |type, message| %>
     <p><%= message %></p>
