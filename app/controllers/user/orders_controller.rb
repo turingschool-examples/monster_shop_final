@@ -14,9 +14,11 @@ class User::OrdersController < ApplicationController
     order.save
       cart.items.each do |item|
         order.order_items.create({
+          #Order.create({
           item: item,
           quantity: cart.count_of(item.id),
-          price: item.price
+          price: item.price,
+          #order: order
           })
       end
     session.delete(:cart)

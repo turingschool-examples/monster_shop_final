@@ -16,7 +16,7 @@
     <% else %>
       <p>Cities Served:</p>
       <ul>
-        <% @merchant.distinct_cities.each do |city_state| %>
+        <% @merchant.reload.distinct_cities.each do |city_state| %>
           <p><%= city_state %></p>
         <% end %>
       </ul>

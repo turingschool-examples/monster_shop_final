@@ -12,9 +12,13 @@ RSpec.describe 'Merchant Show Page' do
       @hippo = @brian.items.create!(name: 'Hippo', description: "I'm a Hippo!", price: 50, image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTaLM_vbg2Rh-mZ-B4t-RSU9AmSfEEq_SN9xPP_qrA2I6Ftq_D9Qw', active: true, inventory: 3 )
       @user_1 = User.create!(name: 'Megan', email: 'megan_1@example.com', password: 'securepassword')
       @user_2 = User.create!(name: 'Megan', email: 'megan_2@example.com', password: 'securepassword')
-      @order_1 = @user_1.orders.create!
-      @order_2 = @user_2.orders.create!
-      @order_2 = @user_2.orders.create!
+
+      @user_1_address = @user_1.addresses.create!(street_address: '123 user one lives here', city: 'Denver', state: 'CO', zip: 80301)
+      @user_2_address = @user_2.addresses.create!(street_address: '123 user two lives here', city: 'Denver', state: 'IA', zip: 80301)
+
+      @order_1 = @user_1.orders.create!(address_id: @user_1_address.id)
+      @order_2 = @user_2.orders.create!(address_id: @user_2_address.id)
+      @order_2 = @user_2.orders.create!(address_id: @user_2_address.id) 
       @order_1.order_items.create!(item: @ogre, price: @ogre.price, quantity: 2)
       @order_2.order_items.create!(item: @giant, price: @hippo.price, quantity: 2)
       @order_2.order_items.create!(item: @ogre, price: @hippo.price, quantity: 2)
@@ -41,7 +45,6 @@ RSpec.describe 'Merchant Show Page' do
 
     it 'I see merchant statistics' do
       visit "/merchants/#{@megan.id}"
-
       within '.statistics' do
         expect(page).to have_content("Item Count: #{@megan.item_count}")
         expect(page).to have_content("Average Item Price: #{number_to_currency(@megan.average_item_price)}")

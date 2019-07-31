@@ -55,7 +55,6 @@ RSpec.describe 'Site Navigation' do
 
       it 'the registraton page' do
         visit root_path
-
         within 'nav' do
           click_link 'Register'
         end
@@ -68,7 +67,11 @@ RSpec.describe 'Site Navigation' do
   describe 'As a User' do
     before :each do
       @user = User.create(name: 'Megan', email: 'megan@example.com', password: 'securepassword')
+
+      @user_address = @user.addresses.create!(street_address: '123 user lives here', city: 'Denver', state: 'CO', zip: 80301)
+
       allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(@user)
+
     end
 
     it 'I see who I am logged in as' do
@@ -160,6 +163,9 @@ RSpec.describe 'Site Navigation' do
     before :each do
       @merchant = Merchant.create!(name: 'Megans Marmalades', address: '123 Main St', city: 'Denver', state: 'CO', zip: 80218)
       @m_user = @merchant.users.create(name: 'Megan', email: 'megan@example.com', password: 'securepassword')
+
+      @m_user_address = @m_user.addresses.create!(street_address: '123 m user lives here', city: 'Denver', state: 'CO', zip: 80301)
+
       allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(@m_user)
     end
 
@@ -261,6 +267,9 @@ RSpec.describe 'Site Navigation' do
   describe 'As an Admin' do
     before :each do
       @admin = User.create(name: 'Megan', email: 'megan@example.com', password: 'securepassword', role: :admin)
+
+      @admin_address = @admin.addresses.create!(street_address: '123 admin lives here', city: 'Denver', state: 'CO', zip: 80301)
+
       allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(@admin)
     end
 

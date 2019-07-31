@@ -12,6 +12,8 @@ Rails.application.routes.draw do
 
   resources :reviews, only: [:edit, :update, :destroy]
 
+
+
   get '/cart', to: 'cart#show'
   post '/cart/:item_id', to: 'cart#add_item'
   delete '/cart', to: 'cart#empty'
@@ -19,7 +21,11 @@ Rails.application.routes.draw do
   delete '/cart/:item_id', to: 'cart#remove_item'
 
   get '/registration', to: 'users#new', as: :registration
-  resources :users, only: [:create, :update]
+
+  resources :users, only: [:new, :create, :update] do
+    resources :addresses, only: [:index, :show, :new, :create, :edit, :update]
+  end
+
   patch '/user/:id', to: 'users#update'
   get '/profile', to: 'users#show'
   get '/profile/edit', to: 'users#edit'
@@ -32,6 +38,8 @@ Rails.application.routes.draw do
   get '/login', to: 'sessions#new'
   post '/login', to: 'sessions#login'
   get '/logout', to: 'sessions#logout'
+
+
 
   namespace :merchant do
     get '/', to: 'dashboard#index', as: :dashboard
@@ -47,4 +55,6 @@ Rails.application.routes.draw do
     resources :users, only: [:index, :show]
     patch '/orders/:id/ship', to: 'orders#ship'
   end
+
+
 end

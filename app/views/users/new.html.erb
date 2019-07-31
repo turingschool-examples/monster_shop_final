@@ -1,18 +1,8 @@
-<%= form_for @user do |f| %>
+
+
+<%= form_for(@user) do |f| %>
   <%= f.label :name %>
   <%= f.text_field :name %>
-
-  <%= f.label :address %>
-  <%= f.text_field :address %>
-
-  <%= f.label :city %>
-  <%= f.text_field :city %>
-
-  <%= f.label :state %>
-  <%= f.text_field :state %>
-
-  <%= f.label :zip %>
-  <%= f.text_field :zip %>
 
   <%= f.label :email %>
   <%= f.email_field :email %>
@@ -23,5 +13,19 @@
   <%= f.label :password_confirmation %>
   <%= f.password_field :password_confirmation %>
 
-  <%= f.submit 'Register' %>
-<% end %>
+    <%= f.fields_for :address do |p| %>
+      <%= p.label :street_address %>
+      <%= p.text_field :street_address%>
+
+      <%= p.label :city %>
+      <%= p.text_field :city%>
+
+      <%= p.label :state %>
+      <%= p.text_field :state%>
+
+      <%= p.label :zip %>
+      <%= p.text_field :zip%>
+    <% end  %>
+
+<%= f.submit 'Register' %>
+<% end  %>
