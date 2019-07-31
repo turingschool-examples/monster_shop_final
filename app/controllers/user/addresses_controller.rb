@@ -35,10 +35,6 @@ class User::AddressesController < ApplicationController
       @address.destroy
       flash[:notice] = "Address Deleted Successfully."
       redirect_to profile_path
-    else
-      flash[:notice] = "Address cannot be Deleted."
-      redirect_to profile_path
-
     end
   end
 

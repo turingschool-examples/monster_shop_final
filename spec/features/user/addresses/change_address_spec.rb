@@ -13,48 +13,40 @@ RSpec.describe 'User Profile Page' do
       @address = @user.addresses.create(streetname: "123 market", city: "Denver", state: "CO", zip: 80132)
       @address2 = @user.addresses.create(nickname: "work", streetname: "123 main", city: "Springfield", state: "IL", zip: 12345)
       # @order_1 = @user.orders.create!(address_id: @address.id)
-      @order_2 = @user.orders.create!(status: "shipped", address_id: @address2.id)
+      @order_2 = @user.orders.create!(status: "pending", address_id: @address2.id)
       # @order_1.order_items.create!(item: @ogre, price: @ogre.price, quantity: 2)
       @order_2.order_items.create!(item: @giant, price: @hippo.price, quantity: 2)
       @order_2.order_items.create!(item: @ogre, price: @hippo.price, quantity: 2)
     end
 
-    it "user can delete an address" do
+    it "user can switch address" do
+
       visit "/login"
 
       fill_in 'Email', with: @user.email
       fill_in 'Password', with: @user.password
       click_button 'Log In'
 
-      visit profile_path
+      visit "/profile/orders"
 
-      within "#address-#{@address.id}" do
-        expect(page).to have_content("Edit Address")
-        click_on "Delete Address"
+      within "#order-#{@order_2.id}" do
+        click_on "#{@order_2.id}"
       end
 
-      expect(current_path).to eq(profile_path)
+      expect(page).to have_content("Address: Work: 123 main")
 
-      expect(page).to_not have_content(@address.id)
+      click_button "123 market"
 
-    end
+      within "#order-#{@order_2.id}" do
+        click_on "#{@order_2.id}"
+      end
 
-    it "user cannot" do
-      visit "/login"
 
-      fill_in 'Email', with: @user.email
-      fill_in 'Password', with: @user.password
-      click_button 'Log In'
+      expect(page).to have_content("Address: Home: 123 market")
 
-      visit profile_path
-      # save_and_open_page
-
-      within "#address-#{@address2.id}" do
-        expect(page).to_not have_content("Delete Address")
-        expect(page).to_not have_content("Edit Address")
-        end
 
     end
 
   end
+
 end
