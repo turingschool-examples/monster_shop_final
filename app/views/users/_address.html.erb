@@ -11,8 +11,10 @@
 <%= a.state %>
 <%= a.zip %>
 <% if a.shipments_check == false %>
-<%= link_to "Edit Address", address_edit_path(a.id) %>
-<%= link_to "Delete Address", address_destroy_path(a.id), method: :delete %>
+  <%= link_to "Edit Address", address_edit_path(a.id) %>
+    <% if a.orders? %>
+      <%= link_to "Delete Address", address_destroy_path(a.id), method: :delete %>
+    <% end %>
 <% end %>
 </section>
 <br>

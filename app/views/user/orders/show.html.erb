@@ -4,7 +4,17 @@
 <p>Status: <%= @order.status %></p>
 <p><%= @order.count_of_items %> items</p>
 <p>Total: <%= number_to_currency(@order.grand_total) %></p>
+<p>Address: <%= @order.address.nickname.capitalize %>:
+  <%= @order.address.streetname %></p>
+  <p><%= @order.address.city %> <%= @order.address.state %> <%= @order.address.zip %></p>
+  <% if @order.pending? %>
+     <% current_user.addresses.each do |address| %>
+        Switch Address To <%= button_to address.streetname, "/profile/orders/#{address.id}", method: :patch %>
+        <br>
+      <% end %>
+  <% end %>
 <%= button_to 'Cancel Order', "/profile/orders/#{@order.id}", method: :delete if @order.pending? %>
+
 
 <h2>Order Items</h2>
 <% @order.order_items.each do |order_item| %>

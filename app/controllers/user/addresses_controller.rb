@@ -31,13 +31,14 @@ class User::AddressesController < ApplicationController
   def destroy
     @address = Address.find(params[:id])
 
-    if (@address.shipments_check == false) && (@address.nickname != "home")
+    if (@address.shipments_check == false) || @address.orders.cancelled?
       @address.destroy
       flash[:notice] = "Address Deleted Successfully."
       redirect_to profile_path
-    elsif @address.nickname == "home"
-      flash[:notice] = "Address cannot be deleted. You need a home address."
+    else
+      flash[:notice] = "Address cannot be Deleted."
       redirect_to profile_path
+
     end
   end
 
