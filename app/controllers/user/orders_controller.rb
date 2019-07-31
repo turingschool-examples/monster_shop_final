@@ -7,6 +7,13 @@ class User::OrdersController < ApplicationController
 
   def show
     @order = current_user.orders.find(params[:id])
+    if current_user.addresses.empty?
+      redirect_to new_address_path
+      flash[:error] = "Order is missing address, create address to proceed"
+    elsif @order.address.nil?
+      redirect_to change_address_path(@order.id)
+      flash[:error] = "Address must be associated with order, select an address"
+    end
   end
 
   def create
