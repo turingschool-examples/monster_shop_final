@@ -5,15 +5,10 @@ class UsersController < ApplicationController
   def new
     @user = User.new
     @address = @user.addresses.new
-
-    # 23.times{@user.addresses.build}
-    # @user.addresses.new
-    #not sure if the above is necessary
   end
 
   def show
     @user = current_user
-    # @addresses = @user.addresses
   end
 
 
@@ -40,9 +35,11 @@ class UsersController < ApplicationController
   end
 
   def update
-    @user = current_user
+    @user = User.find(params[:id])
+
     if @user.update(user_params)
       @user.addresses.update(address_params)
+
 
       flash[:notice] = 'Profile has been updated!'
       redirect_to profile_path
@@ -53,7 +50,6 @@ class UsersController < ApplicationController
   end
 
   private
-
   def user_params
     params.require(:user).permit(:name, :email, :password)
   end
@@ -62,5 +58,4 @@ class UsersController < ApplicationController
     params.require(:user).require(:address).permit(:street_address, :city, :state, :zip, :nickname)
   end
 end
-
 # params[:user][:address][:street_address]

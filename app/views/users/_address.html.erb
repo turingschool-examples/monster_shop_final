@@ -5,7 +5,10 @@
     <h4><%= address.nickname %></h4>
     <p><%= address.street_address %></p>
     <p><%= address.city %> <%= address.state %> <%= address.zip %>
-    <p><%= button_to "Edit My Address", edit_user_address_path(@user, address), method: :get %></p>
-    <p><%= button_to "Delete Address", user_address_path(@user, address), method: :delete %></p>
-  </section>
+
+      <% if @user.orders.exclude?(address) %>
+        <p><%= button_to "Edit My Address", edit_user_address_path(@user, address), method: :get %></p>
+        <p><%= button_to "Delete Address", user_address_path(@user, address), method: :delete %></p>
+      <% end  %>
+</section>
 <% end %>

@@ -23,13 +23,13 @@ RSpec.describe "User Profile Path" do
     end
 
     it "I can update my profile data" do
-      allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(@user)
+       allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(@user)
 
       visit login_path
-
-      # fill_in 'Email', with: @user.email
-      # fill_in 'Password', with: @user.password
-      # click_button 'Log In'
+#save_and_open_page
+      fill_in 'Email', with: @user.email
+      fill_in 'Password', with: @user.password
+      click_button 'Log In'
 
       click_link 'Edit'
 
@@ -115,7 +115,7 @@ RSpec.describe "User Profile Path" do
 
       fill_in "Password", with: password
       fill_in "Password confirmation", with: password
-    
+
       click_button 'Change Password'
 
       expect(current_path).to eq(profile_path)

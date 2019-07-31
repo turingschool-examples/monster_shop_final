@@ -1,8 +1,7 @@
 class AddressesController < ApplicationController
-  # before_action :require_user, only: :show
-  # before_action :exclude_admin, only: :show
+   # before_action :require_user, only: :show
+   # before_action :exclude_admin, only: :show
 
-  #I don't think I even need an Addresses Controller at this time.
   def index
     @user = current_user
     @addresses = @user.addresses.all
@@ -39,7 +38,6 @@ class AddressesController < ApplicationController
     @user = current_user
     @address = Address.find(params[:id])
     @user.addresses.update(object_params)
-
     #could sad and happy path here
     redirect_to profile_path
   end
@@ -48,11 +46,10 @@ class AddressesController < ApplicationController
     @address = Address.find(params[:id])
     @address.destroy
 
-    redirect_to profile_path 
+    redirect_to profile_path
   end
 
   private
-
   def object_params
     params.require(:address).permit(:street_address, :city, :state, :zip, :nickname)
   end

@@ -12,30 +12,49 @@ RSpec.describe 'Delete an Address' do
       @user = User.create!(name: 'Megan', email: 'megan_1@example.com', password: 'securepassword')
       @user_address = @user.addresses.create!(street_address: '123 user lives here', city: 'Denver', state: 'CO', zip: 80301)
 
-      @order_1 = @user.orders.create!(status: "packaged", address_id: @user_address.id)
-      @order_2 = @user.orders.create!(status: "pending", address_id: @user_address.id)
+      @order_1 = @user.orders.create!(status: "shipped", address_id: @user_address.id)
+      @order_2 = @user.orders.create!(status: "shipped", address_id: @user_address.id)
       @order_item_1 = @order_1.order_items.create!(item: @ogre, price: @ogre.price, quantity: 2, fulfilled: true)
       @order_item_2 = @order_2.order_items.create!(item: @giant, price: @hippo.price, quantity: 2, fulfilled: true)
       @order_item_3 = @order_2.order_items.create!(item: @ogre, price: @ogre.price, quantity: 2, fulfilled: false)
-    end
-    it ' I can delete an address' do
+
       visit registration_path
       fill_in 'Name', with: 'Megan'
-      fill_in 'Street address', with: '123 Main St'
+      fill_in 'Street address', with: '123 user lives here'
       fill_in 'City', with: 'Denver'
       fill_in 'State', with: 'CO'
-      fill_in 'Zip', with: '80218'
-      fill_in 'Email', with: 'megan@example.com'
+      fill_in 'Zip', with: 80301
+      fill_in 'Email', with: 'megan1@example.com'
       fill_in 'Password', with: 'securepassword'
       fill_in 'Password confirmation', with: 'securepassword'
       click_button 'Register'
-
-
-      click_on "Delete Address"
+    end
+    it 'I can delete an address' do
 
       expect(current_path).to eq(profile_path)
       expect(page).to_not have_content(@user_address)
-      save_and_open_page
+    end
+
+    it "address cannot be deleted or changed if it's status is 'shipped'" do
+        #Test for preventing shipped orders's addresses to change. 
+    end
+
+    it 'If user deletes all address they cannont checkout and see an error telling them to add an address first. Page redirects to new address form.' do
+      expect(current_path).to eq(profile_path)
+      click_on "Delete Address"
+
+      visit item_path(@ogre)
+      click_button 'Add to Cart'
+      visit item_path(@hippo)
+      click_button 'Add to Cart'
+
+      visit cart_path
+
+      click_button "Check Out"
+
+      expect(current_path).to eq(new_user_address_path(@user.id+1))
+      #because I signed in with a user different than @user my user_ids were off by one. Not ideal, but...
+      expect(page).to have_content("An address is required to checkout.")
     end
   end
 end
