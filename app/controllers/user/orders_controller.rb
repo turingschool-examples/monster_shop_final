@@ -25,8 +25,8 @@ class User::OrdersController < ApplicationController
   end
 
   def update
-    order = current_user.orders.update_all(address_id: params[:id])
-    redirect_to profile_orders_path(order)
+    order = current_user.orders.where(id: params[:id]).update(address_id: params[:address_id])
+    redirect_to profile_orders_path
   end
 
   def cancel
@@ -34,4 +34,5 @@ class User::OrdersController < ApplicationController
     order.cancel
     redirect_to "/profile/orders/#{order.id}"
   end
+
 end
