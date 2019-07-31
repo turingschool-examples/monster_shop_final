@@ -23,7 +23,7 @@ Rails.application.routes.draw do
   get '/registration', to: 'users#new', as: :registration
 
   resources :users, only: [:new, :create, :update] do
-    resources :addresses, only: [:index, :show, :new, :create, :edit, :update]
+    resources :addresses, only: [:index, :show, :new, :create, :edit, :update, :destroy]
   end
 
   patch '/user/:id', to: 'users#update'

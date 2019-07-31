@@ -44,6 +44,13 @@ class AddressesController < ApplicationController
     redirect_to profile_path
   end
 
+  def destroy
+    @address = Address.find(params[:id])
+    @address.destroy
+
+    redirect_to profile_path 
+  end
+
   private
 
   def object_params

@@ -24,7 +24,7 @@ RSpec.describe 'Edit an Address' do
       expect(page).to have_content('Welcome, Megan!')
 
       click_on "Edit My Address"
-      save_and_open_page
+
 
       # expect(current_path).to eq(user_addresses_path)
 
@@ -35,7 +35,6 @@ RSpec.describe 'Edit an Address' do
 
       click_on 'Update Address'
 
-      save_and_open_page
 
     end
   end
