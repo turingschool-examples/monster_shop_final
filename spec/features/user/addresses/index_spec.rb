@@ -12,8 +12,8 @@ RSpec.describe 'New Review Creation' do
       end
 
     describe "When I go to my Address Index page" do
-      it "I see all of the addresxses associated with my account" do
-        within "#address-#{@office_address}" do
+      it "I see all of the addresses that are associated with my account" do
+        within "#address-#{@office_address.id}" do
           expect(page).to have_content(@office_address.address)
           expect(page).to have_content(@office_address.city)
           expect(page).to have_content(@office_address.state)
@@ -21,7 +21,7 @@ RSpec.describe 'New Review Creation' do
           expect(page).to have_content(@office_address.nickname)
         end
 
-        within "#address-#{@other_address}" do
+        within "#address-#{@other_address.id}" do
           expect(page).to have_content(@other_address.address)
           expect(page).to have_content(@other_address.city)
           expect(page).to have_content(@other_address.state)
