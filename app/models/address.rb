@@ -13,15 +13,8 @@ enum nickname: ["home", "work", "alternate"]
     orders.where(status: "shipped").any?
   end
 
-  def home?
-    self.where(nickname: 0)
-  end
-
   def orders?
     orders.empty?
   end
-
-  
-
 
 end
