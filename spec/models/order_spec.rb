@@ -70,7 +70,8 @@ RSpec.describe Order do
 
   describe 'class methods' do
     before :each do
-      @user = User.create!(name: 'Megan', address: '123 Main St', city: 'Denver', state: 'CO', zip: 80218, email: 'megan_1@example.com', password: 'securepassword')
+      @user = User.create!(name: 'Megan', email: 'megan_1@example.com', password: 'securepassword')
+      @user_address_1 = @user.addresses.create!(address: '123 Main St', city: 'Denver', state: 'CO', zip: 80218, nickname: 'Home')
       @order_1 = @user.orders.create!(status: 1)
       @order_2 = @user.orders.create!(status: 0)
       @order_3 = @user.orders.create!(status: 3)
