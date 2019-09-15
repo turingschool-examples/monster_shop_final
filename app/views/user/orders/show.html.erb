@@ -4,6 +4,7 @@
 <p>Status: <%= @order.status %></p>
 <p><%= @order.count_of_items %> items</p>
 <p>Total: <%= number_to_currency(@order.grand_total) %></p>
+<%= button_to 'Change Address', edit_order_path(@order), method: :get if @order.pending? %>
 <%= button_to 'Cancel Order', "/profile/orders/#{@order.id}", method: :delete if @order.pending? %>
 
 <h2>Order Items</h2>
