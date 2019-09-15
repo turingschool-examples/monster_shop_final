@@ -65,7 +65,9 @@ RSpec.describe 'Navigation Restrictions' do
 
   describe 'As a Default User' do
     before :each do
-      @user = User.create(name: 'Megan', address: '123 Main St', city: 'Denver', state: 'CO', zip: 80218, email: 'megan@example.com', password: 'securepassword')
+      @user = User.create(name: 'Megan', email: 'megan@example.com', password: 'securepassword')
+      @user_address = @user.addresses.create!(address: '123 Main St', city: 'Denver', state: 'CO', zip: 80218)
+
       allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(@user)
     end
 
@@ -131,7 +133,9 @@ RSpec.describe 'Navigation Restrictions' do
   describe 'As a Merchant User (Employee)' do
     before :each do
       @merchant = Merchant.create!(name: 'Megans Marmalades', address: '123 Main St', city: 'Denver', state: 'CO', zip: 80218)
-      @m_user = @merchant.users.create(name: 'Megan', address: '123 Main St', city: 'Denver', state: 'CO', zip: 80218, email: 'megan@example.com', password: 'securepassword')
+      @m_user = @merchant.users.create(name: 'Megan', email: 'megan@example.com', password: 'securepassword')
+      @m_user_address = @m_user.addresses.create!(address: '123 Main St', city: 'Denver', state: 'CO', zip: 80218)
+
       allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(@m_user)
     end
 
@@ -159,7 +163,9 @@ RSpec.describe 'Navigation Restrictions' do
 
   describe 'As an Admin' do
     before :each do
-      @admin = User.create(name: 'Megan', address: '123 Main St', city: 'Denver', state: 'CO', zip: 80218, email: 'megan@example.com', password: 'securepassword', role: :admin)
+      @admin = User.create(name: 'Megan', email: 'megan@example.com', password: 'securepassword', role: :admin)
+      @admin_address = @admin.addresses.create!(address: '123 Main St', city: 'Denver', state: 'CO', zip: 80218)
+
       allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(@admin)
     end
 
