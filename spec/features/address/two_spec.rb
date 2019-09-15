@@ -9,12 +9,18 @@ RSpec.describe "Full Address CRUD" do
     end
     it "Users can Edit an address from their profile page" do
       visit profile_path
+
+      expect(page).to have_link("Edit This Address")
     end
     it "Users can Create an address from their profile page" do
+      visit profile_path
 
+      expect(page).to have_link("Create A New Address")
     end
     it "Users can Delete an address from their profile page" do
+      visit profile_path
 
+      expect(page).to have_link("Delete This Address")
     end
   end
 end
