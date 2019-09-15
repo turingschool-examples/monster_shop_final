@@ -5,6 +5,19 @@ class User::OrdersController < ApplicationController
     @user = current_user
   end
 
+  def edit
+    @order = Order.find(params[:id])
+    @address = @order.address
+    @user = @order.user
+  end
+
+  def update
+    @order = Order.find(params[:id])
+    @address = Address.find(params[:format])
+    @order.update(address: @address)
+    redirect_to '/profile/orders'
+  end
+
   def index
     @orders = current_user.orders
   end
