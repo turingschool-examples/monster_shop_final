@@ -32,7 +32,7 @@ Rails.application.routes.draw do
   delete '/profile/orders/:id', to: 'user/orders#cancel'
 
   get '/profile/addresses/new', to: 'user/addresses#new', as: :new_user_address
-  post '/profile/addresses/:id', to: 'user/addresses#create'
+  post '/profile/addresses/:id', to: 'user/addresses#create', as: :create_user_address
   get '/profile/addresses/edit', to: 'user/addresses#edit', as: :edit_user_address
   get '/profile/addresses/:id', to: 'user/addresses#show'
   patch '/profile/addresses/:id', to: 'user/addresses#update'
