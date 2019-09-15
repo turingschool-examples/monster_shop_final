@@ -1,0 +1,14 @@
+<h1>Update Your Address</h1>
+
+<p>Current Shipping Address:<%= @address.address %> <%= @address.city %> <%= @address.state %>, <%= @address.zip %></p>
+
+<p>Available Addresses</p>
+<% @user.addresses.each do |address| %>
+<section id='address-<%= address.id %>'>
+  <% if address == @address %>
+  <% else %>
+    <p><%= address.address %> <%= address.city %> <%= address.state %>, <%= address.zip %></p>
+    <%= link_to "Use This Address", update_order_path(@order, address), method: :patch %>
+  <% end %>
+</section>
+<% end %>
