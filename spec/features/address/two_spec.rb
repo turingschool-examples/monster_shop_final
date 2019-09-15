@@ -5,7 +5,11 @@ RSpec.describe "Full Address CRUD" do
     before :each do
       @user = User.create!(name: 'Megan', email: 'megan@example.com', password: 'securepassword')
       @user_address = @user.addresses.create!(address: '123 Main St', city: 'Denver', state: 'CO', zip: 80218)
-      allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(@user)
+      visit login_path
+
+      fill_in 'Email', with: @user.email
+      fill_in 'Password', with: @user.password
+      click_button 'Log In'
     end
     it "Users can Edit an address from their profile page" do
       visit profile_path
