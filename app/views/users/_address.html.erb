@@ -1,11 +1,13 @@
 <h1><%= @user.name %></h1>
 <p><%= @user.email %></p>
   <% @user.addresses.each do |address| %>
-<p><%= address.address %></p>
-<p><%= address.city %> <%= address.state %> <%= address.zip %></p>
-<%= link_to 'Edit This Address', edit_user_address_path(address) %>
-  <% if address.shipped_orders.any? %>
-  <% else %>
-    <%= link_to 'Delete This Address', delete_address_path(address), method: :delete %>
+  <section id="address-<%= address.id %>">
+    <p><%= address.address %></p>
+    <p><%= address.city %> <%= address.state %> <%= address.zip %></p>
+    <%= link_to 'Edit This Address', edit_user_address_path(address) %>
+      <% if address.shipped_orders.any? %>
+      <% else %>
+        <%= link_to 'Delete This Address', delete_address_path(address), method: :delete %>
+      <% end %>
+    </section>
   <% end %>
-<% end %>
