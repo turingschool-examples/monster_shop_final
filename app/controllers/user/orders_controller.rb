@@ -1,6 +1,10 @@
 class User::OrdersController < ApplicationController
   before_action :exclude_admin
 
+  def new
+    @user = current_user
+  end
+
   def index
     @orders = current_user.orders
   end
@@ -10,7 +14,9 @@ class User::OrdersController < ApplicationController
   end
 
   def create
+    address = Address.find(params[:format])
     order = current_user.orders.new
+    order.update(address_id: address.id)
     order.save
       cart.items.each do |item|
         order.order_items.create({
