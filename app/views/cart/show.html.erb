@@ -18,7 +18,7 @@
   <% end %>
   <section id='checkout'>
     <% if current_user %>
-      <%= button_to 'Check Out', '/orders' %>
+      <%= button_to 'Check Out', new_order_path(cart), method: :get%>
     <% else %>
       <p>You must <%= link_to 'register', registration_path %> or <%= link_to 'log in', login_path %> to checkout.</p>
     <% end %>

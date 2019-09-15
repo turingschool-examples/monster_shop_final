@@ -1,0 +1,10 @@
+<h1>Choose Your Shipping Address</h1>
+<% @user.addresses.each do |address| %>
+<section id='address-<%= address.id %>'>
+  <p><%= address.address %></p>
+  <p><%= address.city %></p>
+  <p><%= address.state %></p>
+  <p><%= address.zip %></p>
+  <%= link_to 'Choose This Address', create_order_path(address), method: :post %>
+</section>
+<% end %>
