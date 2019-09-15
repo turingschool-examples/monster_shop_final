@@ -7,8 +7,13 @@ class User::AddressesController < User::BaseController
 
   def create
     @user = current_user
-    @address = @user.addresses.create(address_params)
-    redirect_to profile_path
+    @address = @user.addresses.new(address_params)
+    if @address.save
+      redirect_to profile_path
+    else
+      generate_flash(@address)
+      render :new
+    end
   end
 
   def edit
