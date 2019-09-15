@@ -26,6 +26,8 @@ RSpec.describe 'Create Order' do
 
       click_button 'Check Out'
 
+      click_on 'Choose This Address'
+
       order = Order.last
 
       expect(current_path).to eq('/profile/orders')
