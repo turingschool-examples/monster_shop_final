@@ -6,7 +6,9 @@ class User::AddressesController < User::BaseController
   end
 
   def create
-    
+    @user = User.find(params[:id])
+    @address = @user.addresses.create(address_params)
+    redirect_to profile_path
   end
 
   def edit
@@ -17,6 +19,12 @@ class User::AddressesController < User::BaseController
     address = Address.find(params[:id])
     address.destroy
     redirect_to profile_path
+  end
+
+  private
+
+  def address_params
+    params.require(:address).permit(:address, :city, :state, :zip)
   end
 
 end
