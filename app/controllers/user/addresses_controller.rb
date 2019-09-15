@@ -1,7 +1,12 @@
 class User::AddressesController < User::BaseController
 
   def new
+    @user = User.find(params[:format])
+    @address = @user.addresses.build
+  end
 
+  def create
+    
   end
 
   def edit
