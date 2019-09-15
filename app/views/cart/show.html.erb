@@ -18,7 +18,11 @@
   <% end %>
   <section id='checkout'>
     <% if current_user %>
-      <%= button_to 'Check Out', new_order_path(cart), method: :get%>
+      <% if current_user.addresses.any? %>
+          <%= button_to 'Check Out', new_order_path, method: :get%>
+      <% else %>
+          <p>Before you can check out, you must <%= link_to 'add an address', new_user_address_path %></p>
+      <% end %>
     <% else %>
       <p>You must <%= link_to 'register', registration_path %> or <%= link_to 'log in', login_path %> to checkout.</p>
     <% end %>
