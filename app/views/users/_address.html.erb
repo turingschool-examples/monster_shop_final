@@ -3,6 +3,6 @@
   <%= @user.addresses.each do |address| %>
 <p><%= address.address %></p>
 <p><%= address.city %> <%= address.state %> <%= address.zip %></p>
-<%= link_to 'Edit This Address', edit_user_address_path, method: :get %>
-<%= link_to 'Delete This Address', delete_address_path, method: :delete %>
+<%= link_to 'Edit This Address', edit_user_address_path(address), method: :get %>
+<%= link_to 'Delete This Address', delete_address_path(address), method: :delete %>
 <% end %>
