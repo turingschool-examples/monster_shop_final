@@ -1,4 +1,3 @@
-# 4. When a user checks out on the cart show page, they will have the ability to choose one of their addresses where they'd like the order shipped.
 require 'rails_helper'
 RSpec.describe "Choose Address At Cart Checkout" do
   describe "As a registered user with more than one address" do
