@@ -19,6 +19,17 @@ RSpec.describe "Full Address CRUD" do
 
       expect(current_path).to eq(edit_user_address_path(@user_address))
       expect(page).to have_content("Edit Address Form")
+
+      fill_in "Address", with: "123 Tree St"
+      fill_in "City", with: "Chicago"
+      fill_in "State", with: "FL"
+
+      click_on "Update Address"
+      expect(current_path).to eq(profile_path)
+      expect(page).to have_content("123 Tree St")
+      expect(page).to have_content("Chicago")
+      expect(page).to have_content("FL")
+      expect(page).to have_content("80218")
     end
     it "Users can Create an address from their profile page" do
       visit profile_path
@@ -36,6 +47,10 @@ RSpec.describe "Full Address CRUD" do
 
       click_on "Create Address"
       expect(current_path).to eq(profile_path)
+      expect(page).to have_content("123 Tree St")
+      expect(page).to have_content("Chicago")
+      expect(page).to have_content("FL")
+      expect(page).to have_content("80237")
     end
     it "Users can Delete an address from their profile page" do
       visit profile_path
