@@ -12,7 +12,13 @@ class User::AddressesController < User::BaseController
   end
 
   def edit
+    @address = Address.find(params[:format])
+  end
 
+  def update
+    @address = Address.find(params[:id])
+    @address.update(address_params)
+    redirect_to profile_path
   end
 
   def destroy
