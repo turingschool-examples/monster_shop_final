@@ -28,7 +28,14 @@ RSpec.describe "Full Address CRUD" do
 
       expect(current_path).to eq(new_user_address_path(@user))
       expect(page).to have_content("New Address Form")
-      
+
+      fill_in "Address", with: "123 Tree St"
+      fill_in "City", with: "Chicago"
+      fill_in "State", with: "FL"
+      fill_in "Zip", with: "80237"
+
+      click_on "Create Address"
+      expect(current_path).to eq(profile_path)
     end
     it "Users can Delete an address from their profile page" do
       visit profile_path
