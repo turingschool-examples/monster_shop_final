@@ -72,10 +72,10 @@ RSpec.describe Order do
     before :each do
       @user = User.create!(name: 'Megan', email: 'megan_1@example.com', password: 'securepassword')
       @user_address_1 = @user.addresses.create!(address: '123 Main St', city: 'Denver', state: 'CO', zip: 80218, nickname: 'Home')
-      @order_1 = @user.orders.create!(status: 1, address: @user_address_1)
-      @order_2 = @user.orders.create!(status: 0, address: @user_address_1)
-      @order_3 = @user.orders.create!(status: 3, address: @user_address_1)
-      @order_4 = @user.orders.create!(status: 2, address: @user_address_1)
+      @order_1 = @user.orders.create!(status: 1, address_id: @user_address_1.id)
+      @order_2 = @user.orders.create!(status: 0, address_id: @user_address_1.id)
+      @order_3 = @user.orders.create!(status: 3, address_id: @user_address_1.id)
+      @order_4 = @user.orders.create!(status: 2, address_id: @user_address_1.id)
     end
 
     it '.by_status' do
