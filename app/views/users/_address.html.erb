@@ -4,5 +4,8 @@
 <p><%= address.address %></p>
 <p><%= address.city %> <%= address.state %> <%= address.zip %></p>
 <%= link_to 'Edit This Address', edit_user_address_path(address) %>
-<%= link_to 'Delete This Address', delete_address_path(address), method: :delete %>
+  <% if address.shipped_orders.any? %>
+  <% else %>
+    <%= link_to 'Delete This Address', delete_address_path(address), method: :delete %>
+  <% end %>
 <% end %>
