@@ -32,6 +32,7 @@ Users will have more than one address associated with their profile. Each addres
 
 #### Implementation Guidelines
 
+1. Exisiting tests should still pass. Since you will need to make major changes to your database schema, you will probably break **many** tests. It's recommended that you focus on the completion criteria described above before going back and refactoring your code so that your existing tests still work.
 1. Every order show page should display the chosen shipping address.
 1. Statistics related to city/state should still work as before.
 
