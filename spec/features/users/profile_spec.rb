@@ -5,6 +5,8 @@ RSpec.describe "User Profile Path" do
     before :each do
       @user = User.create!(name: 'Megan', address: '123 Main St', city: 'Denver', state: 'CO', zip: 80218, email: 'megan@example.com', password: 'securepassword')
       @admin = User.create!(name: 'Megan', address: '123 Main St', city: 'Denver', state: 'CO', zip: 80218, email: 'admin@example.com', password: 'securepassword')
+      @address_1 = AddressUser.first
+      @address_2 = @user.address_users.create!(address: '456 Main st', city: 'Dallas', state: 'TX', zip: 75402, nickname: 'Work')
     end
 
     it "I can view my profile page" do
@@ -104,6 +106,129 @@ RSpec.describe "User Profile Path" do
 
       expect(page).to have_content("email: [\"has already been taken\"]")
       expect(page).to have_button "Update Profile"
+    end
+
+    it "I can add a new Address, assign it as my default, then change my default through the address index" do
+      visit login_path
+
+      fill_in 'Email', with: @user.email
+      fill_in 'Password', with: @user.password
+      click_button 'Log In'
+
+      visit profile_path
+
+      expect(@user.current_address).to eq('home')
+
+      within "#current-address" do
+        expect(page).to have_content("Current Address: Home")
+        expect(page).to have_content(@user.name)
+        expect(page).to have_content(@user.email)
+        expect(page).to have_content(@user.address)
+        expect(page).to have_content("#{@user.city} #{@user.state} #{@user.zip}")
+        expect(page).to have_link("All Addresses")
+        expect(page).to have_link("Add New Address")
+        expect(page).to have_link("Edit Current Address")
+        expect(page).to have_link("Delete Current Address")
+        click_link 'Add New Address'
+      end
+
+      expect(current_path).to eq('/profile/address/new')
+
+      address = '124 new str'
+      city = 'new town'
+      state = 'NY'
+      zip = '12034'
+      nickname = 'gf'
+
+      fill_in "Address", with: address
+      fill_in "City", with: city
+      fill_in "State", with: state
+      fill_in "Zip", with: zip
+      fill_in "Nickname", with: nickname
+      select("Yes", from: 'main_address')
+
+      click_button 'Create Address'
+
+      expect(current_path).to eq(profile_path)
+      expect(@user.current_address).to eq('gf')
+      @address_3 = AdressUser.last
+
+      within "#current-address" do
+        expect(page).to have_content("Current Address: gf")
+        expect(page).to have_content(address)
+        expect(page).to have_content(city)
+        expect(page).to have_content(state)
+        expect(page).to have_content(zip)
+        click_link 'All Addresses'
+      end
+
+      expect(current_path).to eq("/profile/address")
+
+      within "#address-#{@address_1.id}" do
+        expect(page).to have_content('123 Main St')
+        expect(page).to have_content('Denver')
+        expect(page).to have_content('CO')
+        expect(page).to have_content('80218')
+        expect(page).to have_content('Home')
+        expect(page).to have_link('Set as default address')
+      end
+
+      within "#address-#{@address_3.id}" do
+        expect(page).to have_content("Currently used as default address.")
+        expect(page).to have_content(@address_3.address)
+        expect(page).to have_content(@address_3.city)
+        expect(page).to have_content(@address_3.state)
+        expect(page).to have_content(@address_3.zip)
+        expect(page).to have_content(@address_3.nickname)
+      end
+
+      within "#address-#{@address_2.id}" do
+        expect(page).to have_content(@address_2.address)
+        expect(page).to have_content(@address_2.city)
+        expect(page).to have_content(@address_2.state)
+        expect(page).to have_content(@address_2.zip)
+        expect(page).to have_content(@address_2.nickname)
+        expect(page).to have_link('Set as default address')
+        click_link 'Set as default address'
+      end
+
+      expect(current_path).to eq(profile_path)
+
+      within "#current-address" do
+        expect(page).to have_content("Current Address: Work")
+        expect(page).to have_content(@address_2.address)
+        expect(page).to have_content(@address_2.city)
+        expect(page).to have_content(@address_2.state)
+        expect(page).to have_content(@address_2.zip)
+        click_link 'Add New Address'
+      end
+
+      address = '123 Bad st'
+      city = 'Badville'
+      state = 'NY'
+      zip = '12034'
+      nickname = 'dealer'
+
+      fill_in "Address", with: address
+      fill_in "City", with: city
+      fill_in "State", with: state
+      fill_in "Zip", with: zip
+      fill_in "Nickname", with: nickname
+      select("No", from: 'main_address')
+
+      click_button 'Create Address'
+
+      @address_4 = AddressUser.last
+      expect(current_path).to eq(profile_path)
+      expect(@user.current_address).to eq('Work')
+
+      within "#current-address" do
+        expect(page).to have_content("Current Address: Work")
+        expect(page).to have_content(@address_2.address)
+        expect(page).to have_content(@address_2.city)
+        expect(page).to have_content(@address_2.state)
+        expect(page).to have_content(@address_2.zip)
+      end
     end
   end
 end
