@@ -2,14 +2,15 @@ require 'rails_helper'
 
 RSpec.describe Order do
   describe 'relationships' do
-    xit {should have_many :order_items}
-    xit {should have_many(:items).through(:order_items)}
-    xit {should belong_to :user}
+    it {should have_many :order_items}
+    it {should have_many(:items).through(:order_items)}
+    it {should belong_to :user}
+    it {should belong_to :address}
   end
 
-  describe 'Validations' do
-    it {should validate_presence_of :address_id}
-  end
+  # describe 'Validations' do
+  #   it {should validate_presence_of :address_id}
+  # end
 
   describe 'instance methods' do
     before :each do
