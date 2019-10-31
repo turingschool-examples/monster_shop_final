@@ -3,7 +3,7 @@ require 'rails_helper'
 RSpec.describe 'Site Navigation' do
   describe 'As a Visitor' do
     describe 'I see a nav bar where I can link to' do
-      it 'the welcome page' do
+      xit 'the welcome page' do
         visit items_path
 
         within 'nav' do
@@ -13,7 +13,7 @@ RSpec.describe 'Site Navigation' do
         expect(current_path).to eq(root_path)
       end
 
-      it 'all items' do
+      xit 'all items' do
         visit root_path
 
         within 'nav' do
@@ -23,7 +23,7 @@ RSpec.describe 'Site Navigation' do
         expect(current_path).to eq(items_path)
       end
 
-      it 'all merchants' do
+      xit 'all merchants' do
         visit root_path
 
         within 'nav' do
@@ -33,7 +33,7 @@ RSpec.describe 'Site Navigation' do
         expect(current_path).to eq(merchants_path)
       end
 
-      it 'my cart' do
+      xit 'my cart' do
         visit root_path
 
         within 'nav' do
@@ -43,7 +43,7 @@ RSpec.describe 'Site Navigation' do
         expect(current_path).to eq(cart_path)
       end
 
-      it 'the login page' do
+      xit 'the login page' do
         visit root_path
 
         within 'nav' do
@@ -53,7 +53,7 @@ RSpec.describe 'Site Navigation' do
         expect(current_path).to eq(login_path)
       end
 
-      it 'the registraton page' do
+      xit 'the registraton page' do
         visit root_path
 
         within 'nav' do
@@ -71,7 +71,7 @@ RSpec.describe 'Site Navigation' do
       allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(@user)
     end
 
-    it 'I see who I am logged in as' do
+    xit 'I see who I am logged in as' do
       visit root_path
 
       within 'nav' do
@@ -80,7 +80,7 @@ RSpec.describe 'Site Navigation' do
     end
 
     describe 'I see a nav bar where I can link to' do
-      it 'the welcome page' do
+      xit 'the welcome page' do
         visit items_path
 
         within 'nav' do
@@ -90,7 +90,7 @@ RSpec.describe 'Site Navigation' do
         expect(current_path).to eq(root_path)
       end
 
-      it 'all items' do
+      xit 'all items' do
         visit root_path
 
         within 'nav' do
@@ -100,7 +100,7 @@ RSpec.describe 'Site Navigation' do
         expect(current_path).to eq(items_path)
       end
 
-      it 'all merchants' do
+      xit 'all merchants' do
         visit root_path
 
         within 'nav' do
@@ -110,7 +110,7 @@ RSpec.describe 'Site Navigation' do
         expect(current_path).to eq(merchants_path)
       end
 
-      it 'my cart' do
+      xit 'my cart' do
         visit root_path
 
         within 'nav' do
@@ -120,7 +120,7 @@ RSpec.describe 'Site Navigation' do
         expect(current_path).to eq(cart_path)
       end
 
-      it 'the logout page' do
+      xit 'the logout page' do
         visit root_path
 
         within 'nav' do
@@ -130,7 +130,7 @@ RSpec.describe 'Site Navigation' do
         expect(current_path).to eq(root_path)
       end
 
-      it 'my profile page' do
+      xit 'my profile page' do
         visit root_path
 
         within 'nav' do
@@ -142,13 +142,13 @@ RSpec.describe 'Site Navigation' do
     end
 
     describe 'I do not see in my nav bar' do
-      it 'the login link' do
+      xit 'the login link' do
         visit root_path
 
         expect(page).to_not have_link('Log In')
       end
 
-      it 'the registration link' do
+      xit 'the registration link' do
         visit root_path
 
         expect(page).to_not have_link('Register')
@@ -163,7 +163,7 @@ RSpec.describe 'Site Navigation' do
       allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(@m_user)
     end
 
-    it 'I see who I am logged in as' do
+    xit 'I see who I am logged in as' do
       visit root_path
 
       within 'nav' do
@@ -172,7 +172,7 @@ RSpec.describe 'Site Navigation' do
     end
 
     describe 'I see a nav bar where I can link to' do
-      it 'the welcome page' do
+      xit 'the welcome page' do
         visit items_path
 
         within 'nav' do
@@ -182,7 +182,7 @@ RSpec.describe 'Site Navigation' do
         expect(current_path).to eq(root_path)
       end
 
-      it 'all items' do
+      xit 'all items' do
         visit root_path
 
         within 'nav' do
@@ -192,7 +192,7 @@ RSpec.describe 'Site Navigation' do
         expect(current_path).to eq(items_path)
       end
 
-      it 'all merchants' do
+      xit 'all merchants' do
         visit root_path
 
         within 'nav' do
@@ -202,7 +202,7 @@ RSpec.describe 'Site Navigation' do
         expect(current_path).to eq(merchants_path)
       end
 
-      it 'my cart' do
+      xit 'my cart' do
         visit root_path
 
         within 'nav' do
@@ -212,7 +212,7 @@ RSpec.describe 'Site Navigation' do
         expect(current_path).to eq(cart_path)
       end
 
-      it 'the logout page' do
+      xit 'the logout page' do
         visit root_path
 
         within 'nav' do
@@ -222,7 +222,7 @@ RSpec.describe 'Site Navigation' do
         expect(current_path).to eq(root_path)
       end
 
-      it 'my profile page' do
+      xit 'my profile page' do
         visit root_path
 
         within 'nav' do
@@ -232,7 +232,7 @@ RSpec.describe 'Site Navigation' do
         expect(current_path).to eq(profile_path)
       end
 
-      it 'my merchant page' do
+      xit 'my merchant page' do
         visit root_path
 
         within 'nav' do
@@ -244,13 +244,13 @@ RSpec.describe 'Site Navigation' do
     end
 
     describe 'I do not see in my nav bar' do
-      it 'the login link' do
+      xit 'the login link' do
         visit root_path
 
         expect(page).to_not have_link('Log In')
       end
 
-      it 'the registration link' do
+      xit 'the registration link' do
         visit root_path
 
         expect(page).to_not have_link('Register')
@@ -264,7 +264,7 @@ RSpec.describe 'Site Navigation' do
       allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(@admin)
     end
 
-    it 'I see who I am logged in as' do
+    xit 'I see who I am logged in as' do
       visit root_path
 
       within 'nav' do
@@ -273,7 +273,7 @@ RSpec.describe 'Site Navigation' do
     end
 
     describe 'I see a nav bar where I can link to' do
-      it 'the welcome page' do
+      xit 'the welcome page' do
         visit items_path
 
         within 'nav' do
@@ -283,7 +283,7 @@ RSpec.describe 'Site Navigation' do
         expect(current_path).to eq(root_path)
       end
 
-      it 'all items' do
+      xit 'all items' do
         visit root_path
 
         within 'nav' do
@@ -293,7 +293,7 @@ RSpec.describe 'Site Navigation' do
         expect(current_path).to eq(items_path)
       end
 
-      it 'all merchants' do
+      xit 'all merchants' do
         visit root_path
 
         within 'nav' do
@@ -303,7 +303,7 @@ RSpec.describe 'Site Navigation' do
         expect(current_path).to eq(merchants_path)
       end
 
-      it 'the logout page' do
+      xit 'the logout page' do
         visit root_path
 
         within 'nav' do
@@ -313,7 +313,7 @@ RSpec.describe 'Site Navigation' do
         expect(current_path).to eq(root_path)
       end
 
-      it 'my profile page' do
+      xit 'my profile page' do
         visit root_path
 
         within 'nav' do
@@ -323,7 +323,7 @@ RSpec.describe 'Site Navigation' do
         expect(current_path).to eq(profile_path)
       end
 
-      it 'my merchant page' do
+      xit 'my merchant page' do
         visit root_path
 
         within 'nav' do
@@ -335,19 +335,19 @@ RSpec.describe 'Site Navigation' do
     end
 
     describe 'I do not see in my nav bar' do
-      it 'the login link' do
+      xit 'the login link' do
         visit root_path
 
         expect(page).to_not have_link('Log In')
       end
 
-      it 'the registration link' do
+      xit 'the registration link' do
         visit root_path
 
         expect(page).to_not have_link('Register')
       end
 
-      it 'a cart link' do
+      xit 'a cart link' do
         visit root_path
 
         expect(page).to_not have_link('Cart')

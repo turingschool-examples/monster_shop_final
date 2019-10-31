@@ -18,7 +18,7 @@ RSpec.describe 'User Order Show Page' do
       allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(@user)
     end
 
-    it 'I can link to my orders from my profile' do
+    xit 'I can link to my orders from my profile' do
       visit profile_path
 
       click_link 'My Orders'
@@ -26,7 +26,7 @@ RSpec.describe 'User Order Show Page' do
       expect(current_path).to eq('/profile/orders')
     end
 
-    it 'I see order information on the show page' do
+    xit 'I see order information on the show page' do
       visit '/profile/orders'
 
       within "#order-#{@order_1.id}" do

@@ -19,7 +19,7 @@ RSpec.describe 'Order Show Page' do
       allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(@user)
     end
 
-    it 'I can link from my orders to an order show page' do
+    xit 'I can link from my orders to an order show page' do
       visit '/profile/orders'
 
       click_link @order_1.id
@@ -27,7 +27,7 @@ RSpec.describe 'Order Show Page' do
       expect(current_path).to eq("/profile/orders/#{@order_1.id}")
     end
 
-    it 'I see order information on the show page' do
+    xit 'I see order information on the show page' do
       visit "/profile/orders/#{@order_2.id}"
 
       expect(page).to have_content(@order_2.id)
@@ -54,7 +54,7 @@ RSpec.describe 'Order Show Page' do
       end
     end
 
-    it 'I see a link to cancel an order, only on a pending order show page' do
+    xit 'I see a link to cancel an order, only on a pending order show page' do
       visit "/profile/orders/#{@order_1.id}"
 
       expect(page).to_not have_button('Cancel Order')
@@ -64,7 +64,7 @@ RSpec.describe 'Order Show Page' do
       expect(page).to have_button('Cancel Order')
     end
 
-    it 'I can cancel an order to return its contents to the items inventory' do
+    xit 'I can cancel an order to return its contents to the items inventory' do
       visit "/profile/orders/#{@order_2.id}"
 
       click_button 'Cancel Order'

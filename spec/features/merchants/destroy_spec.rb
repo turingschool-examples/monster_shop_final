@@ -12,7 +12,7 @@ RSpec.describe 'Destroy Existing Merchant' do
       @order.order_items.create(item: @ogre, quantity: 3, price: @ogre.price)
     end
 
-    it 'I can click button to destroy merchant from database' do
+    xit 'I can click button to destroy merchant from database' do
       visit "/merchants/#{@brian.id}"
 
       click_button 'Delete'
@@ -21,7 +21,7 @@ RSpec.describe 'Destroy Existing Merchant' do
       expect(page).to_not have_content(@brian.name)
     end
 
-    it 'When a merchant is destroyed, their items are also destroyed' do
+    xit 'When a merchant is destroyed, their items are also destroyed' do
       page.driver.submit :delete, merchant_path(@brian), {}
 
       visit items_path
@@ -30,13 +30,13 @@ RSpec.describe 'Destroy Existing Merchant' do
     end
 
     describe 'If a merchant has items that have been ordered' do
-      it 'I do not see a button to delete the merchant' do
+      xit 'I do not see a button to delete the merchant' do
         visit merchant_path(@megan)
 
         expect(page).to_not have_button('Delete')
       end
 
-      it 'I can not delete a merchant' do
+      xit 'I can not delete a merchant' do
         page.driver.submit :delete, merchant_path(@megan), {}
 
         expect(page).to have_content(@megan.name)

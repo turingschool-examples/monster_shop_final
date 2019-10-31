@@ -20,7 +20,7 @@ RSpec.describe 'Merchant Show Page' do
       @order_2.order_items.create!(item: @ogre, price: @hippo.price, quantity: 2)
     end
 
-    it 'I see merchant name and address' do
+    xit 'I see merchant name and address' do
       visit "/merchants/#{@megan.id}"
 
       expect(page).to have_content(@megan.name)
@@ -31,7 +31,7 @@ RSpec.describe 'Merchant Show Page' do
       end
     end
 
-    it 'I see a link to this merchants items' do
+    xit 'I see a link to this merchants items' do
       visit "/merchants/#{@megan.id}"
 
       click_link "Items"
@@ -39,7 +39,7 @@ RSpec.describe 'Merchant Show Page' do
       expect(current_path).to eq("/items")
     end
 
-    it 'I see merchant statistics' do
+    xit 'I see merchant statistics' do
       visit "/merchants/#{@megan.id}"
 
       within '.statistics' do
@@ -49,7 +49,7 @@ RSpec.describe 'Merchant Show Page' do
       end
     end
 
-    it 'I see stats for merchants with items, but no orders' do
+    xit 'I see stats for merchants with items, but no orders' do
       visit "/merchants/#{@brian.id}"
 
       within '.statistics' do
@@ -59,7 +59,7 @@ RSpec.describe 'Merchant Show Page' do
       end
     end
 
-    it 'I see stats for merchants with no items or orders' do
+    xit 'I see stats for merchants with no items or orders' do
       visit "/merchants/#{@sal.id}"
 
       within '.statistics' do

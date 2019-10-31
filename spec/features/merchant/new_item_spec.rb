@@ -9,7 +9,7 @@ RSpec.describe 'New Merchant Item' do
       allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(@m_user)
     end
 
-    it 'I can click a link to a new item form page' do
+    xit 'I can click a link to a new item form page' do
       visit "/merchant/items"
 
       click_link 'New Item'
@@ -17,7 +17,7 @@ RSpec.describe 'New Merchant Item' do
       expect(current_path).to eq("/merchant/items/new")
     end
 
-    it 'I can create an  item for a merchant' do
+    xit 'I can create an  item for a merchant' do
       name = 'Ogre'
       description = "I'm an Ogre!"
       price = 20
@@ -41,7 +41,7 @@ RSpec.describe 'New Merchant Item' do
       expect(page).to have_content("Inventory: #{inventory}")
     end
 
-    it 'I can not create an  item for a merchant with an incomplete form' do
+    xit 'I can not create an  item for a merchant with an incomplete form' do
       name = 'Ogre'
 
       visit "/merchant/items/new"

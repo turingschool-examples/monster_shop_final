@@ -11,7 +11,7 @@ RSpec.describe 'New Review Creation' do
       @review_3 = @ogre.reviews.create(title: 'EW', description: 'This Ogre is Ew', rating: 1)
     end
 
-    it 'I can link to a new review form from the item show page' do
+    xit 'I can link to a new review form from the item show page' do
       visit item_path(@ogre)
 
       within '.reviews' do
@@ -21,7 +21,7 @@ RSpec.describe 'New Review Creation' do
       expect(current_path).to eq(new_item_review_path(@ogre))
     end
 
-    it 'I can create a new review from the new review page' do
+    xit 'I can create a new review from the new review page' do
       visit new_item_review_path(@ogre)
 
       title = 'Super'
@@ -43,7 +43,7 @@ RSpec.describe 'New Review Creation' do
       end
     end
 
-    it 'I can not create a new review with a rating greater than 5' do
+    xit 'I can not create a new review with a rating greater than 5' do
       visit new_item_review_path(@ogre)
 
       title = 'Super'
@@ -59,7 +59,7 @@ RSpec.describe 'New Review Creation' do
       expect(page).to have_button 'Create Review'
     end
 
-    it 'I can not create a review with a rating less than 1' do
+    xit 'I can not create a review with a rating less than 1' do
       visit new_item_review_path(@ogre)
 
       title = 'Super'
@@ -75,7 +75,7 @@ RSpec.describe 'New Review Creation' do
       expect(page).to have_button 'Create Review'
     end
 
-    it 'I can not create a review without a title' do
+    xit 'I can not create a review without a title' do
       visit new_item_review_path(@ogre)
 
       title = 'Super'
@@ -90,7 +90,7 @@ RSpec.describe 'New Review Creation' do
       expect(page).to have_button 'Create Review'
     end
 
-    it 'I can not create a review without a description' do
+    xit 'I can not create a review without a description' do
       visit new_item_review_path(@ogre)
 
       title = 'Super'

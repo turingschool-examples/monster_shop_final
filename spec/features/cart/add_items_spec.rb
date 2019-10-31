@@ -10,7 +10,7 @@ RSpec.describe "Add Items to Cart" do
       @hippo = @brian.items.create!(name: 'Hippo', description: "I'm a Hippo!", price: 50, image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTaLM_vbg2Rh-mZ-B4t-RSU9AmSfEEq_SN9xPP_qrA2I6Ftq_D9Qw', active: true, inventory: 3 )
     end
 
-    it "I can add an item from the items show page" do
+    xit "I can add an item from the items show page" do
       visit item_path(@ogre)
 
       click_button 'Add to Cart'
@@ -20,7 +20,7 @@ RSpec.describe "Add Items to Cart" do
       expect(page).to have_content("Cart: 1")
     end
 
-    it "I can add multiple items from the items show page" do
+    xit "I can add multiple items from the items show page" do
       visit item_path(@ogre)
 
       click_button 'Add to Cart'
