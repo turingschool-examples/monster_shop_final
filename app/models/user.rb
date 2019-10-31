@@ -3,13 +3,10 @@ class User < ApplicationRecord
 
   belongs_to :merchant, optional: true
   has_many :orders
-  #has_many :address_users
+  has_many :addresses
 
   validates_presence_of :name,
                         :address,
-                        :city,
-                        :state,
-                        :zip,
                         :email
 
   validates_uniqueness_of :email
