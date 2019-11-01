@@ -3,8 +3,8 @@ require 'rails_helper'
 RSpec.describe Address do
   describe 'Relationships' do
     it {should belong_to :user}
-    it {should have_many(:orders).through(:users)}
-    # it {should have_many :orders}
+    it {should have_many :orders}
+    # it {should have_many(:orders).through(:users)}
   end
 
   describe 'Validations' do
@@ -13,6 +13,7 @@ RSpec.describe Address do
     it {should validate_presence_of :state}
     it {should validate_presence_of :zip}
     it {should validate_presence_of :nickname}
-    it {should validate_uniqueness_of :nickname}
+    it {should validate_uniqueness_of :nickname} 
   end
+
 end

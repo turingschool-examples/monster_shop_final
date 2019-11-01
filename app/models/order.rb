@@ -3,7 +3,7 @@ class Order < ApplicationRecord
   has_many :items, through: :order_items
   belongs_to :user
   belongs_to :address
-
+  validates_associated :address
   # validates_presence_of :address_id
 
   enum status: ['pending', 'packaged', 'shipped', 'cancelled']
