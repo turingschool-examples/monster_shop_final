@@ -18,6 +18,20 @@ class Merchant::CouponsController < Merchant::BaseController
     end
   end
 
+  def edit
+    @coupon = Coupon.find(params[:id])
+  end
+
+  def update
+    coupon = Coupon.find(params[:id])
+    if coupon.update(coupon_params)
+      redirect_to '/merchant/coupons'
+    else
+      generate_flash(coupon)
+      render :edit
+    end
+  end
+
   private
 
   def coupon_params
