@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 Rails.application.routes.draw do
-  # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
   get :root, to: 'welcome#index'
 
   resources :merchants do
@@ -41,6 +40,7 @@ Rails.application.routes.draw do
     resources :items, only: %i[index new create edit update destroy]
     put '/items/:id/change_status', to: 'items#change_status'
     get '/orders/:id/fulfill/:order_item_id', to: 'orders#fulfill'
+    get '/coupons', to: 'coupons#index'
   end
 
   namespace :admin do
