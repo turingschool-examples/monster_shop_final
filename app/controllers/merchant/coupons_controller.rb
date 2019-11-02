@@ -9,12 +9,12 @@ class Merchant::CouponsController < Merchant::BaseController
 
   def create
     merchant = current_user.merchant
-    coupon = merchant.coupons.new(coupon_params)
-    if coupon.save
+    coupon = merchant.coupons.create(coupon_params)
+    if coupon.save && merchant.coupons.count <= 5
       redirect_to '/merchant/coupons'
     else
-      generate_flash(merchant)
-      render :new
+      flash[:notice] = 'You already have 5 coupons, which is the limit.'
+      redirect_to new_merchant_coupon_path
     end
   end
 
