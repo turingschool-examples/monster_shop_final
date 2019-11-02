@@ -3,7 +3,7 @@ class User < ApplicationRecord
 
   belongs_to :merchant, optional: true
   has_many :orders
-  has_many :addresses
+  has_many :addresses # :inverse_of could be called here (and in address model) to gain access to each others private methods. 
 
   validates_presence_of :name,
                         :email
