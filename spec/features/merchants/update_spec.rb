@@ -1,9 +1,11 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
 RSpec.describe 'Existing Merchant Update' do
   describe 'As a Visitor' do
     before :each do
-      @megan = Merchant.create!(name: 'Megans Marmalades', address: '123 Main St', city: 'Denver', state: 'CO', zip: 80218)
+      @megan = Merchant.create!(name: 'Megans Marmalades', address: '123 Main St', city: 'Denver', state: 'CO', zip: 80_218)
     end
 
     it 'I can link to an edit merchant page from merchant show page' do
@@ -19,9 +21,9 @@ RSpec.describe 'Existing Merchant Update' do
 
       name = 'Megans Monsters'
       address = '321 Main St'
-      city = "Denver"
-      state = "CO"
-      zip = 80218
+      city = 'Denver'
+      state = 'CO'
+      zip = 80_218
 
       fill_in 'Name', with: name
       fill_in 'Address', with: address
@@ -40,7 +42,6 @@ RSpec.describe 'Existing Merchant Update' do
         expect(page).to have_content("#{city} #{state} #{zip}")
       end
     end
-
 
     it 'I can not edit a merchant with an incomplete form' do
       visit "/merchants/#{@megan.id}/edit"

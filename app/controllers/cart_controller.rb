@@ -1,6 +1,8 @@
+# frozen_string_literal: true
+
 class CartController < ApplicationController
   before_action :exclude_admin
-  
+
   def add_item
     item = Item.find(params[:item_id])
     session[:cart] ||= {}
@@ -14,8 +16,7 @@ class CartController < ApplicationController
     redirect_to items_path
   end
 
-  def show
-  end
+  def show; end
 
   def empty
     session.delete(:cart)
@@ -28,9 +29,9 @@ class CartController < ApplicationController
   end
 
   def update_quantity
-    if params[:change] == "more"
+    if params[:change] == 'more'
       cart.add_item(params[:item_id])
-    elsif params[:change] == "less"
+    elsif params[:change] == 'less'
       cart.less_item(params[:item_id])
       return remove_item if cart.count_of(params[:item_id]) == 0
     end

@@ -1,13 +1,15 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
-RSpec.describe "User Profile Path" do
-  describe "As a registered user" do
+RSpec.describe 'User Profile Path' do
+  describe 'As a registered user' do
     before :each do
-      @user = User.create!(name: 'Megan', address: '123 Main St', city: 'Denver', state: 'CO', zip: 80218, email: 'megan@example.com', password: 'securepassword')
-      @admin = User.create!(name: 'Megan', address: '123 Main St', city: 'Denver', state: 'CO', zip: 80218, email: 'admin@example.com', password: 'securepassword')
+      @user = User.create!(name: 'Megan', address: '123 Main St', city: 'Denver', state: 'CO', zip: 80_218, email: 'megan@example.com', password: 'securepassword')
+      @admin = User.create!(name: 'Megan', address: '123 Main St', city: 'Denver', state: 'CO', zip: 80_218, email: 'admin@example.com', password: 'securepassword')
     end
 
-    it "I can view my profile page" do
+    it 'I can view my profile page' do
       allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(@user)
       visit profile_path
 
@@ -19,7 +21,7 @@ RSpec.describe "User Profile Path" do
       expect(page).to have_link('Edit')
     end
 
-    it "I can update my profile data" do
+    it 'I can update my profile data' do
       visit login_path
 
       fill_in 'Email', with: @user.email
@@ -37,12 +39,12 @@ RSpec.describe "User Profile Path" do
       state = 'NY'
       zip = '12034'
 
-      fill_in "Name", with: name
-      fill_in "Email", with: email
-      fill_in "Address", with: address
-      fill_in "City", with: city
-      fill_in "State", with: state
-      fill_in "Zip", with: zip
+      fill_in 'Name', with: name
+      fill_in 'Email', with: email
+      fill_in 'Address', with: address
+      fill_in 'City', with: city
+      fill_in 'State', with: state
+      fill_in 'Zip', with: zip
       click_button 'Update Profile'
 
       expect(current_path).to eq(profile_path)
@@ -54,7 +56,7 @@ RSpec.describe "User Profile Path" do
       expect(page).to have_content("#{city} #{state} #{zip}")
     end
 
-    it "I can update my password" do
+    it 'I can update my password' do
       visit login_path
 
       fill_in 'Email', with: @user.email
@@ -65,10 +67,10 @@ RSpec.describe "User Profile Path" do
 
       expect(current_path).to eq('/profile/edit_password')
 
-      password = "newpassword"
+      password = 'newpassword'
 
-      fill_in "Password", with: password
-      fill_in "Password confirmation", with: password
+      fill_in 'Password', with: password
+      fill_in 'Password confirmation', with: password
       click_button 'Change Password'
 
       expect(current_path).to eq(profile_path)
@@ -83,27 +85,27 @@ RSpec.describe "User Profile Path" do
       fill_in 'Password', with: @user.password
       click_button 'Log In'
 
-      expect(page).to have_content("Your email or password was incorrect!")
+      expect(page).to have_content('Your email or password was incorrect!')
 
       visit login_path
 
       fill_in 'Email', with: @user.email
-      fill_in 'Password', with: "newpassword"
+      fill_in 'Password', with: 'newpassword'
       click_button 'Log In'
 
       expect(current_path).to eq(profile_path)
     end
 
-    it "I must use a unique email address" do
+    it 'I must use a unique email address' do
       allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(@user)
 
       visit '/profile/edit'
 
-      fill_in "Email", with: @admin.email
-      click_button "Update Profile"
+      fill_in 'Email', with: @admin.email
+      click_button 'Update Profile'
 
-      expect(page).to have_content("email: [\"has already been taken\"]")
-      expect(page).to have_button "Update Profile"
+      expect(page).to have_content('email: ["has already been taken"]')
+      expect(page).to have_button 'Update Profile'
     end
   end
 end

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class MerchantsController < ApplicationController
   def index
     @merchants = Merchant.all
@@ -7,8 +9,7 @@ class MerchantsController < ApplicationController
     @merchant = Merchant.find(params[:id])
   end
 
-  def new
-  end
+  def new; end
 
   def create
     merchant = Merchant.new(merchant_params)

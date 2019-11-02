@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
 RSpec.describe 'New Merchant Creation' do
@@ -15,9 +17,9 @@ RSpec.describe 'New Merchant Creation' do
 
       name = 'Megans Marmalades'
       address = '123 Main St'
-      city = "Denver"
-      state = "CO"
-      zip = 80218
+      city = 'Denver'
+      state = 'CO'
+      zip = 80_218
 
       fill_in 'Name', with: name
       fill_in 'Address', with: address

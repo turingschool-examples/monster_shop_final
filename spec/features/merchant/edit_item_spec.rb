@@ -1,17 +1,19 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 include ActionView::Helpers::NumberHelper
 
 RSpec.describe 'Update Item Page' do
   describe 'As a Visitor' do
     before :each do
-      @merchant_1 = Merchant.create!(name: 'Megans Marmalades', address: '123 Main St', city: 'Denver', state: 'CO', zip: 80218)
-      @ogre = @merchant_1.items.create!(name: 'Ogre', description: "I'm an Ogre!", price: 20, image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTaLM_vbg2Rh-mZ-B4t-RSU9AmSfEEq_SN9xPP_qrA2I6Ftq_D9Qw', active: true, inventory: 5 )
-      @m_user = @merchant_1.users.create(name: 'Megan', address: '123 Main St', city: 'Denver', state: 'CO', zip: 80218, email: 'megan@example.com', password: 'securepassword')
+      @merchant_1 = Merchant.create!(name: 'Megans Marmalades', address: '123 Main St', city: 'Denver', state: 'CO', zip: 80_218)
+      @ogre = @merchant_1.items.create!(name: 'Ogre', description: "I'm an Ogre!", price: 20, image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTaLM_vbg2Rh-mZ-B4t-RSU9AmSfEEq_SN9xPP_qrA2I6Ftq_D9Qw', active: true, inventory: 5)
+      @m_user = @merchant_1.users.create(name: 'Megan', address: '123 Main St', city: 'Denver', state: 'CO', zip: 80_218, email: 'megan@example.com', password: 'securepassword')
       allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(@m_user)
     end
 
     it 'I can click a link to get to an item edit page' do
-      visit "/merchant/items"
+      visit '/merchant/items'
 
       click_link 'Update Item'
 
@@ -34,11 +36,11 @@ RSpec.describe 'Update Item Page' do
       fill_in 'Inventory', with: inventory
       click_button 'Update Item'
 
-      expect(current_path).to eq("/merchant/items")
+      expect(current_path).to eq('/merchant/items')
       expect(page).to have_content(name)
       expect(page).to have_content(description)
       expect(page).to have_content("Price: #{number_to_currency(price)}")
-      expect(page).to have_content("Active")
+      expect(page).to have_content('Active')
       expect(page).to have_content("Inventory: #{inventory}")
     end
 

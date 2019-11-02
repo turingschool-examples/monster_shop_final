@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class UsersController < ApplicationController
   before_action :require_user, only: :show
   before_action :exclude_admin, only: :show

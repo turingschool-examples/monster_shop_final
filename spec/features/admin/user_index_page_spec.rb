@@ -1,17 +1,19 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
-RSpec.describe "Admin Users Index" do
-  describe "As an Admin" do
+RSpec.describe 'Admin Users Index' do
+  describe 'As an Admin' do
     before :each do
-      @merchant_1 = Merchant.create!(name: 'Megans Marmalades', address: '123 Main St', city: 'Denver', state: 'CO', zip: 80218)
-      @m_user = @merchant_1.users.create(name: 'Megan', address: '123 Main St', city: 'Denver', state: 'CO', zip: 80218, email: 'megan@example.com', password: 'securepassword')
-      @d_user = User.create(name: 'Brian', address: '123 Main St', city: 'Denver', state: 'CO', zip: 80218, email: 'brian@example.com', password: 'securepassword')
-      @a_user = User.create(name: 'Meg', address: '123 Main St', city: 'Denver', state: 'CO', zip: 80218, email: 'meg@example.com', password: 'securepassword', role: 'admin')
-      @admin = User.create(name: 'Sal', address: '123 Main St', city: 'Denver', state: 'CO', zip: 80218, email: 'sal@example.com', password: 'securepassword', role: 'admin')
+      @merchant_1 = Merchant.create!(name: 'Megans Marmalades', address: '123 Main St', city: 'Denver', state: 'CO', zip: 80_218)
+      @m_user = @merchant_1.users.create(name: 'Megan', address: '123 Main St', city: 'Denver', state: 'CO', zip: 80_218, email: 'megan@example.com', password: 'securepassword')
+      @d_user = User.create(name: 'Brian', address: '123 Main St', city: 'Denver', state: 'CO', zip: 80_218, email: 'brian@example.com', password: 'securepassword')
+      @a_user = User.create(name: 'Meg', address: '123 Main St', city: 'Denver', state: 'CO', zip: 80_218, email: 'meg@example.com', password: 'securepassword', role: 'admin')
+      @admin = User.create(name: 'Sal', address: '123 Main St', city: 'Denver', state: 'CO', zip: 80_218, email: 'sal@example.com', password: 'securepassword', role: 'admin')
       allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(@admin)
     end
 
-    it "I can link to a list of all users" do
+    it 'I can link to a list of all users' do
       visit '/admin'
 
       within 'nav' do

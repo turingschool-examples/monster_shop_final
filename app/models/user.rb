@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class User < ApplicationRecord
   has_secure_password
 
@@ -13,5 +15,5 @@ class User < ApplicationRecord
 
   validates_uniqueness_of :email
 
-  enum role: ['default', 'merchant_admin', 'admin']
+  enum role: %w[default merchant_admin admin]
 end

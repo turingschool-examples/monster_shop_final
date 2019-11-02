@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
 
@@ -15,11 +17,11 @@ class ApplicationController < ActionController::Base
   end
 
   def current_merchant_user?
-    current_user && current_user.merchant_id
+    current_user&.merchant_id
   end
 
   def current_admin?
-    current_user && current_user.admin?
+    current_user&.admin?
   end
 
   def require_user

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Item < ApplicationRecord
   belongs_to :merchant
   has_many :order_items
@@ -14,12 +16,12 @@ class Item < ApplicationRecord
     where(active: true)
   end
 
-  def self.by_popularity(limit = nil, order = "DESC")
+  def self.by_popularity(limit = nil, order = 'DESC')
     left_joins(:order_items)
-    .select('items.id, items.name, COALESCE(sum(order_items.quantity), 0) AS total_sold')
-    .group(:id)
-    .order("total_sold #{order}")
-    .limit(limit)
+      .select('items.id, items.name, COALESCE(sum(order_items.quantity), 0) AS total_sold')
+      .group(:id)
+      .order("total_sold #{order}")
+      .limit(limit)
   end
 
   def sorted_reviews(limit = nil, order = :asc)

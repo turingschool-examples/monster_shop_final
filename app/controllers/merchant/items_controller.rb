@@ -1,16 +1,17 @@
+# frozen_string_literal: true
+
 class Merchant::ItemsController < Merchant::BaseController
   def index
     @items = current_user.merchant.items
   end
 
-  def new
-  end
+  def new; end
 
   def create
     merchant = current_user.merchant
     item = merchant.items.new(item_params)
     if item.save
-      redirect_to "/merchant/items"
+      redirect_to '/merchant/items'
     else
       generate_flash(item)
       render :new
@@ -24,7 +25,7 @@ class Merchant::ItemsController < Merchant::BaseController
   def update
     @item = Item.find(params[:id])
     if @item.update(item_params)
-      redirect_to "/merchant/items"
+      redirect_to '/merchant/items'
     else
       generate_flash(@item)
       render :edit
@@ -34,11 +35,11 @@ class Merchant::ItemsController < Merchant::BaseController
   def change_status
     item = Item.find(params[:id])
     item.update(active: !item.active)
-    if item.active?
-      flash[:notice] = "#{item.name} is now available for sale"
-    else
-      flash[:notice] = "#{item.name} is no longer for sale"
-    end
+    flash[:notice] = if item.active?
+                       "#{item.name} is now available for sale"
+                     else
+                       "#{item.name} is no longer for sale"
+                     end
     redirect_to '/merchant/items'
   end
 

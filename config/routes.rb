@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 Rails.application.routes.draw do
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
   get :root, to: 'welcome#index'
@@ -6,11 +8,11 @@ Rails.application.routes.draw do
     resources :items, only: [:index]
   end
 
-  resources :items, only: [:index, :show] do
-    resources :reviews, only: [:new, :create]
+  resources :items, only: %i[index show] do
+    resources :reviews, only: %i[new create]
   end
 
-  resources :reviews, only: [:edit, :update, :destroy]
+  resources :reviews, only: %i[edit update destroy]
 
   get '/cart', to: 'cart#show'
   post '/cart/:item_id', to: 'cart#add_item'
@@ -19,7 +21,7 @@ Rails.application.routes.draw do
   delete '/cart/:item_id', to: 'cart#remove_item'
 
   get '/registration', to: 'users#new', as: :registration
-  resources :users, only: [:create, :update]
+  resources :users, only: %i[create update]
   patch '/user/:id', to: 'users#update'
   get '/profile', to: 'users#show'
   get '/profile/edit', to: 'users#edit'
@@ -36,15 +38,15 @@ Rails.application.routes.draw do
   namespace :merchant do
     get '/', to: 'dashboard#index', as: :dashboard
     resources :orders, only: :show
-    resources :items, only: [:index, :new, :create, :edit, :update, :destroy]
+    resources :items, only: %i[index new create edit update destroy]
     put '/items/:id/change_status', to: 'items#change_status'
     get '/orders/:id/fulfill/:order_item_id', to: 'orders#fulfill'
   end
 
   namespace :admin do
     get '/', to: 'dashboard#index', as: :dashboard
-    resources :merchants, only: [:show, :update]
-    resources :users, only: [:index, :show]
+    resources :merchants, only: %i[show update]
+    resources :users, only: %i[index show]
     patch '/orders/:id/ship', to: 'orders#ship'
   end
 end
