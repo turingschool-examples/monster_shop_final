@@ -28,8 +28,10 @@
       <%= link_to 'Items', '/items' %>
       <%= link_to "Cart: #{cart.count}", cart_path unless current_user && current_admin?%>
     </nav>
-    <% flash.each do |type, message| %>
-    <p><%= message %></p>
+    <% flash.each do |name, msg| %>
+      <div class= "<%=name%>-flash">
+        <p><%= msg %></p>
+      </div>
     <% end %>
     <%= yield %>
   </body>

@@ -58,7 +58,37 @@ describe 'As a Merchant' do
       end
     end
 
-    it 'I can enable/disable a coupon' do
+    it 'I can disable/enable a coupon' do
+      expect(@coupon.enabled?).to eq(true)
+
+      within "#coupon-#{@coupon.id}" do
+        expect(page).to have_content('Enabled')
+        expect(page).to_not have_content('Enable Coupon')
+        click_link 'Disable Coupon'
+      end
+
+      expect(current_path).to eq(merchant_coupons_path)
+
+      expect(page).to have_content("#{@coupon.name} is now disabled")
+
+      @coupon.reload
+      visit merchant_coupons_path
+
+      expect(@coupon.enabled?).to eq(false)
+
+      within "#coupon-#{@coupon.id}" do
+        expect(page).to have_content('Disabled')
+        expect(page).to_not have_content('Disable Coupon')
+        click_link 'Enable Coupon'
+      end
+
+      expect(current_path).to eq(merchant_coupons_path)
+
+      expect(page).to have_content("#{@coupon.name} is now enabled")
+
+      @coupon.reload
+
+      expect(@coupon.enabled?).to eq(true)
     end
 
     it 'I cannot delete a coupon that has been used' do

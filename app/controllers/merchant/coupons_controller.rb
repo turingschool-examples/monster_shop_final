@@ -32,6 +32,18 @@ class Merchant::CouponsController < Merchant::BaseController
     end
   end
 
+  def disable_enable
+    coupon = Coupon.find(params[:id])
+    # binding.pry
+    coupon.toggle!(:enabled?)
+    flash[:notice] = if coupon.enabled?
+                       "#{coupon.name} is now enabled"
+                     else
+                       "#{coupon.name} is now disabled"
+                     end
+    redirect_to merchant_coupons_path
+  end
+
   private
 
   def coupon_params

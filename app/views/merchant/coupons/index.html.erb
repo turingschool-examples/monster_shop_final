@@ -7,6 +7,13 @@
     <p>Coupon Name: <%= coupon.name %></p>
     <p>Discount: <%= number_to_percentage(coupon.discount, precision: 0) %></p>
     <%= link_to 'Edit Coupon', "/merchant/coupons/#{coupon.id}/edit" %>
+    <% if coupon.enabled? %>
+      <p>Enabled</p>
+      <p><%= link_to 'Disable Coupon', "/merchant/coupon/#{coupon.id}", method: :patch %></p>
+    <% else %>
+      <p>Disabled</p>
+      <p><%= link_to 'Enable Coupon', "/merchant/coupon/#{coupon.id}", method: :patch %></p>
+    <% end %>
     <br>
   </section>
 <% end %>

@@ -42,6 +42,7 @@ Rails.application.routes.draw do
     get '/orders/:id/fulfill/:order_item_id', to: 'orders#fulfill'
 
     resources :coupons, only: %i[index new create edit update]
+    patch '/coupon/:id', to: 'coupons#disable_enable'
   end
 
   namespace :admin do
