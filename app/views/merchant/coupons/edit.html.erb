@@ -1,0 +1,5 @@
+<%= form_tag merchant_coupon_path, method: :patch do %>
+  <p>Coupon Name: <%= text_field_tag :name, @coupon.name %></p>
+  <p>Discount: <%= text_field_tag :discount, @coupon.discount %></p>
+  <p><%= submit_tag 'Update Coupon' %></p>
+<%end %>

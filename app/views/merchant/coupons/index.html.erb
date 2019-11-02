@@ -6,6 +6,7 @@
   <section id="coupon-<%= coupon.id %>">
     <p>Coupon Name: <%= coupon.name %></p>
     <p>Discount: <%= number_to_percentage(coupon.discount, precision: 0) %></p>
+    <%= link_to 'Edit Coupon', "/merchant/coupons/#{coupon.id}/edit" %>
     <br>
   </section>
 <% end %>
