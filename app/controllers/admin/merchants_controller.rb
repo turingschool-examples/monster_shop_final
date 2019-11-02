@@ -1,6 +1,7 @@
+# frozen_string_literal: true
+
 class Admin::MerchantsController < Admin::BaseController
-  def show
-  end
+  def show; end
 
   def update
     merchant = Merchant.find(params[:id])
@@ -9,7 +10,7 @@ class Admin::MerchantsController < Admin::BaseController
       merchant.items.update_all(active: true)
       flash[:notice] = "#{merchant.name} has been enabled"
     else
-      merchant.items.update_all(active:false)
+      merchant.items.update_all(active: false)
       flash[:notice] = "#{merchant.name} has been disabled"
     end
     redirect_to merchants_path

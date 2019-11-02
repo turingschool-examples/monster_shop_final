@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
 RSpec.describe 'User Registration' do
@@ -44,7 +46,7 @@ RSpec.describe 'User Registration' do
       end
 
       it 'I use a non-unique email' do
-        user = User.create(name: 'Megan', address: '123 Main St', city: 'Denver', state: 'CO', zip: 80218, email: 'megan@example.com', password: 'securepassword')
+        user = User.create(name: 'Megan', address: '123 Main St', city: 'Denver', state: 'CO', zip: 80_218, email: 'megan@example.com', password: 'securepassword')
 
         visit registration_path
 
@@ -59,7 +61,7 @@ RSpec.describe 'User Registration' do
         click_button 'Register'
 
         expect(page).to have_button('Register')
-        expect(page).to have_content("email: [\"has already been taken\"]")
+        expect(page).to have_content('email: ["has already been taken"]')
       end
     end
   end

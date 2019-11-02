@@ -1,9 +1,11 @@
+# frozen_string_literal: true
+
 class Order < ApplicationRecord
   has_many :order_items
   has_many :items, through: :order_items
   belongs_to :user
 
-  enum status: ['pending', 'packaged', 'shipped', 'cancelled']
+  enum status: %w[pending packaged shipped cancelled]
 
   def grand_total
     order_items.sum('price * quantity')
@@ -23,14 +25,14 @@ class Order < ApplicationRecord
 
   def merchant_subtotal(merchant_id)
     order_items
-      .joins("JOIN items ON order_items.item_id = items.id")
+      .joins('JOIN items ON order_items.item_id = items.id')
       .where("items.merchant_id = #{merchant_id}")
       .sum('order_items.price * order_items.quantity')
   end
 
   def merchant_quantity(merchant_id)
     order_items
-      .joins("JOIN items ON order_items.item_id = items.id")
+      .joins('JOIN items ON order_items.item_id = items.id')
       .where("items.merchant_id = #{merchant_id}")
       .sum('order_items.quantity')
   end

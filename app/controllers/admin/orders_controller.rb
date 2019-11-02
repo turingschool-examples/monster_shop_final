@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Admin::OrdersController < Admin::BaseController
   def ship
     order = Order.find(params[:id])
