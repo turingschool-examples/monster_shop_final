@@ -5,7 +5,7 @@ RSpec.describe "User Profile Path" do
     before :each do
       @user = User.create!(name: 'Megan', email: 'megan@example.com', password: 'securepassword')
       @admin = User.create!(name: 'Megan', email: 'admin@example.com', password: 'securepassword', role: 2)
-      @address_1 = @user.addresses.create!(address: '123 Main St', city: 'Denver', state: 'CO', zip: 80218) #Default nickname should be 'home'
+      @address_1 = @user.addresses.create!(address: '123 Main St', city: 'Denver', state: 'CO', zip: 80218) #Default nickname should be 'Home'
       @address_2 = @user.addresses.create!(address: '456 Main st', city: 'Dallas', state: 'TX', zip: 75402, nickname: 'Work')
     end
 
@@ -107,7 +107,7 @@ RSpec.describe "User Profile Path" do
 
       visit profile_path
 
-      expect(@user.address.nickname).to eq('home')
+      expect(@user.my_address.nickname).to eq('Home')
 
       within "#current-address" do
         expect(page).to have_content("Current Address: Home")
@@ -137,9 +137,10 @@ RSpec.describe "User Profile Path" do
 
       click_button 'Create Address'
 
-      expect(current_path).to eq(profile_path)
-      expect(@user.address.nickname).to eq('gf')
       @address_3 = Address.last
+      expect(@user.default_address).to eq(@address_3.id)
+      expect(current_path).to eq(profile_path)
+      expect(page).to have_content("You have created your Gf address.")
 
       within "#current-address" do
         expect(page).to have_content("Current Address: Gf")
@@ -211,7 +212,8 @@ RSpec.describe "User Profile Path" do
 
       @address_4 = Address.last
       expect(current_path).to eq(profile_path)
-      expect(@user.address.nickname).to eq('Work')
+      expect(@user.default_address).to eq(@address_2)
+      expect(page).to have_content("You have created your Dealer address.")
 
       within "#current-address" do
         expect(page).to have_content("Current Address: Work")
@@ -231,7 +233,7 @@ RSpec.describe "User Profile Path" do
       click_button 'Log In'
       visit profile_path
 
-      expect(@user.address.nickname).to eq('home')
+      expect(@user.my_address.nickname).to eq('Home')
 
       within "#current-address" do
         expect(page).to have_content("Current Address: Home")
@@ -271,7 +273,7 @@ RSpec.describe "User Profile Path" do
       click_button 'Log In'
       visit profile_path
 
-      expect(@user.address.nickname).to eq('home')
+      expect(@user.my_address.nickname).to eq('Home')
 
       within "#current-address" do
         expect(page).to have_content("Current Address: Home")
@@ -300,11 +302,11 @@ RSpec.describe "User Profile Path" do
       ogre = megan.items.create!(name: 'Ogre', description: "I'm an Ogre!", price: 20.25, image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTaLM_vbg2Rh-mZ-B4t-RSU9AmSfEEq_SN9xPP_qrA2I6Ftq_D9Qw', active: true, inventory: 5 )
       user = User.create!(name: 'Megan', email: 'megan_1example.com', password: 'securepassword')
       address_1 = user.addresses.create!(address: '123 Bad st', city: 'Badville', state: 'NY', zip: 12034)
-      expect(user.address).to eq(address_1)
+      expect(user.my_address).to eq(address_1)
       address_2 = user.addresses.create!(address: '456 Main st', city: 'Dallas', state: 'TX', zip: 75402, nickname: 'Work')
 
-      order_1 = user.orders.create!(address_id: address_1, status: 'shipped')
-      order_1.order_items.create!(item: ogre, price: ogre.price, quantity: 2, status: 2)
+      order_1 = user.orders.create!(address_id: address_1.id, status: 'shipped')
+      order_1.order_items.create!(item: ogre, price: ogre.price, quantity: 2)
 
       visit login_path
       fill_in 'Email', with: user.email
