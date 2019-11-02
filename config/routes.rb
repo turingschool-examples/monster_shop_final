@@ -41,9 +41,7 @@ Rails.application.routes.draw do
     put '/items/:id/change_status', to: 'items#change_status'
     get '/orders/:id/fulfill/:order_item_id', to: 'orders#fulfill'
 
-    get '/coupons', to: 'coupons#index'
-    get '/coupons/new', to: 'coupons#new'
-    post '/coupons', to: 'coupons#create'
+    resources :coupons, only: %i[index new create edit update]
   end
 
   namespace :admin do
