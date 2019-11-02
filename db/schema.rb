@@ -20,6 +20,7 @@ ActiveRecord::Schema.define(version: 20_191_102_160_943) do
     t.string 'name'
     t.integer 'discount'
     t.bigint 'merchant_id'
+    t.boolean 'enabled?', default: true
     t.datetime 'created_at', null: false
     t.datetime 'updated_at', null: false
     t.index ['merchant_id'], name: 'index_coupons_on_merchant_id'

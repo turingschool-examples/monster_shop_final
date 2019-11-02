@@ -6,6 +6,7 @@ class CreateCoupons < ActiveRecord::Migration[5.1]
       t.string :name
       t.integer :discount
       t.references :merchant, foreign_key: true
+      t.boolean :enabled?, default: true
 
       t.timestamps
     end
