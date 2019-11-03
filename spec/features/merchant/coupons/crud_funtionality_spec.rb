@@ -110,9 +110,19 @@ describe 'As a Merchant' do
       fill_in 'Discount', with: 10
       click_button 'Create Coupon'
 
-      expect(current_path).to eq(new_merchant_coupon_path)
+      expect(current_path).to eq(merchant_coupons_path)
 
-      expect(page).to have_content('You already have 5 coupons, which is the limit.')
+      expect(page).to have_content('You already have 5 coupons, which is the limit')
+    end
+
+    it 'The coupon name must be unique in the whole database' do
+      click_link 'Create New Coupon'
+
+      fill_in 'Name', with: 'Discount 1'
+      fill_in 'Discount', with: 10
+      click_button 'Create Coupon'
+
+      expect(page).to have_content('Name has already been taken')
     end
   end
 end
