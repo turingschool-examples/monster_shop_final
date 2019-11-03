@@ -16,6 +16,18 @@
       <%= button_to 'Remove', "/cart/#{item.id}", method: :delete %>
     </section>
   <% end %>
+
+  <h3>Coupons</h3>
+  <% cart.merchants.each do |merchant| %>
+    <% merchant.coupons.each do |coupon| %>
+      <section id='coupon-<%= coupon.id %>'>
+        <%= coupon.name %>
+        <%= number_to_percentage(coupon.discount, precision: 0) %>
+        <br>
+      </section>
+    <% end %>
+  <% end %>
+
   <section id='checkout'>
     <% if current_user %>
       <%= button_to 'Check Out', '/orders' %>

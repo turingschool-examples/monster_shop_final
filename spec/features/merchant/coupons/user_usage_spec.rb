@@ -29,18 +29,17 @@ describe 'As a User' do
     end
 
     it 'I see all available coupons from the merchants I am buying from. I do not see coupons from other merchants.' do
-      within "#coupons-#{@coupon_1.id}" do
+      within "#coupon-#{@coupon_1.id}" do
         expect(page).to have_content(@coupon_1.name)
         expect(page).to have_content(@coupon_1.discount)
       end
 
-      within "#coupons-#{@coupon_2.id}" do
+      within "#coupon-#{@coupon_2.id}" do
         expect(page).to have_content(@coupon_2.name)
         expect(page).to have_content(@coupon_2.discount)
       end
 
       expect(page).to_not have_content(@coupon_3.name)
-      expect(page).to_not have_content(@coupon_3.discount)
     end
 
     it 'Users can only use one coupon per order' do

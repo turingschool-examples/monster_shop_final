@@ -45,4 +45,10 @@ class Cart
   def limit_reached?(item_id)
     count_of(item_id) == Item.find(item_id).inventory
   end
+
+  def merchants
+    items.map do |item|
+      Merchant.find(item.merchant_id)
+    end
+  end
 end
