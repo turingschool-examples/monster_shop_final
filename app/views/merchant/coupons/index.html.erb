@@ -1,6 +1,6 @@
 <h2>Merchant Coupons</h2>
 
-<%= link_to 'Create New Coupon', '/merchant/coupons/new' %>
+<%= link_to 'Create New Coupon', '/merchant/coupons/new' unless @coupons.count >= 5 %>
 
 <% @coupons.each do |coupon| %>
   <section id="coupon-<%= coupon.id %>">

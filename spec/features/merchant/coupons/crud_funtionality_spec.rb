@@ -5,10 +5,10 @@ require 'rails_helper'
 describe 'As a Merchant' do
   describe 'I have full CRUD functionality over my coupons' do
     before :each do
-      merchant = Merchant.create!(name: 'Megans Marmalades', address: '123 Main St', city: 'Denver', state: 'CO', zip: 80_218)
-      @coupon = merchant.coupons.create!(name: 'New User Discount', discount: 10)
+      @merchant = Merchant.create!(name: 'Megans Marmalades', address: '123 Main St', city: 'Denver', state: 'CO', zip: 80_218)
+      @coupon = @merchant.coupons.create!(name: 'Discount 1', discount: 10)
 
-      user = merchant.users.create!(name: 'Megan', address: '123 Main St', city: 'Denver', state: 'CO', zip: 80_218, email: 'meganexample.com', password: 'securepassword')
+      user = @merchant.users.create!(name: 'Megan', address: '123 Main St', city: 'Denver', state: 'CO', zip: 80_218, email: 'meganexample.com', password: 'securepassword')
       allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(user)
 
       visit merchant_coupons_path
@@ -63,7 +63,7 @@ describe 'As a Merchant' do
 
       within "#coupon-#{@coupon.id}" do
         expect(page).to have_content('Enabled')
-        expect(page).to_not have_content('Enable Coupon')
+        expect(page).to_not have_link('Enable Coupon')
         click_link 'Disable Coupon'
       end
 
@@ -78,7 +78,7 @@ describe 'As a Merchant' do
 
       within "#coupon-#{@coupon.id}" do
         expect(page).to have_content('Disabled')
-        expect(page).to_not have_content('Disable Coupon')
+        expect(page).to_not have_link('Disable Coupon')
         click_link 'Enable Coupon'
       end
 
@@ -95,6 +95,34 @@ describe 'As a Merchant' do
     end
 
     it 'I can have a maximum of 5 coupons' do
+      @merchant.coupons.create!(name: 'Discount 2', discount: 10)
+      @merchant.coupons.create!(name: 'Discount 3', discount: 10)
+      @merchant.coupons.create!(name: 'Discount 4', discount: 10)
+      @merchant.coupons.create!(name: 'Discount 5', discount: 10)
+
+      visit merchant_coupons_path
+
+      expect(page).to_not have_link('Create New Coupon')
+
+      visit new_merchant_coupon_path
+
+      fill_in 'Name', with: 'Bulk Discount'
+      fill_in 'Discount', with: 10
+      click_button 'Create Coupon'
+
+      expect(current_path).to eq(merchant_coupons_path)
+
+      expect(page).to have_content('You already have 5 coupons, which is the limit')
+    end
+
+    it 'The coupon name must be unique in the whole database' do
+      click_link 'Create New Coupon'
+
+      fill_in 'Name', with: 'Discount 1'
+      fill_in 'Discount', with: 10
+      click_button 'Create Coupon'
+
+      expect(page).to have_content('Name has already been taken')
     end
   end
 end

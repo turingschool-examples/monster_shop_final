@@ -9,12 +9,18 @@ class Merchant::CouponsController < Merchant::BaseController
 
   def create
     merchant = current_user.merchant
-    coupon = merchant.coupons.new(coupon_params)
-    if coupon.save
+    if merchant.coupons.count >= 5
+      flash[:notice] = 'You already have 5 coupons, which is the limit'
       redirect_to '/merchant/coupons'
-    else
-      generate_flash(merchant)
-      render :new
+    elsif merchant.coupons.count <= 4
+      coupon = merchant.coupons.create(coupon_params)
+      if coupon.save
+        flash[:notice] = 'You have created a new coupon'
+        redirect_to '/merchant/coupons'
+      else
+        flash[:notice] = coupon.errors.full_messages.to_sentence
+        render :new
+      end
     end
   end
 
@@ -27,14 +33,13 @@ class Merchant::CouponsController < Merchant::BaseController
     if coupon.update(coupon_params)
       redirect_to '/merchant/coupons'
     else
-      generate_flash(coupon)
+      flash[:notice] = coupon.errors.full_messages.to_sentence
       render :edit
     end
   end
 
   def disable_enable
     coupon = Coupon.find(params[:id])
-    # binding.pry
     coupon.toggle!(:enabled?)
     flash[:notice] = if coupon.enabled?
                        "#{coupon.name} is now enabled"
