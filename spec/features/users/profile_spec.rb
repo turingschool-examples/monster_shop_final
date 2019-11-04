@@ -107,7 +107,7 @@ RSpec.describe "User Profile Path" do
 
       visit profile_path
 
-      expect(@user.my_address.nickname).to eq('Home')
+      expect(@user.my_address).to eq(@address_1)
 
       within "#current-address" do
         expect(page).to have_content("Current Address: Home")
@@ -151,7 +151,7 @@ RSpec.describe "User Profile Path" do
         click_link 'All Addresses'
       end
 
-      expect(current_path).to eq("/profile/addresses")
+      expect(current_path).to eq(addresses_path)
 
       within "#address-#{@address_1.id}" do
         expect(page).to have_content('123 Main St')
@@ -235,10 +235,11 @@ RSpec.describe "User Profile Path" do
 
       expect(@user.my_address.nickname).to eq('Home')
 
+      expect(page).to have_content(@user.name)
+      expect(page).to have_content(@user.email)
+
       within "#current-address" do
         expect(page).to have_content("Current Address: Home")
-        expect(page).to have_content(@user.email)
-        expect(page).to have_content(@user.name)
         expect(page).to have_content(@address_1.address)
         expect(page).to have_content(@address_1.city)
         expect(page).to have_content(@address_1.state)
@@ -247,7 +248,7 @@ RSpec.describe "User Profile Path" do
         click_link 'Delete Current Address'
       end
 
-      expect(current_path).to eq("/profile/addresses")
+      expect(current_path).to eq(addresses_path)
       expect(page).to have_content("You have deleted your Home address.")
       expect(page).to have_content("You should choose or create a new default address")
       expect(page).to have_link('Back to my Profile')
@@ -275,9 +276,11 @@ RSpec.describe "User Profile Path" do
 
       expect(@user.my_address.nickname).to eq('Home')
 
+      expect(page).to have_content(@user.email)
+      expect(page).to have_content(@user.name)
+
       within "#current-address" do
         expect(page).to have_content("Current Address: Home")
-        expect(page).to have_content(@user.email)
         expect(page).to have_content(@address_1.address)
         expect(page).to have_content("#{@address_1.city}, #{@address_1.state} #{@address_1.zip}")
         expect(page).to have_link("Delete Current Address")
@@ -285,7 +288,7 @@ RSpec.describe "User Profile Path" do
       end
 
       expect(current_path).to eq(profile_path)
-      expect(page).to have_content("#{@address_2} has been set to your default address")
+      expect(page).to have_content("#{@address_2.nickname} has been set to your default address")
       expect(page).to have_content("You have deleted your Home address.")
 
       within "#current-address" do
@@ -324,7 +327,7 @@ RSpec.describe "User Profile Path" do
         click_link 'All Addresses'
       end
 
-      expect(current_path).to eq("/profile/addresses")
+      expect(current_path).to eq(addresses_path)
 
       within "#address-#{address_1.id}" do
         expect(page).to have_content('Home')
@@ -341,7 +344,7 @@ RSpec.describe "User Profile Path" do
         click_link 'Delete Address'
       end
 
-      expect(current_path).to eq("/profile/addresses")
+      expect(current_path).to eq(addresses_path)
       expect(page).to have_content("You have deleted your Work address.")
     end
   end
