@@ -10,6 +10,11 @@
       <p>Price: <%= number_to_currency(item.price) %></p>
       <p>Quantity: <%= cart.count_of(item.id) %></p>
       <p>Subtotal: <%= number_to_currency(cart.subtotal_of(item.id)) %></p>
+      <% item.merchant.coupons.each do |coupon| %>
+        <% if coupon == current_coupon %>
+          <p>Subtotal After Discount: <%= number_to_currency(cart.subtotal_of(item.id) - current_coupon.discount) %></p>
+        <% end %>
+      <% end %>
       <p>Sold by: <%= link_to item.merchant.name, "/merchants/#{item.merchant_id}" %>, Inventory: <%= item.inventory %></p>
       <%= button_to 'More of This!', "/cart/more/#{item.id}", method: :patch unless cart.limit_reached?(item.id) %>
       <%= button_to 'Less of This!', "/cart/less/#{item.id}", method: :patch %>
@@ -27,7 +32,7 @@
         <%= form_tag "/coupons/#{coupon.id}", method: :post do %>
           <section id='coupon-<%= coupon.id %>'>
             <p><%= label_tag :name, coupon.name  %>,
-            <%= label_tag :discount, number_to_percentage(coupon.discount, precision: 0) %>
+            <%= label_tag :discount, number_to_currency(coupon.discount) %>
             <%= submit_tag 'Select Coupon' %></p>
           </section>
         <% end %>
@@ -35,7 +40,7 @@
         <%= form_tag "/coupons/#{coupon.id}", method: :post do %>
           <section id='coupon-<%= coupon.id %>'>
             <p><%= label_tag :name, coupon.name  %>,
-            <%= label_tag :discount, number_to_percentage(coupon.discount, precision: 0) %>
+            <%= label_tag :discount, number_to_currency(coupon.discount) %>
             <%= submit_tag 'Select Coupon' %></p>
           </section>
         <% end %>

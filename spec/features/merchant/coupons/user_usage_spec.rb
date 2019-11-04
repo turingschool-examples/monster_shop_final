@@ -131,13 +131,53 @@ describe 'As a User' do
       expect(page).to have_content("The #{@coupon_1.name} coupon was used for this order")
     end
 
-    it 'Cart reflects a discount total for the coupon used' do
-    end
-
-    it 'If the coupon value is more than the order cost, the total is $0, not a negative number' do
-    end
-
     it 'Coupons from a merchant only apply to items sold by that merchant, not other items in the cart' do
+      within "#item-#{@ogre.id}" do
+        expect(page).to have_content('Subtotal: $20.25')
+        expect(page).to_not have_content('Subtotal After Discount:')
+      end
+
+      within "#item-#{@hippo.id}" do
+        expect(page).to have_content('Subtotal: $50.00')
+        expect(page).to_not have_content('Subtotal After Discount:')
+      end
+
+      within "#coupon-#{@coupon_1.id}" do
+        click_button 'Select Coupon'
+      end
+
+      within "#item-#{@ogre.id}" do
+        expect(page).to have_content('Subtotal: $20.25')
+        expect(page).to have_content('Subtotal After Discount: $10.25')
+      end
+
+      within "#item-#{@hippo.id}" do
+        expect(page).to have_content('Subtotal: $50.00')
+        expect(page).to_not have_content('Subtotal After Discount:')
+      end
+    end
+
+    xit 'Cart reflects a discount total for the coupon used' do
+      expect(page).to have_content('Total: $70.25')
+
+      within "#coupon-#{@coupon_1.id}" do
+        click_button 'Select Coupon'
+      end
+
+      expect(page).to have_content("Coupon discount is #{@coupon.discount}%")
+      expect(page).to have_content('Discount Total: $7.03')
+
+      expect(page).to have_content('Total: $63.22')
+    end
+
+    xit 'If the coupon value is more than the order cost, the total is $0, not a negative number' do
+      coupon_4 = @merchant_1.coupons.create!(name: 'Discount 4', discount: 110)
+
+      within "#coupon-#{coupon_4.id}" do
+        click_button 'Select Coupon'
+      end
+
+      expect(page).to have_content('Total: $0.00')
     end
   end
 end
