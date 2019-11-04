@@ -44,7 +44,6 @@ describe 'As a User' do
 
     it 'Users can only use one coupon per order' do
       within "#coupon-#{@coupon_1.id}" do
-        choose 'coupon_id'
         click_button 'Select Coupon'
       end
 
@@ -53,7 +52,6 @@ describe 'As a User' do
       expect(page).to have_content("Currently Selected: #{@coupon_1.name}")
 
       within "#coupon-#{@coupon_2.id}" do
-        choose 'coupon_id'
         click_button 'Select Coupon'
       end
 
@@ -63,7 +61,6 @@ describe 'As a User' do
 
     it 'Coupons can only be used one time per user' do
       within "#coupon-#{@coupon_1.id}" do
-        choose 'coupon_id'
         click_button 'Select Coupon'
       end
 
@@ -79,7 +76,6 @@ describe 'As a User' do
 
     it 'Multiple users can use the same coupon' do
       within "#coupon-#{@coupon_1.id}" do
-        choose 'coupon_id'
         click_button 'Select Coupon'
       end
 
@@ -98,26 +94,37 @@ describe 'As a User' do
       visit cart_path
 
       within "#coupon-#{@coupon_1.id}" do
-        choose 'coupon_id'
         click_button 'Select Coupon'
       end
 
       click_button 'Check Out'
     end
 
-    it 'If the coupon value is more than the order cost, the total is $0, not a negative number' do
-    end
+    it 'The user can select a coupon from the cart, then continue shopping. When they return to the cart their selection should be remembered.' do
+      within "#coupon-#{@coupon_1.id}" do
+        click_button 'Select Coupon'
+      end
 
-    it 'Coupons from a merchant only apply to items sold by that merchant, not other items in the cart' do
-    end
+      expect(page).to have_content("Currently Selected: #{@coupon_1.name}")
 
-    it 'Cart reflects a discount total for the coupon used' do
+      visit item_path(@giant)
+      click_button 'Add to Cart'
+
+      visit cart_path
+
+      expect(page).to have_content("Currently Selected: #{@coupon_1.name}")
     end
 
     it 'The order show page shows the coupon that was used on that order' do
     end
 
-    it 'The user can select a coupon from the cart, then continue shopping. When they return to the cart their selection should be remembered.' do
+    it 'Cart reflects a discount total for the coupon used' do
+    end
+
+    it 'If the coupon value is more than the order cost, the total is $0, not a negative number' do
+    end
+
+    it 'Coupons from a merchant only apply to items sold by that merchant, not other items in the cart' do
     end
   end
 end
