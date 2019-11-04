@@ -5,7 +5,7 @@
 <% @coupons.each do |coupon| %>
   <section id="coupon-<%= coupon.id %>">
     <p>Coupon Name: <%= coupon.name %></p>
-    <p>Discount: <%= number_to_percentage(coupon.discount, precision: 0) %></p>
+    <p>Discount: <%= number_to_currency(coupon.discount) %></p>
     <%= link_to 'Edit Coupon', "/merchant/coupons/#{coupon.id}/edit" %>
     <% if coupon.enabled? %>
       <p>Enabled</p>
