@@ -14,14 +14,14 @@ RSpec.describe Cart do
         })
     end
 
-    xit '.contents' do
+    it '.contents' do
       expect(@cart.contents).to eq({
         @ogre.id.to_s => 1,
         @giant.id.to_s => 2
         })
     end
 
-    xit '.add_item()' do
+    it '.add_item()' do
       @cart.add_item(@hippo.id.to_s)
 
       expect(@cart.contents).to eq({
@@ -31,34 +31,34 @@ RSpec.describe Cart do
         })
     end
 
-    xit '.count' do
+    it '.count' do
       expect(@cart.count).to eq(3)
     end
 
-    xit '.items' do
+    it '.items' do
       expect(@cart.items).to eq([@ogre, @giant])
     end
 
-    xit '.grand_total' do
+    it '.grand_total' do
       expect(@cart.grand_total).to eq(120)
     end
 
-    xit '.count_of()' do
+    it '.count_of()' do
       expect(@cart.count_of(@ogre.id)).to eq(1)
       expect(@cart.count_of(@giant.id)).to eq(2)
     end
 
-    xit '.subtotal_of()' do
+    it '.subtotal_of()' do
       expect(@cart.subtotal_of(@ogre.id)).to eq(20)
       expect(@cart.subtotal_of(@giant.id)).to eq(100)
     end
 
-    xit '.limit_reached?()' do
+    it '.limit_reached?()' do
       expect(@cart.limit_reached?(@ogre.id)).to eq(false)
       expect(@cart.limit_reached?(@giant.id)).to eq(true)
     end
 
-    xit '.less_item()' do
+    it '.less_item()' do
       @cart.less_item(@giant.id.to_s)
 
       expect(@cart.count_of(@giant.id)).to eq(1)

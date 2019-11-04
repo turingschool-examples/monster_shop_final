@@ -2,18 +2,18 @@ require 'rails_helper'
 
 RSpec.describe Item do
   describe 'Relationships' do
-    xit {should belong_to :merchant}
-    xit {should have_many :order_items}
-    xit {should have_many(:orders).through(:order_items)}
-    xit {should have_many :reviews}
+    it {should belong_to :merchant}
+    it {should have_many :order_items}
+    it {should have_many(:orders).through(:order_items)}
+    it {should have_many :reviews}
   end
 
   describe 'Validations' do
-    xit {should validate_presence_of :name}
-    xit {should validate_presence_of :description}
-    xit {should validate_presence_of :image}
-    xit {should validate_presence_of :price}
-    xit {should validate_presence_of :inventory}
+    it {should validate_presence_of :name}
+    it {should validate_presence_of :description}
+    it {should validate_presence_of :image}
+    it {should validate_presence_of :price}
+    it {should validate_presence_of :inventory}
   end
 
   describe 'Instance Methods' do
@@ -28,13 +28,13 @@ RSpec.describe Item do
       @review_5 = @ogre.reviews.create(title: 'Okay', description: 'This Ogre is Okay', rating: 4)
     end
 
-    xit '.sorted_reviews()' do
+    it '.sorted_reviews()' do
       expect(@ogre.sorted_reviews(3, :desc)).to eq([@review_1, @review_5, @review_2])
       expect(@ogre.sorted_reviews(3, :asc)).to eq([@review_3, @review_4, @review_2])
       expect(@ogre.sorted_reviews).to eq([@review_3, @review_4, @review_2, @review_5, @review_1])
     end
 
-    xit '.average_rating' do
+    it '.average_rating' do
       expect(@ogre.average_rating.round(2)).to eq(3.00)
     end
   end
@@ -53,7 +53,8 @@ RSpec.describe Item do
       @review_3 = @ogre.reviews.create(title: 'EW', description: 'This Ogre is Ew', rating: 1)
       @review_4 = @ogre.reviews.create(title: 'So So', description: 'This Ogre is So so', rating: 2)
       @review_5 = @ogre.reviews.create(title: 'Okay', description: 'This Ogre is Okay', rating: 4)
-      @user = User.create!(name: 'Megan', address: '123 Main St', city: 'Denver', state: 'CO', zip: 80218, email: 'megan@example.com', password: 'securepassword')
+      @user = User.create!(name: 'Megan', email: 'megan@example.com', password: 'securepassword')
+      @address_1 = @user.addresses.create!(address: '123 Main St', city: 'Denver', state: 'CO', zip: 80218)
       @order_1 = @user.orders.create!
       @order_2 = @user.orders.create!
       @order_3 = @user.orders.create!
@@ -64,11 +65,11 @@ RSpec.describe Item do
       @order_3.order_items.create!(item: @gator, price: @gator.price, quantity: 1)
     end
 
-    xit '.active_items' do
+    it '.active_items' do
       expect(Item.active_items).to eq([@ogre, @giant])
     end
 
-    xit '.by_popularity()' do
+    it '.by_popularity()' do
       expect(Item.by_popularity).to eq([@hippo, @nessie, @ogre, @gator, @giant])
       expect(Item.by_popularity(3, "ASC")).to eq([@giant, @gator, @ogre])
       expect(Item.by_popularity(3, "DESC")).to eq([@hippo, @nessie, @ogre])
