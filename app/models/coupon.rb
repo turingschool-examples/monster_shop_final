@@ -8,4 +8,8 @@ class Coupon < ApplicationRecord
                         :discount
 
   validates_uniqueness_of :name
+
+  def used?
+    coupon_users.select(:user_id).where(coupon_id: id)
+  end
 end
