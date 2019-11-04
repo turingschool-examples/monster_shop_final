@@ -3,10 +3,15 @@ class Order < ApplicationRecord
   has_many :items, through: :order_items
   belongs_to :user
   belongs_to :address
-  validates_associated :address
+  validates_associated :address # no possible shoulda-matchers model test found
 
+  before_validation :assign_address, on: :create
 
   enum status: ['pending', 'packaged', 'shipped', 'cancelled']
+
+  def assign_address
+    self.address = self.user.my_address if self.address == nil && self.user != nil
+  end
 
   def grand_total
     order_items.sum('price * quantity')
