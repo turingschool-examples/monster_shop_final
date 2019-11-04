@@ -4,6 +4,7 @@ class UsersController < ApplicationController
 
   def show
     @user = current_user
+    @address = Address.find(@user.default_address)
   end
 
   def new
@@ -12,7 +13,7 @@ class UsersController < ApplicationController
 
   def create
     @user = User.new(user_params)
-    @address = @user.addresses.create!(address_params, nickname: 'home')
+    @address = @user.addresses.create!(address_params)
     if @user.save
       @user.assign_address(@address.id)
       session[:user_id] = @user.id
