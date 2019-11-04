@@ -10,7 +10,7 @@ class Address < ApplicationRecord
                         :state,
                         :zip,
                         :nickname
-  # Write tests!
+
   before_validation :default_nickname, on: :create
   after_validation :normalize_nickname, on: [ :create, :update ]
   after_create :assign_default_address

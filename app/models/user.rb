@@ -9,8 +9,6 @@ class User < ApplicationRecord
                         :email
   validates_uniqueness_of :email
 
-
-
   enum role: ['default', 'merchant_admin', 'admin']
 
     # Called in controllers/user/addresses_controller.rb Create method
@@ -24,10 +22,10 @@ class User < ApplicationRecord
     addresses.find(self.default_address) if default_address != nil
   end
 
-    # Changes the current User's default_address column = to the address_id passed as an argument.
-    # Whenever the number of User Addresses == 1, either on creation of the 1st address. Or deletion of the 2nd existing address.
   def assign_address(address_id)
     self.default_address = address_id
     self.save
   end
+  # Changes the current User's default_address column = to the address_id passed as an argument.
+  # Whenever the number of User Addresses == 1, either on creation of the 1st address. Or deletion of the 2nd existing address.
 end
