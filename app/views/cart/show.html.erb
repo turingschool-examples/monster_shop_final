@@ -16,6 +16,24 @@
       <%= button_to 'Remove', "/cart/#{item.id}", method: :delete %>
     </section>
   <% end %>
+
+  <h3>Coupons (Select One)</h3>
+  <% if current_coupon %>
+    <p>Currently Selected: <%= current_coupon.name %> </p>
+  <% end %>
+  <% cart.merchants.each do |merchant| %>
+    <% merchant.coupons.each do |coupon| %>
+      <%= form_tag "/coupons/#{coupon.id}", method: :post do %>
+        <section id='coupon-<%= coupon.id %>'>
+          <p><%= radio_button_tag :coupon_id, coupon.id  %>
+          <%= label_tag :name, coupon.name  %>,
+          <%= label_tag :discount, number_to_percentage(coupon.discount, precision: 0) %>
+          <%= submit_tag 'Select Coupon' %></p>
+        </section>
+      <% end %>
+    <% end %>
+  <% end %>
+
   <section id='checkout'>
     <% if current_user %>
       <%= button_to 'Check Out', '/orders' %>

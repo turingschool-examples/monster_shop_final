@@ -22,8 +22,12 @@ class User::OrdersController < ApplicationController
       )
     end
     session.delete(:cart)
-    flash[:notice] = 'Order created successfully!'
-    redirect_to '/profile/orders'
+    if current_coupon
+      redirect_to '/coupon/users'
+    else
+      flash[:notice] = 'Order created successfully!'
+      redirect_to '/profile/orders'
+    end
   end
 
   def cancel
