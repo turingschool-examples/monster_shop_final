@@ -19,6 +19,7 @@ ActiveRecord::Schema.define(version: 20_191_103_155_046) do
   create_table 'coupon_users', force: :cascade do |t|
     t.bigint 'coupon_id'
     t.bigint 'user_id'
+    t.integer 'order_id'
     t.datetime 'created_at', null: false
     t.datetime 'updated_at', null: false
     t.index ['coupon_id'], name: 'index_coupon_users_on_coupon_id'

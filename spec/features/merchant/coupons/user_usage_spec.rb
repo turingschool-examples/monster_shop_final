@@ -115,7 +115,20 @@ describe 'As a User' do
       expect(page).to have_content("Currently Selected: #{@coupon_1.name}")
     end
 
-    it 'The order show page shows the coupon that was used on that order' do
+    it 'The order index and show pages show the coupon that was used on that order' do
+      within "#coupon-#{@coupon_1.id}" do
+        click_button 'Select Coupon'
+      end
+
+      click_button 'Check Out'
+
+      expect(page).to have_content("The #{@coupon_1.name} coupon was used for this order")
+
+      order = Order.last
+
+      visit profile_orders_path(order)
+
+      expect(page).to have_content("The #{@coupon_1.name} coupon was used for this order")
     end
 
     it 'Cart reflects a discount total for the coupon used' do
