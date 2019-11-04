@@ -22,10 +22,10 @@ describe 'As a User' do
       visit item_path(@hippo)
       click_button 'Add to Cart'
 
-      visit cart_path
-
       user = User.create!(name: 'Christopher', address: '123 Main St', city: 'Denver', state: 'CO', zip: 80_218, email: 'ck@email.com', password: 'password')
       allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(user)
+
+      visit cart_path
     end
 
     it 'I see all available coupons from the merchants I am buying from. I do not see coupons from other merchants.' do
@@ -44,7 +44,6 @@ describe 'As a User' do
 
     it 'Users can only use one coupon per order' do
       within "#coupon-#{@coupon_1.id}" do
-        choose 'coupon_id'
         click_button 'Select Coupon'
       end
 
@@ -53,7 +52,6 @@ describe 'As a User' do
       expect(page).to have_content("Currently Selected: #{@coupon_1.name}")
 
       within "#coupon-#{@coupon_2.id}" do
-        choose 'coupon_id'
         click_button 'Select Coupon'
       end
 
@@ -63,7 +61,6 @@ describe 'As a User' do
 
     it 'Coupons can only be used one time per user' do
       within "#coupon-#{@coupon_1.id}" do
-        choose 'coupon_id'
         click_button 'Select Coupon'
       end
 
@@ -77,22 +74,57 @@ describe 'As a User' do
       expect(page).to_not have_content(@coupon_1.name)
     end
 
-    it 'Multiple users can use the same coupon, but only once each user' do
+    it 'Multiple users can use the same coupon' do
+      within "#coupon-#{@coupon_1.id}" do
+        click_button 'Select Coupon'
+      end
+
+      click_button 'Check Out'
+
+      within 'nav' do
+        click_link 'Log Out'
+      end
+
+      user_2 = User.create!(name: 'Christopher', address: '123 Main St', city: 'Denver', state: 'CO', zip: 80_218, email: 'cj@email.com', password: 'password')
+      allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(user_2)
+
+      visit item_path(@ogre)
+      click_button 'Add to Cart'
+
+      visit cart_path
+
+      within "#coupon-#{@coupon_1.id}" do
+        click_button 'Select Coupon'
+      end
+
+      click_button 'Check Out'
+    end
+
+    it 'The user can select a coupon from the cart, then continue shopping. When they return to the cart their selection should be remembered.' do
+      within "#coupon-#{@coupon_1.id}" do
+        click_button 'Select Coupon'
+      end
+
+      expect(page).to have_content("Currently Selected: #{@coupon_1.name}")
+
+      visit item_path(@giant)
+      click_button 'Add to Cart'
+
+      visit cart_path
+
+      expect(page).to have_content("Currently Selected: #{@coupon_1.name}")
+    end
+
+    it 'The order show page shows the coupon that was used on that order' do
+    end
+
+    it 'Cart reflects a discount total for the coupon used' do
     end
 
     it 'If the coupon value is more than the order cost, the total is $0, not a negative number' do
     end
 
     it 'Coupons from a merchant only apply to items sold by that merchant, not other items in the cart' do
-    end
-
-    it 'Cart reflects a discount total for the coupon used' do
-    end
-
-    it 'The order show page shows the coupon that was used on that order' do
-    end
-
-    it 'The user can select a coupon from the cart, then continue shopping. When they return to the cart their selection should be remembered.' do
     end
   end
 end
