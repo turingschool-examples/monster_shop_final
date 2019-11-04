@@ -9,7 +9,11 @@
     <%= link_to 'Edit Coupon', "/merchant/coupons/#{coupon.id}/edit" %>
     <% if coupon.enabled? %>
       <p>Enabled</p>
-      <p><%= link_to 'Disable Coupon', "/merchant/coupon/#{coupon.id}", method: :patch %></p>
+      <% if coupon.used?.first != nil %>
+        <p>This coupon has been used by a customer</p>
+      <% else %>
+        <p><%= link_to 'Disable Coupon', "/merchant/coupon/#{coupon.id}", method: :patch %></p>
+      <% end %>
     <% else %>
       <p>Disabled</p>
       <p><%= link_to 'Enable Coupon', "/merchant/coupon/#{coupon.id}", method: :patch %></p>
