@@ -17,4 +17,8 @@ class User < ApplicationRecord
   validates_uniqueness_of :email
 
   enum role: %w[default merchant_admin admin]
+
+  def find_coupon(order)
+    coupon_users.select(:coupon_id).where(order_id: order.id)
+  end
 end
