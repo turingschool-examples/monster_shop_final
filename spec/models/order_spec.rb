@@ -8,10 +8,6 @@ RSpec.describe Order do
     it {should belong_to :address}
   end
 
-  # describe 'Validations' do
-  #   it {should validate_presence_of :address_id}
-  # end
-
   describe 'instance methods' do
     before :each do
       @megan = Merchant.create!(name: 'Megans Marmalades', address: '123 Main St', city: 'Denver', state: 'CO', zip: 80218)
@@ -19,7 +15,8 @@ RSpec.describe Order do
       @ogre = @megan.items.create!(name: 'Ogre', description: "I'm an Ogre!", price: 20.25, image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTaLM_vbg2Rh-mZ-B4t-RSU9AmSfEEq_SN9xPP_qrA2I6Ftq_D9Qw', active: true, inventory: 3 )
       @giant = @megan.items.create!(name: 'Giant', description: "I'm a Giant!", price: 50, image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTaLM_vbg2Rh-mZ-B4t-RSU9AmSfEEq_SN9xPP_qrA2I6Ftq_D9Qw', active: true, inventory: 3 )
       @hippo = @brian.items.create!(name: 'Hippo', description: "I'm a Hippo!", price: 50, image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTaLM_vbg2Rh-mZ-B4t-RSU9AmSfEEq_SN9xPP_qrA2I6Ftq_D9Qw', active: true, inventory: 3 )
-      @user = User.create!(name: 'Megan', address: '123 Main St', city: 'Denver', state: 'CO', zip: 80218, email: 'megan_1@example.com', password: 'securepassword')
+      @user = User.create!(name: 'Megan', email: 'megan_1@example.com', password: 'securepassword')
+      @address_1 = @user.addresses.create!(address: '123 Main St', city: 'Denver', state: 'CO', zip: 80218)
       @order_1 = @user.orders.create!(status: "packaged")
       @order_2 = @user.orders.create!(status: "pending")
       @order_item_1 = @order_1.order_items.create!(item: @ogre, price: @ogre.price, quantity: 5, fulfilled: true)
@@ -27,17 +24,21 @@ RSpec.describe Order do
       @order_item_3 = @order_2.order_items.create!(item: @ogre, price: @ogre.price, quantity: 2, fulfilled: false)
     end
 
-    xit '.grand_total' do
+    it '.assign_address' do
+      expect(@order_1.address).to eq(@address_1)
+    end
+
+    it '.grand_total' do
       expect(@order_1.grand_total).to eq(101.25)
       expect(@order_2.grand_total).to eq(140.5)
     end
 
-    xit '.count_of_items' do
+    it '.count_of_items' do
       expect(@order_1.count_of_items).to eq(5)
       expect(@order_2.count_of_items).to eq(4)
     end
 
-    xit '.cancel' do
+    it '.cancel' do
       @order_2.cancel
 
       @order_2.reload
@@ -49,17 +50,17 @@ RSpec.describe Order do
       end
     end
 
-    xit '.merchant_subtotal()' do
+    it '.merchant_subtotal()' do
       expect(@order_2.merchant_subtotal(@megan.id)).to eq(40.5)
       expect(@order_2.merchant_subtotal(@brian.id)).to eq(100)
     end
 
-    xit '.merchant_quantity()' do
+    it '.merchant_quantity()' do
       expect(@order_2.merchant_quantity(@megan.id)).to eq(2)
       expect(@order_2.merchant_quantity(@brian.id)).to eq(2)
     end
 
-    xit '.is_packaged?' do
+    it '.is_packaged?' do
       @order_1.is_packaged?
       @order_2.is_packaged?
 
@@ -73,14 +74,15 @@ RSpec.describe Order do
 
   describe 'class methods' do
     before :each do
-      @user = User.create!(name: 'Megan', address: '123 Main St', city: 'Denver', state: 'CO', zip: 80218, email: 'megan_1@example.com', password: 'securepassword')
+      @user = User.create!(name: 'Megan', email: 'megan_1@example.com', password: 'securepassword')
+      @address_1 = @user.addresses.create!(address: '123 Main St', city: 'Denver', state: 'CO', zip: 80218)
       @order_1 = @user.orders.create!(status: 1)
       @order_2 = @user.orders.create!(status: 0)
       @order_3 = @user.orders.create!(status: 3)
       @order_4 = @user.orders.create!(status: 2)
     end
 
-    xit '.by_status' do
+    it '.by_status' do
       expect(Order.by_status).to eq([@order_2, @order_1, @order_4, @order_3])
     end
   end
