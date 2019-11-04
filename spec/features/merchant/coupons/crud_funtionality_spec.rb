@@ -30,7 +30,7 @@ describe 'As a Merchant' do
 
       within "#coupon-#{coupon.id}" do
         expect(page).to have_content('Coupon Name: Bulk Discount')
-        expect(page).to have_content('Discount: 10%')
+        expect(page).to have_content('Discount: $10.00')
       end
     end
 
@@ -55,7 +55,7 @@ describe 'As a Merchant' do
 
       within "#coupon-#{@coupon.id}" do
         expect(page).to have_content('Coupon Name: New Discount')
-        expect(page).to have_content('Discount: 15%')
+        expect(page).to have_content('Discount: $15.00')
       end
     end
 
