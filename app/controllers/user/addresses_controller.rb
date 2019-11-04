@@ -1,4 +1,14 @@
 class User::AddressesController < ApplicationController
+  before_action :require_user
+
+  def show
+    @address = Address.find(params[:id])
+  end
+
+  def index
+    @user = current_user
+    @addresses = @user.addresses
+  end
 
   def new
   end
@@ -14,6 +24,34 @@ class User::AddressesController < ApplicationController
         generate_flash(address)
         render :new
       end
+    else
+      flash[:error] = "That nickname is already taken"
+      render :new
+    end
+  end
+
+  def edit
+
+  end
+
+  def update
+
+  end
+
+  def destroy
+    address = Address.find(params[:id])
+    address_name = address.nickname
+    user = address.user
+    address.destroy!
+    if user.addresses.size == 1
+      user.addresses[0].assign_default_address
+      flash[:success] = "You have deleted your #{address_name} address."
+      flash[:notice] = "#{user.addresses[0].nickname} has been set to your default address"
+      redirect_to profile_path
+    else
+      flash[:success] = "You have deleted your #{address_name} address."
+      flash[:notice] = "You should choose or create a new default address"
+      redirect_to addresses_path
     end
   end
 
