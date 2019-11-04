@@ -30,7 +30,7 @@ Rails.application.routes.draw do
   get '/profile/orders/:id', to: 'user/orders#show'
   delete '/profile/orders/:id', to: 'user/orders#cancel'
   post '/coupons/:coupon_id', to: 'coupons#create'
-  get '/coupon/users', to: 'coupon_users#create'
+  get '/coupon/users/:order_id', to: 'coupon_users#create'
 
   get '/login', to: 'sessions#new'
   post '/login', to: 'sessions#login'
