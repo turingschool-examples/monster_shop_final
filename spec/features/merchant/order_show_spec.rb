@@ -18,7 +18,7 @@ RSpec.describe 'Merchant Order Show Page' do
       allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(@m_user)
     end
 
-    it 'I can see order information with only my order items' do
+    xit 'I can see order information with only my order items' do
       visit "/merchant/orders/#{@order_2.id}"
 
       expect(page).to have_content(@m_user.name)
@@ -36,7 +36,7 @@ RSpec.describe 'Merchant Order Show Page' do
       expect(page).to_not have_css("#order-item-#{@order_item_2.id}")
     end
 
-    it 'I can fulfill order items' do
+    xit 'I can fulfill order items' do
       visit "/merchant/orders/#{@order_2.id}"
 
       expect(page).to have_content("Status: pending")
@@ -62,7 +62,7 @@ RSpec.describe 'Merchant Order Show Page' do
       expect(@ogre.inventory).to eq(3)
     end
 
-    it 'I can not fulfill order items where there is not enough inventory' do
+    xit 'I can not fulfill order items where there is not enough inventory' do
       @order_item_3.update(quantity: 8)
 
       visit "/merchant/orders/#{@order_2.id}"
@@ -73,7 +73,7 @@ RSpec.describe 'Merchant Order Show Page' do
       end
     end
 
-    it 'When all order items are fulfilled, order is packaged' do
+    xit 'When all order items are fulfilled, order is packaged' do
       visit "/merchant/orders/#{@order_2.id}"
 
       within "#order-item-#{@order_item_3.id}" do

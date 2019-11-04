@@ -11,7 +11,7 @@ RSpec.describe "Admin Users Index" do
       allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(@admin)
     end
 
-    it "I can link to a list of all users" do
+    xit "I can link to a list of all users" do
       visit '/admin'
 
       within 'nav' do

@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe 'New Merchant Creation' do
   describe 'As a Visitor' do
-    it 'I can link to a new merchant page from merchant index' do
+    xit 'I can link to a new merchant page from merchant index' do
       visit '/merchants'
 
       click_link 'New Merchant'
@@ -10,7 +10,7 @@ RSpec.describe 'New Merchant Creation' do
       expect(current_path).to eq('/merchants/new')
     end
 
-    it 'I can use the new merchant form to create a new merchant' do
+    xit 'I can use the new merchant form to create a new merchant' do
       visit '/merchants/new'
 
       name = 'Megans Marmalades'
@@ -31,7 +31,7 @@ RSpec.describe 'New Merchant Creation' do
       expect(page).to have_link(name)
     end
 
-    it 'I can not create a merchant with an incomplete form' do
+    xit 'I can not create a merchant with an incomplete form' do
       visit '/merchants/new'
 
       name = 'Megans Marmalades'

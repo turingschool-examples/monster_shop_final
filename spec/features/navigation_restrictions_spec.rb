@@ -2,59 +2,59 @@ require 'rails_helper'
 
 RSpec.describe 'Navigation Restrictions' do
   describe 'As a Visitor' do
-    it 'I can not visit the user profile' do
+    xit 'I can not visit the user profile' do
       visit '/profile'
     end
 
-    it 'I cannot visit the merchant dashboard' do
+    xit 'I cannot visit the merchant dashboard' do
       visit '/merchant'
     end
 
-    it 'I cannot visit the merchant order show' do
+    xit 'I cannot visit the merchant order show' do
       visit '/merchant/orders/3'
     end
 
-    it 'I cannot visit the merchant items index' do
+    xit 'I cannot visit the merchant items index' do
       visit '/merchant/items'
     end
 
-    it 'I can not patch to /merchant/items/:id' do
+    xit 'I can not patch to /merchant/items/:id' do
       page.driver.submit :patch, '/merchant/items/3', {}
     end
 
-    it 'I can not delete to /merchant/items/:id' do
+    xit 'I can not delete to /merchant/items/:id' do
       page.driver.submit :delete, "/merchant/items/3", {}
     end
 
-    it 'I can not visit new merchant item' do
+    xit 'I can not visit new merchant item' do
       visit '/merchant/items/new'
     end
 
-    it 'I can not post to /merchant/items' do
+    xit 'I can not post to /merchant/items' do
       page.driver.submit :post, '/merchant/items', {}
     end
 
-    it 'I can not visit edit merchant item' do
+    xit 'I can not visit edit merchant item' do
       visit '/merchant/items/3/edit'
     end
 
-    it 'I can not put to /merchant/items' do
+    xit 'I can not put to /merchant/items' do
       page.driver.submit :put, '/merchant/items/3', {}
     end
 
-    it 'I can not visit the admin dashboard' do
+    xit 'I can not visit the admin dashboard' do
       visit '/admin'
     end
 
-    it 'I can not visit the admin merchant show page' do
+    xit 'I can not visit the admin merchant show page' do
       visit '/admin/merchants/3'
     end
 
-    it 'I can not visit the admin users page' do
+    xit 'I can not visit the admin users page' do
       visit '/admin/users'
     end
 
-    it 'I can not patch to /merchant/:id' do
+    xit 'I can not patch to /merchant/:id' do
       page.driver.submit :patch, 'admin/merchants/3', {}
     end
 
@@ -69,57 +69,57 @@ RSpec.describe 'Navigation Restrictions' do
       allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(@user)
     end
 
-    it 'I cannot visit the merchant dashboard' do
+    xit 'I cannot visit the merchant dashboard' do
       visit '/merchant'
     end
 
-    it 'I cannot visit the merchant order show' do
+    xit 'I cannot visit the merchant order show' do
       visit '/merchant/orders/3'
     end
 
-    it 'I cannot visit the merchant items index' do
+    xit 'I cannot visit the merchant items index' do
       visit '/merchant/items'
     end
 
-    it 'I can not patch to /merchant/items/:id' do
+    xit 'I can not patch to /merchant/items/:id' do
       page.driver.submit :patch, '/merchant/items/3', {}
     end
 
-    it 'I can not delete to /merchant/items/:id' do
+    xit 'I can not delete to /merchant/items/:id' do
       page.driver.submit :delete, "/merchant/items/3", {}
     end
 
-    it 'I can not visit new merchant item' do
+    xit 'I can not visit new merchant item' do
       visit '/merchant/items/new'
     end
 
-    it 'I can not post to /merchant/items' do
+    xit 'I can not post to /merchant/items' do
       page.driver.submit :post, '/merchant/items', {}
     end
 
 
-    it 'I can not visit edit merchant item' do
+    xit 'I can not visit edit merchant item' do
       visit '/merchant/items/3/edit'
     end
 
-    it 'I can not put to /merchant/items' do
+    xit 'I can not put to /merchant/items' do
       page.driver.submit :put, '/merchant/items/3', {}
     end
 
-    it 'I can not visit the admin dashboard' do
+    xit 'I can not visit the admin dashboard' do
       visit '/admin'
     end
 
-    it 'I can not visit the admin merchant show page' do
+    xit 'I can not visit the admin merchant show page' do
       visit '/admin/merchants/3'
     end
 
 
-    it 'I can not visit the admin users page' do
+    xit 'I can not visit the admin users page' do
       visit '/admin/users'
     end
 
-    it 'I can not patch to /merchant/:id' do
+    xit 'I can not patch to /merchant/:id' do
       page.driver.submit :patch, 'admin/merchants/3', {}
     end
 
@@ -135,20 +135,20 @@ RSpec.describe 'Navigation Restrictions' do
       allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(@m_user)
     end
 
-    it 'I can not visit the admin dashboard' do
+    xit 'I can not visit the admin dashboard' do
       visit '/admin'
     end
 
-    it 'I can not visit the admin merchant show page' do
+    xit 'I can not visit the admin merchant show page' do
       visit '/admin/merchants/3'
     end
 
 
-    it 'I can not visit the admin users page' do
+    xit 'I can not visit the admin users page' do
       visit '/admin/users'
     end
 
-    it 'I can not patch to /merchant/:id' do
+    xit 'I can not patch to /merchant/:id' do
       page.driver.submit :patch, 'admin/merchants/3', {}
     end
 
@@ -163,47 +163,47 @@ RSpec.describe 'Navigation Restrictions' do
       allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(@admin)
     end
 
-    it 'I can not visit the user profile' do
+    xit 'I can not visit the user profile' do
       visit '/profile'
     end
 
-    it 'I cannot visit the merchant dashboard' do
+    xit 'I cannot visit the merchant dashboard' do
       visit '/merchant'
     end
 
-    it 'I cannot visit the merchant order show' do
+    xit 'I cannot visit the merchant order show' do
       visit '/merchant/orders/3'
     end
 
-    it 'I cannot visit the merchant items index' do
+    xit 'I cannot visit the merchant items index' do
       visit '/merchant/items'
     end
 
-    it 'I can not patch to /merchant/items/:id' do
+    xit 'I can not patch to /merchant/items/:id' do
       page.driver.submit :patch, '/merchant/items/3', {}
     end
 
-    it 'I can not delete to /merchant/items/:id' do
+    xit 'I can not delete to /merchant/items/:id' do
       page.driver.submit :delete, "/merchant/items/3", {}
     end
 
-    it 'I can not visit new merchant item' do
+    xit 'I can not visit new merchant item' do
       visit '/merchant/items/new'
     end
 
-    it 'I can not post to /merchant/items' do
+    xit 'I can not post to /merchant/items' do
       page.driver.submit :post, '/merchant/items', {}
     end
 
-    it 'I can not visit edit merchant item' do
+    xit 'I can not visit edit merchant item' do
       visit '/merchant/items/3/edit'
     end
 
-    it 'I can not put to /merchant/items' do
+    xit 'I can not put to /merchant/items' do
       page.driver.submit :put, '/merchant/items/3', {}
     end
 
-    it 'I cannot visit a cart' do
+    xit 'I cannot visit a cart' do
       visit '/cart'
     end
 

@@ -19,7 +19,7 @@ RSpec.describe 'Merchant Dashboard' do
       allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(@m_user)
     end
 
-    it 'I can see my merchants information on the merchant dashboard' do
+    xit 'I can see my merchants information on the merchant dashboard' do
       visit '/merchant'
 
       expect(page).to have_link(@merchant_1.name)
@@ -27,13 +27,13 @@ RSpec.describe 'Merchant Dashboard' do
       expect(page).to have_content("#{@merchant_1.city} #{@merchant_1.state} #{@merchant_1.zip}")
     end
 
-    it 'I do not have a link to edit the merchant information' do
+    xit 'I do not have a link to edit the merchant information' do
       visit '/merchant'
 
       expect(page).to_not have_link('Edit')
     end
 
-    it 'I see a list of pending orders containing my items' do
+    xit 'I see a list of pending orders containing my items' do
       visit '/merchant'
 
       within '.orders' do
@@ -55,7 +55,7 @@ RSpec.describe 'Merchant Dashboard' do
       end
     end
 
-    it 'I can link to an order show page' do
+    xit 'I can link to an order show page' do
       visit '/merchant'
 
       click_link @order_2.id

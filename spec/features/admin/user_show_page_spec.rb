@@ -8,7 +8,7 @@ RSpec.describe 'User Show Page' do
       allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(@admin)
     end
 
-    it 'I see all info a user sees, without edit ability' do
+    xit 'I see all info a user sees, without edit ability' do
       visit '/admin/users'
 
       within "#user-#{@d_user.id}" do

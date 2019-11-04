@@ -11,7 +11,7 @@ RSpec.describe 'Edit Review Page' do
       @review_3 = @ogre.reviews.create(title: 'EW', description: 'This Ogre is Ew', rating: 2)
     end
 
-    it 'I can link to an edit review form from the item show page' do
+    xit 'I can link to an edit review form from the item show page' do
       visit item_path(@ogre)
 
       within "#review-#{@review_1.id}" do
@@ -21,7 +21,7 @@ RSpec.describe 'Edit Review Page' do
       expect(current_path).to eq(edit_review_path(@review_1))
     end
 
-    it 'I can edit a single review attribute from the edit review page' do
+    xit 'I can edit a single review attribute from the edit review page' do
       visit edit_review_path(@review_1)
 
       updated_title = "Super Great!"
@@ -37,7 +37,7 @@ RSpec.describe 'Edit Review Page' do
       end
     end
 
-    it 'I can edit all review attributes from the edit review page' do
+    xit 'I can edit all review attributes from the edit review page' do
       visit edit_review_path(@review_1)
 
       updated_title = "Super Great!"
