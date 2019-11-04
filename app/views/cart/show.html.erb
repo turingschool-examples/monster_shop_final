@@ -2,7 +2,10 @@
 <% if cart.items.empty? %>
   <p>Your Cart is Empty!</p>
 <% else %>
-<h3>Total: <%= number_to_currency(cart.grand_total) %></h3>
+  <h3>Total: <%= number_to_currency(cart.grand_total) %></h3>
+  <% if current_coupon %>
+    <h3>Total After Coupon: <%= number_to_currency([cart.grand_total - current_coupon.discount, 0].max) %></h3>
+  <% end %>
   <% cart.items.each do |item| %>
     <section id='item-<%= item.id%>'>
       <h2><%= link_to item.name, "/items/#{item.id}" %></h2>
@@ -25,6 +28,7 @@
   <h3>Coupons</h3>
   <% if current_coupon %>
     <p>Currently Selected: <%= current_coupon.name %> </p>
+    <p>Discount Total: <%= number_to_currency(current_coupon.discount) %> </p>
   <% end %>
   <% cart.merchants.each do |merchant| %>
     <% merchant.coupons.each do |coupon| %>

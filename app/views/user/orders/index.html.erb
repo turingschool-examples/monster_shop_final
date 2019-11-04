@@ -10,7 +10,7 @@
     <% if current_user.find_coupon(order).empty? %>
       <p>Total: <%= number_to_currency(order.grand_total) %></p>
     <% else %>
-      <p>The <%= Coupon.find(current_user.find_coupon(order).first[:coupon_id]).name %> coupon was used for this order</p>\
+      <p>The <%= Coupon.find(current_user.find_coupon(order).first[:coupon_id]).name %> coupon was used for this order</p>
       <p>Total: <%= number_to_currency(order.grand_total) %></p>
     <% end %>
   </section>
