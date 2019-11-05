@@ -30,7 +30,7 @@ RSpec.describe "Address Creation" do
         click_link 'Add New Address'
       end
 
-      expect(current_path).to eq('/profile/addresses/new')
+      expect(current_path).to eq(new_address_path)
 
       address = '124 new str'
       city = 'new town'

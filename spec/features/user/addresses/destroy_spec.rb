@@ -25,7 +25,7 @@ RSpec.describe "Address destruction" do
       expect(current_path).to eq(addresses_path)
       expect(page).to have_content("You have deleted your Home address.")
       expect(page).to have_content("You should choose or create a new default address")
-      expect(page).to have_link('Back to my Profile')
+      expect(page).to have_link('Back to My Profile')
       expect(page).to have_link('Add New Address')
 
       within "#address-#{@address_2.id}" do
@@ -36,9 +36,17 @@ RSpec.describe "Address destruction" do
         expect(page).to have_link('Set as Default Address')
         click_link 'Set as Default Address'
       end
-
       expect(current_path).to eq(profile_path)
       expect(page).to have_content("You have set '#{address_3.nickname}' as your default address")
+
+      @user.reload
+      expect(@user.my_address).to eq(address_3)
+
+      within "#current-address" do
+        expect(page).to have_content("Current Address: Dealer")
+        expect(page).to have_content(address_3.address)
+        expect(page).to have_content("#{address_3.city}, #{address_3.state} #{address_3.zip}")
+      end
     end
 
     it "Automatically sets my only remaining address to default when I delete my current address from profile page" do
@@ -61,8 +69,8 @@ RSpec.describe "Address destruction" do
       expect(current_path).to eq(profile_path)
       expect(page).to have_content("#{@address_2.nickname} has been set to your default address")
       expect(page).to have_content("You have deleted your Home address.")
-
-      expect(@user.my_address).to eq(@address_2)
+      @user.reload
+      expect(@user.default_address).to eq(@address_2.id)
 
       within "#current-address" do
         expect(page).to have_content("Current Address: Work")
@@ -91,13 +99,14 @@ RSpec.describe "Address destruction" do
 
       within "#address-#{@address_1.id}" do
         expect(page).to have_content('Home')
-        expect(page).to have_link('Set as Default Address')
+        expect(page).to_not have_link('Set as Default Address')
         expect(page).to have_link('Edit Address')
         expect(page).to have_link('Delete Address')
         click_link 'Delete Address'
       end
 
-      expect(current_path).to eq(addresses_path)
+      @user.reload
+      expect(current_path).to eq(profile_path)
       expect(@user.my_address).to eq(@address_2)
 
       expect(page).to have_content("#{@address_2.nickname} has been set to your default address")
@@ -148,7 +157,7 @@ RSpec.describe "Address destruction" do
         click_link 'Delete Address'
       end
 
-      expect(current_path).to eq(addresses_path)
+      expect(current_path).to eq(profile_path)
       expect(page).to have_content("You have deleted your Work address.")
     end
   end

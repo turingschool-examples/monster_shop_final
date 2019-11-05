@@ -21,7 +21,7 @@ RSpec.describe "Address Index" do
       end
 
       expect(current_path).to eq(addresses_path)
-      expect(page).to have_link('Back to my Profile')
+      expect(page).to have_link('Back to My Profile')
       expect(page).to have_link('Add New Address')
 
       within "#address-#{@address_1.id}" do
@@ -46,6 +46,9 @@ RSpec.describe "Address Index" do
         expect(page).to have_link('Delete Address')
         expect(page).to have_link('Edit Address')
       end
+
+      click_link 'Back to My Profile'
+      expect(current_path).to eq(profile_path)
     end
   end
 end
