@@ -19,7 +19,11 @@ class User < ApplicationRecord
 
     # Searches child Addresses for the Address who's :id matches the User's default_address:address.id
   def my_address
-    addresses.find(self.default_address) if default_address != nil
+    addresses.find(default_address) if default_address != nil
+  end
+
+  def current_address?(address_id)
+    default_address == address_id
   end
 
   def assign_address(address_id)
