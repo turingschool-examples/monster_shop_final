@@ -44,6 +44,14 @@ class UsersController < ApplicationController
     end
   end
 
+  def assign_default
+    user = current_user
+    address = Address.find(params[:address_id])
+    user.assign_address(params[:address_id])
+    flash[:success] = "You have set '#{address.nickname}' as your default address"
+    redirect_to profile_path
+  end
+
   private
 
   def user_params
