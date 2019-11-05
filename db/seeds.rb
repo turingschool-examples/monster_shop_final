@@ -1,11 +1,22 @@
 # frozen_string_literal: true
 
+Item.destroy_all
+Review.destroy_all
+User.destroy_all
+Order.destroy_all
+Merchant.destroy_all
+Coupon.destroy_all
+
 bike_shop = Merchant.create(name: "Meg's Bike Shop",
                             address: '123 Bike Rd.',
                             city: 'Denver',
                             state: 'CO',
                             zip: 80_203)
+
 dog_shop = Merchant.create(name: "Brian's Dog Shop", address: '125 Doggo St.', city: 'Denver', state: 'CO', zip: 80_210)
+
+bike_shop.users.create(name: 'Bike Employee', address: '123 Bike Rd.', city: 'Denver', state: 'CO', zip: 80_203, email: 'bike_employee@user.com', password: 'secure', role: 1)
+dog_shop.users.create(name: 'Dog Employee', address: '125 Doggo St.', city: 'Denver', state: 'CO', zip: 80_210, email: 'dog_employee@user.com', password: 'secure', role: 1)
 
 bike_shop.coupons.create!(name: 'New User', discount: 10)
 bike_shop.coupons.create!(name: 'Bulk Items', discount: 15)

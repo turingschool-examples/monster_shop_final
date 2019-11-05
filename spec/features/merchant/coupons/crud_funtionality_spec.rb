@@ -8,6 +8,7 @@ describe 'As a Merchant' do
       @merchant = Merchant.create!(name: 'Megans Marmalades', address: '123 Main St', city: 'Denver', state: 'CO', zip: 80_218)
       @ogre = @merchant.items.create!(name: 'Ogre', description: "I'm an Ogre!", price: 20.25, image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTaLM_vbg2Rh-mZ-B4t-RSU9AmSfEEq_SN9xPP_qrA2I6Ftq_D9Qw', active: true, inventory: 5)
       @coupon = @merchant.coupons.create!(name: 'Discount 1', discount: 10)
+      @coupon_2 = @merchant.coupons.create!(name: 'New discount 1', discount: 10)
 
       @user = @merchant.users.create!(name: 'Megan', address: '123 Main St', city: 'Denver', state: 'CO', zip: 80_218, email: 'meganexample.com', password: 'securepassword')
       allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(@user)
@@ -57,6 +58,17 @@ describe 'As a Merchant' do
         expect(page).to have_content('Coupon Name: New Discount')
         expect(page).to have_content('Discount: $15.00')
       end
+    end
+
+    it 'I cannot edit a coupon with bad information' do
+      within "#coupon-#{@coupon.id}" do
+        click_link 'Edit Coupon'
+      end
+
+      fill_in 'discount', with: 'Not a number'
+      click_button 'Update Coupon'
+
+      expect(page).to have_content('Discount is not a number')
     end
 
     it 'I can disable/enable a coupon' do

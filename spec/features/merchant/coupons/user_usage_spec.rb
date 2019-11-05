@@ -157,27 +157,38 @@ describe 'As a User' do
       end
     end
 
-    xit 'Cart reflects a discount total for the coupon used' do
+    it 'Cart reflects a discount total for the coupon used' do
       expect(page).to have_content('Total: $70.25')
 
       within "#coupon-#{@coupon_1.id}" do
         click_button 'Select Coupon'
       end
 
-      expect(page).to have_content("Coupon discount is #{@coupon.discount}%")
-      expect(page).to have_content('Discount Total: $7.03')
+      expect(page).to have_content('Discount Total: $10.00')
 
-      expect(page).to have_content('Total: $63.22')
+      expect(page).to have_content('Total After Coupon: $60.25')
     end
 
-    xit 'If the coupon value is more than the order cost, the total is $0, not a negative number' do
-      coupon_4 = @merchant_1.coupons.create!(name: 'Discount 4', discount: 110)
+    it 'If the coupon value is more than the order cost, the total is $0, not a negative number' do
+      coupon_4 = @merchant_1.coupons.create!(name: 'Discount 4', discount: 75)
+
+      within "#item-#{@hippo.id}" do
+        click_button 'Remove'
+      end
+
+      visit cart_path
 
       within "#coupon-#{coupon_4.id}" do
         click_button 'Select Coupon'
       end
 
-      expect(page).to have_content('Total: $0.00')
+      within "#item-#{@ogre.id}" do
+        expect(page).to have_content('Subtotal: $20.25')
+        expect(page).to have_content('Subtotal After Discount: $0.00')
+      end
+
+      expect(page).to have_content('Total: $20.25')
+      expect(page).to have_content('Total After Coupon: $0.00')
     end
   end
 end

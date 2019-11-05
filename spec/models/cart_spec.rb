@@ -65,5 +65,9 @@ RSpec.describe Cart do
 
       expect(@cart.count_of(@giant.id)).to eq(1)
     end
+
+    it 'merchants' do
+      expect(@cart.merchants.first).to eq(@megan)
+    end
   end
 end
