@@ -24,6 +24,7 @@ Rails.application.routes.draw do
   get '/profile', to: 'users#show'
   get '/profile/edit', to: 'users#edit'
   get '/profile/edit_password', to: 'users#edit_password'
+  patch '/user/assign_address/:address_id', to: 'users#assign_default'
 
   post '/orders', to: 'user/orders#create'
   get '/profile/orders', to: 'user/orders#index'
