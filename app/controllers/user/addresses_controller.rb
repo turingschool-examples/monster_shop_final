@@ -41,8 +41,11 @@ class User::AddressesController < ApplicationController
   def destroy
     address = Address.find(params[:id])
     address_name = address.nickname
+
     user = address.user
-    user.addresses.destroy(address)
+    address.destroy
+    user.assign_address(nil)
+
     if user.addresses.size == 1
       user.assign_address(user.addresses[0].id)
       flash[:success] = "You have deleted your #{address_name} address."
@@ -53,6 +56,11 @@ class User::AddressesController < ApplicationController
       flash[:notice] = "You should choose or create a new default address"
       redirect_to addresses_path
     end
+  end
+
+  def assign_default
+    user = current_user
+    user.assign_address(params[:address_id])
   end
 
   private
