@@ -42,9 +42,9 @@ class User::AddressesController < ApplicationController
     address = Address.find(params[:id])
     address_name = address.nickname
     user = address.user
-    address.destroy!
+    user.addresses.destroy(address)
     if user.addresses.size == 1
-      user.addresses[0].assign_default_address
+      user.assign_address(user.addresses[0].id)
       flash[:success] = "You have deleted your #{address_name} address."
       flash[:notice] = "#{user.addresses[0].nickname} has been set to your default address"
       redirect_to profile_path

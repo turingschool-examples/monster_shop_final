@@ -1,6 +1,4 @@
 class Address < ApplicationRecord
-  # Validates the User already exists,
-  # might not be necessary
   belongs_to :user, inverse_of: :addresses
   has_many :orders
 
