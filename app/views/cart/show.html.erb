@@ -15,7 +15,7 @@
       <p>Subtotal: <%= number_to_currency(cart.subtotal_of(item.id)) %></p>
       <% item.merchant.coupons.each do |coupon| %>
         <% if coupon == current_coupon %>
-          <p>Subtotal After Discount: <%= number_to_currency(cart.subtotal_of(item.id) - current_coupon.discount) %></p>
+          <p>Subtotal After Discount: <%= number_to_currency([cart.subtotal_of(item.id) - current_coupon.discount, 0].max) %></p>
         <% end %>
       <% end %>
       <p>Sold by: <%= link_to item.merchant.name, "/merchants/#{item.merchant_id}" %>, Inventory: <%= item.inventory %></p>

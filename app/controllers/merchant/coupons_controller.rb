@@ -18,7 +18,7 @@ class Merchant::CouponsController < Merchant::BaseController
         flash[:notice] = 'You have created a new coupon'
         redirect_to '/merchant/coupons'
       else
-        flash[:notice] = coupon.errors.full_messages.to_sentence
+        flash[:error] = coupon.errors.full_messages.to_sentence
         render :new
       end
     end
@@ -29,11 +29,11 @@ class Merchant::CouponsController < Merchant::BaseController
   end
 
   def update
-    coupon = Coupon.find(params[:id])
-    if coupon.update(coupon_params)
+    @coupon = Coupon.find(params[:id])
+    if @coupon.update(coupon_params)
       redirect_to '/merchant/coupons'
     else
-      flash[:notice] = coupon.errors.full_messages.to_sentence
+      flash[:notice] = @coupon.errors.full_messages.to_sentence
       render :edit
     end
   end

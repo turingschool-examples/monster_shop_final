@@ -7,6 +7,8 @@ class Coupon < ApplicationRecord
   validates_presence_of :name,
                         :discount
 
+  validates_numericality_of :discount, greater_than: 0
+
   validates_uniqueness_of :name
 
   def used?
