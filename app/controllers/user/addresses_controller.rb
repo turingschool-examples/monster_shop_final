@@ -14,10 +14,15 @@ class User::AddressesController < ApplicationController
   end
 
   def create
-    @user = current_user #User.find(params[:user_id])
-    if @user.nickname_uniq?(address_params[:nickname])
-      address = @user.addresses.new(address_params)
-      if address.save
+    user = current_user #User.find(params[:user_id])
+    if user.nickname_uniq?(address_params[:nickname])
+      address = user.addresses.new(address_params)
+      if address.save && params[:default_address] == '1'
+        user.assign_address(address.id)
+        flash[:success] = "You have created your #{address.nickname} address."
+        flash[:notice] = "You have set '#{address.nickname}' as your default address"
+        redirect_to profile_path
+      elsif address.save && params[:default_address] != '1'
         flash[:success] = "You have created your #{address.nickname} address."
         redirect_to profile_path
       else
@@ -31,11 +36,19 @@ class User::AddressesController < ApplicationController
   end
 
   def edit
-
+    @address = Address.find(params[:id])
   end
 
   def update
-
+    @address = Address.find(params[:id])
+    if @address.update(address_params)
+      flash[:success] = "You have updated your #{@address.nickname} address"
+      redirect_to profile_path if @address.user.current_address?(@address.id)
+      redirect_to addresses_path unless @address.user.current_address?(@address.id)
+    else
+      generate_flash(@address)
+      render :edit
+    end
   end
 
   def destroy
@@ -43,9 +56,8 @@ class User::AddressesController < ApplicationController
     address_name = address.nickname
 
     user = address.user
+    user.assign_address(nil) if user.default_address == params[:id]
     address.destroy
-    user.assign_address(nil)
-
     if user.addresses.size == 1
       user.assign_address(user.addresses[0].id)
       flash[:success] = "You have deleted your #{address_name} address."
@@ -65,6 +77,6 @@ class User::AddressesController < ApplicationController
 
   private
     def address_params
-      params.require(:address).permit(:address, :city, :state, :zip, :nickname)
+      params.permit(:street_address, :city, :state, :zip, :nickname)
     end
 end
