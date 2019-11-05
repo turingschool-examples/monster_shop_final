@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 Item.destroy_all
 Review.destroy_all
 User.destroy_all
