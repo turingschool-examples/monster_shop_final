@@ -7,7 +7,7 @@ RSpec.describe Address do
   end
 
   describe 'Validations' do
-    it {should validate_presence_of :address}
+    it {should validate_presence_of :street_address}
     it {should validate_presence_of :city}
     it {should validate_presence_of :state}
     it {should validate_presence_of :zip}
@@ -18,9 +18,9 @@ RSpec.describe Address do
     before :each do
       @user = User.create!(name: 'Megan', email: 'megan@example.com', password: 'securepassword')
       @admin = User.create!(name: 'Megan', email: 'admin@example.com', password: 'securepassword', role: 2)
-      @address_1 = @user.addresses.create!(address: '123 Main St', city: 'Denver', state: 'CO', zip: 80218)
-      @address_2 = @user.addresses.create!(address: '456 Main st', city: 'Dallas', state: 'TX', zip: 75402, nickname: 'work')
-      @address_3 = @user.addresses.create!(address: '456 Main st', city: 'Reno', state: 'NV', zip: 75443, nickname: 'gf house')
+      @address_1 = @user.addresses.create!(street_address: '123 Main St', city: 'Denver', state: 'CO', zip: 80218)
+      @address_2 = @user.addresses.create!(street_address: '456 Main st', city: 'Dallas', state: 'TX', zip: 75402, nickname: 'work')
+      @address_3 = @user.addresses.create!(street_address: '456 Main st', city: 'Reno', state: 'NV', zip: 75443, nickname: 'gf house')
 
     end
 

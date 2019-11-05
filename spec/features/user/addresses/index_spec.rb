@@ -4,8 +4,8 @@ RSpec.describe "Address Index" do
   describe "As a registered user" do
     before :each do
       @user = User.create!(name: 'Megan', email: 'megan@example.com', password: 'securepassword')
-      @address_1 = @user.addresses.create!(address: '123 Main St', city: 'Denver', state: 'CO', zip: 80218)
-      @address_2 = @user.addresses.create!(address: '456 Main st', city: 'Dallas', state: 'TX', zip: 75402, nickname: 'Work')
+      @address_1 = @user.addresses.create!(street_address: '123 Main St', city: 'Denver', state: 'CO', zip: 80218)
+      @address_2 = @user.addresses.create!(street_address: '456 Main st', city: 'Dallas', state: 'TX', zip: 75402, nickname: 'Work')
     end
 
     it 'I can access my addresses index from the profile page and see/edit/delete all my addresses.' do
@@ -37,7 +37,7 @@ RSpec.describe "Address Index" do
       end
 
       within "#address-#{@address_2.id}" do
-        expect(page).to have_content(@address_2.address)
+        expect(page).to have_content(@address_2.street_address)
         expect(page).to have_content(@address_2.city)
         expect(page).to have_content(@address_2.state)
         expect(page).to have_content(@address_2.zip)
