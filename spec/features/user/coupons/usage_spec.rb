@@ -134,12 +134,12 @@ describe 'As a User' do
     it 'Coupons from a merchant only apply to items sold by that merchant, not other items in the cart' do
       within "#item-#{@ogre.id}" do
         expect(page).to have_content('Subtotal: $20.25')
-        expect(page).to_not have_content('Subtotal After Discount:')
+        expect(page).to_not have_content('Subtotal With Discount:')
       end
 
       within "#item-#{@hippo.id}" do
         expect(page).to have_content('Subtotal: $50.00')
-        expect(page).to_not have_content('Subtotal After Discount:')
+        expect(page).to_not have_content('Subtotal With Discount:')
       end
 
       within "#coupon-#{@coupon_1.id}" do
@@ -148,12 +148,12 @@ describe 'As a User' do
 
       within "#item-#{@ogre.id}" do
         expect(page).to have_content('Subtotal: $20.25')
-        expect(page).to have_content('Subtotal After Discount: $10.25')
+        expect(page).to have_content('Subtotal With Discount: $10.25')
       end
 
       within "#item-#{@hippo.id}" do
         expect(page).to have_content('Subtotal: $50.00')
-        expect(page).to_not have_content('Subtotal After Discount:')
+        expect(page).to_not have_content('Subtotal With Discount:')
       end
     end
 
@@ -166,7 +166,7 @@ describe 'As a User' do
 
       expect(page).to have_content('Discount Total: $10.00')
 
-      expect(page).to have_content('Total After Coupon: $60.25')
+      expect(page).to have_content('Total With Coupon: $60.25')
     end
 
     it 'If the coupon value is more than the order cost, the total is $0, not a negative number' do
@@ -184,11 +184,11 @@ describe 'As a User' do
 
       within "#item-#{@ogre.id}" do
         expect(page).to have_content('Subtotal: $20.25')
-        expect(page).to have_content('Subtotal After Discount: $0.00')
+        expect(page).to have_content('Subtotal With Discount: $0.00')
       end
 
       expect(page).to have_content('Total: $20.25')
-      expect(page).to have_content('Total After Coupon: $0.00')
+      expect(page).to have_content('Total With Coupon: $0.00')
     end
   end
 end
