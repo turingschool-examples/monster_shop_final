@@ -16,7 +16,7 @@ ActiveRecord::Schema.define(version: 20191102014544) do
   enable_extension "plpgsql"
 
   create_table "addresses", force: :cascade do |t|
-    t.string "address"
+    t.string "street_address"
     t.string "city"
     t.string "state"
     t.integer "zip"
