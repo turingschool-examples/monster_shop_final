@@ -13,14 +13,16 @@ class UsersController < ApplicationController
 
   def create
     @user = User.new(user_params)
-    @address = @user.addresses.create!(address_params)
-    if @user.save
-      @user.assign_address(@address.id)
+    address = @user.addresses.new(address_params)
+
+    if @user.save && address.save
+      @user.assign_address(address.id)
       session[:user_id] = @user.id
       flash[:notice] = "Welcome, #{@user.name}!"
       redirect_to profile_path
     else
-      generate_flash(@user)
+
+      flash.now[:error] = @user.errors.full_messages.to_sentence.gsub("Addresses", '')
       render :new
     end
   end
@@ -47,18 +49,20 @@ class UsersController < ApplicationController
   def assign_default
     user = current_user
     address = Address.find(params[:address_id])
-    user.assign_address(params[:address_id])
-    flash[:success] = "You have set '#{address.nickname}' as your default address"
-    redirect_to profile_path
+
+    if user.assign_address(params[:address_id])
+      flash[:success] = "You have set '#{address.nickname}' as your default address"
+      redirect_to profile_path
+    end
   end
 
   private
 
   def user_params
-    params.require(:user).permit(:name, :email, :password, :default_address)
+    params.require(:user).permit(:name, :email, :password, :default_address) #, addresses_attributes: [ :address, :city, :state, :zip ]) for accepts_nested_attributes_for :addresses *in the user model*
   end
 
   def address_params
-    params.require(:address).permit(:address, :city, :state, :zip)
+    params.require(:address).permit(:street_address, :city, :state, :zip, :nickname)
   end
 end
