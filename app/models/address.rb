@@ -3,7 +3,7 @@ class Address < ApplicationRecord
   has_many :orders
 
   validates :user, :presence => true
-  validates_presence_of :address,
+  validates_presence_of :street_address,
                         :city,
                         :state,
                         :zip,

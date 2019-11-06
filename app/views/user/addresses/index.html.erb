@@ -7,12 +7,12 @@
 <% @addresses.each do |address| %>
   <section id="address-<%= address.id %>">
     <li><%= address.nickname %></li>
-    <p>Address: <%= address.address %></p>
+    <p>Address: <%= address.street_address %></p>
     <p><%= address.city %>, <%= address.state %> <%= address.zip %></p>
     <p><%= "Currently used as default address." if @user.current_address?(address.id) %></p>
     <%= link_to 'Delete Address', "/addresses/#{address.id}", method: :delete if !current_admin? && address.orders.empty? %>
     <%= link_to 'Edit Address', edit_address_path(address.id) if !current_admin? && address.orders.empty? %>
     <%= link_to 'Set as Default Address', "/user/assign_address/#{address.id}", method: :patch unless @user.current_address?(address.id) %>
-  </section>
+  </section><hr>
 <% end %>
 </ul>

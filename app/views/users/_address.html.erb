@@ -3,7 +3,7 @@
 <!-- display user.default_address values -->
 <section id="current-address">
 <p>Current Address: <%= @address.nickname %></p>
-<p>Address: <%= @address.address %></p>
+<p>Address: <%= @address.street_address %></p>
 <p><%= @address.city %>, <%= @address.state %> <%= @address.zip %></p>
 <%= link_to 'All Addresses', addresses_path %>
 <%= link_to 'Add New Address', new_address_path if !current_admin? %>
