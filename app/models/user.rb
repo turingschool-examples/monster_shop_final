@@ -3,7 +3,8 @@ class User < ApplicationRecord
 
   belongs_to :merchant, optional: true
   has_many :orders
-  has_many :addresses, inverse_of: :user
+  has_many :addresses, inverse_of: :user, dependent: :destroy
+  accepts_nested_attributes_for :addresses
 
   validates_presence_of :name,
                         :email
