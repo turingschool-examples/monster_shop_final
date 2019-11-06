@@ -1,0 +1,23 @@
+<h2>Create New Address</h2>
+
+<%= form_tag "/addresses", method: :post do %>
+  <%= label_tag 'street_address' %>
+  <%= text_field_tag 'street_address' %>
+
+  <%= label_tag :city %>
+  <%= text_field_tag :city %>
+
+  <%= label_tag :state %>
+  <%= text_field_tag :state %>
+
+  <%= label_tag :zip %>
+  <%= text_field_tag :zip %>
+
+  <%= label_tag :nickname %>
+  <%= text_field_tag :nickname %>
+
+  <%= label_tag "Set as your Default Address?" %>
+  <%= select_tag :default_address, options_for_select([["Yes", 1], ["No", 2]]) %>
+
+  <%= submit_tag 'Create Address' %>
+<% end %>
