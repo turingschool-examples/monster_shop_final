@@ -32,23 +32,25 @@
   <% end %>
   <% cart.merchants.each do |merchant| %>
     <% merchant.coupons.each do |coupon| %>
-      <% if coupon.used?.first == nil %>
-        <%= form_tag "/coupons/#{coupon.id}", method: :post do %>
-          <section id='coupon-<%= coupon.id %>'>
-            <p><%= label_tag :name, coupon.name  %>,
-            <%= label_tag :discount, number_to_currency(coupon.discount) %>
-            <%= submit_tag 'Select Coupon' %></p>
-          </section>
+      <% if coupon.enabled? %>
+        <% if coupon.used?.first == nil %>
+          <%= form_tag "/coupons/#{coupon.id}", method: :post do %>
+            <section id='coupon-<%= coupon.id %>'>
+              <p><%= label_tag :name, coupon.name  %>,
+              <%= label_tag :discount, number_to_currency(coupon.discount) %>
+              <%= submit_tag 'Select Coupon' %></p>
+            </section>
+          <% end %>
+        <% elsif coupon.used?.first.user_id != current_user.id %>
+          <%= form_tag "/coupons/#{coupon.id}", method: :post do %>
+            <section id='coupon-<%= coupon.id %>'>
+              <p><%= label_tag :name, coupon.name  %>,
+              <%= label_tag :discount, number_to_currency(coupon.discount) %>
+              <%= submit_tag 'Select Coupon' %></p>
+            </section>
+          <% end %>
+        <% else coupon.used?.first.user_id == current_user.id %>
         <% end %>
-      <% elsif coupon.used?.first.user_id != current_user.id %>
-        <%= form_tag "/coupons/#{coupon.id}", method: :post do %>
-          <section id='coupon-<%= coupon.id %>'>
-            <p><%= label_tag :name, coupon.name  %>,
-            <%= label_tag :discount, number_to_currency(coupon.discount) %>
-            <%= submit_tag 'Select Coupon' %></p>
-          </section>
-        <% end %>
-      <% else coupon.used?.first.user_id == current_user.id %>
       <% end %>
     <% end %>
   <% end %>
