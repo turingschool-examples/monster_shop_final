@@ -3,9 +3,9 @@
 
 ## Instructions
 
-* Fork this repository
-* Clone your fork
-* When you are finished, push your code to your fork.
+* Fork this repository or use your existing project.
+* Clone your fork if you have forked.
+* When you are finished, push your code to your fork. (if you have forked)
 
 ## Coupon Codes
 
