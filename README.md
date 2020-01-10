@@ -16,11 +16,11 @@ Merchant users can generate coupon codes within the system.
 #### Completion Criteria
 
 1. Merchant users have a link on their dashboard to manage their coupons.
-1. Merchant userss have full CRUD functionality over their coupons with exceptions mentioned below:
+1. Merchant users have full CRUD functionality over their coupons with exceptions mentioned below:
    - merchant users cannot delete a coupon that has been used in an order
    - Note: Coupons cannot be for greater than 100% off.
 
-1. A coupon will have a coupon name, a coupon code, and a percent-off value. The name must be unique in the whole database. 
+1. A coupon will have a coupon name, a coupon code, and a percent-off value. The name and coupon code must be unique in the whole database. 
 1. Users need a way to add a coupon code when checking out. Only one coupon may be used per order.
 1. A coupon code from a merchant only applies to items sold by that merchant.
 
