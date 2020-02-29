@@ -12,6 +12,9 @@ RSpec.describe 'Discount Dashboard' do
       @order_1 = @m_user.orders.create!(status: "pending")
       @order_2 = @m_user.orders.create!(status: "pending")
       @order_3 = @m_user.orders.create!(status: "pending")
+      @discount1 = @merchant_1.discounts.create!(percent_off: 5, quantity_threshold: 20, status: "active")
+      @discount2 = @merchant_1.discounts.create!(percent_off: 10, quantity_threshold: 40, status: "active")
+      @discount3 = @merchant_1.discounts.create!(percent_off: 15, quantity_threshold: 50, status: "inactive")
       @order_item_1 = @order_1.order_items.create!(item: @hippo, price: @hippo.price, quantity: 2, fulfilled: false)
       @order_item_2 = @order_2.order_items.create!(item: @hippo, price: @hippo.price, quantity: 2, fulfilled: true)
       @order_item_3 = @order_2.order_items.create!(item: @ogre, price: @ogre.price, quantity: 2, fulfilled: false)
@@ -22,22 +25,22 @@ RSpec.describe 'Discount Dashboard' do
     it "can see my discounts" do
       visit "/merchant/discounts"
 
-        within "#discounts-#{discount1.id}" do
-          expect(page).to have_content(discount1.percent_off)
-          expect(page).to have_content(discount1.quantity_threshold)
-          expect(page).to have_content(discount1.status)
+        within "#discount-#{@discount1.id}" do
+          expect(page).to have_content(@discount1.percent_off)
+          expect(page).to have_content(@discount1.quantity_threshold)
+          expect(page).to have_content(@discount1.status)
         end
 
-        within "#discounts-#{bulk_discount2.id}" do
-          expect(page).to have_content(discount2.percent_off)
-          expect(page).to have_content(discount2.quantity_threshold)
-          expect(page).to have_content(discount2.status)
+        within "#discount-#{@discount2.id}" do
+          expect(page).to have_content(@discount2.percent_off)
+          expect(page).to have_content(@discount2.quantity_threshold)
+          expect(page).to have_content(@discount2.status)
         end
 
-        within "#discounts-#{discount3.id}" do
-          expect(page).to have_content(discount3.percent_off)
-          expect(page).to have_content(discount3.quantity_threshold)
-          expect(page).to have_content(discount3.status)
+        within "#discount-#{@discount3.id}" do
+          expect(page).to have_content(@discount3.percent_off)
+          expect(page).to have_content(@discount3.quantity_threshold)
+          expect(page).to have_content(@discount3.status)
         end
     end
   end
