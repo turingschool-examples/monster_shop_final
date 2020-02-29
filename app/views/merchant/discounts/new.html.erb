@@ -1,0 +1,12 @@
+<h2>Edit Item</h2>
+<%= form_tag "/merchant/items" do %>
+  <%= label_tag "Percent Discount" %>
+  <%= number_field_tag :amount %>
+
+  <%= label_tag "Minimum Items" %>
+  <%= number_field_tag :num_items %>
+
+  <%= collection_check_boxes(:merchant, :item_ids, @items, :id, :name) %>
+
+  <%= submit_tag 'Create Discount' %>
+<% end %>
