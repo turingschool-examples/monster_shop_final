@@ -29,18 +29,21 @@ RSpec.describe 'Discount Dashboard' do
           expect(page).to have_content(@discount1.percent_off)
           expect(page).to have_content(@discount1.quantity_threshold)
           expect(page).to have_content(@discount1.status)
+          expect(page).to have_link(@discount1.id)
         end
 
         within "#discount-#{@discount2.id}" do
           expect(page).to have_content(@discount2.percent_off)
           expect(page).to have_content(@discount2.quantity_threshold)
           expect(page).to have_content(@discount2.status)
+          expect(page).to have_link(@discount2.id)
         end
 
         within "#discount-#{@discount3.id}" do
           expect(page).to have_content(@discount3.percent_off)
           expect(page).to have_content(@discount3.quantity_threshold)
           expect(page).to have_content(@discount3.status)
+          expect(page).to have_link(@discount3.id)
         end
     end
   end
