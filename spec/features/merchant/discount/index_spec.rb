@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe 'Merchant Dashboard' do
+RSpec.describe 'Discount Dashboard' do
   describe 'As an employee of a merchant' do
     before :each do
       @merchant_1 = Merchant.create!(name: 'Megans Marmalades', address: '123 Main St', city: 'Denver', state: 'CO', zip: 80218)
@@ -19,54 +19,26 @@ RSpec.describe 'Merchant Dashboard' do
       allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(@m_user)
     end
 
-    it 'I can see my merchants information on the merchant dashboard' do
-      visit '/merchant'
+    it "can see my discounts" do
+      visit "/merchant/discounts"
 
-      expect(page).to have_link(@merchant_1.name)
-      expect(page).to have_content(@merchant_1.address)
-      expect(page).to have_content("#{@merchant_1.city} #{@merchant_1.state} #{@merchant_1.zip}")
-    end
-
-    it 'I do not have a link to edit the merchant information' do
-      visit '/merchant'
-
-      expect(page).to_not have_link('Edit')
-    end
-
-    it 'I see a list of pending orders containing my items' do
-      visit '/merchant'
-
-      within '.orders' do
-        expect(page).to_not have_css("#order-#{@order_1.id}")
-
-        within "#order-#{@order_2.id}" do
-          expect(page).to have_link(@order_2.id)
-          expect(page).to have_content("Potential Revenue: #{@order_2.merchant_subtotal(@merchant_1.id)}")
-          expect(page).to have_content("Quantity of Items: #{@order_2.merchant_quantity(@merchant_1.id)}")
-          expect(page).to have_content("Created: #{@order_2.created_at}")
+        within "#discounts-#{discount1.id}" do
+          expect(page).to have_content(discount1.percent_off)
+          expect(page).to have_content(discount1.quantity_threshold)
+          expect(page).to have_content(discount1.status)
         end
 
-        within "#order-#{@order_3.id}" do
-          expect(page).to have_link(@order_3.id)
-          expect(page).to have_content("Potential Revenue: #{@order_3.merchant_subtotal(@merchant_1.id)}")
-          expect(page).to have_content("Quantity of Items: #{@order_3.merchant_quantity(@merchant_1.id)}")
-          expect(page).to have_content("Created: #{@order_3.created_at}")
+        within "#discounts-#{bulk_discount2.id}" do
+          expect(page).to have_content(discount2.percent_off)
+          expect(page).to have_content(discount2.quantity_threshold)
+          expect(page).to have_content(discount2.status)
         end
-      end
-    end
 
-    it 'I can link to an order show page' do
-      visit '/merchant'
-
-      click_link @order_2.id
-
-      expect(current_path).to eq("/merchant/orders/#{@order_2.id}")
-    end
-
-    it "can see a link to my bulk_discounts index" do
-      visit "/merchant"
-
-      expect(page).to have_link("My Discounts")
+        within "#discounts-#{discount3.id}" do
+          expect(page).to have_content(discount3.percent_off)
+          expect(page).to have_content(discount3.quantity_threshold)
+          expect(page).to have_content(discount3.status)
+        end
     end
   end
 end
