@@ -24,10 +24,10 @@ RSpec.describe 'Discount Show Page' do
 
     it "can see my discount information and link to update discount" do
       visit "/merchant/discounts/#{@discount1.id}"
-          expect(page).to have_content(discount1.percent_off)
-          expect(page).to have_content(discount1.quantity_threshold)
-          expect(page).to have_content(discount1.status)
+          expect(page).to have_content(@discount1.percent_off)
+          expect(page).to have_content(@discount1.quantity_threshold)
+          expect(page).to have_content(@discount1.status)
           expect(page).to have_link("Update Discount")
     end
   end
-end  
+end
