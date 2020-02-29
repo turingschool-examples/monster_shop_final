@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe 'Discount Show Page' do
+RSpec.describe 'Discount Update Page' do
   describe 'As an employee of a merchant' do
     before :each do
       @merchant_1 = Merchant.create!(name: 'Megans Marmalades', address: '123 Main St', city: 'Denver', state: 'CO', zip: 80218)
@@ -22,13 +22,13 @@ RSpec.describe 'Discount Show Page' do
       allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(@m_user)
     end
 
-    it "can see my discount information and link to update discount" do
+    it "can use the link at the show page to find the update discount form" do
       visit "/merchant/discounts/#{@discount1.id}"
-        expect(page).to have_content(@discount1.percent_off)
-        expect(page).to have_content(@discount1.quantity_threshold)
-        expect(page).to have_content(@discount1.status)
-        expect(page).to have_link("Update Discount")
-    end
 
+      click_link "Update Discount"
+
+      expect(current_path).to eq("/merchant/discounts/#{@discount1.id}/update")
+    end
+    
   end
 end
