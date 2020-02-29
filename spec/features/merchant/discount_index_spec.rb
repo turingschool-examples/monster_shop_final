@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe 'Discount Dashboard' do
+RSpec.describe 'Discount Index Page' do
   describe 'As an employee of a merchant' do
     before :each do
       @merchant_1 = Merchant.create!(name: 'Megans Marmalades', address: '123 Main St', city: 'Denver', state: 'CO', zip: 80218)
