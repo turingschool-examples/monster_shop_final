@@ -1,0 +1,12 @@
+<h1>My Discounts</h1><br>
+<section class="discounts">
+  <% @discounts.each do |discount| %>
+    <section id="discount-<%= discount.id %>">
+      <%= link_to discount.id, "/merchant/discounts/#{discount.id}" %>
+      <p>Percent Off: <%= discount.percent_off %></p>
+      <p>Quantity Threshold: <%= discount.quantity_threshold %></p>
+      <p>Status : <%= discount.status %></p>
+      <p>Created on: <%= discount.created_at %></p>
+    </section><br>
+  <% end %>
+</section>
