@@ -1,0 +1,9 @@
+<center>
+<h1>Discount Id: <%= @discount.id %></h1>
+
+<p>Percent off: <%= @discount.percent_off %></p>
+<p>Amount needed to trigger discount: <%= @discount.quantity_threshold %> </p>
+<p>Status: <%= @discount.status %></p>
+<h2><%= link_to 'Update Discount', "/merchant/discounts/#{@discount.id}/update" %></h2>
+
+</center>
