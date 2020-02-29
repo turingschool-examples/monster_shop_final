@@ -29,10 +29,23 @@ RSpec.describe 'Discount Update Page' do
 
       expect(current_path).to eq("/merchant/discounts/#{@discount1.id}/edit")
 
-       expect(find_field(:percent_off).value.to_i).to eq(@discount1.percent_off)
-
+      expect(find_field(:percent_off).value.to_i).to eq(@discount1.percent_off)
       expect(find_field(:quantity_threshold).value.to_i).to eq(@discount1.quantity_threshold)
       expect(find_field(:status).value).to eq(@discount1.status)
+
+      fill_in 'percent_off', with: "25"
+      fill_in 'quantity_threshold', with: "50"
+      fill_in 'status', with: "inactive"
+
+      click_on "Update Discount"
+
+      expect(current_path).to eq("/merchant/discounts/#{@discount1.id}")
+
+      expect(page).to have_content("25")
+      expect(page).to have_content("50")
+      expect(page).to_not have_content("Percent off: 5")
+      expect(page).to_not have_content("Amount needed to trigger discount: 20")
+      expect(page).to_not have_content("Status: Active")
     end
   end
 end

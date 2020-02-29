@@ -28,8 +28,6 @@ RSpec.describe 'Discount Show Page' do
         expect(page).to have_content(@discount1.quantity_threshold)
         expect(page).to have_content(@discount1.status)
         expect(page).to have_link("Edit Discount")
-        expect(page).to have_button("Deactivate Discount")
     end
-
   end
 end
