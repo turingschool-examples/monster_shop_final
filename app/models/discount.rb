@@ -6,6 +6,6 @@ class Discount < ApplicationRecord
                         :status
 
 
-  enum role: ['active', 'inactive']
+  enum status: ['active', 'inactive']
 
 end

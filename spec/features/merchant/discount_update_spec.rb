@@ -28,7 +28,11 @@ RSpec.describe 'Discount Update Page' do
       click_link "Edit Discount"
 
       expect(current_path).to eq("/merchant/discounts/#{@discount1.id}/edit")
-    end
 
+       expect(find_field(:percent_off).value.to_i).to eq(@discount1.percent_off)
+
+      expect(find_field(:quantity_threshold).value.to_i).to eq(@discount1.quantity_threshold)
+      expect(find_field(:status).value).to eq(@discount1.status)
+    end
   end
 end
