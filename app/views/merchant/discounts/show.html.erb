@@ -4,6 +4,11 @@
 <p>Percent off: <%= @discount.percent_off %></p>
 <p>Amount needed to trigger discount: <%= @discount.quantity_threshold %> </p>
 <p>Status: <%= @discount.status %></p>
-<h2><%= link_to 'Update Discount', "/merchant/discounts/#{@discount.id}/update" %></h2>
+  <%if @discount.status == "active"%>
+    <%= button_to 'Deactivate Discount', "/merchant/discounts/#{@discount.id}/update", params: {activate_deactivate: "deactivate"}, method: :patch %>
+  <% else %>
+    <%= button_to 'Activate Discount', "/merchant/discounts/#{@discount.id}/update", params: {activate_deactivate: "activate"}, method: :patch %>
+  <% end %>
+<h2><%= link_to 'Edit Discount', "/merchant/discounts/#{@discount.id}/edit" %></h2>
 
 </center>

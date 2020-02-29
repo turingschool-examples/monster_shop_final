@@ -41,6 +41,7 @@ Rails.application.routes.draw do
     get '/orders/:id/fulfill/:order_item_id', to: 'orders#fulfill'
     get '/discounts', to: "discounts#index"
     get '/discounts/:discount_id', to: "discounts#show"
+    get '/discounts/:discount_id/edit', to: 'discounts#edit'
   end
 
   namespace :admin do
