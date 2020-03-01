@@ -11,8 +11,7 @@ class Discount < ApplicationRecord
   enum status: ['active', 'inactive']
 
   def has_not_been_used(id)
-    discounted_order_items = OrderItem.where(discount_id: id)
-    discounted_order_items == []
+    OrderItem.where(discount_id: id) == []
   end
 
 
