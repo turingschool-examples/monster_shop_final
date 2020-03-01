@@ -7,6 +7,9 @@
       <p>Quantity Threshold: <%= discount.quantity_threshold %></p>
       <p>Status : <%= discount.status %></p>
       <p>Created on: <%= discount.created_at %></p>
+      <% if discount.has_not_been_used(discount.id) %>
+        <%= button_to "Delete Discount", "/merchant/discounts/#{discount.id}", method: :delete %>
+      <% end %>
     </section><br>
   <% end %>
 </section>

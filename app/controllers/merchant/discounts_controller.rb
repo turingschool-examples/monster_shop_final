@@ -22,6 +22,18 @@ class Merchant::DiscountsController < Merchant::BaseController
     end
   end
 
+  def destroy
+    # binding.pry
+    discount = Discount.find(params[:discount_id])
+    if discount.has_not_been_used(discount.id)
+      discount.destroy
+      flash[:success] = "Discount Was Deleted"
+      redirect_to '/merchant/discounts'
+    else
+      flash[:error] = "Unable to Delete Discount. This discount has been used."
+      redirect_to '/merchant/discounts'
+    end
+  end
 
   private
 
