@@ -13,14 +13,19 @@ class Merchant::DiscountsController < Merchant::BaseController
   end
 
   def update
-
+    @discount = Discount.find(params[:discount_id])
+    if @discount.update(discount_params)
+      redirect_to "/merchant/discounts/#{@discount.id}"
+    else
+      generate_flash(@discount)
+      redirect_to "/merchant/discounts/#{@discount.id}/edit"
+    end
   end
-
 
 
   private
 
-    def item_params
+    def discount_params
       params.permit(:percent_off, :quantity_threshold, :status)
     end
 
