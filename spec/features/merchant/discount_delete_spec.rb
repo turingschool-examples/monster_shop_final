@@ -23,9 +23,9 @@ RSpec.describe 'Discount Update Page' do
     end
 
     it "can delete the discount from the index page" do
-      visit "/merchant/discounts/#{@discount1.id}"
+      visit "/merchant/discounts"
 
-      within "#discount-#{@discount1.id}" do
+       within "#discount-#{@discount1.id}" do
         expect(page).to have_content(@discount1.percent_off)
         expect(page).to have_content(@discount1.quantity_threshold)
         expect(page).to have_content(@discount1.status)
@@ -77,7 +77,7 @@ RSpec.describe 'Discount Update Page' do
       order_5.order_items.create!(item: @hippo, price: @hippo.price, quantity: 30, fulfilled: false, discount_id: discount4)
       order_5.order_items.create!(item: @hippo, price: @hippo.price, quantity: 20, fulfilled: true, discount_id: @discount1)
 
-      visit "/merchant/discounts/#{@discount1.id}"
+      visit "/merchant/discounts"
 
       within "#discount-#{@discount1.id}" do
         expect(page).to have_content(@discount1.percent_off)
