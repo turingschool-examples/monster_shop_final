@@ -29,4 +29,3 @@ discount_3 = megan.discounts.create!(amount: 30, num_items: 20)
 discount_1.item_discounts.create!(item_id: item_1.id, amount: discount_1.amount, num_items: discount_1.num_items)
 discount_2.item_discounts.create!(item_id: item_1.id, amount: discount_2.amount, num_items: discount_2.num_items)
 discount_2.item_discounts.create!(item_id: item_2.id, amount: discount_2.amount, num_items: discount_2.num_items)
-binding.pry
