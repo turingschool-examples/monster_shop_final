@@ -74,8 +74,8 @@ RSpec.describe 'Discount Update Page' do
     it "can't delete discount if it has been used" do
       discount4 = @merchant_1.discounts.create!(percent_off: 20, quantity_threshold: 30, status: "active")
       order_5 = @m_user.orders.create!(status: "pending")
-      order_5.order_items.create!(item: @hippo, price: @hippo.price, quantity: 30, fulfilled: false, discount_id: discount4)
-      order_5.order_items.create!(item: @hippo, price: @hippo.price, quantity: 20, fulfilled: true, discount_id: @discount1)
+      order_5.order_items.create!(item: @ogre, price: @ogre.price, quantity: 30, fulfilled: false, discount_id: discount4.id)
+      order_5.order_items.create!(item: @giant, price: @giant.price, quantity: 20, fulfilled: true, discount_id: @discount1.id)
 
       visit "/merchant/discounts"
 
@@ -103,11 +103,11 @@ RSpec.describe 'Discount Update Page' do
         expect(page).to have_link("Delete Discount")
       end
 
-      within "#discount-#{@discount4.id}" do
-        expect(page).to have_content(@discount4.percent_off)
-        expect(page).to have_content(@discount4.quantity_threshold)
-        expect(page).to have_content(@discount4.status)
-        expect(page).to have_link(@discount4.id)
+      within "#discount-#{discount4.id}" do
+        expect(page).to have_content(discount4.percent_off)
+        expect(page).to have_content(discount4.quantity_threshold)
+        expect(page).to have_content(discount4.status)
+        expect(page).to have_link(discount4.id)
         expect(page).to_not have_link("Delete Discount")
       end
     end
