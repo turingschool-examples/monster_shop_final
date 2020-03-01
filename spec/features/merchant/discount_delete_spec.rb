@@ -30,7 +30,7 @@ RSpec.describe 'Discount Update Page' do
         expect(page).to have_content(@discount1.quantity_threshold)
         expect(page).to have_content(@discount1.status)
         expect(page).to have_link(@discount1.id)
-        expect(page).to have_link("Delete Discount")
+        expect(page).to have_button("Delete Discount")
       end
 
       within "#discount-#{@discount2.id}" do
@@ -38,9 +38,9 @@ RSpec.describe 'Discount Update Page' do
         expect(page).to have_content(@discount2.quantity_threshold)
         expect(page).to have_content(@discount2.status)
         expect(page).to have_link(@discount2.id)
-        click_link "Delete Discount"
+        click_button "Delete Discount"
       end
-
+      @m_user.reload
       expect(current_path).to eq("/merchant/discounts")
 
       within "#discount-#{@discount3.id}" do
@@ -48,9 +48,9 @@ RSpec.describe 'Discount Update Page' do
         expect(page).to have_content(@discount3.quantity_threshold)
         expect(page).to have_content(@discount3.status)
         expect(page).to have_link(@discount3.id)
-        click_link "Delete Discount"
+        click_button "Delete Discount"
       end
-
+      @m_user.reload
       expect(current_path).to eq("/merchant/discounts")
 
       within "#discount-#{@discount1.id}" do
@@ -58,16 +58,10 @@ RSpec.describe 'Discount Update Page' do
         expect(page).to have_content(@discount1.quantity_threshold)
         expect(page).to have_content(@discount1.status)
         expect(page).to have_link(@discount1.id)
-        expect(page).to have_link("Delete Discount")
+        expect(page).to have_button("Delete Discount")
       end
 
-      expect(page).to_not have_content(@discount3.percent_off)
-      expect(page).to_not have_content(@discount3.quantity_threshold)
-      expect(page).to_not have_content(@discount3.status)
       expect(page).to_not have_link(@discount3.id)
-      expect(page).to_not have_content(@discount2.percent_off)
-      expect(page).to_not have_content(@discount2.quantity_threshold)
-      expect(page).to_not have_content(@discount2.status)
       expect(page).to_not have_link(@discount2.id)
     end
 
@@ -84,7 +78,7 @@ RSpec.describe 'Discount Update Page' do
         expect(page).to have_content(@discount1.quantity_threshold)
         expect(page).to have_content(@discount1.status)
         expect(page).to have_link(@discount1.id)
-        expect(page).to_not have_link("Delete Discount")
+        expect(page).to_not have_button("Delete Discount")
       end
 
       within "#discount-#{@discount2.id}" do
@@ -92,7 +86,7 @@ RSpec.describe 'Discount Update Page' do
         expect(page).to have_content(@discount2.quantity_threshold)
         expect(page).to have_content(@discount2.status)
         expect(page).to have_link(@discount2.id)
-        expect(page).to have_link("Delete Discount")
+        expect(page).to have_button("Delete Discount")
       end
 
       within "#discount-#{@discount3.id}" do
@@ -100,7 +94,7 @@ RSpec.describe 'Discount Update Page' do
         expect(page).to have_content(@discount3.quantity_threshold)
         expect(page).to have_content(@discount3.status)
         expect(page).to have_link(@discount3.id)
-        expect(page).to have_link("Delete Discount")
+        expect(page).to have_button("Delete Discount")
       end
 
       within "#discount-#{discount4.id}" do
@@ -108,7 +102,7 @@ RSpec.describe 'Discount Update Page' do
         expect(page).to have_content(discount4.quantity_threshold)
         expect(page).to have_content(discount4.status)
         expect(page).to have_link(discount4.id)
-        expect(page).to_not have_link("Delete Discount")
+        expect(page).to_not have_button("Delete Discount")
       end
     end
   end
