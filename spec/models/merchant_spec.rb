@@ -4,8 +4,10 @@ RSpec.describe Merchant do
   describe 'Relationships' do
     it {should have_many :items}
     it {should have_many(:order_items).through(:items)}
+    it {should have_many(:orders).through(:order_items)}
     it {should have_many :users}
     it {should have_many :discounts}
+
   end
 
   describe 'Validations' do
