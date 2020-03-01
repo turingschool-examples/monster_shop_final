@@ -1,6 +1,6 @@
 class Merchant::DiscountsController < Merchant::BaseController
   def index
-    @discounts = current_user.merchant.discounts
+    @items = current_user.merchant.items
   end
 
   def new
@@ -8,7 +8,15 @@ class Merchant::DiscountsController < Merchant::BaseController
   end
 
   def create
-
+    merchant = current_user.merchant
+    discount = merchant.discounts.new(discount_params)
+    if discount.save
+      discount.create_item_discounts(params[:items][:item_ids], params[:amount], params[:num_items])
+      redirect_to "/merchant/discounts"
+    else
+      generate_flash(discount)
+      render :new
+    end
   end
 
   def edit
