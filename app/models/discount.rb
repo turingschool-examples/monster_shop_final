@@ -6,4 +6,7 @@ class Discount < ApplicationRecord
                         :lowest_amount,
                         :highest_amount
 
+  def discount_range
+    "#{lowest_amount} - #{highest_amount} items"
+  end
 end
