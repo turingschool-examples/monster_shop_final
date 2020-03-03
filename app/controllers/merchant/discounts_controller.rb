@@ -22,8 +22,23 @@ class Merchant::DiscountsController < Merchant::BaseController
     end
   end
 
+  def new
+  end
+
+  def create
+    merchant = current_user.merchant
+    discount = merchant.discounts.new(discount_params)
+    if discount.save
+      flash[:success] = "Discount Was Created!"
+      redirect_to "/merchant/discounts"
+    else
+      generate_flash(discount)
+      redirect_to "/merchant/discounts/new"
+    end
+
+  end
+
   def destroy
-    # binding.pry
     discount = Discount.find(params[:discount_id])
     if discount.has_not_been_used(discount.id)
       discount.destroy

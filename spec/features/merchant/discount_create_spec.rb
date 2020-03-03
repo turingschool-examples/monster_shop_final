@@ -15,7 +15,7 @@ RSpec.describe 'Discount Creation' do
     it "can create a new discount" do
       visit "/merchant/discounts"
 
-      click_link "Create Discount"
+      click_link "Create New Discount"
 
       expect(current_path).to eq("/merchant/discounts/new")
 
@@ -29,17 +29,22 @@ RSpec.describe 'Discount Creation' do
 
       expect(current_path).to eq("/merchant/discounts")
 
-      click_link "/merchant/discounts/#{discount.id}"
+      expect(page).to have_content("Percent off: 25")
+      expect(page).to have_content("Quantity Threshold: 50")
+      expect(page).to have_content("Status: active")
 
+      visit "/merchant/discounts/#{discount.id}"
+
+      expect(page).to have_content(discount.id)
       expect(page).to have_content("Percent off: 25")
       expect(page).to have_content("Amount needed to trigger discount: 50")
       expect(page).to have_content("Status: active")
-    end
+end
 
     it "can't create with incomplete fields" do
       visit "/merchant/discounts"
 
-      click_link "Create Discount"
+      click_link "Create New Discount"
 
       expect(current_path).to eq("/merchant/discounts/new")
 
@@ -50,10 +55,6 @@ RSpec.describe 'Discount Creation' do
       click_on "Save Discount"
 
       expect(current_path).to eq("/merchant/discounts/new")
-
-      expect(find_field(:percent_off).value.to_i).to eq(25)
-      expect(find_field(:quantity_threshold).value.to_i).to eq("")
-      expect(find_field(:status).value).to eq("active")
     end
   end
 end
