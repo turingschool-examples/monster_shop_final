@@ -1,4 +1,5 @@
 <h2><%= link_to @discount.title %></h2>
 <p>Information: <%= @discount.information %></p>
 <p>Percent off: <%= @discount.percent_off %></p>
-<p>Amount of products needed to get discount: <%= @discount.discount_range %></p>
+<p>Amount of products needed to get discount: <%= @discount.discount_range %></p><br>
+<p><%= link_to "Edit Discount", "/merchant/discounts/#{@discount.id}/edit" %></p>
