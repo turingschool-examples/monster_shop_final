@@ -2,12 +2,20 @@
 <% if cart.items.empty? %>
   <p>Your Cart is Empty!</p>
 <% else %>
-<h3>Total: <%= number_to_currency(cart.grand_total) %></h3>
+  <h3>Total: <%= number_to_currency(cart.grand_total) %></h3>
   <% cart.items.each do |item| %>
     <section id='item-<%= item.id%>'>
       <h2><%= link_to item.name, "/items/#{item.id}" %></h2>
       <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTaLM_vbg2Rh-mZ-B4t-RSU9AmSfEEq_SN9xPP_qrA2I6Ftq_D9Qw">
       <p>Price: <%= number_to_currency(item.price) %></p>
+        <section id='discounts'>
+          <p>Bulk Discounts Available: <%= item.discount_count(item.merchant_id) %></p>
+              <% if item.discounts_available?(item.merchant_id) %>
+                  <% item.bulk_discounts(item.merchant_id).each do |discount| %>
+                    <p>Save <%= discount.percent_off %>% when you buy <%= discount.quantity_threshold %> or more </p>
+                  <% end %>
+              <% end %>
+        </section>
       <p>Quantity: <%= cart.count_of(item.id) %></p>
       <p>Subtotal: <%= number_to_currency(cart.subtotal_of(item.id)) %></p>
       <p>Sold by: <%= link_to item.merchant.name, "/merchants/#{item.merchant_id}" %>, Inventory: <%= item.inventory %></p>

@@ -5,6 +5,7 @@ RSpec.describe Item do
     it {should belong_to :merchant}
     it {should have_many :order_items}
     it {should have_many(:orders).through(:order_items)}
+    it {should have_many(:discounts).through(:merchant)}
     it {should have_many :reviews}
   end
 
@@ -19,8 +20,12 @@ RSpec.describe Item do
   describe 'Instance Methods' do
     before :each do
       @megan = Merchant.create!(name: 'Megans Marmalades', address: '123 Main St', city: 'Denver', state: 'CO', zip: 80218)
+      @brian = Merchant.create!(name: 'Brians Bagels', address: '125 Main St', city: 'Denver', state: 'CO', zip: 80218)
+
       @ogre = @megan.items.create!(name: 'Ogre', description: "I'm an Ogre!", price: 20, image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTaLM_vbg2Rh-mZ-B4t-RSU9AmSfEEq_SN9xPP_qrA2I6Ftq_D9Qw', active: true, inventory: 5 )
       @giant = @megan.items.create!(name: 'Giant', description: "I'm a Giant!", price: 20, image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTaLM_vbg2Rh-mZ-B4t-RSU9AmSfEEq_SN9xPP_qrA2I6Ftq_D9Qw', active: true, inventory: 5 )
+      @gator = @brian.items.create!(name: 'Gator', description: "I'm a Loch Monster!", price: 50, image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTaLM_vbg2Rh-mZ-B4t-RSU9AmSfEEq_SN9xPP_qrA2I6Ftq_D9Qw', active: false, inventory: 3 )
+
       @review_1 = @ogre.reviews.create(title: 'Great!', description: 'This Ogre is Great!', rating: 5)
       @review_2 = @ogre.reviews.create(title: 'Meh.', description: 'This Ogre is Mediocre', rating: 3)
       @review_3 = @ogre.reviews.create(title: 'EW', description: 'This Ogre is Ew', rating: 1)
@@ -36,6 +41,41 @@ RSpec.describe Item do
 
     it '.average_rating' do
       expect(@ogre.average_rating.round(2)).to eq(3.00)
+    end
+
+    it ".discount_count" do
+      discount1 = @megan.discounts.create!(percent_off: 5, quantity_threshold: 20, status: "active")
+      discount2 = @megan.discounts.create!(percent_off: 10, quantity_threshold: 40, status: "active")
+      discount3 = @brian.discounts.create!(percent_off: 15, quantity_threshold: 50, status: "active")
+
+      expect(@ogre.discount_count(@megan.id)).to eq(2)
+      expect(@gator.discount_count(@brian.id)).to eq(1)
+    end
+
+    it  ".discounts_available?" do
+      discount1 = @megan.discounts.create!(percent_off: 5, quantity_threshold: 20, status: "active")
+      discount2 = @megan.discounts.create!(percent_off: 10, quantity_threshold: 40, status: "active")
+
+      expect(@ogre.discounts_available?(@megan.id)).to eq(true)
+      expect(@gator.discounts_available?(@brian.id)).to eq(false)
+    end
+
+    it ".bulk_discounts" do
+      discount1 = @megan.discounts.create!(percent_off: 5, quantity_threshold: 20, status: "active")
+      discount2 = @megan.discounts.create!(percent_off: 10, quantity_threshold: 40, status: "active")
+
+      expect(@ogre.bulk_discounts(@megan.id)).to eq([discount1, discount2])
+      expect(@giant.bulk_discounts(@megan.id)).to eq([discount1, discount2])
+      expect(@gator.bulk_discounts(@brian.id)).to eq([])
+    end
+
+    it ".discount_percentage" do
+      discount1 = @megan.discounts.create!(percent_off: 5, quantity_threshold: 20, status: "active")
+      discount2 = @megan.discounts.create!(percent_off: 10, quantity_threshold: 40, status: "active")
+
+      expect(@ogre.discount_percentage(@megan.id, 40)).to eq(discount2.percent_off)
+      expect(@gator.discount_percentage(@brian.id, 90)).to eq(0)
+
     end
   end
 
@@ -54,6 +94,11 @@ RSpec.describe Item do
       @review_4 = @ogre.reviews.create(title: 'So So', description: 'This Ogre is So so', rating: 2)
       @review_5 = @ogre.reviews.create(title: 'Okay', description: 'This Ogre is Okay', rating: 4)
       @user = User.create!(name: 'Megan', address: '123 Main St', city: 'Denver', state: 'CO', zip: 80218, email: 'megan@example.com', password: 'securepassword')
+      @discount1 = @megan.discounts.create!(percent_off: 5, quantity_threshold: 20, status: "active")
+      @discount2 = @megan.discounts.create!(percent_off: 10, quantity_threshold: 40, status: "active")
+      @discount3 = @brian.discounts.create!(percent_off: 15, quantity_threshold: 50, status: "active")
+      @discount4 = @brian.discounts.create!(percent_off: 20, quantity_threshold: 30, status: "active")
+      @discount4 = @brian.discounts.create!(percent_off: 25, quantity_threshold: 25, status: "active")
       @order_1 = @user.orders.create!
       @order_2 = @user.orders.create!
       @order_3 = @user.orders.create!
