@@ -4,6 +4,11 @@
 
 <%= link_to 'My Items', '/merchant/items' %>
 <%= link_to 'Store Discount Index', '/merchant/discounts' %>
+<%= link_to 'Create New Discount', '/merchant/discounts/new' %>
+<h4>List of Current Discounts We Offer </h4>
+  <%@merchant.discounts.each do |discount| %>
+    <p><%= link_to "#{discount.title}", "/merchant/discounts/#{discount.id}" %></p>
+  <% end %>
 
 <section class="orders">
   <% @merchant.pending_orders.each do |order| %>

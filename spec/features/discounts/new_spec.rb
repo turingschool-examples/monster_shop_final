@@ -36,24 +36,23 @@ RSpec.describe "As a merchant employee", type: :feature do
       fill_in :email, with: @mike.email
       fill_in :password, with: @mike.password
       click_button "Log In"
-      click_link "Merchant Dashboard"
-    end
-    it "I see a link that takes me to my shops discount index" do
-      expect(current_path).to eq("/merchant")
-      click_link 'Store Discount Index'
-      expect(current_path).to eq("/merchant/discounts")
-      expect(page).to have_content(@discount1.title)
-      expect(page).to have_content(@discount1.discount_range)
-      expect(page).to have_content(@discount1.percent_off)
-
-      expect(page).to have_content(@discount2.title)
-      expect(page).to have_content(@discount2.discount_range)
-      expect(page).to have_content(@discount2.percent_off)
-
-      expect(page).to have_content(@discount3.title)
-      expect(page).to have_content(@discount3.discount_range)
-      expect(page).to have_content(@discount3.percent_off)
-
-    end
   end
+
+  it "I see a link to create a new discount" do
+    expect(page).to have_link('Create New Discount')
+    click_link ('Create New Discount')
+    expect(current_path).to eq("/merchant/discounts/new")
+    fill_in :title, with: "New Discount"
+    fill_in :percent_off, with: 50
+    fill_in :information, with: "This is the best discount"
+    fill_in :lowest_amount, with: 30
+    fill_in :highest_amount, with: 39
+    click_button 'Submit'
+
+    expect(current_path).to eq("/merchant/discounts")
+    expect(page).to have_content("New Discount")
+    expect(page).to have_content("50")
+
+  end
+ end
 end

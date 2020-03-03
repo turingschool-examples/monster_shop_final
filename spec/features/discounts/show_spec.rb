@@ -1,6 +1,6 @@
 require 'rails_helper'
 RSpec.describe "As a merchant employee", type: :feature do
-  describe 'when I visit my merchant dashboard' do
+  describe 'when I visit my merchant dashboard and click the store discount index link' do
     before(:each) do
       @bike_shop = Merchant.create!(name: 'Matts Bikes',
                                       address: '123 High St',
@@ -37,22 +37,21 @@ RSpec.describe "As a merchant employee", type: :feature do
       fill_in :password, with: @mike.password
       click_button "Log In"
       click_link "Merchant Dashboard"
-    end
-    it "I see a link that takes me to my shops discount index" do
       expect(current_path).to eq("/merchant")
       click_link 'Store Discount Index'
       expect(current_path).to eq("/merchant/discounts")
-      expect(page).to have_content(@discount1.title)
+    end
+
+    it "I see all the discounts listed are links to their show page" do
+      expect(page).to have_link(@discount1.title)
+      expect(page).to have_link(@discount2.title)
+      expect(page).to have_link(@discount3.title)
+
+      click_link "#{@discount1.title}"
+      expect(current_path).to eq("/merchant/discounts/#{@discount1.id}")
       expect(page).to have_content(@discount1.discount_range)
       expect(page).to have_content(@discount1.percent_off)
-
-      expect(page).to have_content(@discount2.title)
-      expect(page).to have_content(@discount2.discount_range)
-      expect(page).to have_content(@discount2.percent_off)
-
-      expect(page).to have_content(@discount3.title)
-      expect(page).to have_content(@discount3.discount_range)
-      expect(page).to have_content(@discount3.percent_off)
+      expect(page).to have_content(@discount1.information)
 
     end
   end
