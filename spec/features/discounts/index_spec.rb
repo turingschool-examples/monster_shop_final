@@ -1,19 +1,9 @@
 require 'rails_helper'
 
-RSpec.describe Discount, type: :model do
-  describe 'Validations' do
-    it {should validate_presence_of :title}
-    it {should validate_presence_of :percent_off}
-    it {should validate_presence_of :information}
-    it {should validate_presence_of :lowest_amount}
-    it {should validate_presence_of :highest_amount}
-  end
+RSpec.describe "As a merchant employee", type: :feature do
 
-  describe 'Relationships' do
-    it {should belong_to :merchant}
-  end
+  describe 'when I visit my merchant dashboard' do
 
-  describe 'Methods' do
     before(:each) do
       @bike_shop = Merchant.create!(name: 'Matts Bikes',
                                       address: '123 High St',
@@ -45,10 +35,28 @@ RSpec.describe Discount, type: :model do
                                                 information: "Thanks for buying in bulk",
                                                 lowest_amount: 20,
                                                 highest_amount: 29)
-      end
-    it "can dispaly discount_range" do
-      expect(@discount1.discount_range).to eq("5 - 9 items")
+      visit "/login"
+      fill_in :email, with: @mike.email
+      fill_in :password, with: @mike.password
+      click_button "Log In"
+      click_link "Merchant Dashboard"
     end
+    it "I see a link that takes me to my shops discount index" do
+      expect(current_path).to eq("/merchant")
+      click_link 'Store Discount Index'
+      expect(current_path).to eq("/merchant/discounts")
+      expect(page).to have_content(@discount1.title)
+      expect(page).to have_content(@discount1.discount_range)
+      expect(page).to have_content(@discount1.percent_off)
 
+      expect(page).to have_content(@discount2.title)
+      expect(page).to have_content(@discount2.discount_range)
+      expect(page).to have_content(@discount2.percent_off)
+
+      expect(page).to have_content(@discount3.title)
+      expect(page).to have_content(@discount3.discount_range)
+      expect(page).to have_content(@discount3.percent_off)
+
+    end
   end
 end
