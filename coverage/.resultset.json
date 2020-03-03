@@ -3030,6 +3030,39 @@
         null,
         null
       ],
+      "/Users/piercealworth/Turing/2module/projects/final/sandbox/monster_shop_final/spec/models/discount_spec.rb": [
+        1,
+        null,
+        1,
+        1,
+        2,
+        2,
+        2,
+        2,
+        2,
+        null,
+        null,
+        1,
+        2,
+        null,
+        null
+      ],
+      "/Users/piercealworth/Turing/2module/projects/final/sandbox/monster_shop_final/app/models/discount.rb": [
+        1,
+        1,
+        1,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      "/Users/piercealworth/Turing/2module/projects/final/sandbox/monster_shop_final/app/models/application_record.rb": [
+        1,
+        1,
+        null
+      ],
       "/Users/piercealworth/Turing/2module/projects/final/sandbox/monster_shop_final/spec/models/item_spec.rb": [
         1,
         null,
@@ -3143,16 +3176,12 @@
         null,
         null
       ],
-      "/Users/piercealworth/Turing/2module/projects/final/sandbox/monster_shop_final/app/models/application_record.rb": [
-        1,
-        1,
-        null
-      ],
       "/Users/piercealworth/Turing/2module/projects/final/sandbox/monster_shop_final/spec/models/merchant_spec.rb": [
         1,
         null,
         1,
         1,
+        2,
         2,
         2,
         2,
@@ -3211,6 +3240,7 @@
         null
       ],
       "/Users/piercealworth/Turing/2module/projects/final/sandbox/monster_shop_final/app/models/merchant.rb": [
+        1,
         1,
         1,
         1,
@@ -3980,6 +4010,6 @@
         null
       ]
     },
-    "timestamp": 1583197600
+    "timestamp": 1583198181
   }
 }
