@@ -1,9 +1,6 @@
 require 'rails_helper'
-
 RSpec.describe "As a merchant employee", type: :feature do
-
   describe 'when I visit my merchant dashboard' do
-
     before(:each) do
       @bike_shop = Merchant.create!(name: 'Matts Bikes',
                                       address: '123 High St',
