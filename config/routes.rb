@@ -34,6 +34,7 @@ Rails.application.routes.draw do
   get '/logout', to: 'sessions#logout'
 
   namespace :merchant do
+    get '/discounts', to: 'discounts#index'
     get '/', to: 'dashboard#index', as: :dashboard
     resources :orders, only: :show
     resources :items, only: [:index, :new, :create, :edit, :update, :destroy]
