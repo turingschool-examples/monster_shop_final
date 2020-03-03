@@ -52,4 +52,20 @@ class Item < ApplicationRecord
       discount
     end
   end
+
+  def best_discount(merchant_id, qty)
+    # binding.pry
+    if discount_percentage(merchant_id, qty) == 0
+      return nil
+    else
+      Discount.where("quantity_threshold = #{qty} or quantity_threshold < #{qty}").where(status: "active").where(merchant_id: "#{merchant_id}").order(percent_off: :desc).pluck(:id).first
+    end
+  end
+
+  def price_after_discount(qty, item_id)
+    item = Item.find(item_id)
+    # binding.pry
+    item.price - (item.price * (item.discount_percentage(item.merchant_id, qty)/100.to_f))
+  end
+
 end

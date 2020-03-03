@@ -14,8 +14,8 @@ RSpec.describe 'Cart' do
       @aquaman = @merchant_3.items.create!(name: 'Aquaman', description: "I'm Aquaman!", price: 35, image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTaLM_vbg2Rh-mZ-B4t-RSU9AmSfEEq_SN9xPP_qrA2I6Ftq_D9Qw', active: true, inventory: 100 )
       @discount1 = @merchant_1.discounts.create!(percent_off: 5, quantity_threshold: 2, status: "active")
       @discount2 = @merchant_1.discounts.create!(percent_off: 10, quantity_threshold: 4, status: "active")
-      @discount3 = @merchant_2.discounts.create!(percent_off: 15, quantity_threshold: 6, status: "inactive")
-      @discount4 = @merchant_2.discounts.create!(percent_off: 15, quantity_threshold: 8, status: "active")
+      @discount3 = @merchant_2.discounts.create!(percent_off: 10, quantity_threshold: 2, status: "inactive")
+      @discount4 = @merchant_2.discounts.create!(percent_off: 15, quantity_threshold: 2, status: "active")
     end
 
     it "I can add items and see the discount applied as the quantity reaches a threshold" do
@@ -51,7 +51,7 @@ RSpec.describe 'Cart' do
       end
     end
 
-    xit "discounts only apply to items whose merchants have discounts and who's quantity meets threshold" do
+    it "discounts only apply to items whose merchants have discounts and who's quantity meets threshold" do
       visit item_path(@ogre)
       click_button 'Add to Cart'
       expect(page).to have_content("Cart: 1")
@@ -73,7 +73,42 @@ RSpec.describe 'Cart' do
       within "#item-#{@aquaman.id}" do
         click_button 'More of This!'
       end
+
+      within "#item-#{@ogre.id}" do
+        expect(page).to have_content("Subtotal: $19.00")
+      end
+
+      within "#item-#{@giant.id}" do
+        expect(page).to have_content("Subtotal: $50.00")
+      end
+
+      within "#item-#{@aquaman.id}" do
+        expect(page).to have_content("Subtotal: $70.00")
+      end
     end
 
+    it "cannot see inactive disounts" do
+      visit item_path(@hippo)
+      click_button 'Add to Cart'
+      expect(page).to have_content("Cart: 1")
+
+      visit item_path(@panda)
+      click_button 'Add to Cart'
+      expect(page).to have_content("Cart: 2")
+
+      visit "/cart"
+
+      within "#item-#{@hippo.id}" do
+        click_button 'More of This!'
+      end
+
+      within "#item-#{@panda.id}" do
+        click_button 'More of This!'
+      end
+      
+      expect(page).to have_content("Bulk Discounts Available: 1")
+      expect(page).to have_content("Save 15% when you buy 2 or more")
+      expect(page).to_not have_content("Save 10% when you buy 4 or more")
+    end
   end
 end
