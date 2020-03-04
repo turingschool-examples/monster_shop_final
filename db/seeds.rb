@@ -4,7 +4,7 @@ megan = Merchant.create!(name: 'Megans Marvelous Creatures', address: '123 Main 
 brian = Merchant.create!(name: 'Brians Boss Beasts', address: '125 Main St', city: 'Denver', state: 'CO', zip: 80218)
 
 m_user = megan.users.create(name: 'Megan', address: '123 Main St', city: 'Denver', state: 'CO', zip: 80218, email: 'megan@example.com', password: 'securepassword')
-m2_user = brian.create(name: 'Brian', address: '128 Main St', city: 'Denver', state: 'CO', zip: 80218, email: 'brian@example.com', password: 'securepassword')
+m2_user = brian.users.create(name: 'Brian', address: '128 Main St', city: 'Denver', state: 'CO', zip: 80218, email: 'brian@example.com', password: 'securepassword')
 
 user = User.create(name: 'Tin', address: '128 Main St', city: 'Denver', state: 'CO', zip: 80218, email: 'Tin@example.com', password: 'securepassword')
 user = User.create(name: 'Charles', address: '128 Main St', city: 'Denver', state: 'CO', zip: 80218, email: 'charles@example.com', password: 'securepassword')
