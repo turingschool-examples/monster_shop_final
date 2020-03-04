@@ -12,7 +12,7 @@ RSpec.describe 'Cart' do
       @hippo = @merchant_2.items.create!(name: 'Hippo', description: "I'm a Hippo!", price: 50, image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTaLM_vbg2Rh-mZ-B4t-RSU9AmSfEEq_SN9xPP_qrA2I6Ftq_D9Qw', active: true, inventory: 100 )
       @panda = @merchant_2.items.create!(name: 'Panda', description: "I'm a Panda!", price: 50, image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTaLM_vbg2Rh-mZ-B4t-RSU9AmSfEEq_SN9xPP_qrA2I6Ftq_D9Qw', active: true, inventory: 100 )
       @aquaman = @merchant_3.items.create!(name: 'Aquaman', description: "I'm Aquaman!", price: 35, image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTaLM_vbg2Rh-mZ-B4t-RSU9AmSfEEq_SN9xPP_qrA2I6Ftq_D9Qw', active: true, inventory: 100 )
-      @discount1 = @merchant_1.discounts.create!(percent_off: 5, quantity_threshold: 2, status: "active")
+      @discount1 = @merchant_1.discounts.create!(percent_off: 5.5, quantity_threshold: 2, status: "active")
       @discount2 = @merchant_1.discounts.create!(percent_off: 10, quantity_threshold: 4, status: "active")
       @discount3 = @merchant_2.discounts.create!(percent_off: 10, quantity_threshold: 2, status: "inactive")
       @discount4 = @merchant_2.discounts.create!(percent_off: 15, quantity_threshold: 2, status: "active")
@@ -33,8 +33,8 @@ RSpec.describe 'Cart' do
         expect(page).to have_content("Price: $10.00")
         expect(page).to have_content("Quantity: 1")
         expect(page).to have_content("Bulk Discounts Available: 2")
-        expect(page).to have_content("Save 5% when you buy 2 or more")
-        expect(page).to have_content("Save 10% when you buy 4 or more")
+        expect(page).to have_content("Save 5.5% when you buy 2 or more")
+        expect(page).to have_content("Save 10.0% when you buy 4 or more")
         expect(page).to have_content("Subtotal: $10.00")
       end
 
@@ -45,9 +45,9 @@ RSpec.describe 'Cart' do
         expect(page).to have_content("Price: $10.00")
         expect(page).to have_content("Quantity: 2")
         expect(page).to have_content("Bulk Discounts Available: 2")
-        expect(page).to have_content("Save 5% when you buy 2 or more")
-        expect(page).to have_content("Save 10% when you buy 4 or more")
-        expect(page).to have_content("Subtotal: $19.00")
+        expect(page).to have_content("Save 5.5% when you buy 2 or more")
+        expect(page).to have_content("Save 10.0% when you buy 4 or more")
+        expect(page).to have_content("Subtotal: $18.90")
       end
     end
 
@@ -75,7 +75,7 @@ RSpec.describe 'Cart' do
       end
 
       within "#item-#{@ogre.id}" do
-        expect(page).to have_content("Subtotal: $19.00")
+        expect(page).to have_content("Subtotal: $18.90")
       end
 
       within "#item-#{@giant.id}" do
@@ -105,10 +105,10 @@ RSpec.describe 'Cart' do
       within "#item-#{@panda.id}" do
         click_button 'More of This!'
       end
-      
+
       expect(page).to have_content("Bulk Discounts Available: 1")
-      expect(page).to have_content("Save 15% when you buy 2 or more")
-      expect(page).to_not have_content("Save 10% when you buy 4 or more")
+      expect(page).to have_content("Save 15.0% when you buy 2 or more")
+      expect(page).to_not have_content("Save 10.0% when you buy 4 or more")
     end
   end
 end

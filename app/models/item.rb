@@ -44,12 +44,7 @@ class Item < ApplicationRecord
   end
 
   def discount_percentage(qty)
-    discount = Discount.where(merchant_id: "#{self.merchant_id}").where(status: "active").order(percent_off: :desc).where("quantity_threshold = #{qty} or quantity_threshold < #{qty}").distinct.select(:percent_off).pluck(:percent_off).first
-    if discount == nil
-      return 0
-    else
-      discount
-    end
+    discount = Discount.where(merchant_id: "#{self.merchant_id}").where(status: "active").order(percent_off: :desc).where("quantity_threshold = #{qty} or quantity_threshold < #{qty}").distinct.select(:percent_off).pluck(:percent_off).first.to_f
   end
 
   def best_discount(qty)
@@ -61,6 +56,6 @@ class Item < ApplicationRecord
   end
 
   def price_after_discount(qty)
-    self.price - (self.price * (self.discount_percentage(qty)/100.to_f))
+    self.price - (self.price * (self.discount_percentage(qty)/100))
   end
 end
