@@ -1,0 +1,14 @@
+<center>
+  <h1>Discount Id: <%= @discount.id %></h1>
+
+  <p>Percent off: <%= @discount.percent_off %></p>
+  <p>Amount needed to trigger discount: <%= @discount.quantity_threshold %> </p>
+  <p>Status: <%= @discount.status %></p>
+    <% if @discount.has_not_been_used(@discount.id) %>
+      <h2><%= link_to 'Edit Discount', "/merchant/discounts/#{@discount.id}/edit", method: :get  %></h2>
+    <% elsif @discount.status == "inactive" %>
+      <%= button_to 'Activate Discount', "/merchant/discounts/#{@discount.id}", params: {change_status: "active"}, method: :patch  %>
+    <% elsif @discount.status == "active" %>
+      <%= button_to 'Deactivate Discount', "/merchant/discounts/#{@discount.id}", params: {change_status: "inactive"}, method: :patch  %>
+    <% end %>
+</center>

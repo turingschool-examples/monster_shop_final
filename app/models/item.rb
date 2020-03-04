@@ -3,6 +3,7 @@ class Item < ApplicationRecord
   has_many :order_items
   has_many :orders, through: :order_items
   has_many :reviews, dependent: :destroy
+  has_many :discounts, through: :merchant
 
   validates_presence_of :name,
                         :description,
@@ -28,5 +29,38 @@ class Item < ApplicationRecord
 
   def average_rating
     reviews.average(:rating)
+  end
+
+  def discount_count
+    Discount.where(merchant_id: "#{self.merchant_id}").where(:status => "active").distinct.count
+  end
+
+  def discounts_available?
+    0 < Discount.where(merchant_id: "#{self.merchant_id}").where(status: "active").distinct.count
+  end
+
+  def bulk_discounts
+    Discount.where(merchant_id: "#{self.merchant_id}").where(:status => "active").order(:percent_off).distinct
+  end
+
+  def discount_percentage(qty)
+    discount = Discount.where(merchant_id: "#{self.merchant_id}").where(status: "active").order(percent_off: :desc).where("quantity_threshold = #{qty} or quantity_threshold < #{qty}").distinct.select(:percent_off).pluck(:percent_off).first
+    if discount == nil
+      return 0
+    else
+      discount
+    end
+  end
+
+  def best_discount(qty)
+    if discount_percentage(qty) == 0
+      return nil
+    else
+      Discount.where("quantity_threshold = #{qty} or quantity_threshold < #{qty}").where(status: "active").where(merchant_id: "#{self.merchant_id}").order(percent_off: :desc).pluck(:id).first
+    end
+  end
+
+  def price_after_discount(qty)
+    self.price - (self.price * (self.discount_percentage(qty)/100.to_f))
   end
 end

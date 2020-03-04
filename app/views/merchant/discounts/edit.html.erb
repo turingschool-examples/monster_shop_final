@@ -1,0 +1,15 @@
+<h2>Edit Discount</h2>
+
+<%= form_tag "/merchant/discounts/#{@discount.id}", method: :patch do %>
+  <%= label_tag :percent_off %>
+  <%= text_field_tag :percent_off, (@discount.percent_off if @discount) %>
+
+  <%= label_tag :quantity_threshold %>
+  <%= text_field_tag :quantity_threshold, (@discount.quantity_threshold if @discount) %>
+
+  <%= label_tag :status %>
+  <p>Please choose: active or inactive </p>
+  <%= text_field_tag :status, (@discount.status if @discount) %>
+
+  <%= submit_tag 'Update Discount' %>
+<% end %>
