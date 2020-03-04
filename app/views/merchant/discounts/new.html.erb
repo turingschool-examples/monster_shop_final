@@ -2,7 +2,7 @@
 
 <%= form_tag "/merchant/discounts/new" do %>
   <%= label_tag :percent_off %>
-  <%= text_field_tag :percent_off, (@discount.percent_off if @discount) %>
+  <%= text_field_tag :percent_off, (@discount.percent_off.to_f if @discount) %>
 
   <%= label_tag :quantity_threshold %>
   <%= text_field_tag :quantity_threshold, (@discount.quantity_threshold if @discount) %>

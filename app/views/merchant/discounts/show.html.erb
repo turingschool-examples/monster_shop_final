@@ -1,7 +1,7 @@
 <center>
   <h1>Discount Id: <%= @discount.id %></h1>
 
-  <p>Percent off: <%= @discount.percent_off %></p>
+  <p>Percent off: <%= @discount.percent_off.to_f %></p>
   <p>Amount needed to trigger discount: <%= @discount.quantity_threshold %> </p>
   <p>Status: <%= @discount.status %></p>
     <% if @discount.has_not_been_used(@discount.id) %>
