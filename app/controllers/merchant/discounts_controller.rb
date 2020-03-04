@@ -13,12 +13,26 @@ class Merchant::DiscountsController < Merchant::BaseController
   end
 
   def update
-    @discount = Discount.find(params[:discount_id])
-    if @discount.update(discount_params)
+    if params.keys.include?("change_status")
+      change_status
       redirect_to "/merchant/discounts/#{@discount.id}"
     else
-      generate_flash(@discount)
-      redirect_to "/merchant/discounts/#{@discount.id}/edit"
+      @discount = Discount.find(params[:discount_id])
+      if @discount.update(discount_params)
+        redirect_to "/merchant/discounts/#{@discount.id}"
+      else
+        generate_flash(@discount)
+        redirect_to "/merchant/discounts/#{@discount.id}/edit"
+      end
+    end
+  end
+
+  def change_status
+    @discount = Discount.find(params[:discount_id])
+    if params[:change_status] == "active"
+      @discount.update(status: "active")
+    else
+      @discount.update(status: "inactive")
     end
   end
 
@@ -35,25 +49,17 @@ class Merchant::DiscountsController < Merchant::BaseController
       generate_flash(discount)
       redirect_to "/merchant/discounts/new"
     end
-
   end
 
   def destroy
     discount = Discount.find(params[:discount_id])
-    if discount.has_not_been_used(discount.id)
-      discount.destroy
-      flash[:success] = "Discount Was Deleted"
-      redirect_to '/merchant/discounts'
-    else
-      flash[:error] = "Unable to Delete Discount. This discount has been used."
-      redirect_to '/merchant/discounts'
-    end
+    discount.destroy
+    flash[:success] = "Discount Was Deleted"
+    redirect_to '/merchant/discounts'
   end
 
   private
-
     def discount_params
       params.permit(:percent_off, :quantity_threshold, :status)
     end
-
 end

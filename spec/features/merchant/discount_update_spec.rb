@@ -14,11 +14,12 @@ RSpec.describe 'Discount Update Page' do
       @order_3 = @m_user.orders.create!(status: "pending")
       @discount1 = @merchant_1.discounts.create!(percent_off: 5, quantity_threshold: 20, status: "active")
       @discount2 = @merchant_1.discounts.create!(percent_off: 10, quantity_threshold: 40, status: "active")
-      @discount3 = @merchant_1.discounts.create!(percent_off: 15, quantity_threshold: 50, status: "inactive")
+      @discount3 = @merchant_1.discounts.create!(percent_off: 5, quantity_threshold: 2, status: "inactive")
+      @discount4 = @merchant_1.discounts.create!(percent_off: 5, quantity_threshold: 2, status: "active")
       @order_item_1 = @order_1.order_items.create!(item: @hippo, price: @hippo.price, quantity: 2, fulfilled: false)
       @order_item_2 = @order_2.order_items.create!(item: @hippo, price: @hippo.price, quantity: 2, fulfilled: true)
-      @order_item_3 = @order_2.order_items.create!(item: @ogre, price: @ogre.price, quantity: 2, fulfilled: false)
-      @order_item_4 = @order_3.order_items.create!(item: @giant, price: @giant.price, quantity: 2, fulfilled: false)
+      @order_item_3 = @order_2.order_items.create!(item: @ogre, price: @ogre.price, quantity: 2, fulfilled: false, discount_id: @discount3.id)
+      @order_item_4 = @order_3.order_items.create!(item: @giant, price: @giant.price, quantity: 2, fulfilled: false, discount_id: @discount4.id)
       allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(@m_user)
     end
 
@@ -82,7 +83,50 @@ RSpec.describe 'Discount Update Page' do
       visit "/merchant/discounts/#{@discount1.id}"
 
       expect(page).to_not have_content("Edit Discount")
+    end
 
+    it "can change the status of a discount if it has or has not been used" do
+#       @order_item_1 = @order_1.order_items.create!(item: @hippo, price: @hippo.price, quantity: 2, fulfilled: false)
+#       @order_item_2 = @order_2.order_items.create!(item: @hippo, price: @hippo.price, quantity: 2, fulfilled: true)
+#       @order_item_3 = @order_2.order_items.create!(item: @ogre, price: @ogre.price, quantity: 2, fulfilled: false, discount_id: @discount3.id)
+#       @order_item_4 = @order_3.order_items.create!(item: @giant, price: @giant.price, quantity: 2, fulfilled: false, discount_id: @discount4.id)
+# 3 inactive, been used.
+# 4 active, been used.
+
+      visit "/merchant/discounts/#{@discount1.id}"
+
+      expect(page).to_not have_button("Deactivate Discount")
+      expect(page).to_not have_button("Activate Discount")
+
+      expect(page).to have_content("Status: active")
+      expect(page).to have_link("Edit Discount")
+
+      visit "/merchant/discounts/#{@discount2.id}"
+
+      expect(page).to_not have_button("Deactivate Discount")
+      expect(page).to_not have_button("Activate Discount")
+
+      expect(page).to have_content("Status: active")
+      expect(page).to have_link("Edit Discount")
+
+      visit "/merchant/discounts/#{@discount3.id}"
+
+      expect(page).to_not have_button("Deactivate Discount")
+      click_on "Activate Discount"
+
+      expect(current_path).to eq("/merchant/discounts/#{@discount3.id}")
+      expect(page).to have_content("Status: active")
+      expect(page).to have_button("Deactivate Discount")
+      expect(page).to_not have_button("Activate Discount")
+
+      visit "/merchant/discounts/#{@discount4.id}"
+
+      expect(page).to have_button("Deactivate Discount")
+      click_on "Deactivate Discount"
+
+      expect(current_path).to eq("/merchant/discounts/#{@discount4.id}")
+      expect(page).to have_content("Status: inactive")
+      expect(page).to have_button("Activate Discount")
     end
   end
 end
