@@ -9,9 +9,9 @@
       <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTaLM_vbg2Rh-mZ-B4t-RSU9AmSfEEq_SN9xPP_qrA2I6Ftq_D9Qw">
       <p>Price: <%= number_to_currency(item.price) %></p>
         <section id='discounts'>
-          <p>Bulk Discounts Available: <%= item.discount_count(item.merchant_id) %></p>
-              <% if item.discounts_available?(item.merchant_id) %>
-                  <% item.bulk_discounts(item.merchant_id).each do |discount| %>
+          <p>Bulk Discounts Available: <%= item.discount_count %></p>
+              <% if item.discounts_available? %>
+                  <% item.bulk_discounts.each do |discount| %>
                     <p>Save <%= discount.percent_off %>% when you buy <%= discount.quantity_threshold %> or more </p>
                   <% end %>
               <% end %>

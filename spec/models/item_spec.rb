@@ -48,33 +48,33 @@ RSpec.describe Item do
       discount2 = @megan.discounts.create!(percent_off: 10, quantity_threshold: 40, status: "active")
       discount3 = @brian.discounts.create!(percent_off: 15, quantity_threshold: 50, status: "active")
 
-      expect(@ogre.discount_count(@megan.id)).to eq(2)
-      expect(@gator.discount_count(@brian.id)).to eq(1)
+      expect(@ogre.discount_count).to eq(2)
+      expect(@gator.discount_count).to eq(1)
     end
 
     it  ".discounts_available?" do
       discount1 = @megan.discounts.create!(percent_off: 5, quantity_threshold: 20, status: "active")
       discount2 = @megan.discounts.create!(percent_off: 10, quantity_threshold: 40, status: "active")
 
-      expect(@ogre.discounts_available?(@megan.id)).to eq(true)
-      expect(@gator.discounts_available?(@brian.id)).to eq(false)
+      expect(@ogre.discounts_available?).to eq(true)
+      expect(@gator.discounts_available?).to eq(false)
     end
 
     it ".bulk_discounts" do
       discount1 = @megan.discounts.create!(percent_off: 5, quantity_threshold: 20, status: "active")
       discount2 = @megan.discounts.create!(percent_off: 10, quantity_threshold: 40, status: "active")
 
-      expect(@ogre.bulk_discounts(@megan.id)).to eq([discount1, discount2])
-      expect(@giant.bulk_discounts(@megan.id)).to eq([discount1, discount2])
-      expect(@gator.bulk_discounts(@brian.id)).to eq([])
+      expect(@ogre.bulk_discounts).to eq([discount1, discount2])
+      expect(@giant.bulk_discounts).to eq([discount1, discount2])
+      expect(@gator.bulk_discounts).to eq([])
     end
 
     it ".discount_percentage" do
       discount1 = @megan.discounts.create!(percent_off: 5, quantity_threshold: 20, status: "active")
       discount2 = @megan.discounts.create!(percent_off: 10, quantity_threshold: 40, status: "active")
 
-      expect(@ogre.discount_percentage(@megan.id, 40)).to eq(discount2.percent_off)
-      expect(@gator.discount_percentage(@brian.id, 90)).to eq(0)
+      expect(@ogre.discount_percentage(40)).to eq(discount2.percent_off)
+      expect(@gator.discount_percentage(90)).to eq(0)
 
     end
   end

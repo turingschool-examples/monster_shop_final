@@ -60,7 +60,6 @@ RSpec.describe Cart do
 
     it '.less_item()' do
       @cart.less_item(@giant.id.to_s)
-
       expect(@cart.count_of(@giant.id)).to eq(1)
     end
   end

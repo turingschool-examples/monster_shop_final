@@ -31,21 +31,20 @@ class Item < ApplicationRecord
     reviews.average(:rating)
   end
 
-  def discount_count(merchant_id)
-    Discount.where(merchant_id: "#{merchant_id}").where(:status => "active").distinct.count
+  def discount_count
+    Discount.where(merchant_id: "#{self.merchant_id}").where(:status => "active").distinct.count
   end
 
-  def discounts_available?(merchant_id)
-    0 < Discount.where(merchant_id: "#{merchant_id}").where(status: "active").distinct.count
-
+  def discounts_available?
+    0 < Discount.where(merchant_id: "#{self.merchant_id}").where(status: "active").distinct.count
   end
 
-  def bulk_discounts(merchant_id)
-    Discount.where(merchant_id: "#{merchant_id}").where(:status => "active").order(:percent_off).distinct
-
+  def bulk_discounts
+    Discount.where(merchant_id: "#{self.merchant_id}").where(:status => "active").order(:percent_off).distinct
   end
-  def discount_percentage(merchant_id, qty)
-    discount = Discount.where(merchant_id: "#{merchant_id}").where(status: "active").order(percent_off: :desc).where("quantity_threshold = #{qty} or quantity_threshold < #{qty}").distinct.select(:percent_off).pluck(:percent_off).first
+
+  def discount_percentage(qty)
+    discount = Discount.where(merchant_id: "#{self.merchant_id}").where(status: "active").order(percent_off: :desc).where("quantity_threshold = #{qty} or quantity_threshold < #{qty}").distinct.select(:percent_off).pluck(:percent_off).first
     if discount == nil
       return 0
     else
@@ -53,19 +52,15 @@ class Item < ApplicationRecord
     end
   end
 
-  def best_discount(merchant_id, qty)
-    # binding.pry
-    if discount_percentage(merchant_id, qty) == 0
+  def best_discount(qty)
+    if discount_percentage(qty) == 0
       return nil
     else
-      Discount.where("quantity_threshold = #{qty} or quantity_threshold < #{qty}").where(status: "active").where(merchant_id: "#{merchant_id}").order(percent_off: :desc).pluck(:id).first
+      Discount.where("quantity_threshold = #{qty} or quantity_threshold < #{qty}").where(status: "active").where(merchant_id: "#{self.merchant_id}").order(percent_off: :desc).pluck(:id).first
     end
   end
 
-  def price_after_discount(qty, item_id)
-    item = Item.find(item_id)
-    # binding.pry
-    item.price - (item.price * (item.discount_percentage(item.merchant_id, qty)/100.to_f))
+  def price_after_discount(qty)
+    self.price - (self.price * (self.discount_percentage(qty)/100.to_f))
   end
-
 end

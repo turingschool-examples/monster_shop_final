@@ -13,8 +13,4 @@ class Discount < ApplicationRecord
   def has_not_been_used(id)
     OrderItem.where(discount_id: id) == []
   end
-
-
-
-
 end
