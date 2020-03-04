@@ -16,7 +16,7 @@ ActiveRecord::Schema.define(version: 20200301010005) do
   enable_extension "plpgsql"
 
   create_table "discounts", force: :cascade do |t|
-    t.integer "percent_off"
+    t.float "percent_off"
     t.integer "quantity_threshold"
     t.integer "status", default: 0
     t.datetime "created_at", null: false
