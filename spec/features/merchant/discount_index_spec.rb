@@ -4,8 +4,8 @@ RSpec.describe "As a Merchant Employee" do
   before(:each) do
     @merchant = create(:merchant)
     @m_user = create(:merchant_employee, merchant: @merchant)
-    @discount1 = Discount.create!(discount: 5, min_quantity: 20, merchant: @merchant)
-    @discount2 = Discount.create!(discount: 10, min_quantity: 25, merchant: @merchant)
+    @discount1 = @merchant.discounts.create(discount: 5, min_quantity: 20)
+    @discount2 = @merchant.discounts.create(discount: 10, min_quantity: 25)
     @item1 = create(:item)
     @item2 = create(:item)
     allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(@m_user)
