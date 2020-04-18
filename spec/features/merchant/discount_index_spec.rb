@@ -1,7 +1,7 @@
 require 'rails_helper'
 include ActionView::Helpers::NumberHelper
 
-RSpec.describe 'Merchant Item Index' do
+RSpec.describe 'Merchant Discount Index' do
   describe 'As a Merchant employee' do
     before :each do
       @merchant_1 = Merchant.create!(name: 'Megans Marmalades', address: '123 Main St', city: 'Denver', state: 'CO', zip: 80218)
@@ -27,6 +27,15 @@ RSpec.describe 'Merchant Item Index' do
       click_link 'My Discounts'
 
       expect(current_path).to eq('/merchant/discounts')
+    end
+
+    it 'I can click a link to my merchant discounts index and see all my current discounts' do
+      visit '/merchant/'
+    
+      discount_1 = Discount.create!(quantity: 5, percentage: 20, merchant_id: @merchant_1.id)
+      click_link 'My Discounts'
+
+      expect(page).to have_content("#{discount_1.percentage} percent off #{discount_1.quantity} items")
     end
   end
 end

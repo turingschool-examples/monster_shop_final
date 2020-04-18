@@ -1,0 +1,4 @@
+<% @discounts.each do |discount| %>
+  <section id='discount-<%= discount.id%>'>
+  <p><%=discount.percentage%> percent off <%=discount.quantity%> items</p>
+<% end %>
