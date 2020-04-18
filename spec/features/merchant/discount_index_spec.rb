@@ -9,11 +9,10 @@ RSpec.describe "As a Merchant Employee" do
     @item1 = create(:item, merchant: @merchant)
     @item2 = create(:item, merchant: @merchant)
     allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(@m_user)
+    visit "/merchant/discounts"
   end
 
   it "I can view my all of my discounts" do
-    visit "/merchant/discounts"
-
     within("#discount-#{@discount1.id}") do
       expect(page).to have_content("Discount ##{@discount1.id}")
       expect(page).to have_content("Percent Off: #{@discount1.percent_off}%")
@@ -25,5 +24,9 @@ RSpec.describe "As a Merchant Employee" do
       expect(page).to have_content("Percent Off: #{@discount2.percent_off}%")
       expect(page).to have_content("Minimum Quantity: #{@discount2.minimum_quantity}")
     end
+  end
+
+  it "I can see a link to add a new discount" do
+    expect(page).to have_link("New Discount", href: "/merchant/discounts/new")
   end
 end
