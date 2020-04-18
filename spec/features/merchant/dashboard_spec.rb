@@ -24,7 +24,7 @@ RSpec.describe 'Merchant Dashboard' do
 
       expect(page).to have_link(@merchant_1.name)
       expect(page).to have_content(@merchant_1.address)
-      expect(page).to have_content("#{@merchant_1.city} #{@merchant_1.state} #{@merchant_1.zip}")
+      expect(page).to have_content("#{@merchant_1.city}, #{@merchant_1.state} #{@merchant_1.zip}")
     end
 
     it 'I do not have a link to edit the merchant information' do
