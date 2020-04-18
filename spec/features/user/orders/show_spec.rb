@@ -22,7 +22,7 @@ RSpec.describe 'Order Show Page' do
     it 'I can link from my orders to an order show page' do
       visit '/profile/orders'
 
-      click_link @order_1.id
+      click_link "#{@order_1.id}"
 
       expect(current_path).to eq("/profile/orders/#{@order_1.id}")
     end

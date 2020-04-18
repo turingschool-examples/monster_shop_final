@@ -32,7 +32,7 @@ RSpec.describe 'Create Order' do
       expect(page).to have_link('Cart: 0')
 
       within "#order-#{order.id}" do
-        expect(page).to have_link(order.id)
+        expect(page).to have_link("#{order.id}")
       end
     end
   end
