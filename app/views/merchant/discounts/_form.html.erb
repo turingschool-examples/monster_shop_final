@@ -1,0 +1,9 @@
+<%= form_tag path, method: method do %>
+  <%= label_tag :percent_off %>
+  <%= text_field_tag :percent_off, (@discount.percent_off if @discount) %>
+
+  <%= label_tag :minimum_quantity %>
+  <%= text_field_tag :minimum_quantity, (@discount.minimum_quantity if @discount) %>
+
+  <%= submit_tag button_text %>
+<% end %>

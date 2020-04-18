@@ -2,13 +2,9 @@ require 'rails_helper'
 
 RSpec.describe "As a Merchant Employee" do
   before(:each) do
-    @merchant = create(:merchant)
-    @m_user = create(:merchant_employee, merchant: @merchant)
-    @discount1 = @merchant.discounts.create(percent_off: 5, minimum_quantity: 20)
-    @discount2 = @merchant.discounts.create(percent_off: 10, minimum_quantity: 25)
-    @item1 = create(:item, merchant: @merchant)
-    @item2 = create(:item, merchant: @merchant)
-    allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(@m_user)
+    merchant = create(:merchant)
+    m_user = create(:merchant_employee, merchant: merchant)
+    allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(m_user)
     visit "/merchant/discounts/new"
   end
 
