@@ -33,9 +33,21 @@ RSpec.describe 'Merchant Discount Index' do
       visit '/merchant/'
     
       discount_1 = Discount.create!(quantity: 5, percentage: 20, merchant_id: @merchant_1.id)
+      discount_2 = Discount.create!(quantity: 10, percentage: 25, merchant_id: @merchant_1.id)
+      discount_3 = Discount.create!(quantity: 15, percentage: 7, merchant_id: @merchant_2.id)
       click_link 'My Discounts'
+      
+      within "#discount-#{discount_1.id}" do
+        expect(page).to have_content("#{discount_1.percentage} percent off #{discount_1.quantity} items")
+      end
+      
+      within "#discount-#{discount_2.id}" do
+        expect(page).to have_content("#{discount_2.percentage} percent off #{discount_2.quantity} items")
+      end
 
-      expect(page).to have_content("#{discount_1.percentage} percent off #{discount_1.quantity} items")
+      expect(page).to_not have_content(discount_3.quantity)
+      expect(page).to_not have_content(discount_3.percentage)
+
     end
   end
 end
