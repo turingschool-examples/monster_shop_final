@@ -30,11 +30,11 @@ merchant_employee1 = User.create(name: "Mr. Moonstone Skull", address: "1234 Mer
 merchant_employee2 = User.create(name: "General Kang", address: "4321 Merchant St", city: "Merchant City", state: "Merchant State", zip: "00001", email: "merchant2@example.com", password: "password_merchant", role: 1, merchant: merchant2)
 admin_user = User.create(name: "Admin User", address: "1234 Admin St", city: "Admin City", state: "Admin State", zip: "00002", email: "admin@example.com", password: "password_admin", role: 2)
 
-order1 = Order.create(user: regular_user)
-order2 = Order.create(user: regular_user)
-order3 = Order.create(user: regular_user)
-order4 = Order.create(user: merchant_employee1)
-order5 = Order.create(user: merchant_employee2)
+order1 = Order.create(user_id: regular_user.id)
+order2 = Order.create(user_id: regular_user.id)
+order3 = Order.create(user_id: regular_user.id)
+order4 = Order.create(user_id: merchant_employee1.id)
+order5 = Order.create(user_id: merchant_employee2.id)
 
 order_item1_1 = OrderItem.create(price: item1.price, quantity: 2, item: item1, order: order1)
 order_item1_2 = OrderItem.create(price: item2.price, quantity: 1, item: item2, order: order1)
