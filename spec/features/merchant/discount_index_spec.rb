@@ -50,6 +50,23 @@ RSpec.describe 'Merchant Discount Index' do
 
     end
 
+    it 'Next to each discount is a link to edit and delete the discount' do
+      discount_1 = Discount.create!(quantity: 5, percentage: 20, merchant_id: @merchant_1.id)
+      discount_2 = Discount.create!(quantity: 10, percentage: 25, merchant_id: @merchant_1.id)
+      
+      visit '/merchant/discounts'
+
+      within "#discount-#{discount_1.id}" do
+        expect(page).to have_link('Edit')
+        expect(page).to have_link('Delete')
+      end
+      
+      within "#discount-#{discount_2.id}" do
+        expect(page).to have_link('Edit')
+        expect(page).to have_link('Delete')
+      end
+    end
+
     it 'On the discount index page there is a link to create a new discount' do
       visit '/merchant/discounts'
       expect(page).to have_link('New Discount')
