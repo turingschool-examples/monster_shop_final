@@ -3,6 +3,10 @@ class Merchant::DiscountsController < Merchant::BaseController
     @discounts = Discount.where(merchant: current_user.merchant)
   end
 
+  def show
+    @discount = Discount.find(params[:id])
+  end
+
   def new
     @discount = Discount.new
   end
@@ -16,10 +20,6 @@ class Merchant::DiscountsController < Merchant::BaseController
       flash[:error] = @discount.errors.full_messages.to_sentence
       render :new
     end
-  end
-
-  def show
-    @discount = Discount.find(params[:id])
   end
 
   def edit
