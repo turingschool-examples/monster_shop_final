@@ -4,10 +4,10 @@ RSpec.describe "As a Merchant Employee" do
   before(:each) do
     @merchant = create(:merchant)
     @m_user = create(:merchant_employee, merchant: @merchant)
-    @discount1 = @merchant.discounts.create(discount: 5, min_quantity: 20)
-    @discount2 = @merchant.discounts.create(discount: 10, min_quantity: 25)
-    @item1 = create(:item)
-    @item2 = create(:item)
+    @discount1 = @merchant.discounts.create(percent_off: 5, minimum_quantity: 20)
+    @discount2 = @merchant.discounts.create(percent_off: 10, minimum_quantity: 25)
+    @item1 = create(:item, merchant: @merchant)
+    @item2 = create(:item, merchant: @merchant)
     allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(@m_user)
   end
 
@@ -16,14 +16,14 @@ RSpec.describe "As a Merchant Employee" do
 
     within("#discount-#{@discount1.id}") do
       expect(page).to have_content("Discount ##{@discount1.id}")
-      expect(page).to have_content("Discount: #{@discount1.pct_off}%")
-      expect(page).to have_content("Minimum Quantity: #{@discount1.min_quantity}")
+      expect(page).to have_content("Discount: #{@discount1.percent_off}%")
+      expect(page).to have_content("Minimum Quantity: #{@discount1.minimum_quantity}")
     end
 
     within("#discount-#{@discount2.id}") do
       expect(page).to have_content("Discount ##{@discount2.id}")
-      expect(page).to have_content("Discount: #{@discount2.pct_off}%")
-      expect(page).to have_content("Minimum Quantity: #{@discount2.min_quantity}")
+      expect(page).to have_content("Discount: #{@discount2.percent_off}%")
+      expect(page).to have_content("Minimum Quantity: #{@discount2.minimum_quantity}")
     end
   end
 end
