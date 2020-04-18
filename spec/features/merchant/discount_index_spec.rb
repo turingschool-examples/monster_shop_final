@@ -16,13 +16,13 @@ RSpec.describe "As a Merchant Employee" do
 
     within("#discount-#{@discount1.id}") do
       expect(page).to have_content("Discount ##{@discount1.id}")
-      expect(page).to have_content("Discount: #{@discount1.percent_off}%")
+      expect(page).to have_content("Percent Off: #{@discount1.percent_off}%")
       expect(page).to have_content("Minimum Quantity: #{@discount1.minimum_quantity}")
     end
 
     within("#discount-#{@discount2.id}") do
       expect(page).to have_content("Discount ##{@discount2.id}")
-      expect(page).to have_content("Discount: #{@discount2.percent_off}%")
+      expect(page).to have_content("Percent Off: #{@discount2.percent_off}%")
       expect(page).to have_content("Minimum Quantity: #{@discount2.minimum_quantity}")
     end
   end
