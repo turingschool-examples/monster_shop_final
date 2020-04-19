@@ -1,7 +1,7 @@
 <% @discounts.each do |discount| %>
   <section id='discount-<%= discount.id%>'>
   <p><%=discount.percentage%> percent off <%=discount.quantity%> items
-  <%= link_to 'Edit', "/merchant/disounts/#{discount.id}/edit"%>
-  <%= link_to 'Delete', "/merchant/disounts/#{discount.id}/delete"%></p>
+  <%= link_to 'Edit', "/merchant/discounts/#{discount.id}/edit"%>
+  <%= link_to 'Delete', "/merchant/discounts/#{discount.id}/delete"%></p>
 <% end %>
-<%= link_to 'New Discount', '/merchant/disounts/new' %>
+<%= link_to 'New Discount', '/merchant/discounts/new' %>
