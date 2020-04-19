@@ -64,7 +64,6 @@ RSpec.describe 'Merchant Discount Edit' do
       expect(page).to have_content("percentage: [\"Percentage must be 1 - 99\"]")
       expect(page).to have_content("[\"is not a number\"]")
       expect(page).to have_content('Edit Discount')
-      
     end
   end
 end
