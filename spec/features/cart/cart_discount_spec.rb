@@ -17,8 +17,8 @@ RSpec.describe "As a User" do
     4.times do
       click_button "More of This!"
     end
-    expect(page).to have_content("Bulk Discount: -$0.50")
-    expect(page).to have_content("Subtotal: $49.50")
-    expect(page).to have_content("Total: $49.50")
+    expect(page).to have_content("Bulk Discount: -$5.00")
+    expect(page).to have_content("Subtotal: $45.0")
+    expect(page).to have_content("Total: $45.0")
   end
 end
