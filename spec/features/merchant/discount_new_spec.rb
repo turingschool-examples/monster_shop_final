@@ -1,7 +1,7 @@
 require 'rails_helper'
 include ActionView::Helpers::NumberHelper
 
-RSpec.describe 'Merchant Discount Index' do
+RSpec.describe 'Merchant Discount New' do
   describe 'As a Merchant employee' do
     before :each do
       @merchant_1 = Merchant.create!(name: 'Megans Marmalades', address: '123 Main St', city: 'Denver', state: 'CO', zip: 80218)
@@ -21,55 +21,41 @@ RSpec.describe 'Merchant Discount Index' do
       allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(@m_user)
     end
 
-    it 'I can link to my merchant discounts index from the dashboard' do
-      visit '/merchant/'
+    it 'When I click the new discount link I am taken to a form to create a new discount' do
+      visit '/merchant/discounts'
 
-      click_link 'My Discounts'
+      click_link 'New Discount'
+      
+      expect(current_path).to eq('/merchant/discounts/new')
 
-      expect(current_path).to eq('/merchant/discounts')
     end
 
-    it 'I can click a link to my merchant discounts index and see all my current discounts' do
-      visit '/merchant'
+    it 'When I completely fill out a new discount form I am returned to the dicount index where I see the new discount' do
+      visit '/merchant/discounts/new'
     
-      discount_1 = Discount.create!(quantity: 5, percentage: 20, merchant_id: @merchant_1.id)
-      discount_2 = Discount.create!(quantity: 10, percentage: 25, merchant_id: @merchant_1.id)
-      discount_3 = Discount.create!(quantity: 15, percentage: 7, merchant_id: @merchant_2.id)
-      click_link 'My Discounts'
-      
-      within "#discount-#{discount_1.id}" do
-        expect(page).to have_content("#{discount_1.percentage} percent off #{discount_1.quantity} items")
-      end
-      
-      within "#discount-#{discount_2.id}" do
-        expect(page).to have_content("#{discount_2.percentage} percent off #{discount_2.quantity} items")
-      end
+      fill_in 'Quantity', with: 20
+      fill_in 'Percentage', with: 5
+      click_button 'Create Discount'
 
-      expect(page).to_not have_content(discount_3.quantity)
-      expect(page).to_not have_content(discount_3.percentage)
-
-    end
-
-    it 'Next to each discount is a link to edit and delete the discount' do
-      discount_1 = Discount.create!(quantity: 5, percentage: 20, merchant_id: @merchant_1.id)
-      discount_2 = Discount.create!(quantity: 10, percentage: 25, merchant_id: @merchant_1.id)
+      new_discount = Discount.last
       
-      visit '/merchant/discounts'
-
-      within "#discount-#{discount_1.id}" do
-        expect(page).to have_link('Edit')
-        expect(page).to have_link('Delete')
-      end
+      expect(current_path).to eq('/merchant/discounts')
       
-      within "#discount-#{discount_2.id}" do
-        expect(page).to have_link('Edit')
-        expect(page).to have_link('Delete')
+      within "#discount-#{new_discount.id}" do
+        expect(page).to have_content("#{new_discount.percentage} percent off #{new_discount.quantity} items")
       end
     end
 
-    it 'On the discount index page there is a link to create a new discount' do
-      visit '/merchant/discounts'
-      expect(page).to have_link('New Discount')
+    it 'When I incorrectly fill out a new discount I see a flash message and get returned to the form' do
+      visit '/merchant/discounts/new'
+    
+      fill_in 'Quantity', with: ''
+      fill_in 'Percentage', with: ''
+      click_button 'Create Discount'
+
+      expect(page).to have_content("percentage: [\"Percentage must be 1 - 99\"]")
+      expect(page).to have_content("[\"is not a number\"]")
+      expect(page).to have_content('New Discount')
     end
   end
 end
