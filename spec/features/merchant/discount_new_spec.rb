@@ -1,7 +1,7 @@
 require 'rails_helper'
 include ActionView::Helpers::NumberHelper
 
-RSpec.describe 'Merchant Discount Index' do
+RSpec.describe 'Merchant Discount New' do
   describe 'As a Merchant employee' do
     before :each do
       @merchant_1 = Merchant.create!(name: 'Megans Marmalades', address: '123 Main St', city: 'Denver', state: 'CO', zip: 80218)
