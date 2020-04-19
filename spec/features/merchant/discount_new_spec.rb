@@ -46,20 +46,16 @@ RSpec.describe 'Merchant Discount Index' do
       end
     end
 
-    it 'When I incorrectly fill out a new discount form I am returned to the dicount index where I see the new discount' do
+    it 'When I incorrectly fill out a new discount I see a flash message and get returned to the form' do
       visit '/merchant/discounts/new'
     
-      fill_in 'Quantity', with: 20
-      fill_in 'Percentage', with: 5
+      fill_in 'Quantity', with: ''
+      fill_in 'Percentage', with: ''
       click_button 'Create Discount'
 
-      new_discount = Discount.last
-
-      expect(current_path).to eq('/merchant/discounts')
-      
-      within "#discount-#{new_discount.id}" do
-        expect(page).to have_content("#{new_discount.percentage} percent off #{new_discount.quantity} items")
-      end
+      expect(page).to have_content("percentage: [\"Percentage must be 1 - 99\"]")
+      expect(page).to have_content("[\"is not a number\"]")
+      expect(page).to have_content('New Discount')
     end
   end
 end
