@@ -24,11 +24,16 @@ class Merchant::DiscountsController < Merchant::BaseController
   def update
     @discount = Discount.find(params[:id])
     if @discount.update(discount_params)
-      redirect_to "/merchant/discounts"
+      redirect_to '/merchant/discounts'
     else
       generate_flash(@discount)
       render :edit
     end
+  end
+
+  def destroy
+    Discount.find(params[:id]).destroy
+    redirect_to merchant_discounts_path
   end
 
   private
