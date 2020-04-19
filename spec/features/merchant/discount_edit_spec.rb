@@ -35,21 +35,36 @@ RSpec.describe 'Merchant Discount Edit' do
 
     end
 
-    xit 'When I completely fill out a new discount form I am returned to the dicount index where I see the new discount' do
-      visit '/merchant/discounts/new'
-    
-      fill_in 'Quantity', with: 20
-      fill_in 'Percentage', with: 5
-      click_button 'Create Discount'
+    it 'When I fill out the edit form completely, I am returned to the discount index and see the updated discount' do
+      discount_1 = Discount.create!(quantity: 5, percentage: 20, merchant_id: @merchant_1.id)
+      
+      visit "/merchant/discounts/#{discount_1.id}/edit"
 
-      new_discount = Discount.last
-      
-      expect(current_path).to eq('/merchant/discounts')
-      
-      within "#discount-#{new_discount.id}" do
-        expect(page).to have_content("#{new_discount.percentage} percent off #{new_discount.quantity} items")
+      fill_in 'Quantity', with: 10
+      fill_in 'Percentage', with: 30
+      click_button 'Update Discount'
+
+      expect(current_path).to eq("/merchant/discounts")
+
+      within "#discount-#{discount_1.id}" do
+        expect(page).to have_content("30 percent off 10 items")
+        expect(page).to_not have_content("20 percent off 5 items")
       end
     end
 
+    it 'When I fill out the edit form incompletely, I see a message and I am returned to the discount edit form' do
+      discount_1 = Discount.create!(quantity: 5, percentage: 20, merchant_id: @merchant_1.id)
+      
+      visit "/merchant/discounts/#{discount_1.id}/edit"
+
+      fill_in 'Quantity', with: ""
+      fill_in 'Percentage', with: ""
+      click_button 'Update Discount'
+
+      expect(page).to have_content("percentage: [\"Percentage must be 1 - 99\"]")
+      expect(page).to have_content("[\"is not a number\"]")
+      expect(page).to have_content('Edit Discount')
+      
+    end
   end
 end
