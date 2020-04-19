@@ -3,5 +3,6 @@
   <p><%=discount.percentage%> percent off <%=discount.quantity%> items
   <%= link_to 'Edit', "/merchant/discounts/#{discount.id}/edit"%>
   <%= link_to 'Delete', "/merchant/discounts/#{discount.id}/delete"%></p>
+  </section>
 <% end %>
 <%= link_to 'New Discount', '/merchant/discounts/new' %>
