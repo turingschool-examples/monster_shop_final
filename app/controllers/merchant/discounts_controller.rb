@@ -17,17 +17,10 @@ class Merchant::DiscountsController < Merchant::BaseController
     end
   end
 
-  # def create
-  #   merchant = current_user.merchant
-  #   item = merchant.items.new(item_params)
-  #   if item.save
-  #     redirect_to "/merchant/items"
-  #   else
-  #     generate_flash(item)
-  #     render :new
-  #   end
-  # end
-
+  def edit
+    
+  end
+  
   private
   def discount_params
     params.permit(:quantity, :percentage)
