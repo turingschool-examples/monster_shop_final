@@ -45,5 +45,21 @@ RSpec.describe 'Merchant Discount Index' do
         expect(page).to have_content("#{new_discount.percentage} percent off #{new_discount.quantity} items")
       end
     end
+
+    it 'When I incorrectly fill out a new discount form I am returned to the dicount index where I see the new discount' do
+      visit '/merchant/discounts/new'
+    
+      fill_in 'Quantity', with: 20
+      fill_in 'Percentage', with: 5
+      click_button 'Create Discount'
+
+      new_discount = Discount.last
+
+      expect(current_path).to eq('/merchant/discounts')
+      
+      within "#discount-#{new_discount.id}" do
+        expect(page).to have_content("#{new_discount.percentage} percent off #{new_discount.quantity} items")
+      end
+    end
   end
 end
