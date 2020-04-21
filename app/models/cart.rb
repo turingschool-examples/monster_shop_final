@@ -52,7 +52,7 @@ class Cart
     end
   end
 
-  def calculate_discount(item_id)
+  def subtotal_discount(item_id)
     item = Item.find(item_id)
     @contents[item_id.to_s] * (item.price - discount_price(item_id))
   end
