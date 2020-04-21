@@ -45,3 +45,29 @@ h1 {
   margin: 0;
 }
 
+.error-flash {
+ padding: 10px;
+ background-color: red;
+ color: white;
+}
+
+.success-flash {
+ padding: 10px;
+ background-color: green;
+ color: white;
+}
+
+img{
+ height: 150px;
+ width: 150px;
+}
+
+.cart-image{
+ width:50px;
+}
+
+.order-image{
+ width:50px;
+}
+
+
