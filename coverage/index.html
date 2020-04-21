@@ -14,27 +14,27 @@
       <img src="./assets/0.10.2/loading.gif" alt="loading"/>
     </div>
     <div id="wrapper" style="display:none;">
-      <div class="timestamp">Generated <abbr class="timeago" title="2020-04-21T14:15:07-06:00">2020-04-21T14:15:07-06:00</abbr></div>
+      <div class="timestamp">Generated <abbr class="timeago" title="2020-04-21T14:25:34-06:00">2020-04-21T14:25:34-06:00</abbr></div>
       <ul class="group_tabs"></ul>
 
       <div id="content">
         <div class="file_list_container" id="AllFiles">
   <h2>
     <span class="group_name">All Files</span>
-    (<span class="covered_percent"><span class="yellow">86.23%</span></span>
+    (<span class="covered_percent"><span class="yellow">85.8%</span></span>
      covered at
      <span class="covered_strength">
        <span class="red">
-         0.93
+         0.92
        </span>
     </span> hits/line)
   </h2>
   <a name="AllFiles"></a>
   <div>
     <b>23</b> files in total.
-    <b>167</b> relevant lines. 
-    <span class="green"><b>144</b> lines covered</span> and
-    <span class="red"><b>23</b> lines missed </span>
+    <b>169</b> relevant lines. 
+    <span class="green"><b>145</b> lines covered</span> and
+    <span class="red"><b>24</b> lines missed </span>
   </div>
   <table class="file_list">
     <thead>
@@ -72,12 +72,12 @@
       
       <tr>
         <td class="strong"><a href="#0c625be41e45c886890cfaf8d5654e1d0cd1dc29" class="src_link" title="app/controllers/merchant/discounts_controller.rb">app/controllers/merchant/discounts_controller.rb</a></td>
-        <td class="yellow strong">85.71 %</td>
-        <td>14</td>
+        <td class="red strong">77.78 %</td>
+        <td>19</td>
+        <td>9</td>
         <td>7</td>
-        <td>6</td>
-        <td>1</td>
-        <td>0.9</td>
+        <td>2</td>
+        <td>0.8</td>
       </tr>
       
       <tr>
@@ -631,11 +631,11 @@
         <div class="source_table" id="0c625be41e45c886890cfaf8d5654e1d0cd1dc29">
   <div class="header">
     <h3>app/controllers/merchant/discounts_controller.rb</h3>
-    <h4><span class="yellow">85.71 %</span> covered</h4>
+    <h4><span class="red">77.78 %</span> covered</h4>
     <div>
-      <b>7</b> relevant lines. 
-      <span class="green"><b>6</b> lines covered</span> and
-      <span class="red"><b>1</b> lines missed.</span>
+      <b>9</b> relevant lines. 
+      <span class="green"><b>7</b> lines covered</span> and
+      <span class="red"><b>2</b> lines missed.</span>
     </div>
   </div>
   
@@ -660,8 +660,8 @@
           <code class="ruby">  def index</code>
         </li>
       
-        <li class="covered" data-hits="1" data-linenumber="4">
-          <span class="hits">1</span>
+        <li class="missed" data-hits="0" data-linenumber="4">
+          
           
           <code class="ruby">    @discounts = current_user.merchant.discounts</code>
         </li>
@@ -684,8 +684,8 @@
           <code class="ruby">  def show</code>
         </li>
       
-        <li class="missed" data-hits="0" data-linenumber="8">
-          
+        <li class="covered" data-hits="1" data-linenumber="8">
+          <span class="hits">1</span>
           
           <code class="ruby">    @discount = Discount.find(params[:id])</code>
         </li>
@@ -708,8 +708,8 @@
           <code class="ruby">  def new</code>
         </li>
       
-        <li class="covered" data-hits="1" data-linenumber="12">
-          <span class="hits">1</span>
+        <li class="missed" data-hits="0" data-linenumber="12">
+          
           
           <code class="ruby">    @discount = Discount.new</code>
         </li>
@@ -721,6 +721,36 @@
         </li>
       
         <li class="never" data-hits="" data-linenumber="14">
+          
+          
+          <code class="ruby"></code>
+        </li>
+      
+        <li class="covered" data-hits="1" data-linenumber="15">
+          <span class="hits">1</span>
+          
+          <code class="ruby">  def edit</code>
+        </li>
+      
+        <li class="covered" data-hits="1" data-linenumber="16">
+          <span class="hits">1</span>
+          
+          <code class="ruby">    @discount = Discount.find(params[:id])</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="17">
+          
+          
+          <code class="ruby">  end</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="18">
+          
+          
+          <code class="ruby"></code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="19">
           
           
           <code class="ruby">end</code>
@@ -2920,7 +2950,7 @@
         <li class="covered" data-hits="1" data-linenumber="42">
           <span class="hits">1</span>
           
-          <code class="ruby">    resources :discounts, only: [:index, :show, :new]    </code>
+          <code class="ruby">    resources :discounts, only: [:index, :show, :new, :edit]    </code>
         </li>
       
         <li class="never" data-hits="" data-linenumber="43">
