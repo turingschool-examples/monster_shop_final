@@ -31,6 +31,12 @@ RSpec.describe Cart do
         })
     end
 
+    it '.less_item()' do
+      @cart.less_item(@giant.id.to_s)
+
+      expect(@cart.count_of(@giant.id)).to eq(1)
+    end
+
     it '.count' do
       expect(@cart.count).to eq(3)
     end
@@ -58,10 +64,32 @@ RSpec.describe Cart do
       expect(@cart.limit_reached?(@giant.id)).to eq(true)
     end
 
-    it '.less_item()' do
-      @cart.less_item(@giant.id.to_s)
+    it '.discount_price()' do
+      @megan.discounts.create(percent_off: 5, minimum_quantity: 5)
 
-      expect(@cart.count_of(@giant.id)).to eq(1)
+      cart = Cart.new({
+        @ogre.id.to_s => 5,
+        @giant.id.to_s => 5,
+        @hippo.id.to_s => 5
+        })
+
+      expect(cart.discount_price(@ogre.id)).to eq(19)
+      expect(cart.discount_price(@giant.id)).to eq(47.5)
+      expect(cart.discount_price(@hippo.id)).to eq(50)
+    end
+
+    it '.subtotal_discount()' do
+      @megan.discounts.create(percent_off: 5, minimum_quantity: 5)
+
+      cart = Cart.new({
+        @ogre.id.to_s => 5,
+        @giant.id.to_s => 5,
+        @hippo.id.to_s => 5
+        })
+
+      expect(cart.subtotal_discount(@ogre.id)).to eq(5)
+      expect(cart.subtotal_discount(@giant.id)).to eq(12.5)
+      expect(cart.subtotal_discount(@hippo.id)).to eq(0)
     end
   end
 end
