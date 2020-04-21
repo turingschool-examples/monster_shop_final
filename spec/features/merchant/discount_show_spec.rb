@@ -85,10 +85,3 @@ RSpec.describe "Bulk discount index page" do
     end
   end
 end
-
-# **User Story 2: Bulk Discount Show Page**
-# - As a Merchant user
-# - When I visit my Bulk Discount index page
-# - And I click on the name of a bulk discount
-# - I am directed to a Bulk Discount show page
-# - Where I see the discount's name, percentage, and threshold
