@@ -24,36 +24,34 @@ class Cart
     end
   end
 
-  def grand_total
-    @contents.sum do |item_id, _|
-      subtotal_of(item_id)
-    end
+  def limit_reached?(item_id)
+    count_of(item_id) == Item.find(item_id).inventory
   end
 
   def count_of(item_id)
     @contents[item_id.to_s]
   end
 
-  def subtotal_of(item_id)
-    @contents[item_id.to_s] * discount_price(item_id)
-  end
-
-  def limit_reached?(item_id)
-    count_of(item_id) == Item.find(item_id).inventory
-  end
-
-  def discount_price(item_id)
-    item = Item.find(item_id)
-    percent_off = item.merchant.discounts.where("minimum_quantity <= ?", @contents[item_id.to_s]).maximum(:percent_off)
-    if percent_off
-      item.price * (100 - percent_off)/100.0
-    else
-      item.price
+  def grand_total
+    @contents.sum do |item_id, _|
+      subtotal(item_id)
     end
   end
 
-  def subtotal_discount(item_id)
+  def subtotal(item_id)
     item = Item.find(item_id)
-    @contents[item_id.to_s] * (item.price - discount_price(item_id))
+    quantity = @contents[item.id.to_s]
+    quantity * item.price * (1 - discount_rate(item))
+  end
+
+  def discount_rate(item)
+    percent_off = item.merchant.discounts.where("minimum_quantity <= ?", @contents[item.id.to_s]).maximum(:percent_off)
+    percent_off = 0 if percent_off.nil?
+    percent_off / 100.0
+  end
+
+  def bulk_discount(item)
+    quantity = @contents[item.id.to_s]
+    quantity * item.price * discount_rate(item)
   end
 end
