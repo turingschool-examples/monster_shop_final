@@ -64,17 +64,17 @@ RSpec.describe Cart do
       expect(@cart.count_of(@giant.id)).to eq(1)
     end
 
-    it '.find_discounts()' do
+    it '.find_best_discount()' do
+      discount_2 = Discount.create!(quantity: 10, percentage: 20, merchant_id: @brian.id)
       discount_1 = Discount.create!(quantity: 5, percentage: 10, merchant_id: @brian.id)
 
       cart = Cart.new({
         @ogre.id.to_s => 1,
         @giant.id.to_s => 2,
-        @hippo.id.to_s => 5
+        @hippo.id.to_s => 10
         })
-        
-     expect(cart.find_discounts(@ogre.id)).to eq([])
-     expect(cart.find_discounts(@hippo.id)).to eq([discount_1])
+     expect(cart.find_best_discount(@ogre.id)).to eq(nil)
+     expect(cart.find_best_discount(@hippo.id)).to eq(20)
     end
 
     it '.apply_discounts()' do
@@ -88,5 +88,6 @@ RSpec.describe Cart do
         
      expect(cart.apply_discount(@hippo.id)).to eq(45)
     end
+
   end
 end

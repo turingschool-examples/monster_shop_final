@@ -47,17 +47,19 @@ class Cart
 
   def apply_discount(item_id)
     item = Item.find(item_id)
-    discount = find_discounts(item_id)
-    if discount.any? && @contents[item_id.to_s] >= discount.first.quantity
-      item.price * discount.first.calculation_percentage
+    discount = find_best_discount(item_id)
+    if !discount.nil?
+      item.price * ((100 - discount) * 0.01)
     else
       item.price
     end
   end
-
-  def find_discounts(item_id)
+  
+  def find_best_discount(item_id)
     item = Item.find(item_id)
     merchant_id = item.merchant_id
     Discount.where(merchant_id: merchant_id)
+            .where("quantity <= ?", @contents[item_id.to_s])
+            .maximum(:percentage)
   end
 end
