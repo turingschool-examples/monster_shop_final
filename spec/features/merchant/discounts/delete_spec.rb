@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe 'When I visit the discount edit page' do
+RSpec.describe 'When I visit the discount show page' do
   before :each do
     @merchant = Merchant.create!(name: 'Megans Marmalades',
                                   address: '123 Main St',
@@ -23,20 +23,16 @@ RSpec.describe 'When I visit the discount edit page' do
     allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(@employee)
   end
 
-  it "I see a form that updated the discount percentage and bulk" do
+  it "I see a link that deletes this discount" do
 
-    visit "/merchant/discounts/#{@discount.id}/edit"
+    visit "/merchant/discounts/#{@discount.id}"
 
-    fill_in 'Percentage', with: 10
-    fill_in 'Bulk', with: 20
-
-    click_button 'Update Discount'
+    click_link 'Delete Discount'
 
     expect(current_path).to eq('/merchant/discounts')
 
-    within "#discount-#{@discount.id}" do
-      expect(page).to have_content(10)
-      expect(page).to have_content(20)
-    end
+    save_and_open_page
+
+    expect(page).to_not have_content("#{@discount.id}")
   end
 end

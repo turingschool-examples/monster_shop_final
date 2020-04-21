@@ -22,11 +22,10 @@ class Merchant::DiscountsController < Merchant::BaseController
   end
 
   def destroy
-
+    Discount.destroy(params[:id])
+    redirect_to "merchant/discounts"
   end
-
 end
-
 
 private
 
