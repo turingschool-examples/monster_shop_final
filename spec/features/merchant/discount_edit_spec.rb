@@ -9,7 +9,7 @@ RSpec.describe "As a Merchant Employee" do
     visit edit_merchant_discount_path(@discount)
   end
 
-  it "I can edit one of my discounts" do
+  it "I can update a discount" do
     expect(page).to have_field(:percent_off, with: @discount.percent_off)
     expect(page).to have_field(:minimum_quantity, with: @discount.minimum_quantity)
 
@@ -49,7 +49,7 @@ RSpec.describe "As a Merchant Employee" do
     expect(page).to have_field(:minimum_quantity, with: minimum_quantity)
   end
 
-  it "I cannot update a discount with non-digit fields" do
+  it "I cannot update a discount with non-digit inputs" do
     percent_off = 10
     minimum_quantity = "ten"
 
@@ -61,7 +61,7 @@ RSpec.describe "As a Merchant Employee" do
     expect(page).to have_content("Minimum quantity is not a number")
     expect(page).to have_field(:percent_off, with: percent_off)
 
-    percent_off = "ten"
+    percent_off = "-"
     minimum_quantity = 10
 
     fill_in :percent_off, with: percent_off
@@ -72,5 +72,4 @@ RSpec.describe "As a Merchant Employee" do
     expect(page).to have_content("Percent off is not a number")
     expect(page).to have_field(:minimum_quantity, with: minimum_quantity)
   end
-
 end
