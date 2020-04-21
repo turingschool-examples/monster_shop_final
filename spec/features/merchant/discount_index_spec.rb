@@ -94,6 +94,17 @@ RSpec.describe "Bulk discount index page" do
 
         expect(page).to have_content("No current bulk discounts")
       end
+
+      it "the names of each of the discounts are links to their respective discount show page" do
+        discount1 = @merchant_1.discounts.create!(name: "Family size discount", threshold: 10, percent: 0.1)
+        visit "/merchant/discounts"
+
+        within "#discount-#{discount1.id}" do
+          click_link discount1.name
+        end
+
+        expect(current_path).to eq("/merchant/discounts/#{discount1.id}")
+      end
     end
   end
 end
