@@ -7,7 +7,7 @@ RSpec.describe Cart do
       @brian = Merchant.create!(name: 'Brians Bagels', address: '125 Main St', city: 'Denver', state: 'CO', zip: 80218)
       @ogre = @megan.items.create!(name: 'Ogre', description: "I'm an Ogre!", price: 20, image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTaLM_vbg2Rh-mZ-B4t-RSU9AmSfEEq_SN9xPP_qrA2I6Ftq_D9Qw', active: true, inventory: 5 )
       @giant = @megan.items.create!(name: 'Giant', description: "I'm a Giant!", price: 50, image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTaLM_vbg2Rh-mZ-B4t-RSU9AmSfEEq_SN9xPP_qrA2I6Ftq_D9Qw', active: true, inventory: 2 )
-      @hippo = @brian.items.create!(name: 'Hippo', description: "I'm a Hippo!", price: 50, image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTaLM_vbg2Rh-mZ-B4t-RSU9AmSfEEq_SN9xPP_qrA2I6Ftq_D9Qw', active: true, inventory: 3 )
+      @hippo = @brian.items.create!(name: 'Hippo', description: "I'm a Hippo!", price: 50, image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTaLM_vbg2Rh-mZ-B4t-RSU9AmSfEEq_SN9xPP_qrA2I6Ftq_D9Qw', active: true, inventory: 50 )
       @cart = Cart.new({
         @ogre.id.to_s => 1,
         @giant.id.to_s => 2
@@ -62,6 +62,31 @@ RSpec.describe Cart do
       @cart.less_item(@giant.id.to_s)
 
       expect(@cart.count_of(@giant.id)).to eq(1)
+    end
+
+    it '.find_discounts()' do
+      discount_1 = Discount.create!(quantity: 5, percentage: 10, merchant_id: @brian.id)
+
+      cart = Cart.new({
+        @ogre.id.to_s => 1,
+        @giant.id.to_s => 2,
+        @hippo.id.to_s => 5
+        })
+        
+     expect(cart.find_discounts(@ogre.id)).to eq([])
+     expect(cart.find_discounts(@hippo.id)).to eq([discount_1])
+    end
+
+    it '.apply_discounts()' do
+      discount_1 = Discount.create!(quantity: 5, percentage: 10, merchant_id: @brian.id)
+
+      cart = Cart.new({
+        @ogre.id.to_s => 1,
+        @giant.id.to_s => 2,
+        @hippo.id.to_s => 5
+        })
+        
+     expect(cart.apply_discount(@hippo.id)).to eq(45)
     end
   end
 end

@@ -35,12 +35,29 @@ class Cart
   def count_of(item_id)
     @contents[item_id.to_s]
   end
-
+  
   def subtotal_of(item_id)
-    @contents[item_id.to_s] * Item.find(item_id).price
+    item_price = apply_discount(item_id)
+    @contents[item_id.to_s] * item_price
   end
 
   def limit_reached?(item_id)
     count_of(item_id) == Item.find(item_id).inventory
+  end
+
+  def apply_discount(item_id)
+    item = Item.find(item_id)
+    discount = find_discounts(item_id)
+    if discount.any? && @contents[item_id.to_s] >= discount.first.quantity
+      item.price * discount.first.calculation_percentage
+    else
+      item.price
+    end
+  end
+
+  def find_discounts(item_id)
+    item = Item.find(item_id)
+    merchant_id = item.merchant_id
+    Discount.where(merchant_id: merchant_id)
   end
 end
