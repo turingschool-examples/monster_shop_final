@@ -39,7 +39,8 @@ Rails.application.routes.draw do
     resources :items, only: [:index, :new, :create, :edit, :update, :destroy]
     put '/items/:id/change_status', to: 'items#change_status'
     get '/orders/:id/fulfill/:order_item_id', to: 'orders#fulfill'
-    resources :discounts, only: [:index, :show, :new, :edit]    
+    resources :discounts, only: [:index, :show, :new, :edit, :destroy]
+    post "/discounts/:discount_id", to: "discounts#update"
   end
 
   namespace :admin do

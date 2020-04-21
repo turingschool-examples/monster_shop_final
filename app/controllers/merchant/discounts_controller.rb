@@ -17,8 +17,12 @@ class Merchant::DiscountsController < Merchant::BaseController
   end
 
   def update
-    Discount.update(params[:id], discount_params)
-    redirect_to merchant_bulk_discounts_path
+    Discount.update(params[:discount_id], discount_params)
+    redirect_to "/merchant/discounts"
+  end
+
+  def destroy
+
   end
 
 end
@@ -27,5 +31,5 @@ end
 private
 
 def discount_params
-   params.require(:discount).permit(:percentage, :bulk)
+   params.permit(:percentage, :bulk)
  end
