@@ -13,7 +13,7 @@ RSpec.describe 'Cart Show Page' do
       allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(@reg_user)
     end
 
-    describe 'I can have disounts applied' do
+    describe 'I can have discounts applied' do
       it 'automaticaly if the quantity is reached' do
         discount_1 = Discount.create!(quantity: 5, percentage: 10, merchant_id: @brian.id)
 
@@ -33,6 +33,40 @@ RSpec.describe 'Cart Show Page' do
         
         within "#item-#{@hippo.id}" do
           expect(page).to have_content('Subtotal: $225.00')
+        end
+      end
+      
+      it 'and it defaults to the largest applicable discount' do
+        discount_2 = Discount.create!(quantity: 10, percentage: 20, merchant_id: @brian.id)
+        discount_1 = Discount.create!(quantity: 5, percentage: 10, merchant_id: @brian.id)
+
+        visit item_path(@ogre)
+        click_button 'Add to Cart'
+        visit item_path(@hippo)
+        click_button 'Add to Cart'
+
+        visit '/cart'
+
+        within "#item-#{@hippo.id}" do
+          click_button('More of This!')
+          click_button('More of This!')
+          click_button('More of This!')
+          click_button('More of This!')
+        end
+        
+        within "#item-#{@hippo.id}" do
+          expect(page).to have_content('Subtotal: $225.00')
+        end
+        
+        within "#item-#{@hippo.id}" do
+          click_button('More of This!')
+          click_button('More of This!')
+          click_button('More of This!')
+          click_button('More of This!')
+          click_button('More of This!')
+        end
+        within "#item-#{@hippo.id}" do
+          expect(page).to have_content('Subtotal: $400.00')
         end
       end
     end
