@@ -80,14 +80,14 @@ RSpec.describe "Bulk discount index page" do
 
         within "#discount-#{@discount1.id}" do
           expect(page).to have_content(@discount1.name)
-          expect(page).to have_content("Discount Threshold:#{@discount1.threshold}")
-          expect(page).to have_content("Discount Percentage: #{@discount1.percentage}")
+          expect(page).to have_content("Discount Threshold: #{@discount1.threshold}")
+          expect(page).to have_content("Discount Percentage: #{(@discount1.percent * 100).round(2)}%")
         end
 
         within "#discount-#{@discount2.id}" do
           expect(page).to have_content(@discount2.name)
-          expect(page).to have_content("Discount Threshold:#{@discount2.threshold}")
-          expect(page).to have_content("Discount Percentage: #{(@discount2.percentage * 100).round(2)}%")
+          expect(page).to have_content("Discount Threshold: #{@discount2.threshold}")
+          expect(page).to have_content("Discount Percentage: #{(@discount2.percent * 100).round(2)}%")
         end
       end
     end
