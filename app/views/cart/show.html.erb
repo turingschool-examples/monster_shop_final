@@ -6,11 +6,11 @@
   <% cart.items.each do |item| %>
     <section id='item-<%= item.id%>'>
       <h2><%= link_to item.name, "/items/#{item.id}" %></h2>
-      <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTaLM_vbg2Rh-mZ-B4t-RSU9AmSfEEq_SN9xPP_qrA2I6Ftq_D9Qw">
+      <img src=<%= item.image %>>
       <p>Price: <%= number_to_currency(item.price) %></p>
       <p>Quantity: <%= cart.count_of(item.id) %></p>
-      <%= "Bulk Discount: -#{number_to_currency(cart.subtotal_discount(item.id))}" if cart.subtotal_discount(item.id) > 0 %>
-      <p>Subtotal: <%= number_to_currency(cart.subtotal_of(item.id)) %></p>
+      <%= "Bulk Discount: -#{number_to_currency(cart.bulk_discount(item))}" if cart.bulk_discount(item) > 0 %>
+      <p>Subtotal: <%= number_to_currency(cart.subtotal(item.id)) %></p>
       <p>Sold by: <%= link_to item.merchant.name, "/merchants/#{item.merchant_id}" %>, Inventory: <%= item.inventory %></p>
       <%= button_to 'More of This!', "/cart/more/#{item.id}", method: :patch unless cart.limit_reached?(item.id) %>
       <%= button_to 'Less of This!', "/cart/less/#{item.id}", method: :patch %>
