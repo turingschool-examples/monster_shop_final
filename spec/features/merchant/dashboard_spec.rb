@@ -24,7 +24,7 @@ RSpec.describe 'Merchant Dashboard' do
 
       expect(page).to have_link(@merchant_1.name)
       expect(page).to have_content(@merchant_1.address)
-      expect(page).to have_content("#{@merchant_1.city} #{@merchant_1.state} #{@merchant_1.zip}")
+      expect(page).to have_content("#{@merchant_1.city}, #{@merchant_1.state} #{@merchant_1.zip}")
     end
 
     it 'I do not have a link to edit the merchant information' do
@@ -40,14 +40,14 @@ RSpec.describe 'Merchant Dashboard' do
         expect(page).to_not have_css("#order-#{@order_1.id}")
 
         within "#order-#{@order_2.id}" do
-          expect(page).to have_link(@order_2.id)
+          expect(page).to have_link("#{@order_2.id}")
           expect(page).to have_content("Potential Revenue: #{@order_2.merchant_subtotal(@merchant_1.id)}")
           expect(page).to have_content("Quantity of Items: #{@order_2.merchant_quantity(@merchant_1.id)}")
           expect(page).to have_content("Created: #{@order_2.created_at}")
         end
 
         within "#order-#{@order_3.id}" do
-          expect(page).to have_link(@order_3.id)
+          expect(page).to have_link("#{@order_3.id}")
           expect(page).to have_content("Potential Revenue: #{@order_3.merchant_subtotal(@merchant_1.id)}")
           expect(page).to have_content("Quantity of Items: #{@order_3.merchant_quantity(@merchant_1.id)}")
           expect(page).to have_content("Created: #{@order_3.created_at}")
@@ -58,9 +58,21 @@ RSpec.describe 'Merchant Dashboard' do
     it 'I can link to an order show page' do
       visit '/merchant'
 
-      click_link @order_2.id
+      click_link "#{@order_2.id}"
 
       expect(current_path).to eq("/merchant/orders/#{@order_2.id}")
+    end
+
+    it "I can link to my items" do
+      visit '/merchant'
+
+      expect(page).to have_link("My Items", href: "/merchant/items")
+    end
+
+    it "I can link to my bulk discounts" do
+      visit '/merchant'
+
+      expect(page).to have_link("My Discounts", href: "/merchant/discounts")
     end
   end
 end

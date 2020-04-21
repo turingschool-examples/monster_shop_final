@@ -30,7 +30,7 @@ RSpec.describe 'User Order Show Page' do
       visit '/profile/orders'
 
       within "#order-#{@order_1.id}" do
-        expect(page).to have_link(@order_1.id)
+        expect(page).to have_link("#{@order_1.id}")
         expect(page).to have_content("Created On: #{@order_1.created_at}")
         expect(page).to have_content("Updated On: #{@order_1.updated_at}")
         expect(page).to have_content("Status: #{@order_1.status}")
@@ -39,7 +39,7 @@ RSpec.describe 'User Order Show Page' do
       end
 
       within "#order-#{@order_2.id}" do
-        expect(page).to have_link(@order_2.id)
+        expect(page).to have_link("#{@order_2.id}")
         expect(page).to have_content("Created On: #{@order_2.created_at}")
         expect(page).to have_content("Updated On: #{@order_2.updated_at}")
         expect(page).to have_content("Status: #{@order_2.status}")
