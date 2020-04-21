@@ -3156,6 +3156,7 @@
         2,
         2,
         2,
+        2,
         null,
         null,
         1,
@@ -3211,6 +3212,7 @@
         null
       ],
       "/Users/michaelalexlynch/turing/2module/projects/monster_shop_final/app/models/merchant.rb": [
+        1,
         1,
         1,
         1,
@@ -3978,8 +3980,17 @@
         1,
         null,
         null
+      ],
+      "/Users/michaelalexlynch/turing/2module/projects/monster_shop_final/app/models/discount.rb": [
+        1,
+        1,
+        null,
+        1,
+        null,
+        null,
+        null
       ]
     },
-    "timestamp": 1587495657
+    "timestamp": 1587496249
   }
 }
