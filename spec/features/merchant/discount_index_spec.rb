@@ -66,43 +66,34 @@ RSpec.describe "Bulk discount index page" do
         price: @giant.price,
         quantity: 2,
         fulfilled: false)
-      allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(@m_user)
+      allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(@merchant_user)
     end
 
     context "when I visit my discount index page" do
-      before :each do
-        @discount1 = @merchant_1.discounts.create!(name: "Family size discount", threshold: 10, percent: 0.1)
-        @discount2 = @merchant_1.discounts.create!(name: "Shipping supply discount", threshold: 500, percent: 0.2)
-      end
-
       it "I see all my merchant's discounts and their information" do
+        discount1 = @merchant_1.discounts.create!(name: "Family size discount", threshold: 10, percent: 0.1)
+        discount2 = @merchant_1.discounts.create!(name: "Shipping supply discount", threshold: 500, percent: 0.2)
+
         visit "/merchant/discounts"
 
-        within "#discount-#{@discount1.id}" do
-          expect(page).to have_content(@discount1.name)
-          expect(page).to have_content("Discount Threshold: #{@discount1.threshold}")
-          expect(page).to have_content("Discount Percentage: #{(@discount1.percent * 100).round(2)}%")
+        within "#discount-#{discount1.id}" do
+          expect(page).to have_content(discount1.name)
+          expect(page).to have_content("Discount Threshold: #{discount1.threshold}")
+          expect(page).to have_content("Discount Percentage: #{(discount1.percent * 100).round(2)}%")
         end
 
-        within "#discount-#{@discount2.id}" do
-          expect(page).to have_content(@discount2.name)
-          expect(page).to have_content("Discount Threshold: #{@discount2.threshold}")
-          expect(page).to have_content("Discount Percentage: #{(@discount2.percent * 100).round(2)}%")
+        within "#discount-#{discount2.id}" do
+          expect(page).to have_content(discount2.name)
+          expect(page).to have_content("Discount Threshold: #{discount2.threshold}")
+          expect(page).to have_content("Discount Percentage: #{(discount2.percent * 100).round(2)}%")
         end
+      end
+
+      it "if there are no discounts in the system, I see a message saying there are no discounts" do
+        visit "/merchant/discounts"
+
+        expect(page).to have_content("No current bulk discounts")
       end
     end
   end
 end
-
-
-# **User Story 1: Bulk Discount Index Page**
-# - As a Merchant user
-# - When I visit my Merchant dashboard
-# - I see a link to my Bulk Discounts index page
-# - When I click the link
-# - I am directed to A Bulk Discounts index page where I see all the names of my bulk discounts, their percentages, and the threshold for the discount
-#
-# **Sad Path**
-# - As a Merchant user
-# - If there are no discounts in the system
-# - I see text saying there are no discounts
