@@ -186,8 +186,6 @@ RSpec.describe 'Cart Show Page' do
           click_button "More of This!"
         end
 
-      save_and_open_page
-
       expect(page).to have_content("A 5% discount has been added to Soldier")
     end
   end
