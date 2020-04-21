@@ -1,9 +1,13 @@
 <h1>Discounts</h1>
 
-<%= @discounts.each do |discount| %>
-  <section id="discount-<%= discount.id %>">
-    <h2><%= discount.name %></h2>
-    <p>Discount Percentage: <%= (discount.percent * 100.0).round(2) %>%</p>
-    <p>Discount Threshold: <%= discount.threshold %></p>
-  </section>
+<% if @discounts.empty? %>
+  <h2>No current bulk discounts</h2>
+<% else %>
+  <% @discounts.each do |discount| %>
+    <section id="discount-<%= discount.id %>">
+      <h2><%= discount.name %></h2>
+      <p>Discount Percentage: <%= (discount.percent * 100.0).round(2) %>%</p>
+      <p>Discount Threshold: <%= discount.threshold %></p>
+    </section>
+  <% end %>
 <% end %>
