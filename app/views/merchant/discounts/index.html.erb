@@ -1,7 +1,7 @@
 <h1>Available Discounts</h1>
 
 <% @discounts.each do |discount| %>
-  <p><section id='discount-<%= discount.id %>'>
-    <%= discount.percentage %> % off of <%= discount.bulk %> items or more
-  </p></section>
+  <section id='discount-<%= discount.id %>'>
+  <p><%= link_to "#{discount.percentage}% discount if you buy at least #{discount.bulk} items", "/merchant/discounts/#{discount.id}" %><p/>
+  </section>
 <% end %>
