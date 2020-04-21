@@ -30,6 +30,7 @@ RSpec.describe 'As a merchant user' do
     visit '/merchant/discounts'
 
     expect(page).to have_content("Available Discounts")
+    expect(page).to have_link("Create New Discount")
 
     within "#discount-#{@discount1.id}" do
       expect(page).to have_content(@discount1.percentage)
