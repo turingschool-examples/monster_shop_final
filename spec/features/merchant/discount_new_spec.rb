@@ -51,8 +51,7 @@ RSpec.describe "Bulk discount creation" do
         expect(current_path).to eq("/merchant/discounts")
 
         expect(page).to have_content("Jumbo size discount")
-        expect(page).to have_content("Percentage: 15%")
-
+        expect(page).to have_content("Percentage: 15.0%")
       end
     end
   end
