@@ -24,9 +24,6 @@ class Merchant::DiscountsController < ApplicationController
   private
 
   def discount_params
-    if params[:percent]
-      params[:percent] = params[:percent].to_f / 100
-    end
-    params.permit(:name, :percent, :threshold)
+    permitted_params = params.permit(:name, :threshold, :percent)
   end
 end

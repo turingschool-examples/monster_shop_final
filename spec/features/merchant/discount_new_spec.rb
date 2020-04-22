@@ -40,9 +40,6 @@ RSpec.describe "Bulk discount creation" do
       it "I see a form that I can fill out and submit to create a new merchant discount" do
         visit "/merchant/discounts/new"
 
-        discount1 = @merchant_1.discounts.create!(name: "Family size discount", threshold: 10, percent: 0.1)
-
-
         fill_in 'Name', with: "Jumbo size discount"
         fill_in 'Percent', with: "15"
         fill_in 'Threshold', with: "25"
@@ -51,7 +48,20 @@ RSpec.describe "Bulk discount creation" do
         expect(current_path).to eq("/merchant/discounts")
 
         expect(page).to have_content("Jumbo size discount")
-        expect(page).to have_content("Percentage: 15.0%")
+        expect(page).to have_content("Percentage: 15%")
+      end
+
+      it "if I put in invalid information into the form, I get a flash message telling me what went wrong" do
+        visit "/merchant/discounts/new"
+
+        fill_in 'Percent', with: "yeet"
+        click_button 'Create Discount'
+        expect(current_path).to eq("/merchant/discounts")
+
+
+        expect(page).to have_content("name: [\"can't be blank\"]")
+        expect(page).to have_content("percent: [\"is not a number\"]")
+        expect(page).to have_content("threshold: [\"can't be blank\", \"is not a number\"]")
       end
     end
   end

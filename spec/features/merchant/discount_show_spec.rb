@@ -71,8 +71,9 @@ RSpec.describe "Bulk discount index page" do
 
     context "when I visit my discount show page" do
       before :each do
-        @discount1 = @merchant_1.discounts.create!(name: "Family size discount", threshold: 10, percent: 0.1)
-        @discount2 = @merchant_1.discounts.create!(name: "Shipping supply discount", threshold: 500, percent: 0.2)
+        @discount1 = @merchant_1.discounts.create!(name: "Family size discount", threshold: 10, percent: 10)
+        @discount2 = @merchant_1.discounts.create!(name: "Shipping supply discount", threshold: 500, percent: 20)
+        @discount3 = @merchant_1.discounts.create!(name: "Limited Discount", threshold: 2, percent: 1)
       end
 
       it "I see all of that discount's info" do
@@ -80,7 +81,7 @@ RSpec.describe "Bulk discount index page" do
 
         expect(page).to have_content(@discount1.name)
         expect(page).to have_content("Discount Threshold: #{@discount1.threshold}")
-        expect(page).to have_content("Discount Percentage: #{(@discount1.percent * 100).round(2)}%")
+        expect(page).to have_content("Discount Percentage: #{@discount1.percent}%")
       end
     end
   end

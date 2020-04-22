@@ -71,21 +71,21 @@ RSpec.describe "Bulk discount index page" do
 
     context "when I visit my discount index page" do
       it "I see all my merchant's discounts and their information" do
-        discount1 = @merchant_1.discounts.create!(name: "Family size discount", threshold: 10, percent: 0.1)
-        discount2 = @merchant_1.discounts.create!(name: "Shipping supply discount", threshold: 500, percent: 0.2)
+        discount1 = @merchant_1.discounts.create!(name: "Family size discount", threshold: 10, percent: 10)
+        discount2 = @merchant_1.discounts.create!(name: "Shipping supply discount", threshold: 500, percent: 20)
 
         visit "/merchant/discounts"
 
         within "#discount-#{discount1.id}" do
           expect(page).to have_content(discount1.name)
           expect(page).to have_content("Discount Threshold: #{discount1.threshold}")
-          expect(page).to have_content("Discount Percentage: #{(discount1.percent * 100).round(2)}%")
+          expect(page).to have_content("Discount Percentage: #{discount1.percent}%")
         end
 
         within "#discount-#{discount2.id}" do
           expect(page).to have_content(discount2.name)
           expect(page).to have_content("Discount Threshold: #{discount2.threshold}")
-          expect(page).to have_content("Discount Percentage: #{(discount2.percent * 100).round(2)}%")
+          expect(page).to have_content("Discount Percentage: #{discount2.percent}%")
         end
       end
 
@@ -96,7 +96,7 @@ RSpec.describe "Bulk discount index page" do
       end
 
       it "the names of each of the discounts are links to their respective discount show page" do
-        discount1 = @merchant_1.discounts.create!(name: "Family size discount", threshold: 10, percent: 0.1)
+        discount1 = @merchant_1.discounts.create!(name: "Family size discount", threshold: 10, percent: 10)
         visit "/merchant/discounts"
 
         within "#discount-#{discount1.id}" do
