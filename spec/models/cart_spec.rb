@@ -89,5 +89,11 @@ RSpec.describe Cart do
      expect(cart.apply_discount(@hippo.id)).to eq(45)
     end
 
+    it '.calculate()' do
+      discount_1 = Discount.create!(quantity: 5, percentage: 10, merchant_id: @brian.id)
+
+      expect(@cart.calculate(discount_1.percentage)).to eq(0.9)
+    end
+
   end
 end
