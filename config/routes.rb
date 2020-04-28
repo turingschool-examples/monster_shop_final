@@ -12,38 +12,33 @@ Rails.application.routes.draw do
 
   resources :reviews, only: [:edit, :update, :destroy]
 
-  resources :cart, only: [:index, :create, :destroy]
+  resources :cart, only: [:index, :create, :destroy, :update]
 
-  patch '/cart/:change/:id', to: 'cart#update_quantity'
+  resources :users, only: [:new, :create, :update]
 
-  get '/registration', to: 'users#new', as: :registration
-  resources :users, only: [:create, :update]
-  patch '/user/:id', to: 'users#update'
-  get '/profile', to: 'users#show'
-  get '/profile/edit', to: 'users#edit'
-  get '/profile/edit_password', to: 'users#edit_password'
-  post '/orders', to: 'user/orders#create'
-  get '/profile/orders', to: 'user/orders#index'
-  get '/profile/orders/:id', to: 'user/orders#show'
-  delete '/profile/orders/:id', to: 'user/orders#cancel'
+  resources :orders, only: [:create]
+
+  namespace :profile do
+    get "/", to: 'dashboard#index', as: :dashboard
+    get "/edit", to: 'dashboard#edit'
+    resources :orders, only: [:index, :show, :destroy ]
+  end
 
   get '/login', to: 'sessions#new'
   post '/login', to: 'sessions#login'
   get '/logout', to: 'sessions#logout'
 
   namespace :merchant do
-    get '/', to: 'dashboard#index', as: :dashboard
-    resources :orders, only: :show
+    get root 'dashboard#index', as: :dashboard
+    resources :orders, only: [:show, :update]
     resources :items, only: [:index, :new, :create, :edit, :update, :destroy]
-    put '/items/:id/change_status', to: 'items#change_status'
-    get '/orders/:id/fulfill/:order_item_id', to: 'orders#fulfill'
     resources :discounts
   end
 
   namespace :admin do
-    get '/', to: 'dashboard#index', as: :dashboard
+    get root 'dashboard#index', as: :dashboard
     resources :merchants, only: [:show, :update]
     resources :users, only: [:index, :show]
-    patch '/orders/:id/ship', to: 'orders#ship'
+    resources :orders, only: [:update]
   end
 end
