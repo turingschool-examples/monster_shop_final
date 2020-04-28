@@ -27,7 +27,7 @@ class CartController < ApplicationController
     end
   end
 
-  def update_quantity
+  def update
     if params[:change] == "more"
       cart.add_item(params[:id])
     elsif params[:change] == "less"
