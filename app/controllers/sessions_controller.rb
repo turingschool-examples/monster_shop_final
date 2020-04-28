@@ -32,7 +32,7 @@ class SessionsController < ApplicationController
     elsif current_admin?
       redirect_to admin_dashboard_path
     else
-      redirect_to profile_path
+      redirect_to profile_dashboard_path
     end
   end
 end
