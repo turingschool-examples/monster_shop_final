@@ -24,5 +24,5 @@
       <p>You must <%= link_to 'register', registration_path %> or <%= link_to 'log in', login_path %> to checkout.</p>
     <% end %>
   </section>
-  <%= button_to 'Empty Cart', '/cart', method: :delete %>
+  <%= button_to 'Empty Cart', '/cart/all', method: :delete %>
 <% end %>
