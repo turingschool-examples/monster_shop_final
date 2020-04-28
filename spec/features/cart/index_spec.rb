@@ -1,7 +1,7 @@
 require 'rails_helper'
 include ActionView::Helpers::NumberHelper
 
-RSpec.describe 'Cart Show Page' do
+RSpec.describe 'Cart Index Page' do
   describe 'As a Visitor' do
     before :each do
       @megan = Merchant.create!(name: 'Megans Marmalades', address: '123 Main St', city: 'Denver', state: 'CO', zip: 80218)
@@ -12,7 +12,7 @@ RSpec.describe 'Cart Show Page' do
     end
 
     describe 'I can see my cart' do
-      it "I can visit a cart show page to see items in my cart" do
+      it "I can visit a cart index page to see items in my cart" do
         visit item_path(@ogre)
         click_button 'Add to Cart'
         visit item_path(@hippo)
