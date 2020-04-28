@@ -3,6 +3,6 @@
     <h3><%= link_to order.user.name, "/admin/users/#{order.user.id}" %></h3>
     <p><%= order.id %>: <%= order.status %></p>
     <p>Created: <%= order.created_at %></p>
-    <%= link_to 'Ship', "/admin/orders/#{order.id}/ship", method: :patch if order.packaged? %>
+    <%= link_to 'Ship', "/admin/orders/#{order.id}", method: :patch if order.packaged? %>
   </section>
 <% end %>
