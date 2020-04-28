@@ -14,7 +14,7 @@ RSpec.describe 'User Login and Log Out' do
         fill_in 'Password', with: @user.password
         click_button 'Log In'
 
-        expect(current_path).to eq(profile_path)
+        expect(current_path).to eq(profile_dashboard_path)
         expect(page).to have_content("Logged in as #{@user.name}")
       end
 
@@ -23,7 +23,7 @@ RSpec.describe 'User Login and Log Out' do
 
         visit login_path
 
-        expect(current_path).to eq(profile_path)
+        expect(current_path).to eq(profile_dashboard_path)
         expect(page).to have_content('You are already logged in!')
       end
     end

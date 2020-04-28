@@ -9,7 +9,7 @@ RSpec.describe "User Profile Path" do
 
     it "I can view my profile page" do
       allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(@user)
-      visit profile_path
+      visit profile_dashboard_path
 
       expect(page).to have_content(@user.name)
       expect(page).to have_content(@user.email)
@@ -28,7 +28,7 @@ RSpec.describe "User Profile Path" do
 
       click_link 'Edit'
 
-      expect(current_path).to eq('/profile/edit')
+      expect(current_path).to eq("/profile/edit")
 
       name = 'New Name'
       email = 'new@example.com'
@@ -45,7 +45,7 @@ RSpec.describe "User Profile Path" do
       fill_in "Zip", with: zip
       click_button 'Update Profile'
 
-      expect(current_path).to eq(profile_path)
+      expect(current_path).to eq(profile_dashboard_path)
 
       expect(page).to have_content('Profile has been updated!')
       expect(page).to have_content(name)
@@ -63,7 +63,7 @@ RSpec.describe "User Profile Path" do
 
       click_link 'Change Password'
 
-      expect(current_path).to eq('/profile/edit_password')
+      expect(current_path).to eq("/profile/edit")
 
       password = "newpassword"
 
@@ -71,7 +71,7 @@ RSpec.describe "User Profile Path" do
       fill_in "Password confirmation", with: password
       click_button 'Change Password'
 
-      expect(current_path).to eq(profile_path)
+      expect(current_path).to eq(profile_dashboard_path)
 
       expect(page).to have_content('Profile has been updated!')
 
@@ -91,13 +91,13 @@ RSpec.describe "User Profile Path" do
       fill_in 'Password', with: "newpassword"
       click_button 'Log In'
 
-      expect(current_path).to eq(profile_path)
+      expect(current_path).to eq(profile_dashboard_path)
     end
 
     it "I must use a unique email address" do
       allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(@user)
 
-      visit '/profile/edit'
+      visit "/profile/edit"
 
       fill_in "Email", with: @admin.email
       click_button "Update Profile"

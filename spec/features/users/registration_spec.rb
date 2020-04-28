@@ -7,11 +7,11 @@ RSpec.describe 'User Registration' do
 
       click_link 'Register'
 
-      expect(current_path).to eq(registration_path)
+      expect(current_path).to eq(new_user_path)
     end
 
     it 'I can register as a user' do
-      visit registration_path
+      visit new_user_path
 
       fill_in 'Name', with: 'Megan'
       fill_in 'Address', with: '123 Main St'
@@ -23,13 +23,13 @@ RSpec.describe 'User Registration' do
       fill_in 'Password confirmation', with: 'securepassword'
       click_button 'Register'
 
-      expect(current_path).to eq(profile_path)
+      expect(current_path).to eq(profile_dashboard_path)
       expect(page).to have_content('Welcome, Megan!')
     end
 
     describe 'I can not register as a user if' do
       it 'I do not complete the registration form' do
-        visit registration_path
+        visit new_user_path
 
         fill_in 'Name', with: 'Megan'
         click_button 'Register'
@@ -46,7 +46,7 @@ RSpec.describe 'User Registration' do
       it 'I use a non-unique email' do
         user = User.create(name: 'Megan', address: '123 Main St', city: 'Denver', state: 'CO', zip: 80218, email: 'megan@example.com', password: 'securepassword')
 
-        visit registration_path
+        visit new_user_path
 
         fill_in 'Name', with: user.name
         fill_in 'Address', with: user.address

@@ -62,7 +62,7 @@ RSpec.describe 'Create Order' do
         click_link 'register'
       end
 
-      expect(current_path).to eq(registration_path)
+      expect(current_path).to eq(new_user_path)
 
       visit '/cart'
 

@@ -60,7 +60,7 @@ RSpec.describe 'Site Navigation' do
           click_link 'Register'
         end
 
-        expect(current_path).to eq(registration_path)
+        expect(current_path).to eq(new_user_path)
       end
     end
   end
@@ -137,7 +137,7 @@ RSpec.describe 'Site Navigation' do
           click_link 'Profile'
         end
 
-        expect(current_path).to eq(profile_path)
+        expect(current_path).to eq(profile_dashboard_path)
       end
     end
 
@@ -229,7 +229,7 @@ RSpec.describe 'Site Navigation' do
           click_link 'Profile'
         end
 
-        expect(current_path).to eq(profile_path)
+        expect(current_path).to eq(profile_dashboard_path)
       end
 
       it 'my merchant page' do
@@ -320,7 +320,7 @@ RSpec.describe 'Site Navigation' do
           click_link 'Profile'
         end
 
-        expect(current_path).to eq(profile_path)
+        expect(current_path).to eq(profile_dashboard_path)
       end
 
       it 'my merchant page' do
