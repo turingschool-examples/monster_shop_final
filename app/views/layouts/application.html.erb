@@ -15,13 +15,13 @@
         <%= link_to 'Merchants', '/merchants' %>
         <%= link_to 'Items', '/items' %>
         <%= link_to 'Users', '/admin/users' if current_admin? %>
-        <%= link_to 'Profile', profile_path if current_user %>
+        <%= link_to 'Profile', profile_dashboard_path if current_user %>
         <%= link_to 'Merchant Dashboard', merchant_dashboard_path if current_merchant_user? %>
         <%= link_to 'Admin Dashboard', admin_dashboard_path if current_admin? %>
         <%= link_to "Cart: #{cart.count}", cart_index_path unless current_admin? %>
       </span>
       <span id ="topnav-right">
-        <%= link_to 'Register', registration_path unless current_user %>
+        <%= link_to 'Register', new_user_path unless current_user %>
         <%= link_to 'Log In', login_path unless current_user %>
         <p><%= "Logged in as #{current_user.name}" if current_user %></p>
         <%= link_to 'Log Out', logout_path if current_user %>
