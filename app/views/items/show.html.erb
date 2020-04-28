@@ -5,7 +5,7 @@
 <p>Sold by: <%= link_to @item.merchant.name, "/merchants/#{@item.merchant_id}" %>, Inventory: <%= @item.inventory %></p>
 <p><%= @item.active ? "Active" : "Inactive" %></p>
 
-<%= button_to 'Add to Cart', "/cart/#{@item.id}" %>
+<%= button_to 'Add to Cart', "/cart?item_id=#{@item.id}" %>
 
 <section class='reviews'>
   <h2>Reviews</h2>
