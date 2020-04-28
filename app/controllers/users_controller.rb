@@ -15,7 +15,7 @@ class UsersController < ApplicationController
     if @user.save
       session[:user_id] = @user.id
       flash[:notice] = "Welcome, #{@user.name}!"
-      redirect_to profile_path
+      redirect_to profile_dashboard_path
     else
       generate_flash(@user)
       render :new
@@ -34,7 +34,7 @@ class UsersController < ApplicationController
     @user = current_user
     if @user.update(user_params)
       flash[:notice] = 'Profile has been updated!'
-      redirect_to profile_path
+      redirect_to profile_dashboard_path
     else
       generate_flash(@user)
       render :edit
