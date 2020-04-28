@@ -12,8 +12,8 @@
       <%= "Bulk Discount: -#{number_to_currency(cart.bulk_discount(item))}" if cart.bulk_discount(item) > 0 %>
       <p>Subtotal: <%= number_to_currency(cart.subtotal(item.id)) %></p>
       <p>Sold by: <%= link_to item.merchant.name, "/merchants/#{item.merchant_id}" %>, Inventory: <%= item.inventory %></p>
-      <%= button_to 'More of This!', "/cart/more/#{item.id}", method: :patch unless cart.limit_reached?(item.id) %>
-      <%= button_to 'Less of This!', "/cart/less/#{item.id}", method: :patch %>
+      <%= button_to 'More of This!', "/cart/#{item.id}?change=more", method: :patch unless cart.limit_reached?(item.id) %>
+      <%= button_to 'Less of This!', "/cart/#{item.id}?change=less", method: :patch %>
       <%= button_to 'Remove', "/cart/#{item.id}", method: :delete %>
     </section>
   <% end %>
@@ -21,7 +21,7 @@
     <% if current_user %>
       <%= button_to 'Check Out', '/orders' %>
     <% else %>
-      <p>You must <%= link_to 'register', registration_path %> or <%= link_to 'log in', login_path %> to checkout.</p>
+      <p>You must <%= link_to 'register', new_user_path %> or <%= link_to 'log in', login_path %> to checkout.</p>
     <% end %>
   </section>
   <%= button_to 'Empty Cart', '/cart/all', method: :delete %>

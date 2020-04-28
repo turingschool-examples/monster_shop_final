@@ -11,7 +11,7 @@
     <% if order_item.fulfilled? %>
       <p>Fulfilled</p>
     <% elsif order_item.fulfillable? %>
-      <%= link_to 'Fulfill', "/merchant/orders/#{@order.id}/fulfill/#{order_item.id}" %>
+      <%= link_to 'Fulfill', "/merchant/orders/#{@order.id}?fulfill=#{order_item.id}", method: :patch %>
     <% else %>
       <p>Insufficient Inventory</p>
     <% end %>

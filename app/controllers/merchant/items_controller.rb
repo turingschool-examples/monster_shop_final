@@ -23,11 +23,15 @@ class Merchant::ItemsController < Merchant::BaseController
 
   def update
     @item = Item.find(params[:id])
-    if @item.update(item_params)
-      redirect_to "/merchant/items"
+    if params[:change_status] == "true"
+      change_status
     else
-      generate_flash(@item)
-      render :edit
+      if @item.update(item_params)
+        redirect_to "/merchant/items"
+      else
+        generate_flash(@item)
+        render :edit
+      end
     end
   end
 
