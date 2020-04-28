@@ -12,11 +12,9 @@ Rails.application.routes.draw do
 
   resources :reviews, only: [:edit, :update, :destroy]
 
-  get '/cart', to: 'cart#show'
-  post '/cart/:item_id', to: 'cart#add_item'
-  delete '/cart', to: 'cart#empty'
-  patch '/cart/:change/:item_id', to: 'cart#update_quantity'
-  delete '/cart/:item_id', to: 'cart#remove_item'
+  resources :cart, only: [:index, :create, :destroy]
+
+  patch '/cart/:change/:id', to: 'cart#update_quantity'
 
   get '/registration', to: 'users#new', as: :registration
   resources :users, only: [:create, :update]
