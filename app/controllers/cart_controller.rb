@@ -1,7 +1,7 @@
 class CartController < ApplicationController
   before_action :exclude_admin
 
-  def add_item
+  def update
     item = Item.find(params[:item_id])
     session[:cart] ||= {}
     if cart.limit_reached?(item.id)
@@ -14,7 +14,7 @@ class CartController < ApplicationController
     redirect_to items_path
   end
 
-  def show
+  def index
   end
 
   def empty
