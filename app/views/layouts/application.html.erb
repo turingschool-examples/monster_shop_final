@@ -18,7 +18,7 @@
         <%= link_to 'Profile', profile_path if current_user %>
         <%= link_to 'Merchant Dashboard', merchant_dashboard_path if current_merchant_user? %>
         <%= link_to 'Admin Dashboard', admin_dashboard_path if current_admin? %>
-        <%= link_to "Cart: #{cart.count}", cart_path unless current_admin? %>
+        <%= link_to "Cart: #{cart.count}", cart_index_path unless current_admin? %>
       </span>
       <span id ="topnav-right">
         <%= link_to 'Register', registration_path unless current_user %>
