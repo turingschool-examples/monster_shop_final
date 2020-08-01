@@ -36,19 +36,19 @@ Merchants add bulk discount rates for all of their inventory. These apply automa
 User Story 1, Bulk discount index
 
 As a merchant employee
-When I visit the merchant dashboard ('/merchant/dashboard')
+When I visit the merchant dashboard ('/merchant')
 I see a link to view all bulk discounts
 When I click that link
-I am taken to '/merchant/:merchant_id/discounts'
+I am taken to '/merchant/discounts'
 Where I see the name, amount, item quantity (if applicable) and item value (if applicable) of each discount
-The name of the discount is a link to its show page ('/merchant/:merchant_id/discount/:discount_id')
+The name of the discount is a link to its show page ('/merchant/discounts/:discount_id')
 ```
 
 ```
 User Story 2, Bulk discount show page
 
 As a merchant employee
-When I visit a discount's show page ('/merchant/:merchant_id/discounts/:discount_id')
+When I visit a discount's show page ('/merchant/discounts/:discount_id')
 I see the discount's:
 - name
 - amount
@@ -61,10 +61,10 @@ I see the discount's:
 User Story 3, Bulk discount creation
 
 As a merchant employee
-When I visit the discount index page ('/merchant/:merchant_id/discounts/')
+When I visit the discount index page ('/merchant/discounts/')
 I see a link to create a new discount, "New Bulk Discount"
 When I click this link
-Then I am taken to '/merchant/:merchant_id/discounts/new' where I see a form for a new bulk discount
+Then I am taken to '/merchant/discounts/new' where I see a form for a new bulk discount
 When I fill out the form with a new discount's:
 - name
 - amount
@@ -79,7 +79,7 @@ And I am returned to the discount index page where I see the new discount listed
 User Story 4, Cannot create bulk discount with incomplete information
 
 As a merchant employee
-When I visit the new discount page ('/merchant/:merchant_id/discounts/new')
+When I visit the new discount page ('/merchant/discounts/new')
 And I fill out the form on that page without a discount's full information and click submit
 I see a flash message saying information is incomplete
 And I am still on the new discount page with prepopulated information
@@ -89,10 +89,10 @@ And I am still on the new discount page with prepopulated information
 User Story 5, Bulk discount update
 
 As a merchant employee
-When I visit a discount's show page ('/merchant/:merchant_id/discounts/:discount_id')
+When I visit a discount's show page ('/merchant/discounts/:discount_id')
 I see a link to "Update Discount"
 When I click that link
-I am taken to '/merchant/:merchant_id/discounts/:discount_id/edit' where I see a form to edit the discount's data similar to the create form, which is prepopulated
+I am taken to '/merchant/discounts/:discount_id/edit' where I see a form to edit the discount's data similar to the create form, which is prepopulated
 When I edit the necessary entries and click submit
 I see a flash message saying the discount is updated
 And I am returned to the discount's show page where I see its updated information.
@@ -102,7 +102,7 @@ And I am returned to the discount's show page where I see its updated informatio
 User Story 6, Cannot update Bulk discount with incomplete information
 
 As a merchant employee
-When I visit a discount's edit page ('/merchant/:merchant_id/discounts/:discount_id/edit')
+When I visit a discount's edit page ('/merchant/discounts/:discount_id/edit')
 And I edit the form with incomplete information and click submit
 When I edit the necessary entries and click submit
 I see a flash message saying information is incomplete
@@ -113,7 +113,7 @@ And I am still on the edit discount page with prepopulated information
 User Story 7, Bulk discount delete
 
 As a merchant employee
-When I visit a discount's show page ('/merchant/:merchant_id/discounts/:discount_id')
+When I visit a discount's show page ('/merchant/discounts/:discount_id')
 I see a button to "Delete Discount"
 When I click that button
 I see a flash message saying the discount is deleted
