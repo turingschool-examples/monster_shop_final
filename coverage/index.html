@@ -5,7 +5,7 @@
     <meta http-equiv="content-type" content="text/html; charset=utf-8" />
     <script src='./assets/0.10.2/application.js' type='text/javascript'></script>    
     <link href='./assets/0.10.2/application.css' media='screen, projection, print' rel='stylesheet' type='text/css'>
-    <link rel="shortcut icon" type="image/png" href="./assets/0.10.2/favicon_yellow.png" />
+    <link rel="shortcut icon" type="image/png" href="./assets/0.10.2/favicon_red.png" />
     <link rel="icon" type="image/png" href="./assets/0.10.2/favicon.png" />
   </head>
   
@@ -14,27 +14,27 @@
       <img src="./assets/0.10.2/loading.gif" alt="loading"/>
     </div>
     <div id="wrapper" style="display:none;">
-      <div class="timestamp">Generated <abbr class="timeago" title="2020-08-02T11:57:32-06:00">2020-08-02T11:57:32-06:00</abbr></div>
+      <div class="timestamp">Generated <abbr class="timeago" title="2020-08-02T12:10:11-06:00">2020-08-02T12:10:11-06:00</abbr></div>
       <ul class="group_tabs"></ul>
 
       <div id="content">
         <div class="file_list_container" id="AllFiles">
   <h2>
     <span class="group_name">All Files</span>
-    (<span class="covered_percent"><span class="yellow">81.03%</span></span>
+    (<span class="covered_percent"><span class="red">79.9%</span></span>
      covered at
      <span class="covered_strength">
        <span class="green">
-         1.12
+         1.09
        </span>
     </span> hits/line)
   </h2>
   <a name="AllFiles"></a>
   <div>
     <b>23</b> files in total.
-    <b>195</b> relevant lines. 
-    <span class="green"><b>158</b> lines covered</span> and
-    <span class="red"><b>37</b> lines missed </span>
+    <b>204</b> relevant lines. 
+    <span class="green"><b>163</b> lines covered</span> and
+    <span class="red"><b>41</b> lines missed </span>
   </div>
   <table class="file_list">
     <thead>
@@ -72,12 +72,12 @@
       
       <tr>
         <td class="strong"><a href="#f21db433cbb54730db8e563c47a884ec4bed5dca" class="src_link" title="app/controllers/merchant/discounts_controller.rb">app/controllers/merchant/discounts_controller.rb</a></td>
-        <td class="red strong">51.61 %</td>
-        <td>53</td>
-        <td>31</td>
-        <td>16</td>
-        <td>15</td>
-        <td>0.8</td>
+        <td class="red strong">51.28 %</td>
+        <td>61</td>
+        <td>39</td>
+        <td>20</td>
+        <td>19</td>
+        <td>0.7</td>
       </tr>
       
       <tr>
@@ -113,9 +113,9 @@
       <tr>
         <td class="strong"><a href="#9e4ccdcd3b54030abed8bdd4c410957930c09bf0" class="src_link" title="app/models/discount.rb">app/models/discount.rb</a></td>
         <td class="green strong">100.0 %</td>
+        <td>10</td>
         <td>8</td>
-        <td>7</td>
-        <td>7</td>
+        <td>8</td>
         <td>0</td>
         <td>1.0</td>
       </tr>
@@ -631,11 +631,11 @@
         <div class="source_table" id="f21db433cbb54730db8e563c47a884ec4bed5dca">
   <div class="header">
     <h3>app/controllers/merchant/discounts_controller.rb</h3>
-    <h4><span class="red">51.61 %</span> covered</h4>
+    <h4><span class="red">51.28 %</span> covered</h4>
     <div>
-      <b>31</b> relevant lines. 
-      <span class="green"><b>16</b> lines covered</span> and
-      <span class="red"><b>15</b> lines missed.</span>
+      <b>39</b> relevant lines. 
+      <span class="green"><b>20</b> lines covered</span> and
+      <span class="red"><b>19</b> lines missed.</span>
     </div>
   </div>
   
@@ -903,58 +903,106 @@
         <li class="covered" data-hits="1" data-linenumber="44">
           <span class="hits">1</span>
           
-          <code class="ruby">    redirect_to &#39;/merchant/discounts&#39;</code>
+          <code class="ruby">    discount = Discount.find(params[:id])</code>
         </li>
       
-        <li class="never" data-hits="" data-linenumber="45">
+        <li class="covered" data-hits="1" data-linenumber="45">
+          <span class="hits">1</span>
           
-          
-          <code class="ruby"></code>
+          <code class="ruby">    if discount.status == &quot;active&quot;</code>
         </li>
       
-        <li class="never" data-hits="" data-linenumber="46">
+        <li class="covered" data-hits="1" data-linenumber="46">
+          <span class="hits">1</span>
           
-          
-          <code class="ruby">  end</code>
+          <code class="ruby">      discount.update(status: 1)</code>
         </li>
       
-        <li class="never" data-hits="" data-linenumber="47">
+        <li class="covered" data-hits="1" data-linenumber="47">
+          <span class="hits">1</span>
           
-          
-          <code class="ruby"></code>
+          <code class="ruby">      redirect_to &#39;/merchant/discounts&#39;</code>
         </li>
       
         <li class="covered" data-hits="1" data-linenumber="48">
           <span class="hits">1</span>
           
-          <code class="ruby">  private</code>
+          <code class="ruby">      flash[:message] = &quot;Discount #{discount.id} has been successfully deactivated&quot;</code>
         </li>
       
-        <li class="never" data-hits="" data-linenumber="49">
+        <li class="missed" data-hits="0" data-linenumber="49">
           
           
-          <code class="ruby"></code>
+          <code class="ruby">    else discount.status == &quot;inactive&quot;</code>
         </li>
       
-        <li class="covered" data-hits="1" data-linenumber="50">
-          <span class="hits">1</span>
+        <li class="missed" data-hits="0" data-linenumber="50">
           
-          <code class="ruby">  def discount_params</code>
+          
+          <code class="ruby">      discount.update(status: 0)</code>
         </li>
       
         <li class="missed" data-hits="0" data-linenumber="51">
           
           
-          <code class="ruby">    params.require(:discount).permit(:percent, :quantity)</code>
+          <code class="ruby">      redirect_to &#39;/merchant/discounts&#39;</code>
         </li>
       
-        <li class="never" data-hits="" data-linenumber="52">
+        <li class="missed" data-hits="0" data-linenumber="52">
+          
+          
+          <code class="ruby">      flash[:message] = &quot;Discount #{discount.id} has been successfully activated&quot;</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="53">
+          
+          
+          <code class="ruby">    end</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="54">
           
           
           <code class="ruby">  end</code>
         </li>
       
-        <li class="never" data-hits="" data-linenumber="53">
+        <li class="never" data-hits="" data-linenumber="55">
+          
+          
+          <code class="ruby"></code>
+        </li>
+      
+        <li class="covered" data-hits="1" data-linenumber="56">
+          <span class="hits">1</span>
+          
+          <code class="ruby">  private</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="57">
+          
+          
+          <code class="ruby"></code>
+        </li>
+      
+        <li class="covered" data-hits="1" data-linenumber="58">
+          <span class="hits">1</span>
+          
+          <code class="ruby">  def discount_params</code>
+        </li>
+      
+        <li class="missed" data-hits="0" data-linenumber="59">
+          
+          
+          <code class="ruby">    params.require(:discount).permit(:percent, :quantity)</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="60">
+          
+          
+          <code class="ruby">  end</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="61">
           
           
           <code class="ruby">end</code>
@@ -1333,8 +1381,8 @@
     <h3>app/models/discount.rb</h3>
     <h4><span class="green">100.0 %</span> covered</h4>
     <div>
-      <b>7</b> relevant lines. 
-      <span class="green"><b>7</b> lines covered</span> and
+      <b>8</b> relevant lines. 
+      <span class="green"><b>8</b> lines covered</span> and
       <span class="red"><b>0</b> lines missed.</span>
     </div>
   </div>
@@ -1385,6 +1433,18 @@
         </li>
       
         <li class="never" data-hits="" data-linenumber="8">
+          
+          
+          <code class="ruby"></code>
+        </li>
+      
+        <li class="covered" data-hits="1" data-linenumber="9">
+          <span class="hits">1</span>
+          
+          <code class="ruby">  enum status: [&#39;active&#39;, &#39;inactive&#39;]</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="10">
           
           
           <code class="ruby">end</code>

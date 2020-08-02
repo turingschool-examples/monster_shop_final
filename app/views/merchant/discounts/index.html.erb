@@ -6,7 +6,11 @@
   <p>Percent Off: <%= number_to_percentage(discount.percent, strip_insignificant_zeros: true) %></p>
   <p>Required Item Quantity: <%= discount.quantity %> units</p>
   <%= link_to "Edit Discount", "/merchant/discounts/#{discount.id}/edit" %>
-  <%= link_to "Deactivate Discount", "/merchant/discounts/#{discount.id}/change_status", method: :put %>
+    <% if discount.status == 'active' %>
+      <%= link_to "Deactivate Discount", "/merchant/discounts/#{discount.id}/change_status", method: :put %>
+    <% elsif discount.status == 'inactive' %>
+      <%= link_to "Activate Discount", "/merchant/discounts/#{discount.id}/change_status", method: :put %>
+    <% end %>
 </section>
 <br>
 <% end %>

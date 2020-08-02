@@ -55,7 +55,7 @@ RSpec.describe 'Merchant Discount Index Page' do
         end
 
         expect(current_path).to eq('/merchant/discounts')
-        expect(page).to have_content("Discount #{@discount_1.id} has been deactivated")
+        expect(page).to have_content("Discount #{@discount_1.id} has been successfully deactivated")
 
         within ".discount-#{@discount_1.id}" do
           expect(page).to_not have_content("Deactivate Discount")

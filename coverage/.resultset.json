@@ -404,6 +404,8 @@
         1,
         1,
         1,
+        null,
+        1,
         null
       ],
       "/Users/nirupamaram/turing/2module/monster_shop_final/app/controllers/application_controller.rb": [
@@ -499,6 +501,14 @@
         null,
         1,
         1,
+        1,
+        1,
+        1,
+        1,
+        0,
+        0,
+        0,
+        0,
         null,
         null,
         null,
@@ -563,6 +573,6 @@
         null
       ]
     },
-    "timestamp": 1596391052
+    "timestamp": 1596391811
   }
 }
