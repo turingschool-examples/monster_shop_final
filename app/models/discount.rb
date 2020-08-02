@@ -4,4 +4,9 @@ class Discount < ApplicationRecord
                         :percent_off,
                         :min_quantity
 
+  validates  :percent_off
+  validates  :min_quantity
+
+
+
 end
