@@ -1,0 +1,16 @@
+<h1>Create New Discount</h1>
+
+<center>
+  <%= form_tag "", method: :post do %>
+    <%= label_tag :percentage %>
+    <%= text_field_tag :percentage%>
+
+    <%= label_tag :item %>
+    <%= text_field_tag :item %>
+
+    <%= label_tag :description %>
+    <%= text_field_tag :description %>
+
+    <%= submit_tag 'Create Item' %>
+  <% end %>
+</center>
