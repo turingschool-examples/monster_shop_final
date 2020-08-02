@@ -11,7 +11,7 @@ RSpec.describe 'Merchant Discount Index Page' do
     it "I can create a new discount" do
       percent = 15
       quantity = 30
-      
+
       visit '/merchant/discounts'
 
       click_on "Create A Discount"
@@ -33,6 +33,18 @@ RSpec.describe 'Merchant Discount Index Page' do
         expect(page).to have_content("Percent Off: #{new_discount.percent}")
         expect(page).to have_content("Required Item Quantity: #{new_discount.quantity} units")
       end
+    end
+
+    it "I cannot create a discount with incomplete information" do
+      visit '/merchant/discounts'
+
+      click_on "Create A Discount"
+
+      click_on "Create Discount"
+
+      expect(current_path).to eq('/merchant/discounts/new')
+      expect(page).to have_content("Percent can't be blank")
+      expect(page).to have_content("Quantity can't be blank")
     end
   end
 end
