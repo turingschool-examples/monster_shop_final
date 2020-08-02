@@ -66,7 +66,7 @@ RSpec.describe 'Merchant Dashboard' do
     it 'I see a link to view bulk discounts' do
       visit '/merchant'
 
-      expect(page).to have_link('Bulk Discounts')
+      expect(page).to have_link('My Bulk Discounts')
     end
   end
 end
