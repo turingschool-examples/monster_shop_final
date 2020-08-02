@@ -72,20 +72,22 @@ RSpec.describe 'Updating a merchant discount' do
       expect(page).to have_content("Quantity is not a number")
     end
 
-    xit "I cannot create a duplicate discount" do
+    it "I cannot update a discount if a duplicate discount exists" do
       @merchant_1.discounts.create(percent: 10, quantity: 20)
       percent = 10
       quantity = 20
 
       visit '/merchant/discounts'
 
-      click_on "Create A Discount"
+      within ".discount-#{@discount_1.id}" do
+        click_on 'Edit Discount'
+      end
 
       fill_in "Percent Off", with: percent
       fill_in "Item Quantity", with: quantity
-      click_on "Create Discount"
+      click_on 'Update Discount'
 
-      expect(current_path).to eq('/merchant/discounts/new')
+      expect(current_path).to eq("/merchant/discounts/#{@discount_1.id}/edit")
       expect(page).to have_content("This discount already exists")
     end
 
