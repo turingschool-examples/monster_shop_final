@@ -33,8 +33,8 @@ RSpec.describe 'Merchant Discount New Page' do
       percentage = 5
       required_amount = 10
 
-      fill_in 'Percent', with: percentage
-      fill_in 'Required item quantity', with: required_amount
+      fill_in 'Percentage', with: percentage
+      fill_in 'Required amount', with: required_amount
 
       click_button 'Create New Bulk Discount'
 

@@ -1,0 +1,9 @@
+<%= form_for @discount do |f| %>
+  <%= f.label :percentage %>
+  <%= f.text_field :percentage %>
+
+  <%= f.label :required_amount %>
+  <%= f.text_field :required_amount %>
+
+  <%= f.submit 'Create New Bulk Discount' %>
+<% end %>
