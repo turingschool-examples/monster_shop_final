@@ -24,7 +24,7 @@ RSpec.describe 'Merchant Discount Index Page' do
       expect(page).to have_link("My Bulk Discounts")
       click_link "My Bulk Discounts"
 
-      excpect(current_path).to eq("/merchant/discounts")
+      expect(current_path).to eq("/merchant/discounts")
     end
 
   end
