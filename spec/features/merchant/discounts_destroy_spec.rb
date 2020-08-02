@@ -19,7 +19,7 @@ RSpec.describe 'Merchant Discount Edit Page' do
       allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(@m_user)
     end
 
-    it 'I can delete a discount via the bulk discounts index page' do
+    xit 'I can delete a discount via the bulk discounts index page' do
       visit '/merchant/discounts'
 
       within "#discount-#{@discount_1.id}" do
