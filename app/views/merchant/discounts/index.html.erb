@@ -1,1 +1,9 @@
 <%= link_to 'Create Discount', '/merchant/discounts/new'%>
+
+<h2>Discounts</h2>
+
+<% @discounts.each do |discount| %>
+  <p>Description: <%= discount.description %></p>
+  <p>Percentage: <%= discount.percentage %></p>
+  <p>Item amount: <%= discount.item_amount %></p>
+<% end %>

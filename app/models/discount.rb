@@ -4,4 +4,6 @@ class Discount < ApplicationRecord
   validates_presence_of :percentage,
                         :item_amount,
                         :description
+
+#  validates :percentage, numerically: { :only_integer }                      
 end
