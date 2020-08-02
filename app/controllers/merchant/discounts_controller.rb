@@ -4,11 +4,11 @@ class Merchant::DiscountsController < Merchant::BaseController
   end
 
   def new
-    @discount = Discount.new
   end
 
   def create
-    @discount = Discount.new(discount_params)
+    @merchant = current_user.merchant
+    @discount = @merchant.discounts.new(discount_params)
     if @discount.save
       redirect_to "/merchant/discounts"
     else
