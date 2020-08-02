@@ -1,0 +1,10 @@
+<h2>Create A New Discount</h2>
+<%= form_for [@merchant, @discount] do |f| %>
+  <%= f.label :percent, 'Percent Off' %>
+  <%= f.number_field :percent %>
+
+  <%= f.label :quantity, 'Item Quantity' %>
+  <%= f.number_field :quantity %>
+
+  <%= f.submit %>
+<% end %>
