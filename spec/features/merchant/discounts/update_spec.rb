@@ -35,7 +35,7 @@ RSpec.describe 'Updating a merchant discount' do
       end
     end
 
-    it "I cannot create a discount with incomplete information" do
+    it "I cannot update a discount with incomplete information" do
       visit '/merchant/discounts'
 
       within ".discount-#{@discount_1.id}" do
@@ -52,20 +52,22 @@ RSpec.describe 'Updating a merchant discount' do
       expect(page).to have_content("Quantity can't be blank")
     end
 
-    xit "I cannot create a discount with information that's the wrong data type" do
+    it "I cannot update a discount with information that's the wrong data type" do
       percent = "five"
       quantity = "ten"
 
       visit '/merchant/discounts'
 
-      click_on "Create A Discount"
+      within ".discount-#{@discount_1.id}" do
+        click_on 'Edit Discount'
+      end
 
       fill_in "Percent Off", with: percent
       fill_in "Item Quantity", with: quantity
 
-      click_on "Create Discount"
+      click_on 'Update Discount'
 
-      expect(current_path).to eq('/merchant/discounts/new')
+      expect(current_path).to eq("/merchant/discounts/#{@discount_1.id}/edit")
       expect(page).to have_content("Percent is not a number")
       expect(page).to have_content("Quantity is not a number")
     end
