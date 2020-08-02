@@ -72,4 +72,3 @@ class Cart
     current_discount.to_f / 100.00
   end
 end
-# comment to create merge
