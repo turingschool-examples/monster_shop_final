@@ -83,7 +83,7 @@ RSpec.describe 'Merchant Discount Index Page' do
       expect(page).to have_content("This discount already exists")
     end
 
-    it "A different merchant can create a duplicate discount" do
+    it "A different merchant can create a the same discount as another merchant" do
       @merchant_2.discounts.create(percent: 10, quantity: 20)
       percent = 10
       quantity = 20
