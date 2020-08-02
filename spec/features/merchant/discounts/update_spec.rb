@@ -34,5 +34,74 @@ RSpec.describe 'Updating a merchant discount' do
         expect(page).to have_content("Required Item Quantity: 20 units")
       end
     end
+
+    it "I cannot create a discount with incomplete information" do
+      visit '/merchant/discounts'
+
+      within ".discount-#{@discount_1.id}" do
+        click_on 'Edit Discount'
+      end
+
+      fill_in "Percent Off", with: ""
+      fill_in "Item Quantity", with: ""
+
+      click_on 'Update Discount'
+
+      expect(current_path).to eq("/merchant/discounts/#{@discount_1.id}/edit")
+      expect(page).to have_content("Percent can't be blank")
+      expect(page).to have_content("Quantity can't be blank")
+    end
+
+    xit "I cannot create a discount with information that's the wrong data type" do
+      percent = "five"
+      quantity = "ten"
+
+      visit '/merchant/discounts'
+
+      click_on "Create A Discount"
+
+      fill_in "Percent Off", with: percent
+      fill_in "Item Quantity", with: quantity
+
+      click_on "Create Discount"
+
+      expect(current_path).to eq('/merchant/discounts/new')
+      expect(page).to have_content("Percent is not a number")
+      expect(page).to have_content("Quantity is not a number")
+    end
+
+    xit "I cannot create a duplicate discount" do
+      @merchant_1.discounts.create(percent: 10, quantity: 20)
+      percent = 10
+      quantity = 20
+
+      visit '/merchant/discounts'
+
+      click_on "Create A Discount"
+
+      fill_in "Percent Off", with: percent
+      fill_in "Item Quantity", with: quantity
+      click_on "Create Discount"
+
+      expect(current_path).to eq('/merchant/discounts/new')
+      expect(page).to have_content("This discount already exists")
+    end
+
+    xit "A different merchant can create a the same discount as another merchant" do
+      @merchant_2.discounts.create(percent: 10, quantity: 20)
+      percent = 10
+      quantity = 20
+
+      visit '/merchant/discounts'
+
+      click_on "Create A Discount"
+
+      fill_in "Percent Off", with: percent
+      fill_in "Item Quantity", with: quantity
+      click_on "Create Discount"
+
+      expect(current_path).to eq('/merchant/discounts')
+      expect(page).to have_content("Discount successfully created")
+    end
   end
 end

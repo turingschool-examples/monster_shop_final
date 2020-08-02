@@ -10,7 +10,7 @@ class Merchant::DiscountsController < Merchant::BaseController
   end
 
   def create
-    merchant = Merchant.find(current_user.merchant_id)
+    @merchant = Merchant.find(current_user.merchant_id)
     @discount = merchant.discounts.create(discount_params)
 
     if @discount.save
@@ -28,11 +28,16 @@ class Merchant::DiscountsController < Merchant::BaseController
   end
 
   def update
-    discount = Discount.find(params[:format])
-    discount.update(discount_params)
+    @discount = Discount.find(params[:format])
+    @discount.update(discount_params)
 
-    redirect_to '/merchant/discounts'
-    flash[:message] = "Discount #{discount.id} successfully updated"
+    if @discount.update(discount_params)
+      redirect_to '/merchant/discounts'
+      flash[:message] = "Discount #{@discount.id} successfully updated"
+    else
+      redirect_to "/merchant/discounts/#{@discount.id}/edit"
+      flash[:error] = @discount.errors.full_messages.to_sentence
+    end
   end
 
   private
