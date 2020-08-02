@@ -1207,16 +1207,16 @@
         null,
         1,
         null,
-        1,
-        1,
+        0,
+        0,
         null,
         null,
         1,
         1,
         null,
-        1,
+        0,
         null,
-        1,
+        0,
         null,
         null,
         1,
@@ -2987,8 +2987,8 @@
         1,
         null,
         1,
-        342,
-        342,
+        339,
+        339,
         null,
         null,
         1,
@@ -3000,7 +3000,7 @@
         null,
         null,
         1,
-        300,
+        297,
         null,
         null,
         1,
@@ -3028,6 +3028,33 @@
         1,
         53,
         null,
+        null
+      ],
+      "/Users/jejdelman/turing/module2/projects/monster_shop_final/spec/models/discount_spec.rb": [
+        1,
+        null,
+        1,
+        1,
+        2,
+        null,
+        null,
+        1,
+        2,
+        2,
+        null,
+        null
+      ],
+      "/Users/jejdelman/turing/module2/projects/monster_shop_final/app/models/discount.rb": [
+        1,
+        1,
+        null,
+        1,
+        null,
+        null
+      ],
+      "/Users/jejdelman/turing/module2/projects/monster_shop_final/app/models/application_record.rb": [
+        1,
+        1,
         null
       ],
       "/Users/jejdelman/turing/module2/projects/monster_shop_final/spec/models/item_spec.rb": [
@@ -3123,7 +3150,7 @@
         null,
         null,
         1,
-        45,
+        44,
         null,
         null,
         1,
@@ -3131,7 +3158,7 @@
         null,
         null,
         null,
-        127,
+        125,
         null,
         null,
         1,
@@ -3141,11 +3168,6 @@
         1,
         12,
         null,
-        null
-      ],
-      "/Users/jejdelman/turing/module2/projects/monster_shop_final/app/models/application_record.rb": [
-        1,
-        1,
         null
       ],
       "/Users/jejdelman/turing/module2/projects/monster_shop_final/spec/models/merchant_spec.rb": [
@@ -3211,6 +3233,7 @@
         null
       ],
       "/Users/jejdelman/turing/module2/projects/monster_shop_final/app/models/merchant.rb": [
+        1,
         1,
         1,
         1,
@@ -3517,19 +3540,19 @@
         null,
         null,
         1,
-        505,
+        502,
         null,
         null,
         1,
-        1123,
+        1108,
         null,
         null,
         1,
-        405,
+        404,
         null,
         null,
         1,
-        431,
+        429,
         null,
         null,
         1,
@@ -3579,7 +3602,7 @@
       "/Users/jejdelman/turing/module2/projects/monster_shop_final/app/controllers/merchants_controller.rb": [
         1,
         1,
-        20,
+        18,
         null,
         null,
         1,
@@ -3620,7 +3643,7 @@
         null,
         1,
         null,
-        3,
+        1,
         null,
         null,
         1,
@@ -3663,11 +3686,11 @@
       "/Users/jejdelman/turing/module2/projects/monster_shop_final/app/controllers/items_controller.rb": [
         1,
         1,
-        45,
+        44,
         1,
         1,
         null,
-        44,
+        43,
         null,
         null,
         null,
@@ -3980,6 +4003,6 @@
         null
       ]
     },
-    "timestamp": 1596327790
+    "timestamp": 1596330243
   }
 }

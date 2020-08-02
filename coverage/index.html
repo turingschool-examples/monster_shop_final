@@ -14,27 +14,27 @@
       <img src="./assets/0.10.2/loading.gif" alt="loading"/>
     </div>
     <div id="wrapper" style="display:none;">
-      <div class="timestamp">Generated <abbr class="timeago" title="2020-08-01T20:23:10-04:00">2020-08-01T20:23:10-04:00</abbr></div>
+      <div class="timestamp">Generated <abbr class="timeago" title="2020-08-01T21:04:03-04:00">2020-08-01T21:04:03-04:00</abbr></div>
       <ul class="group_tabs"></ul>
 
       <div id="content">
         <div class="file_list_container" id="AllFiles">
   <h2>
     <span class="group_name">All Files</span>
-    (<span class="covered_percent"><span class="green">100.0%</span></span>
+    (<span class="covered_percent"><span class="green">99.82%</span></span>
      covered at
      <span class="covered_strength">
        <span class="green">
-         3.61
+         3.58
        </span>
     </span> hits/line)
   </h2>
   <a name="AllFiles"></a>
   <div>
-    <b>78</b> files in total.
-    <b>2245</b> relevant lines. 
-    <span class="green"><b>2245</b> lines covered</span> and
-    <span class="red"><b>0</b> lines missed </span>
+    <b>80</b> files in total.
+    <b>2256</b> relevant lines. 
+    <span class="green"><b>2252</b> lines covered</span> and
+    <span class="red"><b>4</b> lines missed </span>
   </div>
   <table class="file_list">
     <thead>
@@ -107,7 +107,7 @@
         <td>22</td>
         <td>22</td>
         <td>0</td>
-        <td>123.7</td>
+        <td>122.7</td>
       </tr>
       
       <tr>
@@ -127,7 +127,7 @@
         <td>8</td>
         <td>8</td>
         <td>0</td>
-        <td>17.0</td>
+        <td>16.8</td>
       </tr>
       
       <tr>
@@ -177,7 +177,7 @@
         <td>29</td>
         <td>29</td>
         <td>0</td>
-        <td>2.5</td>
+        <td>2.4</td>
       </tr>
       
       <tr>
@@ -257,7 +257,17 @@
         <td>25</td>
         <td>25</td>
         <td>0</td>
-        <td>53.2</td>
+        <td>52.9</td>
+      </tr>
+      
+      <tr>
+        <td class="strong"><a href="#706334608258f02dc54b7743967916316c0faac4" class="src_link" title="app/models/discount.rb">app/models/discount.rb</a></td>
+        <td class="green strong">100.0 %</td>
+        <td>6</td>
+        <td>3</td>
+        <td>3</td>
+        <td>0</td>
+        <td>1.0</td>
       </tr>
       
       <tr>
@@ -267,17 +277,17 @@
         <td>14</td>
         <td>14</td>
         <td>0</td>
-        <td>15.5</td>
+        <td>15.3</td>
       </tr>
       
       <tr>
         <td class="strong"><a href="#b31ef178b055c0c38db7b875ba3e2e58432e6972" class="src_link" title="app/models/merchant.rb">app/models/merchant.rb</a></td>
         <td class="green strong">100.0 %</td>
-        <td>35</td>
-        <td>16</td>
-        <td>16</td>
+        <td>36</td>
+        <td>17</td>
+        <td>17</td>
         <td>0</td>
-        <td>3.5</td>
+        <td>3.4</td>
       </tr>
       
       <tr>
@@ -582,12 +592,12 @@
       
       <tr>
         <td class="strong"><a href="#f5efcd3cc971021b1087753f1b93a176d4ffc445" class="src_link" title="spec/features/merchants/destroy_spec.rb">spec/features/merchants/destroy_spec.rb</a></td>
-        <td class="green strong">100.0 %</td>
+        <td class="yellow strong">85.71 %</td>
         <td>47</td>
         <td>28</td>
-        <td>28</td>
-        <td>0</td>
-        <td>1.8</td>
+        <td>24</td>
+        <td>4</td>
+        <td>1.6</td>
       </tr>
       
       <tr>
@@ -758,6 +768,16 @@
         <td>33</td>
         <td>0</td>
         <td>2.5</td>
+      </tr>
+      
+      <tr>
+        <td class="strong"><a href="#bf8ef6daf13e66269f61a73c2d48cd0e855bf213" class="src_link" title="spec/models/discount_spec.rb">spec/models/discount_spec.rb</a></td>
+        <td class="green strong">100.0 %</td>
+        <td>12</td>
+        <td>7</td>
+        <td>7</td>
+        <td>0</td>
+        <td>1.4</td>
       </tr>
       
       <tr>
@@ -1255,8 +1275,8 @@
           <code class="ruby">  def cart</code>
         </li>
       
-        <li class="covered" data-hits="505" data-linenumber="10">
-          <span class="hits">505</span>
+        <li class="covered" data-hits="502" data-linenumber="10">
+          <span class="hits">502</span>
           
           <code class="ruby">    @cart ||= Cart.new(session[:cart])</code>
         </li>
@@ -1279,8 +1299,8 @@
           <code class="ruby">  def current_user</code>
         </li>
       
-        <li class="covered" data-hits="1123" data-linenumber="14">
-          <span class="hits">1123</span>
+        <li class="covered" data-hits="1108" data-linenumber="14">
+          <span class="hits">1108</span>
           
           <code class="ruby">    @current_user ||= User.find(session[:user_id]) if session[:user_id]</code>
         </li>
@@ -1303,8 +1323,8 @@
           <code class="ruby">  def current_merchant_user?</code>
         </li>
       
-        <li class="covered" data-hits="405" data-linenumber="18">
-          <span class="hits">405</span>
+        <li class="covered" data-hits="404" data-linenumber="18">
+          <span class="hits">404</span>
           
           <code class="ruby">    current_user &amp;&amp; current_user.merchant_id</code>
         </li>
@@ -1327,8 +1347,8 @@
           <code class="ruby">  def current_admin?</code>
         </li>
       
-        <li class="covered" data-hits="431" data-linenumber="22">
-          <span class="hits">431</span>
+        <li class="covered" data-hits="429" data-linenumber="22">
+          <span class="hits">429</span>
           
           <code class="ruby">    current_user &amp;&amp; current_user.admin?</code>
         </li>
@@ -1767,8 +1787,8 @@
           <code class="ruby">  def index</code>
         </li>
       
-        <li class="covered" data-hits="45" data-linenumber="3">
-          <span class="hits">45</span>
+        <li class="covered" data-hits="44" data-linenumber="3">
+          <span class="hits">44</span>
           
           <code class="ruby">    if params[:merchant_id]</code>
         </li>
@@ -1791,8 +1811,8 @@
           <code class="ruby">    else</code>
         </li>
       
-        <li class="covered" data-hits="44" data-linenumber="7">
-          <span class="hits">44</span>
+        <li class="covered" data-hits="43" data-linenumber="7">
+          <span class="hits">43</span>
           
           <code class="ruby">      @items = Item.active_items</code>
         </li>
@@ -2438,8 +2458,8 @@
           <code class="ruby">  def index</code>
         </li>
       
-        <li class="covered" data-hits="20" data-linenumber="3">
-          <span class="hits">20</span>
+        <li class="covered" data-hits="18" data-linenumber="3">
+          <span class="hits">18</span>
           
           <code class="ruby">    @merchants = Merchant.all</code>
         </li>
@@ -2684,8 +2704,8 @@
           <code class="ruby">    end</code>
         </li>
       
-        <li class="covered" data-hits="3" data-linenumber="44">
-          <span class="hits">3</span>
+        <li class="covered" data-hits="1" data-linenumber="44">
+          <span class="hits">1</span>
           
           <code class="ruby">    redirect_to &#39;/merchants&#39;</code>
         </li>
@@ -3910,14 +3930,14 @@
           <code class="ruby">  def initialize(contents)</code>
         </li>
       
-        <li class="covered" data-hits="342" data-linenumber="5">
-          <span class="hits">342</span>
+        <li class="covered" data-hits="339" data-linenumber="5">
+          <span class="hits">339</span>
           
           <code class="ruby">    @contents = contents || {}</code>
         </li>
       
-        <li class="covered" data-hits="342" data-linenumber="6">
-          <span class="hits">342</span>
+        <li class="covered" data-hits="339" data-linenumber="6">
+          <span class="hits">339</span>
           
           <code class="ruby">    @contents.default = 0</code>
         </li>
@@ -3988,8 +4008,8 @@
           <code class="ruby">  def count</code>
         </li>
       
-        <li class="covered" data-hits="300" data-linenumber="18">
-          <span class="hits">300</span>
+        <li class="covered" data-hits="297" data-linenumber="18">
+          <span class="hits">297</span>
           
           <code class="ruby">    @contents.values.sum</code>
         </li>
@@ -4167,6 +4187,61 @@
 </div>
 
       
+        <div class="source_table" id="706334608258f02dc54b7743967916316c0faac4">
+  <div class="header">
+    <h3>app/models/discount.rb</h3>
+    <h4><span class="green">100.0 %</span> covered</h4>
+    <div>
+      <b>3</b> relevant lines. 
+      <span class="green"><b>3</b> lines covered</span> and
+      <span class="red"><b>0</b> lines missed.</span>
+    </div>
+  </div>
+  
+  <pre>
+    <ol>
+      
+        <li class="covered" data-hits="1" data-linenumber="1">
+          <span class="hits">1</span>
+          
+          <code class="ruby">class Discount &lt; ApplicationRecord</code>
+        </li>
+      
+        <li class="covered" data-hits="1" data-linenumber="2">
+          <span class="hits">1</span>
+          
+          <code class="ruby">  belongs_to :merchant</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="3">
+          
+          
+          <code class="ruby"></code>
+        </li>
+      
+        <li class="covered" data-hits="1" data-linenumber="4">
+          <span class="hits">1</span>
+          
+          <code class="ruby">  validates_presence_of :percentage,</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="5">
+          
+          
+          <code class="ruby">                        :required_amount</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="6">
+          
+          
+          <code class="ruby">end</code>
+        </li>
+      
+    </ol>
+  </pre>
+</div>
+
+      
         <div class="source_table" id="75b9bbeb65da24f83db4dd04a804f4b0b9b37417">
   <div class="header">
     <h3>app/models/item.rb</h3>
@@ -4259,8 +4334,8 @@
           <code class="ruby">  def self.active_items</code>
         </li>
       
-        <li class="covered" data-hits="45" data-linenumber="14">
-          <span class="hits">45</span>
+        <li class="covered" data-hits="44" data-linenumber="14">
+          <span class="hits">44</span>
           
           <code class="ruby">    where(active: true)</code>
         </li>
@@ -4307,8 +4382,8 @@
           <code class="ruby">    .order(&quot;total_sold #{order}&quot;)</code>
         </li>
       
-        <li class="covered" data-hits="127" data-linenumber="22">
-          <span class="hits">127</span>
+        <li class="covered" data-hits="125" data-linenumber="22">
+          <span class="hits">125</span>
           
           <code class="ruby">    .limit(limit)</code>
         </li>
@@ -4383,8 +4458,8 @@
     <h3>app/models/merchant.rb</h3>
     <h4><span class="green">100.0 %</span> covered</h4>
     <div>
-      <b>16</b> relevant lines. 
-      <span class="green"><b>16</b> lines covered</span> and
+      <b>17</b> relevant lines. 
+      <span class="green"><b>17</b> lines covered</span> and
       <span class="red"><b>0</b> lines missed.</span>
     </div>
   </div>
@@ -4407,196 +4482,202 @@
         <li class="covered" data-hits="1" data-linenumber="3">
           <span class="hits">1</span>
           
-          <code class="ruby">  has_many :order_items, through: :items</code>
+          <code class="ruby">  has_many :discounts, dependent: :destroy</code>
         </li>
       
         <li class="covered" data-hits="1" data-linenumber="4">
           <span class="hits">1</span>
           
-          <code class="ruby">  has_many :orders, through: :order_items</code>
+          <code class="ruby">  has_many :order_items, through: :items</code>
         </li>
       
         <li class="covered" data-hits="1" data-linenumber="5">
           <span class="hits">1</span>
           
+          <code class="ruby">  has_many :orders, through: :order_items</code>
+        </li>
+      
+        <li class="covered" data-hits="1" data-linenumber="6">
+          <span class="hits">1</span>
+          
           <code class="ruby">  has_many :users</code>
         </li>
       
-        <li class="never" data-hits="" data-linenumber="6">
+        <li class="never" data-hits="" data-linenumber="7">
           
           
           <code class="ruby"></code>
         </li>
       
-        <li class="covered" data-hits="1" data-linenumber="7">
+        <li class="covered" data-hits="1" data-linenumber="8">
           <span class="hits">1</span>
           
           <code class="ruby">  validates_presence_of :name,</code>
         </li>
       
-        <li class="never" data-hits="" data-linenumber="8">
+        <li class="never" data-hits="" data-linenumber="9">
           
           
           <code class="ruby">                        :address,</code>
         </li>
       
-        <li class="never" data-hits="" data-linenumber="9">
+        <li class="never" data-hits="" data-linenumber="10">
           
           
           <code class="ruby">                        :city,</code>
         </li>
       
-        <li class="never" data-hits="" data-linenumber="10">
+        <li class="never" data-hits="" data-linenumber="11">
           
           
           <code class="ruby">                        :state,</code>
         </li>
       
-        <li class="never" data-hits="" data-linenumber="11">
+        <li class="never" data-hits="" data-linenumber="12">
           
           
           <code class="ruby">                        :zip</code>
         </li>
       
-        <li class="never" data-hits="" data-linenumber="12">
+        <li class="never" data-hits="" data-linenumber="13">
           
           
           <code class="ruby"></code>
         </li>
       
-        <li class="covered" data-hits="1" data-linenumber="13">
+        <li class="covered" data-hits="1" data-linenumber="14">
           <span class="hits">1</span>
           
           <code class="ruby">  def item_count</code>
         </li>
       
-        <li class="covered" data-hits="11" data-linenumber="14">
+        <li class="covered" data-hits="11" data-linenumber="15">
           <span class="hits">11</span>
           
           <code class="ruby">    items.count</code>
         </li>
       
-        <li class="never" data-hits="" data-linenumber="15">
+        <li class="never" data-hits="" data-linenumber="16">
           
           
           <code class="ruby">  end</code>
         </li>
       
-        <li class="never" data-hits="" data-linenumber="16">
+        <li class="never" data-hits="" data-linenumber="17">
           
           
           <code class="ruby"></code>
         </li>
       
-        <li class="covered" data-hits="1" data-linenumber="17">
+        <li class="covered" data-hits="1" data-linenumber="18">
           <span class="hits">1</span>
           
           <code class="ruby">  def average_item_price</code>
         </li>
       
-        <li class="covered" data-hits="10" data-linenumber="18">
+        <li class="covered" data-hits="10" data-linenumber="19">
           <span class="hits">10</span>
           
           <code class="ruby">    items.average(:price)</code>
         </li>
       
-        <li class="never" data-hits="" data-linenumber="19">
+        <li class="never" data-hits="" data-linenumber="20">
           
           
           <code class="ruby">  end</code>
         </li>
       
-        <li class="never" data-hits="" data-linenumber="20">
+        <li class="never" data-hits="" data-linenumber="21">
           
           
           <code class="ruby"></code>
         </li>
       
-        <li class="covered" data-hits="1" data-linenumber="21">
+        <li class="covered" data-hits="1" data-linenumber="22">
           <span class="hits">1</span>
           
           <code class="ruby">  def distinct_cities</code>
         </li>
       
-        <li class="never" data-hits="" data-linenumber="22">
+        <li class="never" data-hits="" data-linenumber="23">
           
           
           <code class="ruby">    orders.joins(&#39;JOIN users ON orders.user_id = users.id&#39;)</code>
         </li>
       
-        <li class="never" data-hits="" data-linenumber="23">
+        <li class="never" data-hits="" data-linenumber="24">
           
           
           <code class="ruby">          .order(&#39;city_state&#39;)</code>
         </li>
       
-        <li class="never" data-hits="" data-linenumber="24">
+        <li class="never" data-hits="" data-linenumber="25">
           
           
           <code class="ruby">          .distinct</code>
         </li>
       
-        <li class="covered" data-hits="5" data-linenumber="25">
+        <li class="covered" data-hits="5" data-linenumber="26">
           <span class="hits">5</span>
           
           <code class="ruby">          .pluck(&quot;CONCAT_WS(&#39;, &#39;, users.city, users.state) AS city_state&quot;)</code>
         </li>
       
-        <li class="never" data-hits="" data-linenumber="26">
+        <li class="never" data-hits="" data-linenumber="27">
           
           
           <code class="ruby">  end</code>
         </li>
       
-        <li class="never" data-hits="" data-linenumber="27">
+        <li class="never" data-hits="" data-linenumber="28">
           
           
           <code class="ruby"></code>
         </li>
       
-        <li class="covered" data-hits="1" data-linenumber="28">
+        <li class="covered" data-hits="1" data-linenumber="29">
           <span class="hits">1</span>
           
           <code class="ruby">  def pending_orders</code>
         </li>
       
-        <li class="covered" data-hits="9" data-linenumber="29">
+        <li class="covered" data-hits="9" data-linenumber="30">
           <span class="hits">9</span>
           
           <code class="ruby">    orders.where(status: &#39;pending&#39;)</code>
         </li>
       
-        <li class="never" data-hits="" data-linenumber="30">
+        <li class="never" data-hits="" data-linenumber="31">
           
           
           <code class="ruby">  end</code>
         </li>
       
-        <li class="never" data-hits="" data-linenumber="31">
+        <li class="never" data-hits="" data-linenumber="32">
           
           
           <code class="ruby"></code>
         </li>
       
-        <li class="covered" data-hits="1" data-linenumber="32">
+        <li class="covered" data-hits="1" data-linenumber="33">
           <span class="hits">1</span>
           
           <code class="ruby">  def order_items_by_order(order_id)</code>
         </li>
       
-        <li class="covered" data-hits="10" data-linenumber="33">
+        <li class="covered" data-hits="10" data-linenumber="34">
           <span class="hits">10</span>
           
           <code class="ruby">    order_items.where(order_id: order_id)</code>
         </li>
       
-        <li class="never" data-hits="" data-linenumber="34">
+        <li class="never" data-hits="" data-linenumber="35">
           
           
           <code class="ruby">  end</code>
         </li>
       
-        <li class="never" data-hits="" data-linenumber="35">
+        <li class="never" data-hits="" data-linenumber="36">
           
           
           <code class="ruby">end</code>
@@ -11882,11 +11963,11 @@
         <div class="source_table" id="f5efcd3cc971021b1087753f1b93a176d4ffc445">
   <div class="header">
     <h3>spec/features/merchants/destroy_spec.rb</h3>
-    <h4><span class="green">100.0 %</span> covered</h4>
+    <h4><span class="yellow">85.71 %</span> covered</h4>
     <div>
       <b>28</b> relevant lines. 
-      <span class="green"><b>28</b> lines covered</span> and
-      <span class="red"><b>0</b> lines missed.</span>
+      <span class="green"><b>24</b> lines covered</span> and
+      <span class="red"><b>4</b> lines missed.</span>
     </div>
   </div>
   
@@ -12007,14 +12088,14 @@
           <code class="ruby"></code>
         </li>
       
-        <li class="covered" data-hits="1" data-linenumber="20">
-          <span class="hits">1</span>
+        <li class="missed" data-hits="0" data-linenumber="20">
+          
           
           <code class="ruby">      expect(current_path).to eq(&#39;/merchants&#39;)</code>
         </li>
       
-        <li class="covered" data-hits="1" data-linenumber="21">
-          <span class="hits">1</span>
+        <li class="missed" data-hits="0" data-linenumber="21">
+          
           
           <code class="ruby">      expect(page).to_not have_content(@brian.name)</code>
         </li>
@@ -12049,8 +12130,8 @@
           <code class="ruby"></code>
         </li>
       
-        <li class="covered" data-hits="1" data-linenumber="27">
-          <span class="hits">1</span>
+        <li class="missed" data-hits="0" data-linenumber="27">
+          
           
           <code class="ruby">      visit items_path</code>
         </li>
@@ -12061,8 +12142,8 @@
           <code class="ruby"></code>
         </li>
       
-        <li class="covered" data-hits="1" data-linenumber="29">
-          <span class="hits">1</span>
+        <li class="missed" data-hits="0" data-linenumber="29">
+          
           
           <code class="ruby">      expect(page).to_not have_content(@giant.name)</code>
         </li>
@@ -22765,6 +22846,97 @@
         </li>
       
         <li class="never" data-hits="" data-linenumber="67">
+          
+          
+          <code class="ruby">end</code>
+        </li>
+      
+    </ol>
+  </pre>
+</div>
+
+      
+        <div class="source_table" id="bf8ef6daf13e66269f61a73c2d48cd0e855bf213">
+  <div class="header">
+    <h3>spec/models/discount_spec.rb</h3>
+    <h4><span class="green">100.0 %</span> covered</h4>
+    <div>
+      <b>7</b> relevant lines. 
+      <span class="green"><b>7</b> lines covered</span> and
+      <span class="red"><b>0</b> lines missed.</span>
+    </div>
+  </div>
+  
+  <pre>
+    <ol>
+      
+        <li class="covered" data-hits="1" data-linenumber="1">
+          <span class="hits">1</span>
+          
+          <code class="ruby">require &#39;rails_helper&#39;</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="2">
+          
+          
+          <code class="ruby"></code>
+        </li>
+      
+        <li class="covered" data-hits="1" data-linenumber="3">
+          <span class="hits">1</span>
+          
+          <code class="ruby">RSpec.describe Discount do</code>
+        </li>
+      
+        <li class="covered" data-hits="1" data-linenumber="4">
+          <span class="hits">1</span>
+          
+          <code class="ruby">  describe &#39;Relationships&#39; do</code>
+        </li>
+      
+        <li class="covered" data-hits="2" data-linenumber="5">
+          <span class="hits">2</span>
+          
+          <code class="ruby">    it {should belong_to :merchant}</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="6">
+          
+          
+          <code class="ruby">  end</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="7">
+          
+          
+          <code class="ruby"></code>
+        </li>
+      
+        <li class="covered" data-hits="1" data-linenumber="8">
+          <span class="hits">1</span>
+          
+          <code class="ruby">  describe &#39;Validations&#39; do</code>
+        </li>
+      
+        <li class="covered" data-hits="2" data-linenumber="9">
+          <span class="hits">2</span>
+          
+          <code class="ruby">    it {should validate_presence_of :percentage}</code>
+        </li>
+      
+        <li class="covered" data-hits="2" data-linenumber="10">
+          <span class="hits">2</span>
+          
+          <code class="ruby">    it {should validate_presence_of :required_amount}</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="11">
+          
+          
+          <code class="ruby">  end</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="12">
           
           
           <code class="ruby">end</code>
