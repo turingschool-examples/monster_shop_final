@@ -71,4 +71,8 @@ class Cart
     end
     current_discount.to_f / 100.00
   end
+
+  def discount_item(item_id)
+    subtotal_of(item_id) - (subtotal_of(item_id) * apply_discount(item_id))
+  end
 end

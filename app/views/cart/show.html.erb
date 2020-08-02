@@ -9,7 +9,7 @@
       <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTaLM_vbg2Rh-mZ-B4t-RSU9AmSfEEq_SN9xPP_qrA2I6Ftq_D9Qw">
       <p>Price: <%= number_to_currency(item.price) %></p>
       <% if cart.check_for_discount(item.id) %>
-        <p>Subtotal: <%= number_to_currency(cart.subtotal_of(item.id) - (cart.subtotal_of(item.id) * cart.apply_discount(item.id))) %></p>
+        <p>Subtotal: <%= number_to_currency(cart.discount_item(item.id)) %></p>
       <% else %>
         <p>Subtotal: <%= number_to_currency(cart.subtotal_of(item.id)) %></p>
       <% end %>
