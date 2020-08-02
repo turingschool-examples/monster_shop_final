@@ -9,6 +9,14 @@ class Merchant::DiscountsController < Merchant::BaseController
     @discount = @merchant.discounts.new
   end
 
+  def create
+    merchant = Merchant.find(current_user.merchant_id)
+    @discount = merchant.discounts.create(discount_params)
+
+    redirect_to '/merchant/discounts'
+    flash[:message] = 'Discount successfully created'
+  end
+
   def edit
 
   end
