@@ -23,7 +23,15 @@ class Merchant::DiscountsController < Merchant::BaseController
   end
 
   def edit
+    @merchant = Merchant.find(current_user.merchant_id)
+    @discount = Discount.find(params[:id])
+  end
 
+  def update
+    discount = Discount.find(params[:format])
+    discount.update(discount_params)
+
+    redirect_to '/merchant/discounts'
   end
 
   private
