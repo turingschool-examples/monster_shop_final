@@ -80,5 +80,24 @@ RSpec.describe 'Merchant Discount Index Page' do
           expect(page).to_not have_content("Activate Discount")
         end
       end
+
+      it "I see a link to delete only inactive discounts" do
+        @discount_1.update(status: 1)
+
+        visit '/merchant/discounts'
+
+        within ".discount-#{@discount_2.id}" do
+          expect(page).to_not have_link("Delete Discount")
+        end
+
+        within ".discount-#{@discount_1.id}" do
+          click_on "Delete Discount"
+        end
+
+        expect(current_path).to eq("/merchant/discounts")
+        expect(page).to have_content("Discount has been successfully deleted")
+
+        expect(page).to_not have_content(@discount_1.id)
+      end
     end
   end
