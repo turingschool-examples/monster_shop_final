@@ -70,5 +70,7 @@ RSpec.describe 'Merchant Dashboard' do
 
       expect(current_path).to eq("/merchant/discounts")
     end
+
+
   end
 end
