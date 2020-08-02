@@ -26,5 +26,19 @@ RSpec.describe 'Merchant Discount New Page' do
 
       expect(current_path).to eq("/merchant/discounts/new")
     end
+
+    it 'I can use the new bulk discount form to create a new bulk discount' do
+      visit '/merchant/discounts/new'
+
+      percentage = 5
+      required_amount = 10
+
+      fill_in 'Percent', with: percentage
+      fill_in 'Required item quantity', with: required_amount
+
+      click_button 'Create New Bulk Discount'
+
+      expect(current_path).to eq('/merchant/discounts')
+    end
   end
 end
