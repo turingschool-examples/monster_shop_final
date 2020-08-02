@@ -14,27 +14,27 @@
       <img src="./assets/0.10.2/loading.gif" alt="loading"/>
     </div>
     <div id="wrapper" style="display:none;">
-      <div class="timestamp">Generated <abbr class="timeago" title="2020-08-01T21:09:41-04:00">2020-08-01T21:09:41-04:00</abbr></div>
+      <div class="timestamp">Generated <abbr class="timeago" title="2020-08-01T21:20:26-04:00">2020-08-01T21:20:26-04:00</abbr></div>
       <ul class="group_tabs"></ul>
 
       <div id="content">
         <div class="file_list_container" id="AllFiles">
   <h2>
     <span class="group_name">All Files</span>
-    (<span class="covered_percent"><span class="green">100.0%</span></span>
+    (<span class="covered_percent"><span class="green">99.96%</span></span>
      covered at
      <span class="covered_strength">
        <span class="green">
-         3.61
+         3.59
        </span>
     </span> hits/line)
   </h2>
   <a name="AllFiles"></a>
   <div>
-    <b>80</b> files in total.
-    <b>2259</b> relevant lines. 
-    <span class="green"><b>2259</b> lines covered</span> and
-    <span class="red"><b>0</b> lines missed </span>
+    <b>81</b> files in total.
+    <b>2281</b> relevant lines. 
+    <span class="green"><b>2280</b> lines covered</span> and
+    <span class="red"><b>1</b> lines missed </span>
   </div>
   <table class="file_list">
     <thead>
@@ -107,7 +107,7 @@
         <td>22</td>
         <td>22</td>
         <td>0</td>
-        <td>123.9</td>
+        <td>124.1</td>
       </tr>
       
       <tr>
@@ -147,7 +147,7 @@
         <td>3</td>
         <td>3</td>
         <td>0</td>
-        <td>3.7</td>
+        <td>4.0</td>
       </tr>
       
       <tr>
@@ -257,7 +257,7 @@
         <td>25</td>
         <td>25</td>
         <td>0</td>
-        <td>53.4</td>
+        <td>53.5</td>
       </tr>
       
       <tr>
@@ -287,7 +287,7 @@
         <td>17</td>
         <td>17</td>
         <td>0</td>
-        <td>3.4</td>
+        <td>3.5</td>
       </tr>
       
       <tr>
@@ -297,7 +297,7 @@
         <td>22</td>
         <td>22</td>
         <td>0</td>
-        <td>4.8</td>
+        <td>5.0</td>
       </tr>
       
       <tr>
@@ -548,6 +548,16 @@
         <td>47</td>
         <td>0</td>
         <td>2.2</td>
+      </tr>
+      
+      <tr>
+        <td class="strong"><a href="#2bee4fec8ff0b804b6136262e5dcb5b62060df3c" class="src_link" title="spec/features/merchant/discounts_index_spec.rb">spec/features/merchant/discounts_index_spec.rb</a></td>
+        <td class="green strong">95.45 %</td>
+        <td>31</td>
+        <td>22</td>
+        <td>21</td>
+        <td>1</td>
+        <td>1.0</td>
       </tr>
       
       <tr>
@@ -1275,8 +1285,8 @@
           <code class="ruby">  def cart</code>
         </li>
       
-        <li class="covered" data-hits="506" data-linenumber="10">
-          <span class="hits">506</span>
+        <li class="covered" data-hits="507" data-linenumber="10">
+          <span class="hits">507</span>
           
           <code class="ruby">    @cart ||= Cart.new(session[:cart])</code>
         </li>
@@ -1323,8 +1333,8 @@
           <code class="ruby">  def current_merchant_user?</code>
         </li>
       
-        <li class="covered" data-hits="407" data-linenumber="18">
-          <span class="hits">407</span>
+        <li class="covered" data-hits="409" data-linenumber="18">
+          <span class="hits">409</span>
           
           <code class="ruby">    current_user &amp;&amp; current_user.merchant_id</code>
         </li>
@@ -1347,8 +1357,8 @@
           <code class="ruby">  def current_admin?</code>
         </li>
       
-        <li class="covered" data-hits="432" data-linenumber="22">
-          <span class="hits">432</span>
+        <li class="covered" data-hits="433" data-linenumber="22">
+          <span class="hits">433</span>
           
           <code class="ruby">    current_user &amp;&amp; current_user.admin?</code>
         </li>
@@ -1395,8 +1405,8 @@
           <code class="ruby">  def require_merchant</code>
         </li>
       
-        <li class="covered" data-hits="79" data-linenumber="30">
-          <span class="hits">79</span>
+        <li class="covered" data-hits="80" data-linenumber="30">
+          <span class="hits">80</span>
           
           <code class="ruby">    render file: &#39;public/404&#39;, status: 404 unless current_merchant_user?</code>
         </li>
@@ -1927,8 +1937,8 @@
           <code class="ruby">  def index</code>
         </li>
       
-        <li class="covered" data-hits="9" data-linenumber="3">
-          <span class="hits">9</span>
+        <li class="covered" data-hits="10" data-linenumber="3">
+          <span class="hits">10</span>
           
           <code class="ruby">    @merchant = current_user.merchant</code>
         </li>
@@ -3930,14 +3940,14 @@
           <code class="ruby">  def initialize(contents)</code>
         </li>
       
-        <li class="covered" data-hits="343" data-linenumber="5">
-          <span class="hits">343</span>
+        <li class="covered" data-hits="344" data-linenumber="5">
+          <span class="hits">344</span>
           
           <code class="ruby">    @contents = contents || {}</code>
         </li>
       
-        <li class="covered" data-hits="343" data-linenumber="6">
-          <span class="hits">343</span>
+        <li class="covered" data-hits="344" data-linenumber="6">
+          <span class="hits">344</span>
           
           <code class="ruby">    @contents.default = 0</code>
         </li>
@@ -4008,8 +4018,8 @@
           <code class="ruby">  def count</code>
         </li>
       
-        <li class="covered" data-hits="301" data-linenumber="18">
-          <span class="hits">301</span>
+        <li class="covered" data-hits="302" data-linenumber="18">
+          <span class="hits">302</span>
           
           <code class="ruby">    @contents.values.sum</code>
         </li>
@@ -4641,8 +4651,8 @@
           <code class="ruby">  def pending_orders</code>
         </li>
       
-        <li class="covered" data-hits="10" data-linenumber="30">
-          <span class="hits">10</span>
+        <li class="covered" data-hits="11" data-linenumber="30">
+          <span class="hits">11</span>
           
           <code class="ruby">    orders.where(status: &#39;pending&#39;)</code>
         </li>
@@ -4864,8 +4874,8 @@
           <code class="ruby">      .where(&quot;items.merchant_id = #{merchant_id}&quot;)</code>
         </li>
       
-        <li class="covered" data-hits="16" data-linenumber="28">
-          <span class="hits">16</span>
+        <li class="covered" data-hits="18" data-linenumber="28">
+          <span class="hits">18</span>
           
           <code class="ruby">      .sum(&#39;order_items.price * order_items.quantity&#39;)</code>
         </li>
@@ -4906,8 +4916,8 @@
           <code class="ruby">      .where(&quot;items.merchant_id = #{merchant_id}&quot;)</code>
         </li>
       
-        <li class="covered" data-hits="16" data-linenumber="35">
-          <span class="hits">16</span>
+        <li class="covered" data-hits="18" data-linenumber="35">
+          <span class="hits">18</span>
           
           <code class="ruby">      .sum(&#39;order_items.quantity&#39;)</code>
         </li>
@@ -9864,6 +9874,211 @@
         </li>
       
         <li class="never" data-hits="" data-linenumber="72">
+          
+          
+          <code class="ruby">end</code>
+        </li>
+      
+    </ol>
+  </pre>
+</div>
+
+      
+        <div class="source_table" id="2bee4fec8ff0b804b6136262e5dcb5b62060df3c">
+  <div class="header">
+    <h3>spec/features/merchant/discounts_index_spec.rb</h3>
+    <h4><span class="green">95.45 %</span> covered</h4>
+    <div>
+      <b>22</b> relevant lines. 
+      <span class="green"><b>21</b> lines covered</span> and
+      <span class="red"><b>1</b> lines missed.</span>
+    </div>
+  </div>
+  
+  <pre>
+    <ol>
+      
+        <li class="covered" data-hits="1" data-linenumber="1">
+          <span class="hits">1</span>
+          
+          <code class="ruby">require &#39;rails_helper&#39;</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="2">
+          
+          
+          <code class="ruby"></code>
+        </li>
+      
+        <li class="covered" data-hits="1" data-linenumber="3">
+          <span class="hits">1</span>
+          
+          <code class="ruby">RSpec.describe &#39;Merchant Discount Index Page&#39; do</code>
+        </li>
+      
+        <li class="covered" data-hits="1" data-linenumber="4">
+          <span class="hits">1</span>
+          
+          <code class="ruby">  describe &#39;As a Merchant&#39; do</code>
+        </li>
+      
+        <li class="covered" data-hits="1" data-linenumber="5">
+          <span class="hits">1</span>
+          
+          <code class="ruby">    before :each do</code>
+        </li>
+      
+        <li class="covered" data-hits="1" data-linenumber="6">
+          <span class="hits">1</span>
+          
+          <code class="ruby">      @merchant_1 = Merchant.create!(name: &#39;Megans Marmalades&#39;, address: &#39;123 Main St&#39;, city: &#39;Denver&#39;, state: &#39;CO&#39;, zip: 80218)</code>
+        </li>
+      
+        <li class="covered" data-hits="1" data-linenumber="7">
+          <span class="hits">1</span>
+          
+          <code class="ruby">      @merchant_2 = Merchant.create!(name: &#39;Brians Bagels&#39;, address: &#39;125 Main St&#39;, city: &#39;Denver&#39;, state: &#39;CO&#39;, zip: 80218)</code>
+        </li>
+      
+        <li class="covered" data-hits="1" data-linenumber="8">
+          <span class="hits">1</span>
+          
+          <code class="ruby">      @m_user = @merchant_1.users.create(name: &#39;Megan&#39;, address: &#39;123 Main St&#39;, city: &#39;Denver&#39;, state: &#39;CO&#39;, zip: 80218, email: &#39;megan@example.com&#39;, password: &#39;securepassword&#39;)</code>
+        </li>
+      
+        <li class="covered" data-hits="1" data-linenumber="9">
+          <span class="hits">1</span>
+          
+          <code class="ruby">      @ogre = @merchant_1.items.create!(name: &#39;Ogre&#39;, description: &quot;I&#39;m an Ogre!&quot;, price: 20.25, image: &#39;https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTaLM_vbg2Rh-mZ-B4t-RSU9AmSfEEq_SN9xPP_qrA2I6Ftq_D9Qw&#39;, active: true, inventory: 5 )</code>
+        </li>
+      
+        <li class="covered" data-hits="1" data-linenumber="10">
+          <span class="hits">1</span>
+          
+          <code class="ruby">      @giant = @merchant_1.items.create!(name: &#39;Giant&#39;, description: &quot;I&#39;m a Giant!&quot;, price: 50, image: &#39;https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTaLM_vbg2Rh-mZ-B4t-RSU9AmSfEEq_SN9xPP_qrA2I6Ftq_D9Qw&#39;, active: true, inventory: 3 )</code>
+        </li>
+      
+        <li class="covered" data-hits="1" data-linenumber="11">
+          <span class="hits">1</span>
+          
+          <code class="ruby">      @hippo = @merchant_2.items.create!(name: &#39;Hippo&#39;, description: &quot;I&#39;m a Hippo!&quot;, price: 50, image: &#39;https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTaLM_vbg2Rh-mZ-B4t-RSU9AmSfEEq_SN9xPP_qrA2I6Ftq_D9Qw&#39;, active: true, inventory: 1 )</code>
+        </li>
+      
+        <li class="covered" data-hits="1" data-linenumber="12">
+          <span class="hits">1</span>
+          
+          <code class="ruby">      @order_1 = @m_user.orders.create!(status: &quot;pending&quot;)</code>
+        </li>
+      
+        <li class="covered" data-hits="1" data-linenumber="13">
+          <span class="hits">1</span>
+          
+          <code class="ruby">      @order_2 = @m_user.orders.create!(status: &quot;pending&quot;)</code>
+        </li>
+      
+        <li class="covered" data-hits="1" data-linenumber="14">
+          <span class="hits">1</span>
+          
+          <code class="ruby">      @order_item_1 = @order_1.order_items.create!(item: @hippo, price: @hippo.price, quantity: 2, fulfilled: false)</code>
+        </li>
+      
+        <li class="covered" data-hits="1" data-linenumber="15">
+          <span class="hits">1</span>
+          
+          <code class="ruby">      @order_item_2 = @order_2.order_items.create!(item: @hippo, price: @hippo.price, quantity: 2, fulfilled: true)</code>
+        </li>
+      
+        <li class="covered" data-hits="1" data-linenumber="16">
+          <span class="hits">1</span>
+          
+          <code class="ruby">      @order_item_3 = @order_2.order_items.create!(item: @ogre, price: @ogre.price, quantity: 2, fulfilled: false)</code>
+        </li>
+      
+        <li class="covered" data-hits="1" data-linenumber="17">
+          <span class="hits">1</span>
+          
+          <code class="ruby">      @order_item_4 = @order_2.order_items.create!(item: @giant, price: @giant.price, quantity: 2, fulfilled: false)</code>
+        </li>
+      
+        <li class="covered" data-hits="1" data-linenumber="18">
+          <span class="hits">1</span>
+          
+          <code class="ruby">      allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(@m_user)</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="19">
+          
+          
+          <code class="ruby">    end</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="20">
+          
+          
+          <code class="ruby"></code>
+        </li>
+      
+        <li class="covered" data-hits="1" data-linenumber="21">
+          <span class="hits">1</span>
+          
+          <code class="ruby">    it &#39;I can access my bulk discounts page via the dashboard&#39; do</code>
+        </li>
+      
+        <li class="covered" data-hits="1" data-linenumber="22">
+          <span class="hits">1</span>
+          
+          <code class="ruby">      visit &#39;/merchant&#39;</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="23">
+          
+          
+          <code class="ruby"></code>
+        </li>
+      
+        <li class="covered" data-hits="1" data-linenumber="24">
+          <span class="hits">1</span>
+          
+          <code class="ruby">      expect(page).to have_link(&quot;My Bulk Discounts&quot;)</code>
+        </li>
+      
+        <li class="covered" data-hits="1" data-linenumber="25">
+          <span class="hits">1</span>
+          
+          <code class="ruby">      click_link &quot;My Bulk Discounts&quot;</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="26">
+          
+          
+          <code class="ruby"></code>
+        </li>
+      
+        <li class="missed" data-hits="0" data-linenumber="27">
+          
+          
+          <code class="ruby">      excpect(current_path).to eq(&quot;/merchant/discounts&quot;)</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="28">
+          
+          
+          <code class="ruby">    end</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="29">
+          
+          
+          <code class="ruby"></code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="30">
+          
+          
+          <code class="ruby">  end</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="31">
           
           
           <code class="ruby">end</code>
