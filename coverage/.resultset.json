@@ -395,6 +395,16 @@
         1,
         null
       ],
+      "/Users/nirupamaram/turing/2module/monster_shop_final/app/models/discount.rb": [
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        null
+      ],
       "/Users/nirupamaram/turing/2module/monster_shop_final/app/controllers/application_controller.rb": [
         1,
         1,
@@ -451,6 +461,24 @@
         null,
         null,
         1,
+        0,
+        0,
+        null,
+        null,
+        1,
+        0,
+        0,
+        null,
+        0,
+        0,
+        0,
+        null,
+        0,
+        0,
+        null,
+        null,
+        null,
+        1,
         8,
         8,
         null,
@@ -470,26 +498,12 @@
         null,
         1,
         null,
-        null,
-        null,
         1,
-        null,
-        1,
-        5,
+        10,
         null,
         null
       ],
       "/Users/nirupamaram/turing/2module/monster_shop_final/app/controllers/merchant/base_controller.rb": [
-        1,
-        1,
-        null
-      ],
-      "/Users/nirupamaram/turing/2module/monster_shop_final/app/models/discount.rb": [
-        1,
-        1,
-        1,
-        1,
-        1,
         1,
         1,
         null
@@ -543,6 +557,6 @@
         null
       ]
     },
-    "timestamp": 1596385395
+    "timestamp": 1596389535
   }
 }
