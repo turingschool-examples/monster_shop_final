@@ -82,5 +82,29 @@ RSpec.describe 'Merchant Dashboard' do
 
       expect(current_path).to eq("/merchant/discounts/new")
     end
+
+    it "I can create a new discount on the new discount form page" do
+      @percentage = '5'
+      @item_amount = '5'
+      @description = 'Five percent off of five items or more!'
+      visit '/merchant'
+
+      click_link "Discounts"
+
+      click_link("Create Discount")
+
+      fill_in 'percentage', with: @percentage
+      fill_in 'item_amount', with: @item_amount
+      fill_in 'description', with: @description
+
+      click_button 'Create Item'
+
+      expect(current_path).to eq("/merchant/discounts")
+
+      expect(page).to have_content("New discount created!")
+      expect(page).to have_content(@percentage)
+      expect(page).to have_content(@item_amount)
+      expect(page).to have_content(@description)
+    end
   end
 end
