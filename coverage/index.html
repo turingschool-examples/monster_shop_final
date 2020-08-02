@@ -5,7 +5,7 @@
     <meta http-equiv="content-type" content="text/html; charset=utf-8" />
     <script src='./assets/0.10.2/application.js' type='text/javascript'></script>    
     <link href='./assets/0.10.2/application.css' media='screen, projection, print' rel='stylesheet' type='text/css'>
-    <link rel="shortcut icon" type="image/png" href="./assets/0.10.2/favicon_red.png" />
+    <link rel="shortcut icon" type="image/png" href="./assets/0.10.2/favicon_yellow.png" />
     <link rel="icon" type="image/png" href="./assets/0.10.2/favicon.png" />
   </head>
   
@@ -14,18 +14,18 @@
       <img src="./assets/0.10.2/loading.gif" alt="loading"/>
     </div>
     <div id="wrapper" style="display:none;">
-      <div class="timestamp">Generated <abbr class="timeago" title="2020-08-02T12:10:11-06:00">2020-08-02T12:10:11-06:00</abbr></div>
+      <div class="timestamp">Generated <abbr class="timeago" title="2020-08-02T12:11:53-06:00">2020-08-02T12:11:53-06:00</abbr></div>
       <ul class="group_tabs"></ul>
 
       <div id="content">
         <div class="file_list_container" id="AllFiles">
   <h2>
     <span class="group_name">All Files</span>
-    (<span class="covered_percent"><span class="red">79.9%</span></span>
+    (<span class="covered_percent"><span class="yellow">81.86%</span></span>
      covered at
      <span class="covered_strength">
        <span class="green">
-         1.09
+         1.24
        </span>
     </span> hits/line)
   </h2>
@@ -33,8 +33,8 @@
   <div>
     <b>23</b> files in total.
     <b>204</b> relevant lines. 
-    <span class="green"><b>163</b> lines covered</span> and
-    <span class="red"><b>41</b> lines missed </span>
+    <span class="green"><b>167</b> lines covered</span> and
+    <span class="red"><b>37</b> lines missed </span>
   </div>
   <table class="file_list">
     <thead>
@@ -57,7 +57,7 @@
         <td>22</td>
         <td>16</td>
         <td>6</td>
-        <td>2.2</td>
+        <td>2.8</td>
       </tr>
       
       <tr>
@@ -72,12 +72,12 @@
       
       <tr>
         <td class="strong"><a href="#f21db433cbb54730db8e563c47a884ec4bed5dca" class="src_link" title="app/controllers/merchant/discounts_controller.rb">app/controllers/merchant/discounts_controller.rb</a></td>
-        <td class="red strong">51.28 %</td>
+        <td class="red strong">61.54 %</td>
         <td>61</td>
         <td>39</td>
-        <td>20</td>
-        <td>19</td>
-        <td>0.7</td>
+        <td>24</td>
+        <td>15</td>
+        <td>1.0</td>
       </tr>
       
       <tr>
@@ -107,7 +107,7 @@
         <td>25</td>
         <td>14</td>
         <td>11</td>
-        <td>1.3</td>
+        <td>1.5</td>
       </tr>
       
       <tr>
@@ -364,8 +364,8 @@
           <code class="ruby">  def cart</code>
         </li>
       
-        <li class="covered" data-hits="7" data-linenumber="10">
-          <span class="hits">7</span>
+        <li class="covered" data-hits="9" data-linenumber="10">
+          <span class="hits">9</span>
           
           <code class="ruby">    @cart ||= Cart.new(session[:cart])</code>
         </li>
@@ -412,8 +412,8 @@
           <code class="ruby">  def current_merchant_user?</code>
         </li>
       
-        <li class="covered" data-hits="15" data-linenumber="18">
-          <span class="hits">15</span>
+        <li class="covered" data-hits="20" data-linenumber="18">
+          <span class="hits">20</span>
           
           <code class="ruby">    current_user &amp;&amp; current_user.merchant_id</code>
         </li>
@@ -436,8 +436,8 @@
           <code class="ruby">  def current_admin?</code>
         </li>
       
-        <li class="covered" data-hits="7" data-linenumber="22">
-          <span class="hits">7</span>
+        <li class="covered" data-hits="9" data-linenumber="22">
+          <span class="hits">9</span>
           
           <code class="ruby">    current_user &amp;&amp; current_user.admin?</code>
         </li>
@@ -484,8 +484,8 @@
           <code class="ruby">  def require_merchant</code>
         </li>
       
-        <li class="covered" data-hits="8" data-linenumber="30">
-          <span class="hits">8</span>
+        <li class="covered" data-hits="11" data-linenumber="30">
+          <span class="hits">11</span>
           
           <code class="ruby">    render file: &#39;public/404&#39;, status: 404 unless current_merchant_user?</code>
         </li>
@@ -631,11 +631,11 @@
         <div class="source_table" id="f21db433cbb54730db8e563c47a884ec4bed5dca">
   <div class="header">
     <h3>app/controllers/merchant/discounts_controller.rb</h3>
-    <h4><span class="red">51.28 %</span> covered</h4>
+    <h4><span class="red">61.54 %</span> covered</h4>
     <div>
       <b>39</b> relevant lines. 
-      <span class="green"><b>20</b> lines covered</span> and
-      <span class="red"><b>19</b> lines missed.</span>
+      <span class="green"><b>24</b> lines covered</span> and
+      <span class="red"><b>15</b> lines missed.</span>
     </div>
   </div>
   
@@ -654,14 +654,14 @@
           <code class="ruby">  def index</code>
         </li>
       
-        <li class="covered" data-hits="5" data-linenumber="3">
-          <span class="hits">5</span>
+        <li class="covered" data-hits="7" data-linenumber="3">
+          <span class="hits">7</span>
           
           <code class="ruby">    merchant = Merchant.find(current_user.merchant_id)</code>
         </li>
       
-        <li class="covered" data-hits="5" data-linenumber="4">
-          <span class="hits">5</span>
+        <li class="covered" data-hits="7" data-linenumber="4">
+          <span class="hits">7</span>
           
           <code class="ruby">    @discounts = merchant.discounts</code>
         </li>
@@ -900,14 +900,14 @@
           <code class="ruby">  def change_status</code>
         </li>
       
-        <li class="covered" data-hits="1" data-linenumber="44">
-          <span class="hits">1</span>
+        <li class="covered" data-hits="2" data-linenumber="44">
+          <span class="hits">2</span>
           
           <code class="ruby">    discount = Discount.find(params[:id])</code>
         </li>
       
-        <li class="covered" data-hits="1" data-linenumber="45">
-          <span class="hits">1</span>
+        <li class="covered" data-hits="2" data-linenumber="45">
+          <span class="hits">2</span>
           
           <code class="ruby">    if discount.status == &quot;active&quot;</code>
         </li>
@@ -930,26 +930,26 @@
           <code class="ruby">      flash[:message] = &quot;Discount #{discount.id} has been successfully deactivated&quot;</code>
         </li>
       
-        <li class="missed" data-hits="0" data-linenumber="49">
-          
+        <li class="covered" data-hits="1" data-linenumber="49">
+          <span class="hits">1</span>
           
           <code class="ruby">    else discount.status == &quot;inactive&quot;</code>
         </li>
       
-        <li class="missed" data-hits="0" data-linenumber="50">
-          
+        <li class="covered" data-hits="1" data-linenumber="50">
+          <span class="hits">1</span>
           
           <code class="ruby">      discount.update(status: 0)</code>
         </li>
       
-        <li class="missed" data-hits="0" data-linenumber="51">
-          
+        <li class="covered" data-hits="1" data-linenumber="51">
+          <span class="hits">1</span>
           
           <code class="ruby">      redirect_to &#39;/merchant/discounts&#39;</code>
         </li>
       
-        <li class="missed" data-hits="0" data-linenumber="52">
-          
+        <li class="covered" data-hits="1" data-linenumber="52">
+          <span class="hits">1</span>
           
           <code class="ruby">      flash[:message] = &quot;Discount #{discount.id} has been successfully activated&quot;</code>
         </li>
@@ -1119,14 +1119,14 @@
           <code class="ruby">  def initialize(contents)</code>
         </li>
       
-        <li class="covered" data-hits="7" data-linenumber="5">
-          <span class="hits">7</span>
+        <li class="covered" data-hits="9" data-linenumber="5">
+          <span class="hits">9</span>
           
           <code class="ruby">    @contents = contents || {}</code>
         </li>
       
-        <li class="covered" data-hits="7" data-linenumber="6">
-          <span class="hits">7</span>
+        <li class="covered" data-hits="9" data-linenumber="6">
+          <span class="hits">9</span>
           
           <code class="ruby">    @contents.default = 0</code>
         </li>
@@ -1197,8 +1197,8 @@
           <code class="ruby">  def count</code>
         </li>
       
-        <li class="covered" data-hits="7" data-linenumber="18">
-          <span class="hits">7</span>
+        <li class="covered" data-hits="9" data-linenumber="18">
+          <span class="hits">9</span>
           
           <code class="ruby">    @contents.values.sum</code>
         </li>

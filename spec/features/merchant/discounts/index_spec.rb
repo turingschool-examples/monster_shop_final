@@ -62,5 +62,23 @@ RSpec.describe 'Merchant Discount Index Page' do
           expect(page).to have_content("Activate Discount")
         end
       end
+
+      it "I can activate a discount" do
+        @discount_1.update(status: 1)
+
+        visit '/merchant/discounts'
+
+        within ".discount-#{@discount_1.id}" do
+          click_on "Activate Discount"
+        end
+
+        expect(current_path).to eq('/merchant/discounts')
+        expect(page).to have_content("Discount #{@discount_1.id} has been successfully activated")
+
+        within ".discount-#{@discount_1.id}" do
+          expect(page).to have_content("Deactivate Discount")
+          expect(page).to_not have_content("Activate Discount")
+        end
+      end
     end
   end
