@@ -26,6 +26,7 @@ RSpec.describe 'Updating a merchant discount' do
       click_on 'Update Discount'
 
       expect(current_path).to eq("/merchant/discounts")
+      expect(page).to have_content("Discount #{@discount_1.id} successfully updated")
 
       within ".discount-#{@discount_1.id}" do
         expect(page).to have_content("Discount ID: #{@discount_1.id}")

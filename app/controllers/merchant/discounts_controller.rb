@@ -32,6 +32,7 @@ class Merchant::DiscountsController < Merchant::BaseController
     discount.update(discount_params)
 
     redirect_to '/merchant/discounts'
+    flash[:message] = "Discount #{discount.id} successfully updated"
   end
 
   private
