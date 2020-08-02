@@ -15,14 +15,16 @@ RSpec.describe 'Merchant Discount Index Page' do
       visit '/merchant/discounts'
 
       expect(page).to have_content("Bulk Discounts")
-
+      save_and_open_page
 
       within ".discount-#{@discount_1.id}" do
+        expect(page).to have_content("Discount ID: #{@discount_1.id}")
         expect(page).to have_content("Percent Off: #{@discount_1.percent}")
         expect(page).to have_content("Required Item Quantity: #{@discount_1.quantity} units")
       end
 
       within ".discount-#{@discount_2.id}" do
+        expect(page).to have_content("Discount ID: #{@discount_2.id}")
         expect(page).to have_content("Percent Off: #{@discount_2.percent}")
         expect(page).to have_content("Required Item Quantity: #{@discount_2.quantity} units")
       end
