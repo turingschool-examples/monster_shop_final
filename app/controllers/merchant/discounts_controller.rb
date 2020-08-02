@@ -23,8 +23,9 @@ class Merchant::DiscountsController < Merchant::BaseController
 
   def update
     @discount = Discount.find(params[:discount_id])
-    if @discount.update(discount_params)
-      redirect_to "/merchant/discounts/#{@discount.id}"
+    @discount.update(discount_params)
+    if @discount.save
+      redirect_to "/merchant/discounts"
     else
       flash[:notice] = "Please fill out both fields"
       redirect_to "/merchant/discounts/edit/#{@discount.id}"
