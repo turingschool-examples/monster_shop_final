@@ -36,5 +36,15 @@ RSpec.describe 'Merchant Discount Index Page' do
 
       expect(current_path).to eq('/merchant/discounts/new')
     end
+
+    it "I see a link to update an existing discount" do
+        visit '/merchant/discounts'
+
+        within ".discount-#{@discount_1.id}" do
+          click_on "Edit Discount"
+        end
+
+        expect(current_path).to eq("/merchant/discounts/#{@discount_1.id}/edit")
+      end
+    end
   end
-end
