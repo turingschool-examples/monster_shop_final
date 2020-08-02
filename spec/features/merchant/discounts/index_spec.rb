@@ -41,7 +41,7 @@ RSpec.describe 'Merchant Discount Index Page' do
         visit '/merchant/discounts'
 
         within ".discount-#{@discount_1.id}" do
-          click_on "Edit Discount"
+          click_on "Edit"
         end
 
         expect(current_path).to eq("/merchant/discounts/#{@discount_1.id}/edit")
@@ -51,15 +51,15 @@ RSpec.describe 'Merchant Discount Index Page' do
         visit '/merchant/discounts'
 
         within ".discount-#{@discount_1.id}" do
-          click_on "Deactivate Discount"
+          click_on "Deactivate"
         end
 
         expect(current_path).to eq('/merchant/discounts')
         expect(page).to have_content("Discount #{@discount_1.id} has been successfully deactivated")
 
         within ".discount-#{@discount_1.id}" do
-          expect(page).to_not have_content("Deactivate Discount")
-          expect(page).to have_content("Activate Discount")
+          expect(page).to_not have_content("Deactivate")
+          expect(page).to have_content("Activate")
         end
       end
 
@@ -69,15 +69,15 @@ RSpec.describe 'Merchant Discount Index Page' do
         visit '/merchant/discounts'
 
         within ".discount-#{@discount_1.id}" do
-          click_on "Activate Discount"
+          click_on "Activate"
         end
 
         expect(current_path).to eq('/merchant/discounts')
         expect(page).to have_content("Discount #{@discount_1.id} has been successfully activated")
 
         within ".discount-#{@discount_1.id}" do
-          expect(page).to have_content("Deactivate Discount")
-          expect(page).to_not have_content("Activate Discount")
+          expect(page).to have_content("Deactivate")
+          expect(page).to_not have_content("Activate")
         end
       end
 
@@ -85,13 +85,14 @@ RSpec.describe 'Merchant Discount Index Page' do
         @discount_1.update(status: 1)
 
         visit '/merchant/discounts'
+        save_and_open_page
 
         within ".discount-#{@discount_2.id}" do
-          expect(page).to_not have_link("Delete Discount")
+          expect(page).to_not have_link("Delete")
         end
 
         within ".discount-#{@discount_1.id}" do
-          click_on "Delete Discount"
+          click_on "Delete"
         end
 
         expect(current_path).to eq("/merchant/discounts")

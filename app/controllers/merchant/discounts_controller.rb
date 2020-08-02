@@ -58,7 +58,6 @@ class Merchant::DiscountsController < Merchant::BaseController
     discount.destroy
     redirect_to "/merchant/discounts"
     flash[:message] = "Discount has been successfully deleted"
-
   end
 
   private
