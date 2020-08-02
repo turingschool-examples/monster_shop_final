@@ -91,21 +91,23 @@ RSpec.describe 'Updating a merchant discount' do
       expect(page).to have_content("This discount already exists")
     end
 
-    xit "A different merchant can create a the same discount as another merchant" do
+    it "A different merchant can update their discount with the same info as another merchants discount" do
       @merchant_2.discounts.create(percent: 10, quantity: 20)
       percent = 10
       quantity = 20
 
       visit '/merchant/discounts'
 
-      click_on "Create A Discount"
+      within ".discount-#{@discount_1.id}" do
+        click_on 'Edit Discount'
+      end
 
       fill_in "Percent Off", with: percent
       fill_in "Item Quantity", with: quantity
-      click_on "Create Discount"
+      click_on "Update Discount"
 
       expect(current_path).to eq('/merchant/discounts')
-      expect(page).to have_content("Discount successfully created")
+      expect(page).to have_content("Discount #{@discount_1.id} successfully updated")
     end
   end
 end
