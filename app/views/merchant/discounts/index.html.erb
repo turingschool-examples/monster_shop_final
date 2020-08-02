@@ -3,8 +3,9 @@
 <h3><%= link_to "Create New Discount", "/merchant/discounts/new" %>
 <br>
 <% @merchant.discounts.each do |discount| %>
-  <section class="discount-#{discount.id}"
+  <section id='discount-<%= discount.id %>'>
     <p>Discount Percentage: <%= discount.percentage %>%</p>
     <p>Required Item Quantity: <%= discount.required_amount %><p>
+    <p><%= link_to "Edit Discount", "/merchant/discounts/edit/#{discount.id}" %>
   </section>
 <% end %>
