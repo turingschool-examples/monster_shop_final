@@ -31,5 +31,32 @@ RSpec.describe 'Merchant Discount Edit Page' do
 
       expect(current_path).to eq("/merchant/discounts/edit/#{@discount_1.id}")
     end
+
+    it 'I can edit an existing bulk discount' do
+      visit '/merchant/discounts'
+
+      within "#discount-#{@discount_1.id}" do
+        expect(page).to have_content('Discount Percentage: 5%')
+        expect(page).to have_content('Required Item Quantity: 10')
+        click_link 'Edit Discount'
+      end
+
+      expect(current_path).to eq("/merchant/discounts/edit/#{@discount_1.id}")
+
+      percentage = 5
+      required_amount = 20
+
+      fill_in 'Percentage', with: percentage
+      fill_in 'Required amount', with: required_amount
+
+      click_button 'Update Bulk Discount'
+
+      expect(current_path).to eq('/merchant/discounts')
+
+      within "#discount-#{@discount_1.id}" do
+        expect(page).to have_content('Discount Percentage: 5%')
+        expect(page).to have_content('Required Item Quantity: 20')
+      end
+    end
   end
 end
