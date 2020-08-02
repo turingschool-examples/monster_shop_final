@@ -59,16 +59,16 @@ class Cart
   end
 
   def apply_discount(item_id)
-    final_discount = 0
+    current_discount = 0
     item = Item.find(item_id)
     merchant = Merchant.find(item.merchant_id)
     merchant.discounts.each do |discount|
       if can_get_discount?(item_id, discount)
-        final_discount = discount.percentage
+        current_discount = discount.percentage if discount.percentage >= current_discount
       else
         next
       end
     end
-    final_discount.to_f / 100.00
+    current_discount.to_f / 100.00
   end
 end
