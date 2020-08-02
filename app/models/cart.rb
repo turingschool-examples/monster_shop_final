@@ -43,4 +43,32 @@ class Cart
   def limit_reached?(item_id)
     count_of(item_id) == Item.find(item_id).inventory
   end
+
+  def check_for_discount(item_id)
+    item = Item.find(item_id)
+    merchant = Merchant.find(item.merchant_id)
+    final_discount = false
+    merchant.discounts.each do |discount|
+      final_discount = true if can_get_discount?(item_id, discount)
+    end
+    final_discount
+  end
+
+  def can_get_discount?(item_id, discount)
+    count_of(item_id) == discount.required_amount
+  end
+
+  def apply_discount(item_id)
+    current_discount = 0
+    item = Item.find(item_id)
+    merchant = Merchant.find(item.merchant_id)
+    merchant.discounts.each do |discount|
+      if can_get_discount?(item_id, discount)
+        current_discount = discount.percentage if discount.percentage >= current_discount
+      else
+        next
+      end
+    end
+    current_discount.to_f / 100.00
+  end
 end
