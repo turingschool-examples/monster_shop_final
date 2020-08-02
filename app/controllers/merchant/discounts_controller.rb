@@ -40,6 +40,11 @@ class Merchant::DiscountsController < Merchant::BaseController
     end
   end
 
+  def change_status
+    redirect_to '/merchant/discounts'
+
+  end
+
   private
 
   def discount_params
