@@ -36,5 +36,39 @@ RSpec.describe 'Merchant Discount New Page' do
         expect(page).to_not have_content("Subtotal: $100.00")
       end
     end
+
+    it 'A discount will not be applied if I hit the minimum quantity but only with more than one item type' do
+      visit "/items/#{@ogre.id}"
+
+      click_button 'Add to Cart'
+
+      visit "/items/#{@giant.id}"
+
+      click_button 'Add to Cart'
+
+      visit '/cart'
+
+      within "#item-#{@ogre.id}" do
+        expect(page).to have_content("Subtotal: $20.00")
+
+        click_button 'More of This!'
+        click_button 'More of This!'
+        click_button 'More of This!'
+
+        expect(page).to have_content("Subtotal: $80.00")
+      end
+
+      within "#item-#{@giant.id}" do
+        expect(page).to have_content("Subtotal: $50.00")
+
+        click_button 'More of This!'
+
+        expect(page).to have_content("Subtotal: $100.00")
+      end
+
+      within "#item-#{@ogre.id}" do
+        expect(page).to have_content("Subtotal: $80.00")
+      end
+    end
   end
 end
