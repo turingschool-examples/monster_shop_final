@@ -40,6 +40,26 @@ class Merchant::DiscountsController < Merchant::BaseController
     end
   end
 
+  def change_status
+    discount = Discount.find(params[:id])
+    if discount.status == "active"
+      discount.update(status: 1)
+      redirect_to '/merchant/discounts'
+      flash[:message] = "Discount #{discount.id} has been successfully deactivated"
+    else discount.status == "inactive"
+      discount.update(status: 0)
+      redirect_to '/merchant/discounts'
+      flash[:message] = "Discount #{discount.id} has been successfully activated"
+    end
+  end
+
+  def destroy
+    discount = Discount.find(params[:id])
+    discount.destroy
+    redirect_to "/merchant/discounts"
+    flash[:message] = "Discount has been successfully deleted"
+  end
+
   private
 
   def discount_params

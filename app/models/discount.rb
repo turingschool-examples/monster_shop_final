@@ -5,4 +5,6 @@ class Discount < ApplicationRecord
   validates_numericality_of :quantity
   validates_uniqueness_of :merchant_id, scope: [:percent, :quantity], message: "This discount already exists"
   belongs_to :merchant
+
+  enum status: ['active', 'inactive']
 end

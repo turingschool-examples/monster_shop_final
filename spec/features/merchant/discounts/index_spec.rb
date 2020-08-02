@@ -41,10 +41,64 @@ RSpec.describe 'Merchant Discount Index Page' do
         visit '/merchant/discounts'
 
         within ".discount-#{@discount_1.id}" do
-          click_on "Edit Discount"
+          click_on "Edit"
         end
 
         expect(current_path).to eq("/merchant/discounts/#{@discount_1.id}/edit")
+      end
+
+      it "I can deactivate a discount" do
+        visit '/merchant/discounts'
+
+        within ".discount-#{@discount_1.id}" do
+          click_on "Deactivate"
+        end
+
+        expect(current_path).to eq('/merchant/discounts')
+        expect(page).to have_content("Discount #{@discount_1.id} has been successfully deactivated")
+
+        within ".discount-#{@discount_1.id}" do
+          expect(page).to_not have_content("Deactivate")
+          expect(page).to have_content("Activate")
+        end
+      end
+
+      it "I can activate a discount" do
+        @discount_1.update(status: 1)
+
+        visit '/merchant/discounts'
+
+        within ".discount-#{@discount_1.id}" do
+          click_on "Activate"
+        end
+
+        expect(current_path).to eq('/merchant/discounts')
+        expect(page).to have_content("Discount #{@discount_1.id} has been successfully activated")
+
+        within ".discount-#{@discount_1.id}" do
+          expect(page).to have_content("Deactivate")
+          expect(page).to_not have_content("Activate")
+        end
+      end
+
+      it "I see a link to delete only inactive discounts" do
+        @discount_1.update(status: 1)
+
+        visit '/merchant/discounts'
+        save_and_open_page
+
+        within ".discount-#{@discount_2.id}" do
+          expect(page).to_not have_link("Delete")
+        end
+
+        within ".discount-#{@discount_1.id}" do
+          click_on "Delete"
+        end
+
+        expect(current_path).to eq("/merchant/discounts")
+        expect(page).to have_content("Discount has been successfully deleted")
+
+        expect(page).to_not have_content(@discount_1.id)
       end
     end
   end
