@@ -1,0 +1,11 @@
+<h1>My Bulk Discounts</h1>
+
+<section class="discounts">
+  <% @discounts.each do |discount| %>
+    <section id="discount-<%= discount.id %>">
+      <p>Discount Name: <%= discount.name %></p>
+      <p>Discount Percentage: <%= discount.percent_off %></p>
+      <p>Minimum Quantity To Get Discount: <%= discount.min_quantity %></p>
+    </section>
+    <% end %>
+</section>

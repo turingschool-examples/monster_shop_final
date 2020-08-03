@@ -9,6 +9,7 @@ RSpec.describe 'Merchant Dashboard' do
       @ogre = @merchant_1.items.create!(name: 'Ogre', description: "I'm an Ogre!", price: 20.25, image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTaLM_vbg2Rh-mZ-B4t-RSU9AmSfEEq_SN9xPP_qrA2I6Ftq_D9Qw', active: true, inventory: 5 )
       @giant = @merchant_1.items.create!(name: 'Giant', description: "I'm a Giant!", price: 50, image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTaLM_vbg2Rh-mZ-B4t-RSU9AmSfEEq_SN9xPP_qrA2I6Ftq_D9Qw', active: true, inventory: 3 )
       @hippo = @merchant_2.items.create!(name: 'Hippo', description: "I'm a Hippo!", price: 50, image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTaLM_vbg2Rh-mZ-B4t-RSU9AmSfEEq_SN9xPP_qrA2I6Ftq_D9Qw', active: true, inventory: 1 )
+      @discount1 = @merchant_1.discounts.create!(name: "Ogre Discount", percent_off: 5, min_quantity: 5)
       @order_1 = @m_user.orders.create!(status: "pending")
       @order_2 = @m_user.orders.create!(status: "pending")
       @order_3 = @m_user.orders.create!(status: "pending")
@@ -62,5 +63,33 @@ RSpec.describe 'Merchant Dashboard' do
 
       expect(current_path).to eq("/merchant/orders/#{@order_2.id}")
     end
+
+    it "can see a link to the merchants bulk discount index page" do
+      visit '/merchant'
+
+      click_link "My Bulk Discounts"
+
+      expect(current_path).to eq("/merchant/discounts")
+
+      within "#discount-#{@discount1.id}" do
+        expect(page).to have_content(@discount1.name)
+        expect(page).to have_content(@discount1.percent_off)
+        expect(page).to have_content(@discount1.min_quantity)
+      end
+    end
+
+    # it "can see a link to add a discount" do
+    #   visit '/merchant'
+    #
+    #   click_link "Bulk Discounts"
+    #
+    #   expect(current_path).to eq("/discounts/new")
+    #
+    #   fill_in 'name', with: "Hippo Bulk Discount"
+    #   fill_in 'percent_off', with: 5
+    #   fill_in 'min_quantity', with: 6
+    #
+    #
+    # end
   end
 end
