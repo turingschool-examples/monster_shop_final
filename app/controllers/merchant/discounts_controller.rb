@@ -1,6 +1,7 @@
 class Merchant::DiscountsController < Merchant::BaseController
   def index
-    @discounts = current_merchant.discounts
+    merchant = Merchant.find(current_merchant.id)
+    @discounts = merchant.discounts
   end
 
   def new
@@ -14,6 +15,20 @@ class Merchant::DiscountsController < Merchant::BaseController
     else
       redirect_to '/merchant/discounts/new'
       flash[:error] = @discount.errors.full_messages.to_sentence
+    end
+  end
+
+  def edit
+    @discount = Discount.find(params[:id])
+  end
+
+  def update
+    discount = Discount.find(params[:id])
+    if discount.update(discount_params)
+      redirect_to '/merchant/discounts'
+      flash[:message] = "Discount Updated"
+    else
+      redirect_to '/merchant/discounts/#{discount.id}/edit'
     end
   end
 

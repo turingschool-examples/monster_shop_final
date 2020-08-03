@@ -142,21 +142,22 @@ RSpec.describe 'Merchant Dashboard' do
       expect(current_path).to eq("/merchant/discounts/#{five_off.id}/edit")
 
       expect(find_field('Percentage').value).to eq '5'
-      expect(find_field('Item Amount').value).to eq '5'
+      expect(find_field('Item amount').value).to eq '5'
       expect(find_field('Description').value).to eq 'Five percent off of five items or more!'
 
-      fill_in 'Percentage', with: 5
-      fill_in 'Item Amount', with: 4
-      fill_in 'Description', with: 'Five percent off of four items or more!?'
+      fill_in :percentage, with: 6
+      fill_in :item_amount, with: 4
+      fill_in :description, with: 'Six percent off of four items or more!?'
       click_button "Update Discount"
 
       expect(current_path).to eq("/merchant/discounts")
       expect(page).to have_content("Discount Updated")
-      expect(page).to have_content(five_off.percentage)
-      expect(page).to_not have_content(five_off.item_amount)
-      expect(page).to_not have_content(five_off.description)
-      expect(page).to have_content("Description: Five percent off of four items or more!?")
+      expect(page).to_not have_content("Description: 'Five percent off of five items or more!'")
+      expect(page).to_not have_content("Item amount: 5")
+      expect(page).to_not have_content("Percentage: 5")
+      expect(page).to have_content("Description: Six percent off of four items or more!?")
       expect(page).to have_content("Item amount: 4")
+      expect(page).to have_content("Percentage: 6")
     end
   end
 end
