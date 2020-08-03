@@ -31,6 +31,6 @@ class Item < ApplicationRecord
   end
 
   def discount
-    merchant.discounts.order("quantity DESC").limit(1).first
+    merchant.active_discounts.order("percent * quantity DESC").limit(1).first
   end
 end

@@ -55,9 +55,8 @@ class Cart
     discounted_item_quantity = item.discount.quantity
     items_at_full_price = total_items_purchased - discounted_item_quantity
     discount = item.discount.percent.to_f / 100
-    full_price = item.price
-    discounted_price = full_price - (full_price * discount)
-    cost_full_price_items = full_price * items_at_full_price
+    discounted_price = item.price - (item.price * discount)
+    cost_full_price_items = item.price * items_at_full_price
     cost_discounted_items = discounted_price * discounted_item_quantity
     cost_full_price_items + cost_discounted_items
   end
