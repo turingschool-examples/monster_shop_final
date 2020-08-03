@@ -15,7 +15,6 @@ RSpec.describe 'Merchant Discount Edit Page' do
       @order_item_2 = @order_2.order_items.create!(item: @hippo, price: @hippo.price, quantity: 2, fulfilled: true)
       @order_item_3 = @order_2.order_items.create!(item: @ogre, price: @ogre.price, quantity: 2, fulfilled: false)
       @order_item_4 = @order_2.order_items.create!(item: @giant, price: @giant.price, quantity: 2, fulfilled: false)
-      @discount_1 = @merchant_1.discounts.create!(percentage: 5, required_amount: 10)
       allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(@m_user)
     end
 
@@ -33,15 +32,17 @@ RSpec.describe 'Merchant Discount Edit Page' do
     end
 
     xit 'I can edit an existing bulk discount' do
+      discount_1 = @merchant_1.discounts.create!(percentage: 5, required_amount: 10)
+
       visit '/merchant/discounts'
 
-      within "#discount-#{@discount_1.id}" do
+      within "#discount-#{discount_1.id}" do
         expect(page).to have_content('Discount Percentage: 5%')
         expect(page).to have_content('Required Item Quantity: 10')
         click_link 'Edit Discount'
       end
 
-      expect(current_path).to eq("/merchant/discounts/edit/#{@discount_1.id}")
+      expect(current_path).to eq("/merchant/discounts/edit/#{discount_1.id}")
 
       percentage = 5
       required_amount = 20
@@ -52,8 +53,11 @@ RSpec.describe 'Merchant Discount Edit Page' do
       click_button 'Update Bulk Discount'
 
       expect(current_path).to eq('/merchant/discounts')
-      save_and_open_page
-      within "#discount-#{@discount_1.id}" do
+
+      discount_1.reload
+
+      within "#discount-#{discount_1.id}" do
+        discount_1.reload
         expect(page).to have_content('Discount Percentage: 5%')
         expect(page).to have_content('Required Item Quantity: 20')
       end
