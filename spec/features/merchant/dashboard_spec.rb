@@ -183,5 +183,21 @@ RSpec.describe 'Merchant Dashboard' do
       expect(page).to have_content("Percentage must be less than 100")
       expect(page).to have_content("Item amount must be greater than 0")
     end
+
+    it "I can delete a discount" do
+      visit '/merchant'
+
+      click_link "Discounts"
+
+      within ".discounts-#{@discount1.id}" do
+        expect(page).to have_content('Delete Discount')
+        click_on 'Delete Discount'
+      end
+
+      expect(current_path).to eq("/merchant/discounts")
+      expect(page).to_not have_content(@discount1.description)
+      expect(page).to_not have_content(@discount1.percentage)
+      expect(page).to_not have_content(@discount1.item_amount)
+    end
   end
 end
