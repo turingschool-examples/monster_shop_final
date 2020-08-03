@@ -337,6 +337,26 @@ RSpec.describe 'Cart Show Page' do
           expect(page).to have_content("Subtotal: $332.50")
         end
       end
+
+      it "I see my total savings in the cart" do
+        discount_1 = @megan.discounts.create(percent: 5, quantity: 3)
+        visit item_path(@ogre)
+        click_button 'Add to Cart'
+        visit item_path(@ogre)
+        click_button 'Add to Cart'
+        visit item_path(@ogre)
+        click_button 'Add to Cart'
+
+        visit '/cart'
+        expect(page).to have_content("Cart: 3")
+        expect(page).to have_content("Total: $57.00")
+
+        within "#item-#{@ogre.id}" do
+          expect(page).to have_content("Discount Applied: #{discount_1.quantity} items at #{number_to_percentage(discount_1.percent, strip_insignificant_zeros: true)} off")
+          expect(page).to have_content("You saved $3.00!")
+          expect(page).to have_content("Subtotal: $57.00")
+        end
+      end
     end
   end
 end
