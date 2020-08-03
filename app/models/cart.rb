@@ -24,6 +24,7 @@ class Cart
     end
   end
 
+#discount
   def grand_total
     grand_total = 0.0
     @contents.each do |item_id, quantity|
@@ -36,6 +37,7 @@ class Cart
     @contents[item_id.to_s]
   end
 
+# discount
   def subtotal_of(item_id)
     @contents[item_id.to_s] * Item.find(item_id).price
   end

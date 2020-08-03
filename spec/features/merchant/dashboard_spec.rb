@@ -84,8 +84,8 @@ RSpec.describe 'Merchant Dashboard' do
     end
 
     it "I can create a new discount on the new discount form page" do
-      @percentage = '5'
-      @item_amount = '5'
+      @percentage = 5
+      @item_amount = 5
       @description = 'Five percent off of five items or more!'
       visit '/merchant'
 
@@ -105,6 +105,26 @@ RSpec.describe 'Merchant Dashboard' do
       expect(page).to have_content(@percentage)
       expect(page).to have_content(@item_amount)
       expect(page).to have_content(@description)
+    end
+
+    it "I can't create a new discount with bad or missing information" do
+      @percentage = 5
+      @item_amount = 5
+      @description = 'Five percent off of five items or more!'
+      visit '/merchant'
+
+      click_link "Discounts"
+
+      click_link("Create Discount")
+
+      fill_in 'percentage', with: 120
+      fill_in 'description', with: @description
+
+      click_button 'Create Item'
+
+      expect(current_path).to eq("/merchant/discounts/new")
+      expect(page).to have_content("Item amount can't be blank")
+      expect(page).to have_content("Percentage must be less than or equal to 100")
     end
   end
 end
