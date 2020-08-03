@@ -18,6 +18,9 @@ RSpec.describe 'Merchant Show Page' do
       @order_1.order_items.create!(item: @ogre, price: @ogre.price, quantity: 2)
       @order_2.order_items.create!(item: @giant, price: @hippo.price, quantity: 2)
       @order_2.order_items.create!(item: @ogre, price: @hippo.price, quantity: 2)
+      @discount_1 = @megan.discounts.create(percent: 10, quantity: 20)
+      @discount_2 = @megan.discounts.create(percent: 15, quantity: 25)
+      @discount_3 = @brian.discounts.create(percent: 10, quantity: 20)
     end
 
     it 'I see merchant name and address' do
@@ -64,6 +67,18 @@ RSpec.describe 'Merchant Show Page' do
 
       within '.statistics' do
         expect(page).to have_content('This Merchant has no Items, or Orders!')
+      end
+    end
+
+    it "I see all of the active discounts available for a merchant" do
+      visit "/merchants/#{@megan.id}"
+
+      within ".discounts-#{@discount_1.id}" do
+        expect(page).to have_content("Purchase #{@discount_1.quantity} of any single item and get #{number_to_percentage(@discount_1.percent, strip_insignificant_zeros: true)} off!")
+      end
+
+      within ".discounts-#{@discount_2.id}" do
+        expect(page).to have_content("Purchase #{@discount_2.quantity} of any single item and get #{number_to_percentage(@discount_2.percent, strip_insignificant_zeros: true)} off!")
       end
     end
   end
