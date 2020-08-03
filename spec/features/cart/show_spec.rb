@@ -167,6 +167,196 @@ RSpec.describe 'Cart Show Page' do
         expect(page).to_not have_content("#{@hippo.name}")
         expect(page).to have_content("Cart: 0")
       end
+
+      it "I add the minimum quantity of an item for a bulk discount and I see the discount reflected in my subtotal" do
+        discount_1 = @megan.discounts.create(percent: 5, quantity: 3)
+        visit item_path(@ogre)
+        click_button 'Add to Cart'
+        visit item_path(@ogre)
+        click_button 'Add to Cart'
+
+        visit '/cart'
+        expect(page).to have_content("Cart: 2")
+        expect(page).to have_content("Total: $40.00")
+
+        within "#item-#{@ogre.id}" do
+          expect(page).to_not have_content("Discount Applied: #{discount_1.quantity} items at #{number_to_percentage(discount_1.percent, strip_insignificant_zeros: true)} off")
+          expect(page).to have_content("Subtotal: $40.00")
+        end
+
+        visit item_path(@ogre)
+        click_button 'Add to Cart'
+        visit item_path(@ogre)
+        click_button 'Add to Cart'
+        visit item_path(@ogre)
+        click_button 'Add to Cart'
+        visit item_path(@hippo)
+        click_button 'Add to Cart'
+
+        visit '/cart'
+
+        expect(page).to have_content("Cart: 6")
+        expect(page).to have_content("Total: $147.00")
+
+        within "#item-#{@ogre.id}" do
+          expect(page).to have_content("Discount Applied: #{discount_1.quantity} items at #{number_to_percentage(discount_1.percent, strip_insignificant_zeros: true)} off")
+          expect(page).to have_content("Subtotal: $97.00")
+        end
+      end
+
+      it "If I remove items and do not have enough quantity for a discount I no longer see the bulk discount" do
+        discount_1 = @megan.discounts.create(percent: 5, quantity: 3)
+        visit item_path(@ogre)
+        click_button 'Add to Cart'
+        visit item_path(@ogre)
+        click_button 'Add to Cart'
+        visit item_path(@ogre)
+        click_button 'Add to Cart'
+        visit item_path(@ogre)
+        click_button 'Add to Cart'
+        visit item_path(@ogre)
+        click_button 'Add to Cart'
+
+        visit '/cart'
+
+        within "#item-#{@ogre.id}" do
+          expect(page).to have_content("Discount Applied: #{discount_1.quantity} items at #{number_to_percentage(discount_1.percent, strip_insignificant_zeros: true)} off")
+          expect(page).to have_content("Subtotal: $97.00")
+          click_button ('Less of This!')
+          click_button ('Less of This!')
+          click_button ('Less of This!')
+        end
+
+        expect(page).to have_content("Cart: 2")
+        expect(page).to have_content("Total: $40.00")
+
+        within "#item-#{@ogre.id}" do
+          expect(page).to_not have_content("Discount Applied: #{discount_1.quantity} items at #{number_to_percentage(discount_1.percent, strip_insignificant_zeros: true)} off")
+          expect(page).to have_content("Subtotal: $40.00")
+        end
+      end
+
+      it "I can add discounts from multiple merchants" do
+        discount_1 = @megan.discounts.create(percent: 5, quantity: 3)
+        discount_2 = @brian.discounts.create(percent: 4, quantity: 2)
+
+        visit item_path(@ogre)
+        click_button 'Add to Cart'
+        visit item_path(@ogre)
+        click_button 'Add to Cart'
+        visit item_path(@ogre)
+        click_button 'Add to Cart'
+        visit item_path(@hippo)
+        click_button 'Add to Cart'
+        visit item_path(@hippo)
+        click_button 'Add to Cart'
+
+        visit '/cart'
+        expect(page).to have_content("Cart: 5")
+        expect(page).to have_content("Total: $153.00")
+
+        within "#item-#{@ogre.id}" do
+          expect(page).to have_content("Discount Applied: #{discount_1.quantity} items at #{number_to_percentage(discount_1.percent, strip_insignificant_zeros: true)} off")
+          expect(page).to have_content("Subtotal: $57.00")
+        end
+
+        within "#item-#{@hippo.id}" do
+          expect(page).to have_content("Discount Applied: #{discount_2.quantity} items at #{number_to_percentage(discount_2.percent, strip_insignificant_zeros: true)} off")
+          expect(page).to have_content("Subtotal: $96.00")
+        end
+      end
+
+      it "I can add multiple discounts from the same merchant for different items" do
+        discount_1 = @megan.discounts.create(percent: 5, quantity: 3)
+        vampire = @megan.items.create!(name: 'Vampire', description: "I'm a Vampire!", price: 50, image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTaLM_vbg2Rh-mZ-B4t-RSU9AmSfEEq_SN9xPP_qrA2I6Ftq_D9Qw', active: true, inventory: 3 )
+
+        visit item_path(@ogre)
+        click_button 'Add to Cart'
+        visit item_path(@ogre)
+        click_button 'Add to Cart'
+        visit item_path(@ogre)
+        click_button 'Add to Cart'
+        visit item_path(@giant)
+        click_button 'Add to Cart'
+        visit item_path(@giant)
+        click_button 'Add to Cart'
+        visit item_path(@giant)
+        click_button 'Add to Cart'
+        visit item_path(vampire)
+        click_button 'Add to Cart'
+
+        visit '/cart'
+
+        expect(page).to have_content("Cart: 7")
+        expect(page).to have_content("Total: $249.50")
+
+        within "#item-#{@ogre.id}" do
+          expect(page).to have_content("Discount Applied: #{discount_1.quantity} items at #{number_to_percentage(discount_1.percent, strip_insignificant_zeros: true)} off")
+          expect(page).to have_content("Subtotal: $57.00")
+        end
+
+        within "#item-#{@giant.id}" do
+          expect(page).to have_content("Discount Applied: #{discount_1.quantity} items at #{number_to_percentage(discount_1.percent, strip_insignificant_zeros: true)} off")
+          expect(page).to have_content("Subtotal: $142.50")
+        end
+
+        within "#item-#{vampire.id}" do
+          expect(page).to_not have_content("Discount Applied: #{discount_1.quantity} items at #{number_to_percentage(discount_1.percent, strip_insignificant_zeros: true)} off")
+          expect(page).to have_content("Subtotal: $50.00")
+        end
+      end
+
+      it "When there is a conflict between discounts the greater discount will apply" do
+        discount_1 = @megan.discounts.create(percent: 2, quantity: 5)
+        discount_2 = @megan.discounts.create(percent: 5, quantity: 7)
+        discount_3 = @megan.discounts.create(percent: 15, quantity: 5, status: 'inactive')
+        vampire = @megan.items.create!(name: 'Vampire', description: "I'm a Vampire!", price: 50, image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTaLM_vbg2Rh-mZ-B4t-RSU9AmSfEEq_SN9xPP_qrA2I6Ftq_D9Qw', active: true, inventory: 20)
+
+        visit item_path(vampire)
+        click_button 'Add to Cart'
+        visit item_path(vampire)
+        click_button 'Add to Cart'
+        visit item_path(vampire)
+        click_button 'Add to Cart'
+        visit item_path(vampire)
+        click_button 'Add to Cart'
+        visit item_path(vampire)
+        click_button 'Add to Cart'
+        visit item_path(vampire)
+        click_button 'Add to Cart'
+        visit item_path(vampire)
+        click_button 'Add to Cart'
+
+        visit '/cart'
+
+        expect(page).to have_content("Cart: 7")
+        expect(page).to have_content("Total: $332.50")
+
+        within "#item-#{vampire.id}" do
+          expect(page).to have_content("Discount Applied: #{discount_2.quantity} items at #{number_to_percentage(discount_2.percent, strip_insignificant_zeros: true)} off")
+          expect(page).to have_content("Subtotal: $332.50")
+        end
+      end
+
+      it "I see my total savings in the cart" do
+        discount_1 = @megan.discounts.create(percent: 5, quantity: 3)
+        visit item_path(@ogre)
+        click_button 'Add to Cart'
+        visit item_path(@ogre)
+        click_button 'Add to Cart'
+        visit item_path(@ogre)
+        click_button 'Add to Cart'
+
+        visit '/cart'
+        expect(page).to have_content("Cart: 3")
+        expect(page).to have_content("Total: $57.00")
+
+        within "#item-#{@ogre.id}" do
+          expect(page).to have_content("Discount Applied: #{discount_1.quantity} items at #{number_to_percentage(discount_1.percent, strip_insignificant_zeros: true)} off")
+          expect(page).to have_content("You saved $3.00!")
+          expect(page).to have_content("Subtotal: $57.00")
+        end
+      end
     end
   end
 end

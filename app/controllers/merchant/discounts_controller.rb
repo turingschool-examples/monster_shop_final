@@ -11,7 +11,7 @@ class Merchant::DiscountsController < Merchant::BaseController
 
   def create
     @merchant = Merchant.find(current_user.merchant_id)
-    @discount = merchant.discounts.create(discount_params)
+    @discount = @merchant.discounts.create(discount_params)
 
     if @discount.save
       redirect_to '/merchant/discounts'

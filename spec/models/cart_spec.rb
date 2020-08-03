@@ -63,5 +63,27 @@ RSpec.describe Cart do
 
       expect(@cart.count_of(@giant.id)).to eq(1)
     end
+
+    it ".discounted_subtotal_of()" do
+      vampire = @megan.items.create!(name: 'Vampire', description: "I'm a Vampire!", price: 50, image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTaLM_vbg2Rh-mZ-B4t-RSU9AmSfEEq_SN9xPP_qrA2I6Ftq_D9Qw', active: true, inventory: 50 )
+      discount_1 = @megan.discounts.create(percent: 5, quantity: 10)
+
+      cart_1 = Cart.new({
+        vampire.id.to_s => 20,
+        })
+
+        expect(cart_1.discounted_subtotal_of(vampire.id)).to eq(975)
+      end
+
+    it ".savings()" do
+      vampire = @megan.items.create!(name: 'Vampire', description: "I'm a Vampire!", price: 50, image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTaLM_vbg2Rh-mZ-B4t-RSU9AmSfEEq_SN9xPP_qrA2I6Ftq_D9Qw', active: true, inventory: 50 )
+      discount_1 = @megan.discounts.create(percent: 5, quantity: 10)
+
+      cart_1 = Cart.new({
+        vampire.id.to_s => 20,
+        })
+
+        expect(cart_1.savings(vampire.id)).to eq(25)
+    end
   end
 end
