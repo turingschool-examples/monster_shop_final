@@ -127,7 +127,7 @@ RSpec.describe 'Merchant Dashboard' do
 
       expect(current_path).to eq("/merchant/discounts/new")
       expect(page).to have_content("Item amount can't be blank")
-      expect(page).to have_content("Percentage must be less than or equal to 100")
+      expect(page).to have_content("Percentage must be less than 100")
     end
 
     it "I can edit an existing discount" do
@@ -162,7 +162,7 @@ RSpec.describe 'Merchant Dashboard' do
       expect(page).to have_content("Percentage: 6")
     end
 
-    xit "I cannot edit an existing discount with bad or missing information" do
+    it "I cannot edit an existing discount with bad or missing information" do
       visit '/merchant'
 
       click_link "Discounts"
@@ -179,9 +179,9 @@ RSpec.describe 'Merchant Dashboard' do
       fill_in :percentage, with: 120
       fill_in :item_amount, with: 0
       click_button "Update Discount"
-
-      expect(current_path).to eq("/merchant/discounts/#{@discount.id}/edit")
-
+      expect(current_path).to eq("/merchant/discounts/#{@discount1.id}/edit")
+      expect(page).to have_content("Percentage must be less than 100")
+      expect(page).to have_content("Item amount must be greater than 0")
     end
   end
 end

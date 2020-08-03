@@ -5,6 +5,6 @@ class Discount < ApplicationRecord
                         :item_amount,
                         :description
 
-  validates  :percentage, numericality: { :only_integer => true, :less_than_or_equal_to => 100 }
+  validates  :percentage, numericality: { :only_integer => true, :less_than => 100 }
   validates  :item_amount, numericality: { :only_integer => true, :greater_than => 0 }
 end
