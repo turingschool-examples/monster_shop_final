@@ -126,5 +126,37 @@ RSpec.describe 'Merchant Dashboard' do
       expect(page).to have_content("Item amount can't be blank")
       expect(page).to have_content("Percentage must be less than or equal to 100")
     end
+
+    it "I can edit an existing discount" do
+      five_off = @m_user.merchant.discounts.create(percentage: 5, item_amount: 5, description: 'Five percent off of five items or more!')
+
+      visit '/merchant'
+
+      click_link "Discounts"
+
+      within ".discounts-#{five_off.id}" do
+        expect(page).to have_content('Edit Discount')
+        click_on 'Edit Discount'
+      end
+
+      expect(current_path).to eq("/merchant/discounts/#{five_off.id}/edit")
+
+      expect(find_field('Percentage').value).to eq '5'
+      expect(find_field('Item Amount').value).to eq '5'
+      expect(find_field('Description').value).to eq 'Five percent off of five items or more!'
+
+      fill_in 'Percentage', with: 5
+      fill_in 'Item Amount', with: 4
+      fill_in 'Description', with: 'Five percent off of four items or more!?'
+      click_button "Update Discount"
+
+      expect(current_path).to eq("/merchant/discounts")
+      expect(page).to have_content("Discount Updated")
+      expect(page).to have_content(five_off.percentage)
+      expect(page).to_not have_content(five_off.item_amount)
+      expect(page).to_not have_content(five_off.description)
+      expect(page).to have_content("Description: Five percent off of four items or more!?")
+      expect(page).to have_content("Item amount: 4")
+    end
   end
 end
