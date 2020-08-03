@@ -60,4 +60,8 @@ class Cart
     cost_discounted_items = discounted_price * discounted_item_quantity
     cost_full_price_items + cost_discounted_items
   end
+
+  def savings(item_id)
+    (@contents[item_id.to_s] * Item.find(item_id).price) - discounted_subtotal_of(item_id)
+  end
 end
