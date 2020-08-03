@@ -40,6 +40,8 @@ Rails.application.routes.draw do
     put '/items/:id/change_status', to: 'items#change_status'
     get '/orders/:id/fulfill/:order_item_id', to: 'orders#fulfill'
     get '/discounts', to: 'discounts#index'
+    get '/discounts/new', to: 'discounts#new'
+    post '/discounts', to: 'discounts#create'
   end
 
   namespace :admin do

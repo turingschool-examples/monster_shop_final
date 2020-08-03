@@ -78,18 +78,26 @@ RSpec.describe 'Merchant Dashboard' do
       end
     end
 
-    # it "can see a link to add a discount" do
-    #   visit '/merchant'
-    #
-    #   click_link "Bulk Discounts"
-    #
-    #   expect(current_path).to eq("/discounts/new")
-    #
-    #   fill_in 'name', with: "Hippo Bulk Discount"
-    #   fill_in 'percent_off', with: 5
-    #   fill_in 'min_quantity', with: 6
-    #
-    #
-    # end
+    it "can see a link to add a discount" do
+      visit '/merchant'
+
+      click_link "Bulk Discounts"
+
+      expect(current_path).to eq("/merchant/discounts")
+
+      click_link "New Discount"
+
+      expect(current_path).to eq("/merchant/discounts/new")
+
+      fill_in 'name', with: "Hippo Bulk Discount"
+      fill_in 'percent_off', with: 5
+      fill_in 'min_quantity', with: 6
+
+      click_on 'Create Discount'
+
+      expect(current_path).to eq("/merchant/discounts")
+      expect(page).to have_content("New Bulk Discount Created")
+
+    end
   end
 end
