@@ -6,6 +6,9 @@ RSpec.describe 'Merchant Dashboard' do
       @merchant_1 = Merchant.create!(name: 'Megans Marmalades', address: '123 Main St', city: 'Denver', state: 'CO', zip: 80218)
       @merchant_2 = Merchant.create!(name: 'Brians Bagels', address: '125 Main St', city: 'Denver', state: 'CO', zip: 80218)
       @m_user = @merchant_1.users.create(name: 'Megan', address: '123 Main St', city: 'Denver', state: 'CO', zip: 80218, email: 'megan@example.com', password: 'securepassword')
+      @discount1 = @m_user.merchant.discounts.create(percentage: 5, item_amount: 5, description: 'Five percent off of five items or more!')
+      @discount2 = @m_user.merchant.discounts.create(percentage: 10, item_amount: 10, description: 'Ten percent off of ten items or more!')
+      @discount3 = @m_user.merchant.discounts.create(percentage: 20, item_amount: 20, description: 'Twenty percent off of twenty items or more!')
       @ogre = @merchant_1.items.create!(name: 'Ogre', description: "I'm an Ogre!", price: 20.25, image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTaLM_vbg2Rh-mZ-B4t-RSU9AmSfEEq_SN9xPP_qrA2I6Ftq_D9Qw', active: true, inventory: 5 )
       @giant = @merchant_1.items.create!(name: 'Giant', description: "I'm a Giant!", price: 50, image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTaLM_vbg2Rh-mZ-B4t-RSU9AmSfEEq_SN9xPP_qrA2I6Ftq_D9Qw', active: true, inventory: 3 )
       @hippo = @merchant_2.items.create!(name: 'Hippo', description: "I'm a Hippo!", price: 50, image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTaLM_vbg2Rh-mZ-B4t-RSU9AmSfEEq_SN9xPP_qrA2I6Ftq_D9Qw', active: true, inventory: 1 )
@@ -128,18 +131,17 @@ RSpec.describe 'Merchant Dashboard' do
     end
 
     it "I can edit an existing discount" do
-      five_off = @m_user.merchant.discounts.create(percentage: 5, item_amount: 5, description: 'Five percent off of five items or more!')
 
       visit '/merchant'
 
       click_link "Discounts"
 
-      within ".discounts-#{five_off.id}" do
+      within ".discounts-#{@discount1.id}" do
         expect(page).to have_content('Edit Discount')
-        click_on 'Edit Discount'
+        click_link "Edit Discount"
       end
 
-      expect(current_path).to eq("/merchant/discounts/#{five_off.id}/edit")
+      expect(current_path).to eq("/merchant/discounts/#{@discount1.id}/edit")
 
       expect(find_field('Percentage').value).to eq '5'
       expect(find_field('Item amount').value).to eq '5'
@@ -158,6 +160,28 @@ RSpec.describe 'Merchant Dashboard' do
       expect(page).to have_content("Description: Six percent off of four items or more!?")
       expect(page).to have_content("Item amount: 4")
       expect(page).to have_content("Percentage: 6")
+    end
+
+    xit "I cannot edit an existing discount with bad or missing information" do
+      visit '/merchant'
+
+      click_link "Discounts"
+
+      within ".discounts-#{@discount1.id}" do
+        expect(page).to have_content('Edit Discount')
+        click_on 'Edit Discount'
+      end
+
+      expect(find_field('Percentage').value).to eq '5'
+      expect(find_field('Item amount').value).to eq '5'
+      expect(find_field('Description').value).to eq 'Five percent off of five items or more!'
+
+      fill_in :percentage, with: 120
+      fill_in :item_amount, with: 0
+      click_button "Update Discount"
+
+      expect(current_path).to eq("/merchant/discounts/#{@discount.id}/edit")
+
     end
   end
 end

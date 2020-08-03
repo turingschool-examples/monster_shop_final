@@ -435,6 +435,20 @@
           null
         ]
       },
+      "/Users/erichale/turing/2module/projects/monster_shop_final/app/models/discount.rb": {
+        "lines": [
+          1,
+          1,
+          null,
+          1,
+          null,
+          null,
+          null,
+          1,
+          1,
+          null
+        ]
+      },
       "/Users/erichale/turing/2module/projects/monster_shop_final/app/models/item.rb": {
         "lines": [
           1,
@@ -709,9 +723,6 @@
           1,
           1,
           null,
-          0,
-          null,
-          null,
           null,
           1,
           1,
@@ -723,22 +734,8 @@
           null,
           null
         ]
-      },
-      "/Users/erichale/turing/2module/projects/monster_shop_final/app/models/discount.rb": {
-        "lines": [
-          1,
-          1,
-          null,
-          1,
-          null,
-          null,
-          null,
-          1,
-          1,
-          null
-        ]
       }
     },
-    "timestamp": 1596488042
+    "timestamp": 1596490991
   }
 }
