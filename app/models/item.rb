@@ -29,4 +29,8 @@ class Item < ApplicationRecord
   def average_rating
     reviews.average(:rating)
   end
+
+  def discount
+    merchant.discounts.order("quantity DESC").limit(1).first
+  end
 end
