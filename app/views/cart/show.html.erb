@@ -8,7 +8,7 @@
       <h2><%= link_to item.name, "/items/#{item.id}" %></h2>
       <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTaLM_vbg2Rh-mZ-B4t-RSU9AmSfEEq_SN9xPP_qrA2I6Ftq_D9Qw">
       <% if item.discount.nil? == false %>
-        <% if item.discount.quantity < cart.count_of(item.id) %>
+        <% if item.discount.quantity <= cart.count_of(item.id) %>
         <p>Discount Applied: <%= item.discount.quantity %> items at <%= number_to_percentage(item.discount.percent, strip_insignificant_zeros: true) %> off</p>
         <% end %>
       <% end %>
