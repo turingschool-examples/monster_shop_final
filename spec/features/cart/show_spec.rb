@@ -168,7 +168,7 @@ RSpec.describe 'Cart Show Page' do
         expect(page).to have_content("Cart: 0")
       end
 
-      it "I add the minimum quantity of an item for a bulk discount and I see the discount reflected in my cart" do
+      it "I add the minimum quantity of an item for a bulk discount and I see the discount reflected in my subtotal" do
         @discount_1 = @megan.discounts.create(percent: 5, quantity: 3)
         visit item_path(@ogre)
         click_button 'Add to Cart'
@@ -184,6 +184,7 @@ RSpec.describe 'Cart Show Page' do
         visit '/cart'
 
         expect(page).to have_content("Cart: 5")
+        expect(page).to have_content("Total: $97.00")
 
         within "#item-#{@ogre.id}" do
           expect(page).to have_content("Discount Applied: #{@discount_1.quantity} items at #{number_to_percentage(@discount_1.percent, strip_insignificant_zeros: true)} off")
