@@ -186,7 +186,7 @@ RSpec.describe 'Cart Show Page' do
         expect(page).to have_content("Cart: 5")
 
         within "#item-#{@ogre.id}" do
-          expect(page).to have_content("Discount Applied: #{@discount_1.quantity} at #{number_to_percentage(@discount_1.percent, strip_insignificant_zeros: true)} off")
+          expect(page).to have_content("Discount Applied: #{@discount_1.quantity} items at #{number_to_percentage(@discount_1.percent, strip_insignificant_zeros: true)} off")
           expect(page).to have_content("Subtotal: $97.00")
           expect(page).to have_content("You saved $3.00 dollars!")
         end
