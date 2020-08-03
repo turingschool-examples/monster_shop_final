@@ -255,8 +255,6 @@ RSpec.describe 'Cart Show Page' do
         expect(page).to have_content("Cart: 5")
         expect(page).to have_content("Total: $153.00")
 
-        save_and_open_page
-
         within "#item-#{@ogre.id}" do
           expect(page).to have_content("Discount Applied: #{discount_1.quantity} items at #{number_to_percentage(discount_1.percent, strip_insignificant_zeros: true)} off")
           expect(page).to have_content("Subtotal: $57.00")
@@ -265,6 +263,37 @@ RSpec.describe 'Cart Show Page' do
         within "#item-#{@hippo.id}" do
           expect(page).to have_content("Discount Applied: #{discount_2.quantity} items at #{number_to_percentage(discount_2.percent, strip_insignificant_zeros: true)} off")
           expect(page).to have_content("Subtotal: $96.00")
+        end
+      end
+
+      it "I can add multiple discounts from the same merchant for different items" do
+        discount_1 = @megan.discounts.create(percent: 5, quantity: 3)
+
+        visit item_path(@ogre)
+        click_button 'Add to Cart'
+        visit item_path(@ogre)
+        click_button 'Add to Cart'
+        visit item_path(@ogre)
+        click_button 'Add to Cart'
+        visit item_path(@giant)
+        click_button 'Add to Cart'
+        visit item_path(@giant)
+        click_button 'Add to Cart'
+        visit item_path(@giant)
+        click_button 'Add to Cart'
+
+        visit '/cart'
+        expect(page).to have_content("Cart: 6")
+        expect(page).to have_content("Total: $199.50")
+
+        within "#item-#{@ogre.id}" do
+          expect(page).to have_content("Discount Applied: #{discount_1.quantity} items at #{number_to_percentage(discount_1.percent, strip_insignificant_zeros: true)} off")
+          expect(page).to have_content("Subtotal: $57.00")
+        end
+
+        within "#item-#{@giant.id}" do
+          expect(page).to have_content("Discount Applied: #{discount_1.quantity} items at #{number_to_percentage(discount_1.percent, strip_insignificant_zeros: true)} off")
+          expect(page).to have_content("Subtotal: $142.50")
         end
       end
     end
