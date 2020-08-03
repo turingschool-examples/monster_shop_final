@@ -19,6 +19,22 @@ class Merchant::DiscountsController < Merchant::BaseController
     end
   end
 
+  def edit
+    @discount = Discount.find(params[:id])
+  end
+
+  def update
+    discount = Discount.find(params[:id])
+    discount.update(discount_params)
+    if discount.save
+      redirect_to '/merchant/discounts'
+      flash[:message] = "Discount Updated"
+    else
+      redirect_to "/merchant/discounts/#{discount.id}/edit"
+      flash[:error] = discount.errors.full_messages.to_sentence
+    end
+  end
+
   private
 
   def discount_params

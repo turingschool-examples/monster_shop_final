@@ -81,7 +81,7 @@ RSpec.describe 'Merchant Dashboard' do
     it "can see a link to add a discount" do
       visit '/merchant'
 
-      click_link "Bulk Discounts"
+      click_link "My Bulk Discounts"
 
       expect(current_path).to eq("/merchant/discounts")
 
@@ -97,7 +97,31 @@ RSpec.describe 'Merchant Dashboard' do
 
       expect(current_path).to eq("/merchant/discounts")
       expect(page).to have_content("New Bulk Discount Created")
+      expect(page).to have_content("Hippo Bulk Discount")
+    end
 
+    it "can edit a discount" do
+      visit '/merchant'
+
+      click_link "My Bulk Discounts"
+
+      expect(current_path).to eq("/merchant/discounts")
+
+      within "#discount-#{@discount1.id}" do
+        click_on "Edit Discount"
+      end
+
+      expect(current_path).to eq("/merchant/discounts/#{@discount1.id}/edit")
+
+      fill_in 'name', with: "Ogre Bulk Discount"
+      click_on "Update Discount"
+
+      expect(current_path).to eq("/merchant/discounts")
+
+      within "#discount-#{@discount1.id}" do
+        expect(page).to have_content("Ogre Bulk Discount")
+      end
+      
     end
   end
 end
