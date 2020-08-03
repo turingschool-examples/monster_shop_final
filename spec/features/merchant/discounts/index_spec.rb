@@ -85,7 +85,6 @@ RSpec.describe 'Merchant Discount Index Page' do
         @discount_1.update(status: 1)
 
         visit '/merchant/discounts'
-        save_and_open_page
 
         within ".discount-#{@discount_2.id}" do
           expect(page).to_not have_link("Delete")
