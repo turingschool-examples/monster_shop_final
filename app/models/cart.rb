@@ -38,7 +38,7 @@ class Cart
 
   def subtotal_of(item_id)
     item = Item.find(item_id)
-    if item.discount.nil?
+    if item.discount.nil? || @contents[item_id.to_s] < item.discount.quantity
       @contents[item_id.to_s] * Item.find(item_id).price
     else
       discounted_subtotal_of(item_id)

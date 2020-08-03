@@ -169,7 +169,43 @@ RSpec.describe 'Cart Show Page' do
       end
 
       it "I add the minimum quantity of an item for a bulk discount and I see the discount reflected in my subtotal" do
-        @discount_1 = @megan.discounts.create(percent: 5, quantity: 3)
+        discount_1 = @megan.discounts.create(percent: 5, quantity: 3)
+        visit item_path(@ogre)
+        click_button 'Add to Cart'
+        visit item_path(@ogre)
+        click_button 'Add to Cart'
+
+        visit '/cart'
+        expect(page).to have_content("Cart: 2")
+        expect(page).to have_content("Total: $40.00")
+
+        within "#item-#{@ogre.id}" do
+          expect(page).to_not have_content("Discount Applied: #{discount_1.quantity} items at #{number_to_percentage(discount_1.percent, strip_insignificant_zeros: true)} off")
+          expect(page).to have_content("Subtotal: $40.00")
+        end
+
+        visit item_path(@ogre)
+        click_button 'Add to Cart'
+        visit item_path(@ogre)
+        click_button 'Add to Cart'
+        visit item_path(@ogre)
+        click_button 'Add to Cart'
+        visit item_path(@hippo)
+        click_button 'Add to Cart'
+
+        visit '/cart'
+
+        expect(page).to have_content("Cart: 6")
+        expect(page).to have_content("Total: $147.00")
+
+        within "#item-#{@ogre.id}" do
+          expect(page).to have_content("Discount Applied: #{discount_1.quantity} items at #{number_to_percentage(discount_1.percent, strip_insignificant_zeros: true)} off")
+          expect(page).to have_content("Subtotal: $97.00")
+        end
+      end
+
+      it "If I remove items and do not have enough quantity for a discount I no longer see the bulk discount" do
+        discount_1 = @megan.discounts.create(percent: 5, quantity: 3)
         visit item_path(@ogre)
         click_button 'Add to Cart'
         visit item_path(@ogre)
@@ -183,12 +219,20 @@ RSpec.describe 'Cart Show Page' do
 
         visit '/cart'
 
-        expect(page).to have_content("Cart: 5")
-        expect(page).to have_content("Total: $97.00")
+        within "#item-#{@ogre.id}" do
+          expect(page).to have_content("Discount Applied: #{discount_1.quantity} items at #{number_to_percentage(discount_1.percent, strip_insignificant_zeros: true)} off")
+          expect(page).to have_content("Subtotal: $97.00")
+          click_button ('Less of This!')
+          click_button ('Less of This!')
+          click_button ('Less of This!')
+        end
+
+        expect(page).to have_content("Cart: 2")
+        expect(page).to have_content("Total: $40.00")
 
         within "#item-#{@ogre.id}" do
-          expect(page).to have_content("Discount Applied: #{@discount_1.quantity} items at #{number_to_percentage(@discount_1.percent, strip_insignificant_zeros: true)} off")
-          expect(page).to have_content("Subtotal: $97.00")
+          expect(page).to_not have_content("Discount Applied: #{discount_1.quantity} items at #{number_to_percentage(discount_1.percent, strip_insignificant_zeros: true)} off")
+          expect(page).to have_content("Subtotal: $40.00")
         end
       end
     end
