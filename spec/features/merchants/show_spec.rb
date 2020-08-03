@@ -73,11 +73,11 @@ RSpec.describe 'Merchant Show Page' do
     it "I see all of the active discounts available for a merchant" do
       visit "/merchants/#{@megan.id}"
 
-      within ".discounts-#{@discount_1.id}" do
+      within ".discount-#{@discount_1.id}" do
         expect(page).to have_content("Purchase #{@discount_1.quantity} of any single item and get #{number_to_percentage(@discount_1.percent, strip_insignificant_zeros: true)} off!")
       end
 
-      within ".discounts-#{@discount_2.id}" do
+      within ".discount-#{@discount_2.id}" do
         expect(page).to have_content("Purchase #{@discount_2.quantity} of any single item and get #{number_to_percentage(@discount_2.percent, strip_insignificant_zeros: true)} off!")
       end
     end
