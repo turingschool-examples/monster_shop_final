@@ -25,7 +25,7 @@
     <% end %>
 
     <p>Quantity: <%= order_item.quantity %></p>
-    <p>Price: <%= number_to_currency(order_item.price) %></p>
+    <p>Price: <%= number_to_currency(order_item.blended_price) %></p>
     <p>Subtotal: <%= number_to_currency(order_item.subtotal) %></p>
   </section>
 <% end %>
