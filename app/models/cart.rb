@@ -23,28 +23,26 @@ class Cart
       Item.find(item_id)
     end
   end
-#discount
+
   def grand_total
     grand_total = 0.0
     @contents.each do |item_id, quantity|
-      #change to be based off of sub total
       grand_total += subtotal_of(item_id)
     end
     grand_total
   end
-#discount
+
   def count_of(item_id)
     @contents[item_id.to_s]
   end
-# discount
+
   def subtotal_of(item_id)
     item = Item.find(item_id)
-    #require "pry"; binding.pry
     if discount_eligible?(item_id).nil?
       @contents[item_id.to_s] * Item.find(item_id).price
     else
-      # discount = discount_eligible?(item_id)
-      # @contents[item_id.to_s] * Item.find(item_id).price
+      discount = discount_eligible?(item_id).percentage.to_f / 100
+      @contents[item_id.to_s] * Item.find(item_id).price - discount
     end
   end
 
@@ -55,7 +53,7 @@ class Cart
   def discount_eligible?(item_id)
     item = Item.find(item_id)
     item_count = count_of(item_id)
-    item.discounts
-    item.discounts.where("item_amount <= #{item_count}").first
+    ordered_discounts = item.discounts.order(:item_amount)
+    ordered_discounts.where("item_amount <= #{item_count}").last
   end
 end
