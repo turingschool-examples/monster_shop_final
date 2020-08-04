@@ -33,4 +33,7 @@ RSpec.describe "as a merchant user" do
     expect(page).to have_content("Percent: #{percent}%")
     expect(page).to have_content("Minimum item quantity: #{quantity}")
   end
+
+  it "does not allow a merchant user to create a discount that already exists" do
+  end
 end
