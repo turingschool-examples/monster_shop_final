@@ -121,7 +121,26 @@ RSpec.describe 'Merchant Dashboard' do
       within "#discount-#{@discount1.id}" do
         expect(page).to have_content("Ogre Bulk Discount")
       end
-      
+    end
+
+    it "can see an error message when any edit fields are empty" do
+      visit '/merchant'
+
+      click_link "My Bulk Discounts"
+
+      expect(current_path).to eq("/merchant/discounts")
+
+      within "#discount-#{@discount1.id}" do
+        click_on "Edit Discount"
+      end
+
+      expect(current_path).to eq("/merchant/discounts/#{@discount1.id}/edit")
+
+      fill_in 'name', with: ""
+      click_on "Update Discount"
+
+      expect(current_path).to eq("/merchant/discounts/#{@discount1.id}/edit")
+      expect(page).to have_content("Name can't be blank")
     end
   end
 end
