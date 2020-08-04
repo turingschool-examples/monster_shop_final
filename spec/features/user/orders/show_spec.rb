@@ -87,7 +87,7 @@ RSpec.describe 'Order Show Page' do
       discount_1 = @megan.discounts.create(percent: 5, quantity: 2)
 
       visit "/profile/orders/#{@order_2.id}"
-      
+
       within "#order-item-#{@order_item_2.id}" do
         expect(page).to have_content("Discount Applied: #{discount_1.quantity} items at #{number_to_percentage(discount_1.percent, strip_insignificant_zeros: true)} off")
         expect(page).to have_content("Subtotal: $95.00")
@@ -99,6 +99,48 @@ RSpec.describe 'Order Show Page' do
       end
 
       expect(page).to have_content("Total: $133.48")
+    end
+
+    it "If one item is discounted and one is not I see correct prices" do
+      discount_1 = @megan.discounts.create(percent: 5, quantity: 2)
+      order_item_4 = @order_2.order_items.create!(item: @hippo, price: @hippo.price, quantity: 1, fulfilled: true)
+
+      visit "/profile/orders/#{@order_2.id}"
+
+      within "#order-item-#{@order_item_2.id}" do
+        expect(page).to have_content("Discount Applied: #{discount_1.quantity} items at #{number_to_percentage(discount_1.percent, strip_insignificant_zeros: true)} off")
+        expect(page).to have_content("Subtotal: $95.00")
+      end
+
+      within "#order-item-#{@order_item_3.id}" do
+        expect(page).to have_content("Discount Applied: #{discount_1.quantity} items at #{number_to_percentage(discount_1.percent, strip_insignificant_zeros: true)} off")
+        expect(page).to have_content("Subtotal: $38.48")
+      end
+
+      within "#order-item-#{order_item_4.id}" do
+        expect(page).to_not have_content("Discount Applied: #{discount_1.quantity} items at #{number_to_percentage(discount_1.percent, strip_insignificant_zeros: true)} off")
+        expect(page).to have_content(order_item_4.subtotal)
+      end
+
+      expect(page).to have_content("Total: $183.48")
+    end
+
+    it "I savings for each item and total savings" do
+      discount_1 = @megan.discounts.create(percent: 5, quantity: 2)
+
+      visit "/profile/orders/#{@order_2.id}"
+
+      within "#order-item-#{@order_item_2.id}" do
+        expect(page).to have_content("Savings: $5.00")
+        expect(page).to have_content("Subtotal: $95.00")
+      end
+
+      within "#order-item-#{@order_item_3.id}" do
+        expect(page).to have_content("Savings: $2.02")
+        expect(page).to have_content("Subtotal: $38.48")
+      end
+
+      expect(page).to have_content("Total Savings: $7.02")
     end
   end
 end

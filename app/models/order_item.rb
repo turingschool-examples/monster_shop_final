@@ -10,6 +10,10 @@ class OrderItem < ApplicationRecord
     end
   end
 
+  def savings
+    ((quantity * price) - subtotal).round(2)
+  end
+
   def fulfill
     update(fulfilled: true)
     item.update(inventory: item.inventory - quantity)
