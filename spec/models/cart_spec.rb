@@ -72,7 +72,7 @@ RSpec.describe Cart do
         vampire.id.to_s => 20,
         })
 
-        expect(cart_1.discounted_subtotal_of(vampire.id)).to eq(975)
+        expect(cart_1.discounted_subtotal_of(vampire.id)).to eq(950.0)
       end
 
     it ".savings()" do
@@ -83,7 +83,7 @@ RSpec.describe Cart do
         vampire.id.to_s => 20,
         })
 
-      expect(cart_1.savings(vampire.id)).to eq(25)
+      expect(cart_1.savings(vampire.id)).to eq(50)
     end
 
     it ".blended_price" do
@@ -94,7 +94,7 @@ RSpec.describe Cart do
         vampire.id.to_s => 20,
         })
 
-      expect(cart_1.blended_price(vampire.id)).to eq(48.75)
+      expect(cart_1.blended_price(vampire.id)).to eq(47.5)
     end
   end
 end

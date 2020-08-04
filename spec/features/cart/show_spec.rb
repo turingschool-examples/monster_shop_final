@@ -196,11 +196,11 @@ RSpec.describe 'Cart Show Page' do
         visit '/cart'
 
         expect(page).to have_content("Cart: 6")
-        expect(page).to have_content("Total: $147.00")
+        expect(page).to have_content("Total: $145.00")
 
         within "#item-#{@ogre.id}" do
           expect(page).to have_content("Discount Applied: #{discount_1.quantity} items at #{number_to_percentage(discount_1.percent, strip_insignificant_zeros: true)} off")
-          expect(page).to have_content("Subtotal: $97.00")
+          expect(page).to have_content("Subtotal: $95.00")
         end
       end
 
@@ -221,7 +221,7 @@ RSpec.describe 'Cart Show Page' do
 
         within "#item-#{@ogre.id}" do
           expect(page).to have_content("Discount Applied: #{discount_1.quantity} items at #{number_to_percentage(discount_1.percent, strip_insignificant_zeros: true)} off")
-          expect(page).to have_content("Subtotal: $97.00")
+          expect(page).to have_content("Subtotal: $95.00")
           click_button ('Less of This!')
           click_button ('Less of This!')
           click_button ('Less of This!')

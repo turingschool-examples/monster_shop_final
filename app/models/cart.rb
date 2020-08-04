@@ -61,11 +61,9 @@ class Cart
 
   def discounted_subtotal_of(item_id)
     item = Item.find(item_id)
-    items_at_full_price = count_of(item_id) - applicable_discount(item_id).quantity
-    discounted_price = item.price - (item.price * (applicable_discount(item_id).percent.to_f / 100))
-    cost_full_price_items = item.price * items_at_full_price
-    cost_discounted_items = discounted_price * applicable_discount(item_id).quantity
-    cost_full_price_items + cost_discounted_items
+    percent = 1 - (applicable_discount(item_id).percent.to_f / 100)
+    discounted_price = item.price * percent
+    count_of(item_id) * discounted_price
   end
 
   def savings(item_id)
