@@ -14,7 +14,7 @@ RSpec.describe 'Order Show Page' do
       @order_1 = @user.orders.create!(status: "packaged")
       @order_2 = @user.orders.create!(status: "pending")
       @order_item_1 = @order_1.order_items.create!(item: @ogre, price: @ogre.price, quantity: 2, fulfilled: true)
-      @order_item_2 = @order_2.order_items.create!(item: @giant, price: @hippo.price, quantity: 2, fulfilled: true)
+      @order_item_2 = @order_2.order_items.create!(item: @giant, price: @giant.price, quantity: 2, fulfilled: true)
       @order_item_3 = @order_2.order_items.create!(item: @ogre, price: @ogre.price, quantity: 2, fulfilled: false)
       allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(@user)
     end
@@ -81,6 +81,24 @@ RSpec.describe 'Order Show Page' do
       expect(@order_item_3.fulfilled).to eq(false)
       expect(@giant.inventory).to eq(5)
       expect(@ogre.inventory).to eq(7)
+    end
+
+    it "I see final discounted prices on my order page" do
+      discount_1 = @megan.discounts.create(percent: 5, quantity: 2)
+
+      visit "/profile/orders/#{@order_2.id}"
+
+      expect(page).to have_content("Total: $203.73")
+
+      within "#order-item-#{@order_item_2.id}" do
+        expect(page).to have_content("Discount Applied: #{discount_1.quantity} items at #{number_to_percentage(discount_1.percent, strip_insignificant_zeros: true)} off")
+        expect(page).to have_content("Subtotal: $145")
+      end
+
+      within "#order-item-#{@order_item_3.id}" do
+        expect(page).to have_content("Discount Applied: #{discount_1.quantity} items at #{number_to_percentage(discount_1.percent, strip_insignificant_zeros: true)} off")
+        expect(page).to have_content("Subtotal: $58.73")
+      end
     end
   end
 end
