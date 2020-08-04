@@ -17,9 +17,9 @@
     <h3><%= link_to order_item.item.name, item_path(order_item.item) %></h3>
     <p><%= order_item.item.description %></p>
 
-    <% if order_item.item.discount.nil? == false %>
-      <% if order_item.item.discount.quantity <= order_item.quantity %>
-      <p>Discount Applied: <%= order_item.item.discount.quantity %> items at <%= number_to_percentage(order_item.item.discount.percent, strip_insignificant_zeros: true) %> off</p>
+    <% if order_item.applicable_discount.nil? == false %>
+      <% if order_item.applicable_discount.quantity <= order_item.quantity %>
+      <p>Discount Applied: <%= order_item.applicable_discount.quantity %> items at <%= number_to_percentage(order_item.applicable_discount.percent, strip_insignificant_zeros: true) %> off</p>
       <p>Savings: <%= number_to_currency(order_item.savings) %></p>
       <% end %>
     <% end %>

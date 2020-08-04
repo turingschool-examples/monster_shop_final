@@ -61,7 +61,7 @@ RSpec.describe Merchant do
     end
 
     it ".active_discounts" do
-      expect(@megan.active_discounts).to eq([@discount_1, @discount_2])
+      expect(@megan.active_discounts).to include(@discount_1, @discount_2)
     end
   end
 end
