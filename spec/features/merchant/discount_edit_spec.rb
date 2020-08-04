@@ -17,7 +17,6 @@ RSpec.describe 'Merchant Discount Edit' do
       click_link 'Edit'
 
       expect(current_path).to eq("/merchant/discounts/#{@twenty_ten.id}/edit")
-      save_and_open_page
 
       find_field('Name', with: 'Twenty on Ten')
       find_field('Item minimum', with: '10')
@@ -32,6 +31,17 @@ RSpec.describe 'Merchant Discount Edit' do
       expect(page).to have_content('Twenty on Twenty')
       expect(page).to have_content('20')
       expect(page).to have_content('20')
+    end
+
+    it 'Can\'t update Discount if any fields are left blank' do
+
+      visit "/merchant/discounts/#{@twenty_ten.id}/edit"
+
+      fill_in 'Name', with: nil
+      click_on 'Update Discount'
+
+      expect(current_path).to eq("/merchant/discounts/#{@twenty_ten.id}/edit")
+      expect(page).to have_content("Name can't be blank")
     end
   end
 end
