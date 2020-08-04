@@ -72,10 +72,18 @@ RSpec.describe Cart do
       expect(@cart.count_of(@giant.id)).to eq(1)
     end
 
+    it '.can_get_discount?()' do
+      expect(@cart_2.can_get_discount?(@ogre.id, @discount_1)).to eq(true)
+      expect(@cart_2.can_get_discount?(@gnome.id, @discount_1)).to eq(true)
+      expect(@cart_2.can_get_discount?(@dragon.id, @discount_1)).to eq(false)
+    end
+
     it '.check_for_discount()' do
       expect(@cart_2.check_for_discount(@ogre.id)).to eq(true)
       expect(@cart_2.check_for_discount(@gnome.id)).to eq(true)
       expect(@cart_2.check_for_discount(@dragon.id)).to eq(false)
     end
+
+    
   end
 end

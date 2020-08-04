@@ -57,17 +57,21 @@ class Cart
   end
 
   def can_get_discount?(item_id, discount)
-    count_of(item_id) == discount.required_amount
+    count_of(item_id) >= discount.required_amount
   end
 
   def apply_discount(item_id)
-    current_discount = 0
-    Merchant.find(Item.find(item_id).merchant_id).discounts.each do |discount|
-      if can_get_discount?(item_id, discount)
-        current_discount = discount.percentage if discount.percentage >= current_discount
+      current_discount = 0
+      Merchant.find(Item.find(item_id).merchant_id).discounts.each do |discount|
+        if can_get_discount?(item_id, discount)
+          current_discount = discount.percentage if discount.percentage >= current_discount
+        end
       end
+      current_discount.to_f / 100.00
     end
-    current_discount.to_f / 100.00
+
+  def available_discounts(item_id)
+    current_discount = discount.percentage if discount.percentage >= current_discount
   end
 
   def discount_item(item_id)
