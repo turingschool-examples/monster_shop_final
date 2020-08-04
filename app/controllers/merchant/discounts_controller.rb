@@ -20,4 +20,8 @@ class Merchant::DiscountsController < Merchant::BaseController
       redirect_to "/merchant/discounts"
     end
   end
+
+  def edit
+    @discount = Discount.find(params[:id])
+  end
 end
