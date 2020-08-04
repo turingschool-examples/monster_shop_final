@@ -1,5 +1,6 @@
 <h2>New Discount</h2>
 <%= form_for [:merchant, @discount] do |f| %>
+  <%= f.hidden_field :merchant_id %>
   <%= f.label :percent, "Percent discount:" %>
   <%= f.number_field(:percent, in: 0..9999) %>
   <br>
