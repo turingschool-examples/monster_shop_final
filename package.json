@@ -2,4 +2,5 @@
   "name": "monster_shop",
   "private": true,
   "dependencies": {}
+  "heroku-postbuild": "npm run build"
 }
