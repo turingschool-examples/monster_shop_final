@@ -15,7 +15,7 @@
         <% end %>
       <% end %>
 
-      <p>Price: <%= number_to_currency(item.price) %></p>
+      <p>Price: <%= number_to_currency(cart.blended_price(item.id)) %></p>
       <p>Quantity: <%= cart.count_of(item.id) %></p>
       <p>Subtotal: <%= number_to_currency(cart.subtotal_of(item.id)) %></p>
       <p>Sold by: <%= link_to item.merchant.name, "/merchants/#{item.merchant_id}" %>, Inventory: <%= item.inventory %></p>
