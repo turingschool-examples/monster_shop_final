@@ -9,7 +9,11 @@ RSpec.describe "discounts index page" do
     fill_in :email, with: m_user.email
     fill_in :password, with: m_user.password
     click_button "Log In"
+<<<<<<< HEAD
 
+=======
+    
+>>>>>>> d16d52feb7978d983488bc937c9db46a04d89193
     visit "/merchant"
 
     expect(page).to have_link("Current Discounts")
