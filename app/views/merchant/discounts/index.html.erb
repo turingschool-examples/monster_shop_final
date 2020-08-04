@@ -7,7 +7,7 @@
     <th>Minimum Item Quantity</th>
   </tr>
   <% @discounts.each do |discount| %>
-    <tr>
+    <tr id = "discount-row-<%=discount.id%>">
       <td><%= discount.id %></td>
       <td><%= discount.percent %>%</td>
       <td><%= discount.quantity_required %></td>
