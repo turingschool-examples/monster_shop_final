@@ -42,7 +42,7 @@ class Cart
 
   def subtotal_of(item_id)
     item = Item.find(item_id)
-    if item.discount.nil? || @contents[item_id.to_s] < item.discount.quantity
+    if applicable_discount(item_id).nil? || @contents[item_id.to_s] < applicable_discount(item_id).quantity
       @contents[item_id.to_s] * Item.find(item_id).price
     else
       discounted_subtotal_of(item_id)
@@ -53,15 +53,18 @@ class Cart
     count_of(item_id) == Item.find(item_id).inventory
   end
 
+  def applicable_discount(item_id)
+    item = Item.find(item_id)
+    count = count_of(item_id)
+    item.discount.where("#{count} >= quantity").order('percent DESC').limit(1).first
+  end
+
   def discounted_subtotal_of(item_id)
     item = Item.find(item_id)
-    total_items_purchased = count_of(item_id)
-    discounted_item_quantity = item.discount.quantity
-    items_at_full_price = total_items_purchased - discounted_item_quantity
-    discount = item.discount.percent.to_f / 100
-    discounted_price = item.price - (item.price * discount)
+    items_at_full_price = count_of(item_id) - applicable_discount(item_id).quantity
+    discounted_price = item.price - (item.price * (applicable_discount(item_id).percent.to_f / 100))
     cost_full_price_items = item.price * items_at_full_price
-    cost_discounted_items = discounted_price * discounted_item_quantity
+    cost_discounted_items = discounted_price * applicable_discount(item_id).quantity
     cost_full_price_items + cost_discounted_items
   end
 
