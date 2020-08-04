@@ -15,7 +15,9 @@ class OrderItem < ApplicationRecord
   end
 
   def blended_price
-    (subtotal / quantity).round(2)
+    new_price = (subtotal / quantity).round(2)
+    update(price: new_price)
+    new_price
   end
 
   def fulfill
@@ -33,7 +35,7 @@ class OrderItem < ApplicationRecord
   end
 
   def discounted_subtotal
-    percent = 1 - (applicable_discount.percent.to_f / 100).round(2)
+    percent = 1 - (applicable_discount.percent.to_f / 100)
     discounted_price = item.price * percent
     quantity * discounted_price.round(2)
   end

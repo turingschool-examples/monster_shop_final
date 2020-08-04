@@ -63,7 +63,7 @@ class Cart
     item = Item.find(item_id)
     percent = 1 - (applicable_discount(item_id).percent.to_f / 100)
     discounted_price = item.price * percent
-    count_of(item_id) * discounted_price
+    count_of(item_id) * discounted_price.round(2)
   end
 
   def savings(item_id)
