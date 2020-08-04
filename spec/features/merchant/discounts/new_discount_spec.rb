@@ -27,11 +27,10 @@ RSpec.describe "as a merchant user" do
 
     expect(current_path).to eq("/merchant/discounts")
 
-    # make a table in erb?
+    save_and_open_page
     expect(page).to have_content("New discount created.")
-    # expect(page).to have_content("ID: ")
-    expect(page).to have_content("Percent: #{percent}%")
-    expect(page).to have_content("Minimum item quantity: #{quantity}")
+    expect(page).to have_content("5%")
+    expect(page).to have_content("10")
   end
 
   it "does not allow a merchant user to create a discount that already exists" do
