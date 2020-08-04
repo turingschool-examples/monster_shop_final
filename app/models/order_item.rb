@@ -3,7 +3,11 @@ class OrderItem < ApplicationRecord
   belongs_to :item
 
   def subtotal
-    quantity * price
+    if item.discount.nil? || quantity < item.discount.quantity
+      quantity * price
+    else
+      discounted_subtotal
+    end
   end
 
   def fulfill

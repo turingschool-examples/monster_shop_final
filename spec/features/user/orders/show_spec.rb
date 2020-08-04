@@ -87,18 +87,18 @@ RSpec.describe 'Order Show Page' do
       discount_1 = @megan.discounts.create(percent: 5, quantity: 2)
 
       visit "/profile/orders/#{@order_2.id}"
-
-      expect(page).to have_content("Total: $203.73")
-
+      
       within "#order-item-#{@order_item_2.id}" do
         expect(page).to have_content("Discount Applied: #{discount_1.quantity} items at #{number_to_percentage(discount_1.percent, strip_insignificant_zeros: true)} off")
-        expect(page).to have_content("Subtotal: $145")
+        expect(page).to have_content("Subtotal: $95.00")
       end
 
       within "#order-item-#{@order_item_3.id}" do
         expect(page).to have_content("Discount Applied: #{discount_1.quantity} items at #{number_to_percentage(discount_1.percent, strip_insignificant_zeros: true)} off")
-        expect(page).to have_content("Subtotal: $58.73")
+        expect(page).to have_content("Subtotal: $38.48")
       end
+
+      expect(page).to have_content("Total: $133.48")
     end
   end
 end
