@@ -15,6 +15,7 @@
     <% if order_item.item.discount.nil? == false %>
       <% if order_item.item.discount.quantity <= order_item.quantity %>
       <p>Discount Applied: <%= order_item.item.discount.quantity %> items at <%= number_to_percentage(order_item.item.discount.percent, strip_insignificant_zeros: true) %> off</p>
+      <p>Savings: <%= number_to_currency(order_item.savings) %></p>
       <% end %>
     <% end %>
 
