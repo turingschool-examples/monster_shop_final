@@ -96,16 +96,16 @@ RSpec.describe 'Merchant Order Show Page' do
 
       within "#order-item-#{@order_item_3.id}" do
         expect(page).to have_content(@order_item_3.blended_price)
-        expect(page).to have_content("Discount Applied: #{@order_item_3.item.discount.id}")
+        expect(page).to have_content("Discount Applied: #{@order_item_3.applicable_discount.id}")
       end
 
       within "#order-item-#{@order_item_4.id}" do
         expect(page).to have_content(@order_item_4.blended_price)
-        expect(page).to have_content("Discount Applied: #{@order_item_3.item.discount.id}")
-        click_on "#{@order_item_3.item.discount.id}"
+        expect(page).to have_content("Discount Applied: #{@order_item_3.applicable_discount.id}")
+        click_on "#{@order_item_3.applicable_discount.id}"
       end
 
-      expect(current_path).to eq("/merchant/discounts/#{@order_item_3.item.discount.id}")
+      expect(current_path).to eq("/merchant/discounts/#{@order_item_3.applicable_discount.id}")
     end
   end
 end
