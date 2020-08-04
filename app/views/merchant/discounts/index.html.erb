@@ -1,13 +1,16 @@
 <h1>Current Discounts</h1>
 <%= link_to "Create New Discount", "/merchant/discounts/new" %>
+<br></br>
 <table class = "discount-table">
   <tr>
+    <th></th>
     <th>Discount ID</th>
     <th>Percentage Off</th>
     <th>Minimum Item Quantity</th>
   </tr>
   <% @discounts.each do |discount| %>
-    <tr>
+    <tr id = "discount-row-<%=discount.id%>">
+      <td><%= link_to "Edit", "/merchant/discounts/#{discount.id}/edit" %>
       <td><%= discount.id %></td>
       <td><%= discount.percent %>%</td>
       <td><%= discount.quantity_required %></td>
