@@ -1,4 +1,4 @@
-<h2>Edit Discount</h2>
+<h2>Edit Discount: <%= @discount.id %></h2>
 <%= form_for [:merchant, @discount] do |f| %>
   <%= f.hidden_field :merchant_id %>
   <%= f.label :percent, "Percent discount:" %>
