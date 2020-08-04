@@ -84,6 +84,9 @@ RSpec.describe Cart do
       expect(@cart_2.check_for_discount(@dragon.id)).to eq(false)
     end
 
-    
+    it '.apply_discount()' do
+      expect(@cart_2.apply_discount(@ogre.id)).to eq(0.1)
+      expect(@cart_2.apply_discount(@gnome.id)).to eq(0.1)
+    end
   end
 end
