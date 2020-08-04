@@ -7,6 +7,7 @@ RSpec.describe Cart do
       @brian = Merchant.create!(name: 'Brians Bagels', address: '125 Main St', city: 'Denver', state: 'CO', zip: 80218)
       @m_user = @megan.users.create(name: 'Megan', address: '123 Main St', city: 'Denver', state: 'CO', zip: 80218, email: 'megan@example.com', password: 'securepassword')
       @discount1 = @m_user.merchant.discounts.create(percentage: 5, item_amount: 5, description: 'Five percent off of five items or more!')
+      @discount2 = @m_user.merchant.discounts.create(percentage: 15, item_amount: 10, description: 'Fifteen percent off of ten items or more!')
       @ogre = @megan.items.create!(name: 'Ogre', description: "I'm an Ogre!", price: 20, image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTaLM_vbg2Rh-mZ-B4t-RSU9AmSfEEq_SN9xPP_qrA2I6Ftq_D9Qw', active: true, inventory: 5 )
       @giant = @megan.items.create!(name: 'Giant', description: "I'm a Giant!", price: 50, image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTaLM_vbg2Rh-mZ-B4t-RSU9AmSfEEq_SN9xPP_qrA2I6Ftq_D9Qw', active: true, inventory: 2 )
       @hippo = @brian.items.create!(name: 'Hippo', description: "I'm a Hippo!", price: 50, image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTaLM_vbg2Rh-mZ-B4t-RSU9AmSfEEq_SN9xPP_qrA2I6Ftq_D9Qw', active: true, inventory: 3 )
@@ -68,16 +69,18 @@ RSpec.describe Cart do
       expect(@cart.count_of(@giant.id)).to eq(1)
     end
 
-    it ".discount_available?()" do
-      cart1 = Cart.new({
-        @ogre.id.to_s => 5,
+    it ".discount_eligible?()" do
+      cart = Cart.new({
+        @ogre.id.to_s => 4,
         @giant.id.to_s => 2,
         @candle.id.to_s => 5
         })
 
-      expect(cart1.discount_available?(@ogre.id, @discount1)).to eq(true)
-      expect(cart1.discount_available?(@giant.id, @discount1)).to eq(false)
-      expect(cart1.discount_available?(@candle.id, @discount1)).to eq(true)
+      expect(cart.discount_eligible?(@ogre.id)).to eq(nil)
+      expect(cart.discount_eligible?(@giant.id)).to eq(nil)
+      expect(cart.discount_eligible?(@candle.id)).to eq(@discount1)
+      cart.add_item(@ogre.id.to_s)
+      expect(cart.discount_eligible?(@ogre.id)).to eq(@discount1)
     end
   end
 end

@@ -27,6 +27,7 @@ class Cart
   def grand_total
     grand_total = 0.0
     @contents.each do |item_id, quantity|
+      #change to be based off of sub total
       grand_total += Item.find(item_id).price * quantity
     end
     grand_total
@@ -44,7 +45,10 @@ class Cart
     count_of(item_id) == Item.find(item_id).inventory
   end
 
-  def discount_available?(item_id, discount)
-    count_of(item_id) >= discount.item_amount
+  def discount_eligible?(item_id)
+    item = Item.find(item_id)
+    item_count = count_of(item_id)
+    item.discounts
+    item.discounts.where("item_amount <= #{item_count}").first
   end
 end
