@@ -19,6 +19,9 @@ RSpec.describe Item do
   describe 'Instance Methods' do
     before :each do
       @megan = Merchant.create!(name: 'Megans Marmalades', address: '123 Main St', city: 'Denver', state: 'CO', zip: 80218)
+      @m_user = @megan.users.create(name: 'Megan', address: '123 Main St', city: 'Denver', state: 'CO', zip: 80218, email: 'megan@example.com', password: 'securepassword')
+      @discount1 = @m_user.merchant.discounts.create(percentage: 5, item_amount: 5, description: 'Five percent off of five items or more!')
+      @discount2 = @m_user.merchant.discounts.create(percentage: 15, item_amount: 10, description: 'Fifteen percent off of ten items or more!')
       @ogre = @megan.items.create!(name: 'Ogre', description: "I'm an Ogre!", price: 20, image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTaLM_vbg2Rh-mZ-B4t-RSU9AmSfEEq_SN9xPP_qrA2I6Ftq_D9Qw', active: true, inventory: 5 )
       @giant = @megan.items.create!(name: 'Giant', description: "I'm a Giant!", price: 20, image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTaLM_vbg2Rh-mZ-B4t-RSU9AmSfEEq_SN9xPP_qrA2I6Ftq_D9Qw', active: true, inventory: 5 )
       @review_1 = @ogre.reviews.create(title: 'Great!', description: 'This Ogre is Great!', rating: 5)
@@ -36,6 +39,10 @@ RSpec.describe Item do
 
     it '.average_rating' do
       expect(@ogre.average_rating.round(2)).to eq(3.00)
+    end
+
+    it ".discounts" do
+      expect(@ogre.discounts).to eq([@discount1, @discount2])
     end
   end
 
