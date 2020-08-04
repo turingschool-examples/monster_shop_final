@@ -6,7 +6,7 @@
 </section>
 
 <h3>Available Discounts</h3>
-<%= @merchant.active_discounts.each do |discount| %>
+<% @merchant.active_discounts.each do |discount| %>
 <section class="discount-<%= discount.id %>">
   <p>Purchase <%= discount.quantity %> of any single item and get <%= number_to_percentage(discount.percent, strip_insignificant_zeros: true) %> off!")</p>
 </section>
