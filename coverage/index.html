@@ -14,7 +14,7 @@
       <img src="./assets/0.12.2/loading.gif" alt="loading"/>
     </div>
     <div id="wrapper" class="hide">
-      <div class="timestamp">Generated <abbr class="timeago" title="2020-08-04T17:32:40-06:00">2020-08-04T17:32:40-06:00</abbr></div>
+      <div class="timestamp">Generated <abbr class="timeago" title="2020-08-04T17:37:25-06:00">2020-08-04T17:37:25-06:00</abbr></div>
       <ul class="group_tabs"></ul>
 
       <div id="content">
@@ -30,7 +30,7 @@
      covered at
      <span class="covered_strength">
        <span class="green">
-         5.65
+         5.46
        </span>
     </span> hits/line
     )
@@ -43,8 +43,8 @@
   </div>
 
   <div class="t-line-summary">
-    <b>2839</b> relevant lines,
-    <span class="green"><b>2838</b> lines covered</span> and
+    <b>2836</b> relevant lines,
+    <span class="green"><b>2835</b> lines covered</span> and
     <span class="red"><b>1</b> lines missed. </span>
     (<span class="green">
   99.96%
@@ -330,7 +330,7 @@
             <td class="cell--number">17</td>
             <td class="cell--number">17</td>
             <td class="cell--number">0</td>
-            <td class="cell--number">62.18</td>
+            <td class="cell--number">54.88</td>
             
           </tr>
         
@@ -359,11 +359,11 @@
           <tr class="t-file">
             <td class="strong t-file__name"><a href="#a31c64e666507c597607022829cb77c7b06bcf64" class="src_link" title="app/models/order_item.rb">app/models/order_item.rb</a></td>
             <td class="green strong cell--number t-file__coverage">100.00 %</td>
-            <td class="cell--number">43</td>
-            <td class="cell--number">26</td>
-            <td class="cell--number">26</td>
+            <td class="cell--number">40</td>
+            <td class="cell--number">23</td>
+            <td class="cell--number">23</td>
             <td class="cell--number">0</td>
-            <td class="cell--number">66.23</td>
+            <td class="cell--number">56.00</td>
             
           </tr>
         
@@ -8725,8 +8725,8 @@
         </div>
       
         <div>
-          <li class="covered" data-hits="730" data-linenumber="35">
-            <span class="hits">730</span>
+          <li class="covered" data-hits="606" data-linenumber="35">
+            <span class="hits">606</span>
             
 
             
@@ -9817,8 +9817,8 @@
     
 
     <div class="t-line-summary">
-      <b>26</b> relevant lines.
-      <span class="green"><b>26</b> lines covered</span> and
+      <b>23</b> relevant lines.
+      <span class="green"><b>23</b> lines covered</span> and
       <span class="red"><b>0</b> lines missed.</span>
     </div>
 
@@ -10160,8 +10160,8 @@
         </div>
       
         <div>
-          <li class="covered" data-hits="466" data-linenumber="31">
-            <span class="hits">466</span>
+          <li class="covered" data-hits="342" data-linenumber="31">
+            <span class="hits">342</span>
             
 
             
@@ -10171,8 +10171,8 @@
         </div>
       
         <div>
-          <li class="covered" data-hits="466" data-linenumber="32">
-            <span class="hits">466</span>
+          <li class="covered" data-hits="342" data-linenumber="32">
+            <span class="hits">342</span>
             
 
             
@@ -10221,7 +10221,7 @@
 
             
 
-            <code class="ruby">    items_at_full_price = quantity - applicable_discount.quantity</code>
+            <code class="ruby">    percent = 1 - (applicable_discount.percent.to_f / 100).round(2)</code>
           </li>
         </div>
       
@@ -10232,7 +10232,7 @@
 
             
 
-            <code class="ruby">    percent = applicable_discount.percent.to_f / 100</code>
+            <code class="ruby">    discounted_price = item.price * percent</code>
           </li>
         </div>
       
@@ -10243,45 +10243,12 @@
 
             
 
-            <code class="ruby">    discounted_price = item.price - (item.price * percent)</code>
+            <code class="ruby">    quantity * discounted_price.round(2)</code>
           </li>
         </div>
       
         <div>
-          <li class="covered" data-hits="62" data-linenumber="39">
-            <span class="hits">62</span>
-            
-
-            
-
-            <code class="ruby">    cost_full_price_items = item.price * items_at_full_price</code>
-          </li>
-        </div>
-      
-        <div>
-          <li class="covered" data-hits="62" data-linenumber="40">
-            <span class="hits">62</span>
-            
-
-            
-
-            <code class="ruby">    cost_discounted_items = discounted_price * applicable_discount.quantity</code>
-          </li>
-        </div>
-      
-        <div>
-          <li class="covered" data-hits="62" data-linenumber="41">
-            <span class="hits">62</span>
-            
-
-            
-
-            <code class="ruby">    (cost_full_price_items + cost_discounted_items).round(2)</code>
-          </li>
-        </div>
-      
-        <div>
-          <li class="never" data-hits="" data-linenumber="42">
+          <li class="never" data-hits="" data-linenumber="39">
             
             
 
@@ -10292,7 +10259,7 @@
         </div>
       
         <div>
-          <li class="never" data-hits="" data-linenumber="43">
+          <li class="never" data-hits="" data-linenumber="40">
             
             
 
@@ -53244,7 +53211,7 @@
 
             
 
-            <code class="ruby">      expect(@order_item_2.discounted_subtotal).to eq(145)</code>
+            <code class="ruby">      expect(@order_item_2.discounted_subtotal).to eq(142.5)</code>
           </li>
         </div>
       
@@ -53321,7 +53288,7 @@
 
             
 
-            <code class="ruby">      expect(@order_item_2.savings).to eq(5)</code>
+            <code class="ruby">      expect(@order_item_2.savings).to eq(7.5)</code>
           </li>
         </div>
       
@@ -53398,7 +53365,7 @@
 
             
 
-            <code class="ruby">      expect(@order_item_2.blended_price).to eq(48.33)</code>
+            <code class="ruby">      expect(@order_item_2.blended_price).to eq(47.5)</code>
           </li>
         </div>
       
@@ -54254,7 +54221,7 @@
 
             
 
-            <code class="ruby">      expect(@order_1.total_savings).to eq(3.04)</code>
+            <code class="ruby">      expect(@order_1.total_savings).to eq(5.05)</code>
           </li>
         </div>
       

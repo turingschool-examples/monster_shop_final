@@ -69,7 +69,7 @@ RSpec.describe Order do
       discount_1 = @megan.discounts.create(percent: 5, quantity: 3)
       discount_2 = @brian.discounts.create(percent: 5, quantity: 2)
 
-      expect(@order_1.total_savings).to eq(3.04)
+      expect(@order_1.total_savings).to eq(5.05)
       expect(@order_2.total_savings).to eq(5)
     end
   end

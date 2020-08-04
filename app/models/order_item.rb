@@ -33,11 +33,8 @@ class OrderItem < ApplicationRecord
   end
 
   def discounted_subtotal
-    items_at_full_price = quantity - applicable_discount.quantity
-    percent = applicable_discount.percent.to_f / 100
-    discounted_price = item.price - (item.price * percent)
-    cost_full_price_items = item.price * items_at_full_price
-    cost_discounted_items = discounted_price * applicable_discount.quantity
-    (cost_full_price_items + cost_discounted_items).round(2)
+    percent = 1 - (applicable_discount.percent.to_f / 100).round(2)
+    discounted_price = item.price * percent
+    quantity * discounted_price.round(2)
   end
 end
