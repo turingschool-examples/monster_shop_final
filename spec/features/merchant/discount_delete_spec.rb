@@ -19,6 +19,7 @@ RSpec.describe 'Merchant Discount Delete' do
       expect(current_path).to eq("/merchant/discounts")
 
       expect(page).to_not have_content('Twenty on Ten')
+      expect(page).to have_content('Your discount has been deleted.')
     end
   end
 end
