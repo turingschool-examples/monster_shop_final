@@ -14,7 +14,7 @@ RSpec.describe 'Order Show Page' do
       @order_1 = @user.orders.create!(status: "packaged")
       @order_2 = @user.orders.create!(status: "pending")
       @order_item_1 = @order_1.order_items.create!(item: @ogre, price: @ogre.price, quantity: 2, fulfilled: true)
-      @order_item_2 = @order_2.order_items.create!(item: @giant, price: @hippo.price, quantity: 2, fulfilled: true)
+      @order_item_2 = @order_2.order_items.create!(item: @giant, price: @giant.price, quantity: 2, fulfilled: true)
       @order_item_3 = @order_2.order_items.create!(item: @ogre, price: @ogre.price, quantity: 2, fulfilled: false)
       allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(@user)
     end
@@ -36,6 +36,7 @@ RSpec.describe 'Order Show Page' do
       expect(page).to have_content("Status: #{@order_2.status}")
       expect(page).to have_content("#{@order_2.count_of_items} items")
       expect(page).to have_content("Total: #{number_to_currency(@order_2.grand_total)}")
+      expect(page).to_not have_content("Total Savings:")
 
       within "#order-item-#{@order_item_2.id}" do
         expect(page).to have_link(@order_item_2.item.name)
@@ -81,6 +82,66 @@ RSpec.describe 'Order Show Page' do
       expect(@order_item_3.fulfilled).to eq(false)
       expect(@giant.inventory).to eq(5)
       expect(@ogre.inventory).to eq(7)
+    end
+
+    it "I see final discounted prices on my order page" do
+      discount_1 = @megan.discounts.create(percent: 5, quantity: 2)
+
+      visit "/profile/orders/#{@order_2.id}"
+
+      within "#order-item-#{@order_item_2.id}" do
+        expect(page).to have_content("Discount Applied: #{discount_1.quantity} items at #{number_to_percentage(discount_1.percent, strip_insignificant_zeros: true)} off")
+        expect(page).to have_content("Subtotal: $95.00")
+      end
+
+      within "#order-item-#{@order_item_3.id}" do
+        expect(page).to have_content("Discount Applied: #{discount_1.quantity} items at #{number_to_percentage(discount_1.percent, strip_insignificant_zeros: true)} off")
+        expect(page).to have_content("Subtotal: $38.48")
+      end
+
+      expect(page).to have_content("Total: $133.48")
+    end
+
+    it "If one item is discounted and one is not I see correct prices" do
+      discount_1 = @megan.discounts.create(percent: 5, quantity: 2)
+      order_item_4 = @order_2.order_items.create!(item: @hippo, price: @hippo.price, quantity: 1, fulfilled: true)
+
+      visit "/profile/orders/#{@order_2.id}"
+
+      within "#order-item-#{@order_item_2.id}" do
+        expect(page).to have_content("Discount Applied: #{discount_1.quantity} items at #{number_to_percentage(discount_1.percent, strip_insignificant_zeros: true)} off")
+        expect(page).to have_content("Subtotal: $95.00")
+      end
+
+      within "#order-item-#{@order_item_3.id}" do
+        expect(page).to have_content("Discount Applied: #{discount_1.quantity} items at #{number_to_percentage(discount_1.percent, strip_insignificant_zeros: true)} off")
+        expect(page).to have_content("Subtotal: $38.48")
+      end
+
+      within "#order-item-#{order_item_4.id}" do
+        expect(page).to_not have_content("Discount Applied: #{discount_1.quantity} items at #{number_to_percentage(discount_1.percent, strip_insignificant_zeros: true)} off")
+        expect(page).to have_content(order_item_4.subtotal)
+      end
+
+      expect(page).to have_content("Total: $183.48")
+    end
+
+    it "I savings for each item and total savings" do
+      discount_1 = @megan.discounts.create(percent: 5, quantity: 2)
+
+      visit "/profile/orders/#{@order_2.id}"
+
+      within "#order-item-#{@order_item_2.id}" do
+        expect(page).to have_content("Savings: $5.00")
+        expect(page).to have_content("Subtotal: $95.00")
+      end
+
+      within "#order-item-#{@order_item_3.id}" do
+        expect(page).to have_content("Savings: $2.02")
+        expect(page).to have_content("Subtotal: $38.48")
+      end
+
+      expect(page).to have_content("Total Savings: $7.02")
     end
   end
 end
