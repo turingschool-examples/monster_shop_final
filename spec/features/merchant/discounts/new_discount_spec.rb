@@ -33,7 +33,7 @@ RSpec.describe "as a merchant user" do
     # make a table in erb?
     expect(page).to have_content("New discount created.")
     # expect(page).to have_content("ID: ")
-    expect(page).to have_content("Percent: #{perent}%")
+    expect(page).to have_content("Percent: #{percent}%")
     expect(page).to have_content("Minimum item quantity: #{quantity}")
   end
 end
