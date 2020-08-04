@@ -8,7 +8,6 @@ class Merchant::DiscountsController < ApplicationController
   end
 
   def create
-    # require "pry"; binding.pry
     @discount = Discount.new(discount_params)
     if @discount.save
       flash[:success] = 'Your discount has been created.'
