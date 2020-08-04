@@ -1,0 +1,11 @@
+<h1>My Discounts</h1>
+<%= link_to 'New Discount', '/merchant/discounts/new' %>
+
+<% if @discounts.count > 0 %>
+  <% @discounts.each do |discount| %>
+    <h3><%= discount.name %></h3>
+    <p><%= discount.percent %> off for <%= discount.item_minimum %> items.</p>
+  <% end %>
+<% else %>
+  <p>You have no discounts available</p>
+<% end %>

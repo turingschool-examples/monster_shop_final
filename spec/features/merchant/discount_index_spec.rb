@@ -23,7 +23,8 @@ RSpec.describe 'Merchant Discount Index' do
     it 'If there are no discounts to show, serve empty state message' do
 
       visit '/merchant/discounts'
-      expect(page).to eq('You have no discounts available')
+      
+      expect(page).to have_content('You have no discounts available')
     end
   end
 end
