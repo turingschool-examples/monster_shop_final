@@ -16,15 +16,15 @@ RSpec.describe 'Merchant Discount Creation' do
       expect(current_path).to eq('/merchant/discounts/new')
 
       fill_in 'Name', with: 'Five on Five'
-      fill_in 'Item Minimum', with: 5
+      fill_in 'Item minimum', with: 5
       fill_in 'Percent', with: 5
-      click_on 'Submit'
+      click_on 'Create Discount'
 
       expect(current_path).to eq('/merchant/discounts')
       expect(page).to have_content('Five on Five')
     end
 
-    it 'Can\'t create new discount with missing input fields' do
+    it 'Can\'t create new discount with missing input fields, show flash messages and redirect to #new' do
 
       visit '/merchant/discounts'
       click_link 'New Discount'
@@ -33,7 +33,7 @@ RSpec.describe 'Merchant Discount Creation' do
       fill_in 'Name', with: 'Five on Five'
       # fill_in 'Item Minimum', with: 5
       fill_in 'Percent', with: 5
-      click_on 'Submit'
+      click_on 'Create Discount'
 
       expect(current_path).to eq('/merchant/discounts/new')
       expect(page).to have_content('Item minimum can\'t be blank')
