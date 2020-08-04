@@ -36,6 +36,7 @@ RSpec.describe 'Order Show Page' do
       expect(page).to have_content("Status: #{@order_2.status}")
       expect(page).to have_content("#{@order_2.count_of_items} items")
       expect(page).to have_content("Total: #{number_to_currency(@order_2.grand_total)}")
+      expect(page).to_not have_content("Total Savings:")
 
       within "#order-item-#{@order_item_2.id}" do
         expect(page).to have_link(@order_item_2.item.name)
