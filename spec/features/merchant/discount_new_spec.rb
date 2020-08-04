@@ -22,6 +22,7 @@ RSpec.describe 'Merchant Discount Creation' do
 
       expect(current_path).to eq('/merchant/discounts')
       expect(page).to have_content('Five on Five')
+      expect(page).to have_content('Your discount has been created.')
     end
 
     it 'Can\'t create new discount with missing input fields, show flash messages and redirect to #new' do
