@@ -49,6 +49,7 @@ RSpec.describe Cart do
 
     it '.grand_total' do
       expect(@cart.grand_total).to eq(120)
+      expect(@cart_2.grand_total).to eq(165)
     end
 
     it '.count_of()' do
@@ -84,9 +85,14 @@ RSpec.describe Cart do
       expect(@cart_2.check_for_discount(@dragon.id)).to eq(false)
     end
 
-    it '.apply_discount()' do
-      expect(@cart_2.apply_discount(@ogre.id)).to eq(0.1)
-      expect(@cart_2.apply_discount(@gnome.id)).to eq(0.1)
+    it '.best_discount()' do
+      expect(@cart_2.best_discount(@ogre.id)).to eq(0.1)
+      expect(@cart_2.best_discount(@gnome.id)).to eq(0.1)
+    end
+
+    it '.discount_item()' do
+      expect(@cart_2.discount_item(@ogre.id)).to eq(90.0)
+      expect(@cart_2.discount_item(@gnome.id)).to eq(45.0)
     end
   end
 end
