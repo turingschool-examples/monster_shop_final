@@ -3,7 +3,7 @@
 
 <% if @discounts.count > 0 %>
   <% @discounts.each do |discount| %>
-    <h3><%= discount.name %></h3>
+    <h3><%= link_to discount.name, "/merchant/discounts/#{discount.id}" %></h3>
     <p><%= discount.percent %> off for <%= discount.item_minimum %> items.</p>
   <% end %>
 <% else %>

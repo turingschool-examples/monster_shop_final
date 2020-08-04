@@ -14,10 +14,9 @@ RSpec.describe 'Merchant Discount Show' do
     it 'I see that each Discount name on the index page is a link to its show page' do
 
       visit '/merchant/discounts'
-      save_and_open_page
       click_link 'Twenty on Ten'
-      expect(current_path).to eq("/merchant/discounts/#{@twenty_ten.id}")
 
+      expect(current_path).to eq("/merchant/discounts/#{@twenty_ten.id}")
       expect(page).to have_content('Twenty on Ten')
       expect(page).to have_content('20% off on 10 items or more!')
     end
