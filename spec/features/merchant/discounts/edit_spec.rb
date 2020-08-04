@@ -13,12 +13,12 @@ RSpec.describe "as a merchant user" do
     click_button "Log In"
 
     visit "/merchant/discounts"
-
-    within "#discount-row-#{discount_1}"
+    
+    within "#discount-row-#{discount_1.id}" do
       expect(page).to have_link("Edit")
     end
 
-    within "#discount-row-#{discount_1}"
+    within "#discount-row-#{discount_2.id}" do
       expect(page).to have_link("Edit")
       click_link "Edit"
     end
