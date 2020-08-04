@@ -36,7 +36,7 @@ class Merchant::DiscountsController < Merchant::BaseController
       redirect_to "/merchant/discounts"
     else
       flash[:error] = "This discount already exists for your shop, please try again."
-      render :edit
+      redirect_to request.referrer
     end
   end
 end
