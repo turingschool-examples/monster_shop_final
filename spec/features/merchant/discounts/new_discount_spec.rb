@@ -4,8 +4,6 @@ RSpec.describe "as a merchant user" do
   it "can create a new discount" do
     merchant_1 = Merchant.create!(name: 'Megans Marmalades', address: '123 Main St', city: 'Denver', state: 'CO', zip: 80218)
     m_user = merchant_1.users.create(name: 'Megan', address: '123 Main St', city: 'Denver', state: 'CO', zip: 80218, email: 'megan@example.com', password: 'securepassword', role: 1)
-    percent = "5"
-    quantity = 10
 
     visit "/login"
     fill_in :email, with: m_user.email
@@ -19,12 +17,12 @@ RSpec.describe "as a merchant user" do
     click_link "Create New Discount"
 
     expect(current_path).to eq("/merchant/discounts/new")
-
+save_and_open_page
     expect(page).to have_content("Percent discount:")
     expect(page).to have_content("Minimum item quantity required for discount:")
     # how to have input field display something different than what gets passed in params?
-    fill_in :percent, with: "#{percent}"
-    fill_in :quantity, with: quantity
+    fill_in "Percent", with: 5
+    fill_in "quantity required", with: 10
 
     click_button "Submit"
 
