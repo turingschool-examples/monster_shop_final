@@ -27,7 +27,6 @@ RSpec.describe "as a merchant user" do
 
     expect(current_path).to eq("/merchant/discounts")
 
-    save_and_open_page
     expect(page).to have_content("New discount created.")
     expect(page).to have_content("5%")
     expect(page).to have_content("10")
