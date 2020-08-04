@@ -26,6 +26,17 @@ class Merchant::DiscountsController < ApplicationController
     @discount = Discount.find(params[:id])
   end
 
+  def update
+    @discount = Discount.find(params[:id])
+    @discount.update(discount_params)
+    if @discount.valid?
+      redirect_to "/merchant/discounts/#{@discount.id}"
+    else
+      flash[:errors] = @discount.errors.full_messages
+      redirect_to "/merchant/discounts/#{@discount.id}/edit"
+    end
+  end
+
   private
 
   def discount_params
