@@ -17,10 +17,9 @@ RSpec.describe "as a merchant user" do
     click_link "Create New Discount"
 
     expect(current_path).to eq("/merchant/discounts/new")
-save_and_open_page
     expect(page).to have_content("Percent discount:")
     expect(page).to have_content("Minimum item quantity required for discount:")
-    # how to have input field display something different than what gets passed in params?
+
     fill_in "Percent", with: 5
     fill_in "quantity required", with: 10
 
