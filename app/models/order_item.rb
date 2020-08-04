@@ -14,6 +14,10 @@ class OrderItem < ApplicationRecord
     ((quantity * price) - subtotal).round(2)
   end
 
+  def blended_price
+    (subtotal / quantity).round(2)
+  end
+
   def fulfill
     update(fulfilled: true)
     item.update(inventory: item.inventory - quantity)

@@ -54,5 +54,12 @@ RSpec.describe OrderItem do
       expect(@order_item_1.savings).to eq(2.02)
       expect(@order_item_2.savings).to eq(5)
     end
+
+    it ".blended_price" do
+      discount_1 = @megan.discounts.create(percent: 5, quantity: 2)
+      discount_1 = @brian.discounts.create(percent: 5, quantity: 2)
+      expect(@order_item_1.blended_price).to eq(19.24)
+      expect(@order_item_2.blended_price).to eq(48.33)
+    end
   end
 end

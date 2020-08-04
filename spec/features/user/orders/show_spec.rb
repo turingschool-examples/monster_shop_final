@@ -143,5 +143,23 @@ RSpec.describe 'Order Show Page' do
 
       expect(page).to have_content("Total Savings: $7.02")
     end
+
+    it "I see the discounted price" do
+      discount_1 = @megan.discounts.create(percent: 5, quantity: 2)
+
+      visit "/profile/orders/#{@order_2.id}"
+
+      within "#order-item-#{@order_item_2.id}" do
+        expect(page).to have_content("Savings: $5.00")
+        expect(page).to have_content("Subtotal: $95.00")
+        expect(page).to have_content("Price: #{number_to_currency(@order_item_2.blended_price)}")
+      end
+
+      within "#order-item-#{@order_item_3.id}" do
+        expect(page).to have_content("Savings: $2.02")
+        expect(page).to have_content("Subtotal: $38.48")
+        expect(page).to have_content("Price: #{number_to_currency(@order_item_3.blended_price)}")
+      end
+    end
   end
 end

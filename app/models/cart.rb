@@ -32,6 +32,10 @@ class Cart
     grand_total
   end
 
+  def blended_price(item_id)
+    (subtotal_of(item_id) / count_of(item_id)).round(2)
+  end
+
   def count_of(item_id)
     @contents[item_id.to_s]
   end
