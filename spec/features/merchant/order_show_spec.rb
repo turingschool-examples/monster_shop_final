@@ -88,5 +88,24 @@ RSpec.describe 'Merchant Order Show Page' do
 
       expect(page).to have_content("Status: packaged")
     end
+
+    it "If an item had a discount applied I see the discounted price on my merchant page" do
+      discount_1 = @merchant_1.discounts.create(percent: 5, quantity: 2)
+
+      visit "/merchant/orders/#{@order_2.id}"
+
+      within "#order-item-#{@order_item_3.id}" do
+        expect(page).to have_content(@order_item_3.blended_price)
+        expect(page).to have_content("Discount Applied: #{@order_item_3.item.discount.id}")
+      end
+
+      within "#order-item-#{@order_item_4.id}" do
+        expect(page).to have_content(@order_item_4.blended_price)
+        expect(page).to have_content("Discount Applied: #{@order_item_3.item.discount.id}")
+        click_on "#{@order_item_3.item.discount.id}"
+      end
+
+      expect(current_path).to eq("/merchant/discounts/#{@order_item_3.item.discount.id}")
+    end
   end
 end
