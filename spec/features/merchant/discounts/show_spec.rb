@@ -25,7 +25,7 @@ RSpec.describe 'Merchant Discount Show Page' do
       @discount_1.update(status: 1)
 
       visit "/merchant/discounts/#{@discount_1.id}"
-      
+
       expect(page).to have_link("Delete")
       expect(page).to have_link("Activate")
     end
