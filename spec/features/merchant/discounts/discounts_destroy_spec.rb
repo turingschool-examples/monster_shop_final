@@ -16,10 +16,15 @@ RSpec.describe 'Merchant Discount Edit Page' do
       @order_item_3 = @order_2.order_items.create(item: @ogre, price: @ogre.price, quantity: 2, fulfilled: false)
       @order_item_4 = @order_2.order_items.create(item: @giant, price: @giant.price, quantity: 2, fulfilled: false)
       @discount_1 = @merchant_1.discounts.create(percentage: 5, required_amount: 10)
-      allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(@m_user)
     end
 
-    xit 'I can delete a discount via the bulk discounts index page' do
+    it 'I can delete a discount via the bulk discounts index page' do
+      visit '/login'
+
+      fill_in 'Email', with: @m_user.email
+      fill_in 'Password', with: @m_user.password
+      click_button 'Log In'
+
       visit '/merchant/discounts'
 
       within "#discount-#{@discount_1.id}" do
