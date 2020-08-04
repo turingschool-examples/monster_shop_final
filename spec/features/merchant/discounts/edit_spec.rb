@@ -24,5 +24,21 @@ RSpec.describe "as a merchant user" do
     end
 
     expect(current_path).to eq("/merchant/discounts/#{discount_2.id}/edit")
+    expect(page).to have_content("Edit Discount: #{discount_2.id}")
+    expect(find_field('Percent').value).to eq(discount_2.percent.to_s)
+    expect(find_field('quantity required').value).to eq(discount_2.quantity_required.to_s)
+
+    fill_in "Percent", with: 20
+    fill_in "quantity required", with: 10
+
+    click_button "Submit"
+
+    expect(current_path).to eq("/merchant/discounts")
+
+    expect(page).to have_content("Discount #{discount_2.id} has been successfully updated.")
+    within "#discount-row-#{discount_2.id}" do
+      expect(page).to have_content("#{discount_2.id} 20% 10")
+    end
+
   end
 end
