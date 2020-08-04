@@ -53,7 +53,7 @@ RSpec.describe Cart do
     #discount
     it '.grand_total' do
       expect(@cart.grand_total).to eq(120)
-      expect(@cart2.grand_total).to eq(204.95)
+      expect(@cart2.grand_total).to eq(203.75)
     end
     #discount
     it '.count_of()' do
@@ -65,7 +65,7 @@ RSpec.describe Cart do
 
       expect(@cart.subtotal_of(@ogre.id)).to eq(20)
       expect(@cart.subtotal_of(@giant.id)).to eq(100)
-      expect(@cart2.subtotal_of(@candle.id)).to eq(24.95)
+      expect(@cart2.subtotal_of(@candle.id)).to eq(23.75)
     end
 
     it '.limit_reached?()' do

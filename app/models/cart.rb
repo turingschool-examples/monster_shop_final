@@ -41,7 +41,7 @@ class Cart
     if discount_eligible?(item_id).nil?
       @contents[item_id.to_s] * Item.find(item_id).price
     else
-      discount = discount_eligible?(item_id).percentage.to_f / 100
+      discount = @contents[item_id.to_s] * Item.find(item_id).price * discount_eligible?(item_id).percentage.to_f / 100
       @contents[item_id.to_s] * Item.find(item_id).price - discount
     end
   end
