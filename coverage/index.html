@@ -14,7 +14,7 @@
       <img src="./assets/0.12.2/loading.gif" alt="loading"/>
     </div>
     <div id="wrapper" class="hide">
-      <div class="timestamp">Generated <abbr class="timeago" title="2020-08-04T12:28:55-06:00">2020-08-04T12:28:55-06:00</abbr></div>
+      <div class="timestamp">Generated <abbr class="timeago" title="2020-08-04T13:07:41-06:00">2020-08-04T13:07:41-06:00</abbr></div>
       <ul class="group_tabs"></ul>
 
       <div id="content">
@@ -30,7 +30,7 @@
      covered at
      <span class="covered_strength">
        <span class="green">
-         1.7
+         1.73
        </span>
     </span> hits/line
     )
@@ -43,8 +43,8 @@
   </div>
 
   <div class="t-line-summary">
-    <b>419</b> relevant lines,
-    <span class="green"><b>419</b> lines covered</span> and
+    <b>418</b> relevant lines,
+    <span class="green"><b>418</b> lines covered</span> and
     <span class="red"><b>0</b> lines missed. </span>
     (<span class="green">
   100.0%
@@ -95,11 +95,11 @@
           <tr class="t-file">
             <td class="strong t-file__name"><a href="#a9bb34ad19f9d0cb19064b70ae9805f309462c62" class="src_link" title="app/models/cart.rb">app/models/cart.rb</a></td>
             <td class="green strong cell--number t-file__coverage">100.00 %</td>
-            <td class="cell--number">54</td>
-            <td class="cell--number">30</td>
-            <td class="cell--number">30</td>
+            <td class="cell--number">53</td>
+            <td class="cell--number">29</td>
+            <td class="cell--number">29</td>
             <td class="cell--number">0</td>
-            <td class="cell--number">2.50</td>
+            <td class="cell--number">3.07</td>
             
           </tr>
         
@@ -121,7 +121,7 @@
             <td class="cell--number">16</td>
             <td class="cell--number">16</td>
             <td class="cell--number">0</td>
-            <td class="cell--number">1.75</td>
+            <td class="cell--number">1.63</td>
             
           </tr>
         
@@ -559,8 +559,8 @@
     
 
     <div class="t-line-summary">
-      <b>30</b> relevant lines.
-      <span class="green"><b>30</b> lines covered</span> and
+      <b>29</b> relevant lines.
+      <span class="green"><b>29</b> lines covered</span> and
       <span class="red"><b>0</b> lines missed.</span>
     </div>
 
@@ -616,8 +616,8 @@
         </div>
       
         <div>
-          <li class="covered" data-hits="11" data-linenumber="5">
-            <span class="hits">11</span>
+          <li class="covered" data-hits="12" data-linenumber="5">
+            <span class="hits">12</span>
             
 
             
@@ -627,8 +627,8 @@
         </div>
       
         <div>
-          <li class="covered" data-hits="11" data-linenumber="6">
-            <span class="hits">11</span>
+          <li class="covered" data-hits="12" data-linenumber="6">
+            <span class="hits">12</span>
             
 
             
@@ -671,8 +671,8 @@
         </div>
       
         <div>
-          <li class="covered" data-hits="2" data-linenumber="10">
-            <span class="hits">2</span>
+          <li class="covered" data-hits="7" data-linenumber="10">
+            <span class="hits">7</span>
             
 
             
@@ -908,7 +908,7 @@
 
             
 
-            <code class="ruby">      grand_total += Item.find(item_id).price * quantity</code>
+            <code class="ruby">      grand_total += subtotal_of(item_id)</code>
           </li>
         </div>
       
@@ -968,8 +968,8 @@
         </div>
       
         <div>
-          <li class="covered" data-hits="9" data-linenumber="37">
-            <span class="hits">9</span>
+          <li class="covered" data-hits="11" data-linenumber="37">
+            <span class="hits">11</span>
             
 
             
@@ -1012,8 +1012,8 @@
         </div>
       
         <div>
-          <li class="covered" data-hits="2" data-linenumber="41">
-            <span class="hits">2</span>
+          <li class="covered" data-hits="5" data-linenumber="41">
+            <span class="hits">5</span>
             
 
             
@@ -1100,8 +1100,8 @@
         </div>
       
         <div>
-          <li class="covered" data-hits="4" data-linenumber="49">
-            <span class="hits">4</span>
+          <li class="covered" data-hits="6" data-linenumber="49">
+            <span class="hits">6</span>
             
 
             
@@ -1111,8 +1111,8 @@
         </div>
       
         <div>
-          <li class="covered" data-hits="4" data-linenumber="50">
-            <span class="hits">4</span>
+          <li class="covered" data-hits="6" data-linenumber="50">
+            <span class="hits">6</span>
             
 
             
@@ -1122,29 +1122,18 @@
         </div>
       
         <div>
-          <li class="covered" data-hits="4" data-linenumber="51">
-            <span class="hits">4</span>
+          <li class="covered" data-hits="6" data-linenumber="51">
+            <span class="hits">6</span>
             
 
             
 
-            <code class="ruby">    item.discounts</code>
+            <code class="ruby">    item.discounts.where(&quot;item_amount &lt;= #{item_count}&quot;).last</code>
           </li>
         </div>
       
         <div>
-          <li class="covered" data-hits="4" data-linenumber="52">
-            <span class="hits">4</span>
-            
-
-            
-
-            <code class="ruby">    item.discounts.where(&quot;item_amount &lt;= #{item_count}&quot;).first</code>
-          </li>
-        </div>
-      
-        <div>
-          <li class="never" data-hits="" data-linenumber="53">
+          <li class="never" data-hits="" data-linenumber="52">
             
             
 
@@ -1155,7 +1144,7 @@
         </div>
       
         <div>
-          <li class="never" data-hits="" data-linenumber="54">
+          <li class="never" data-hits="" data-linenumber="53">
             
             
 
@@ -1701,8 +1690,8 @@
         </div>
       
         <div>
-          <li class="covered" data-hits="9" data-linenumber="34">
-            <span class="hits">9</span>
+          <li class="covered" data-hits="7" data-linenumber="34">
+            <span class="hits">7</span>
             
 
             

@@ -54,8 +54,15 @@ RSpec.describe Cart do
     end
     #discount
     it '.subtotal_of()' do
+      cart = Cart.new({
+        @ogre.id.to_s => 4,
+        @giant.id.to_s => 2,
+        @candle.id.to_s => 5
+        })
+
       expect(@cart.subtotal_of(@ogre.id)).to eq(20)
       expect(@cart.subtotal_of(@giant.id)).to eq(100)
+      expect(cart.subtotal_of(@candle.id)).to eq(25)
     end
 
     it '.limit_reached?()' do
@@ -81,6 +88,13 @@ RSpec.describe Cart do
       expect(cart.discount_eligible?(@candle.id)).to eq(@discount1)
       cart.add_item(@ogre.id.to_s)
       expect(cart.discount_eligible?(@ogre.id)).to eq(@discount1)
+      cart.add_item(@candle.id.to_s)
+      cart.add_item(@candle.id.to_s)
+      cart.add_item(@candle.id.to_s)
+      cart.add_item(@candle.id.to_s)
+      expect(cart.discount_eligible?(@candle.id)).to eq(@discount1)
+      cart.add_item(@candle.id.to_s)
+      expect(cart.discount_eligible?(@candle.id)).to eq(@discount2)
     end
   end
 end
