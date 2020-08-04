@@ -2,7 +2,7 @@
 <%= link_to "Create A Discount", '/merchant/discounts/new' %>
 <% @discounts.each do |discount| %>
 <section class="discount-<%= discount.id %>">
-  <h3>Discount ID: <%= discount.id %></h3>
+  <h3>Discount ID: <%= link_to "#{discount.id}", "/merchant/discounts/#{discount.id}" %></h3>
   <p>Status: <%= discount.status.upcase %></p>
   <p>Percent Off: <%= number_to_percentage(discount.percent, strip_insignificant_zeros: true) %></p>
   <p>Required Item Quantity: <%= discount.quantity %> units</p>

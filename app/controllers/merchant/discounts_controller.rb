@@ -9,8 +9,8 @@ class Merchant::DiscountsController < Merchant::BaseController
     @discount = @merchant.discounts.new
   end
 
-  def show 
-
+  def show
+    @discount = Discount.find(params[:id])
   end
 
   def create
