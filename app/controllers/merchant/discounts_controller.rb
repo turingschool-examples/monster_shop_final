@@ -14,10 +14,10 @@ class Merchant::DiscountsController < Merchant::BaseController
     if Discount.where("percent = ? and quantity_required = ? and merchant_id = ?", percent, quantity, merchant).empty?
       Discount.create(percent: percent, quantity_required: quantity, merchant_id: merchant)
       flash[:success] = "New discount created."
-      redirect_to "merchant/discounts"
+      redirect_to "/merchant/discounts"
     else
       flash[:error] = "This discount already exists for your shop."
-      redirect_to "merchant/discounts"
+      redirect_to "/merchant/discounts"
     end
   end
 end
