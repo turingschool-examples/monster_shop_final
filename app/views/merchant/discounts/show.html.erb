@@ -1,3 +1,4 @@
 <h2><%= @discount.name %></h2>
 <p><%= @discount.percent %>% off on <%= @discount.item_minimum %> items or more!</p>
 <%= link_to 'Edit', "/merchant/discounts/#{@discount.id}/edit" %>
+<%= button_to 'Delete', "/merchant/discounts/#{@discount.id}", method: :delete %>
