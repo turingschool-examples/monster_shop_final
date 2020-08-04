@@ -5,9 +5,13 @@ RSpec.describe Cart do
     before :each do
       @megan = Merchant.create!(name: 'Megans Marmalades', address: '123 Main St', city: 'Denver', state: 'CO', zip: 80218)
       @brian = Merchant.create!(name: 'Brians Bagels', address: '125 Main St', city: 'Denver', state: 'CO', zip: 80218)
+      @m_user = @megan.users.create(name: 'Megan', address: '123 Main St', city: 'Denver', state: 'CO', zip: 80218, email: 'megan@example.com', password: 'securepassword')
+      @discount1 = @m_user.merchant.discounts.create(percentage: 5, item_amount: 5, description: 'Five percent off of five items or more!')
       @ogre = @megan.items.create!(name: 'Ogre', description: "I'm an Ogre!", price: 20, image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTaLM_vbg2Rh-mZ-B4t-RSU9AmSfEEq_SN9xPP_qrA2I6Ftq_D9Qw', active: true, inventory: 5 )
       @giant = @megan.items.create!(name: 'Giant', description: "I'm a Giant!", price: 50, image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTaLM_vbg2Rh-mZ-B4t-RSU9AmSfEEq_SN9xPP_qrA2I6Ftq_D9Qw', active: true, inventory: 2 )
       @hippo = @brian.items.create!(name: 'Hippo', description: "I'm a Hippo!", price: 50, image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTaLM_vbg2Rh-mZ-B4t-RSU9AmSfEEq_SN9xPP_qrA2I6Ftq_D9Qw', active: true, inventory: 3 )
+      @candle = @megan.items.create!(name: 'Candle', description: "I'll light up your life!", price: 5, image: 'https://cf.ltkcdn.net/candles/images/orig/257384-1600x1030-white-candle-magic-spells.jpg', active: true, inventory: 30 )
+      @dish_towel = @megan.items.create!(name: 'Dish Towel', description: "I'll clean it up!", price: 10, image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcSKTzwz1piuGJO5B0aUlunlY9LCM0wVP1wkag&usqp=CAU', active: true, inventory: 100 )
       @cart = Cart.new({
         @ogre.id.to_s => 1,
         @giant.id.to_s => 2
@@ -38,16 +42,16 @@ RSpec.describe Cart do
     it '.items' do
       expect(@cart.items).to eq([@ogre, @giant])
     end
-
+    #discount
     it '.grand_total' do
       expect(@cart.grand_total).to eq(120)
     end
-
+    #discount
     it '.count_of()' do
       expect(@cart.count_of(@ogre.id)).to eq(1)
       expect(@cart.count_of(@giant.id)).to eq(2)
     end
-
+    #discount
     it '.subtotal_of()' do
       expect(@cart.subtotal_of(@ogre.id)).to eq(20)
       expect(@cart.subtotal_of(@giant.id)).to eq(100)
@@ -62,6 +66,18 @@ RSpec.describe Cart do
       @cart.less_item(@giant.id.to_s)
 
       expect(@cart.count_of(@giant.id)).to eq(1)
+    end
+
+    it ".discount_available?()" do
+      cart1 = Cart.new({
+        @ogre.id.to_s => 5,
+        @giant.id.to_s => 2,
+        @candle.id.to_s => 5
+        })
+
+      expect(cart1.discount_available?(@ogre.id, @discount1)).to eq(true)
+      expect(cart1.discount_available?(@giant.id, @discount1)).to eq(false)
+      expect(cart1.discount_available?(@candle.id, @discount1)).to eq(true)
     end
   end
 end
