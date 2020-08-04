@@ -7,6 +7,7 @@
       <p>Discount Percentage: <%= discount.percent_off %></p>
       <p>Minimum Quantity To Get Discount: <%= discount.min_quantity %></p>
       <p><%= link_to 'Edit Discount', "/merchant/discounts/#{discount.id}/edit" %></p>
+      <p><%= link_to 'Delete Discount', "/merchant/discounts/#{discount.id}", method: :delete %></p>
     </section>
     <% end %>
 </section>

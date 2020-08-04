@@ -142,5 +142,21 @@ RSpec.describe 'Merchant Dashboard' do
       expect(current_path).to eq("/merchant/discounts/#{@discount1.id}/edit")
       expect(page).to have_content("Name can't be blank")
     end
+
+    it "can delete a bulk discount" do
+      visit '/merchant'
+
+      click_link "My Bulk Discounts"
+
+      expect(current_path).to eq("/merchant/discounts")
+
+      within "#discount-#{@discount1.id}" do
+        click_on "Delete Discount"
+      end
+
+      expect(current_path).to eq("/merchant/discounts")
+      expect(page).to have_content("#{@discount1.name} Deleted")
+
+    end
   end
 end
