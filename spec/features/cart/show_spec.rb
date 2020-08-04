@@ -287,6 +287,8 @@ RSpec.describe 'Cart Show Page' do
 
         visit '/cart'
 
+        save_and_open_page
+
         expect(page).to have_content("Cart: 7")
         expect(page).to have_content("Total: $249.50")
 
