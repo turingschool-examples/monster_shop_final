@@ -16,10 +16,16 @@ RSpec.describe 'Merchant Discount Edit Page' do
       @order_item_3 = @order_2.order_items.create!(item: @ogre, price: @ogre.price, quantity: 2, fulfilled: false)
       @order_item_4 = @order_2.order_items.create!(item: @giant, price: @giant.price, quantity: 2, fulfilled: false)
       @discount_1 = @merchant_1.discounts.create(percentage: 5, required_amount: 10)
-      allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(@m_user)
+      #allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(@m_user)
     end
 
     it 'I can access a bulk discount edit page via the bulk discounts index page' do
+      visit '/login'
+
+      fill_in 'Email', with: 'megan@example.com'
+      fill_in 'Password', with: 'securepassword'
+      click_button 'Log In'
+
       visit '/merchant/discounts'
 
       within "#discount-#{@discount_1.id}" do
@@ -32,18 +38,21 @@ RSpec.describe 'Merchant Discount Edit Page' do
       expect(current_path).to eq("/merchant/discounts/edit/#{@discount_1.id}")
     end
 
-    xit 'I can edit an existing bulk discount' do
-      discount_1 = @merchant_1.discounts.create!(percentage: 5, required_amount: 10)
+    it 'I can edit an existing bulk discount' do
+      visit '/login'
+      fill_in 'Email', with: @m_user.email
+      fill_in 'Password', with: @m_user.password
+      click_button 'Log In'
 
       visit '/merchant/discounts'
 
-      within "#discount-#{discount_1.id}" do
+      within "#discount-#{@discount_1.id}" do
         expect(page).to have_content('Discount Percentage: 5%')
         expect(page).to have_content('Required Item Quantity: 10')
         click_link 'Edit Discount'
       end
 
-      expect(current_path).to eq("/merchant/discounts/edit/#{discount_1.id}")
+      expect(current_path).to eq("/merchant/discounts/edit/#{@discount_1.id}")
 
       percentage = 5
       required_amount = 20
@@ -55,10 +64,7 @@ RSpec.describe 'Merchant Discount Edit Page' do
 
       expect(current_path).to eq('/merchant/discounts')
 
-      discount_1.reload
-
-      within "#discount-#{discount_1.id}" do
-        discount_1.reload
+      within "#discount-#{@discount_1.id}" do
         expect(page).to have_content('Discount Percentage: 5%')
         expect(page).to have_content('Required Item Quantity: 20')
       end
