@@ -42,7 +42,7 @@ RSpec.describe Item do
     end
 
     it '.discount' do
-      expect(@ogre.discount).to eq(@discount_2)
+      expect(@ogre.discount).to eq([@discount_1, @discount_2, @discount_3])
     end
   end
 

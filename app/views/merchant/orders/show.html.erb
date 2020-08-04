@@ -7,9 +7,9 @@
   <section id="order-item-<%= order_item.id %>">
     <%= link_to order_item.item.name, "/merchant/items/#{order_item.item.id}" %>
 
-    <% if order_item.item.discount.nil? == false %>
-      <% if order_item.item.discount.quantity <= order_item.quantity %>
-      <p>Discount Applied: <%= link_to "#{order_item.item.discount.id}", "/merchant/discounts/#{order_item.item.discount.id}" %> </p>
+    <% if order_item.applicable_discount.nil? == false %>
+      <% if order_item.applicable_discount.quantity <= order_item.quantity %>
+      <p>Discount Applied: <%= link_to "#{order_item.applicable_discount.id}", "/merchant/discounts/#{order_item.applicable_discount.id}" %> </p>
       <% end %>
     <% end %>
 
