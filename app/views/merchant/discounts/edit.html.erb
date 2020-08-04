@@ -1,0 +1,11 @@
+<h2>Edit Discount</h2>
+<%= form_for [:merchant, @discount] do |f| %>
+  <%= f.label :name %>
+  <%= f.text_field :name %>
+  <%= f.label :item_minimum %>
+  <%= f.text_field :item_minimum %>
+  <%= f.label :percent %>
+  <%= f.text_field :percent %>
+  <%= f.hidden_field :merchant_id, value: current_user.merchant_id %>
+  <%= f.submit %>
+<% end %>

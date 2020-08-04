@@ -1,2 +1,3 @@
-<h1><%= @discount.name %></h1>
+<h2><%= @discount.name %></h2>
 <p><%= @discount.percent %>% off on <%= @discount.item_minimum %> items or more!</p>
+<%= link_to 'Edit', "/merchant/discounts/#{@discount.id}/edit" %>
