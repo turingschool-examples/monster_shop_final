@@ -24,6 +24,8 @@ RSpec.describe "as a merchant user" do
     end
 
     expect(current_path).to eq("/merchant/discounts")
+    expect(page).to have_content("You have successfully deleted the discount with the id #{discount_2.id}")
+    expect(page).to have_css("#discount-row-#{discount_1.id}")
     expect(page).to_not have_css("#discount-row-#{discount_2.id}")
   end
 end
