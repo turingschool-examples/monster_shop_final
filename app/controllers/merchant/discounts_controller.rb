@@ -39,4 +39,10 @@ class Merchant::DiscountsController < Merchant::BaseController
       redirect_to request.referrer
     end
   end
+
+  def destroy
+    Discount.destroy(params[:id])
+    flash[:success] = "You have successfully deleted the discount with the id #{params[:id]}"
+    redirect_to "/merchant/discounts"
+  end
 end
