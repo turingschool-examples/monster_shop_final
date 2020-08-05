@@ -23,7 +23,7 @@ RSpec.describe "as a merchant user" do
       click_link "Delete"
     end
 
-    # save_and_open_page
-
+    expect(current_path).to eq("/merchant/discounts")
+    expect(page).to_not have_css("#discount-row-#{discount_2.id}")
   end
 end
