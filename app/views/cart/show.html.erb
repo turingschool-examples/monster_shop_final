@@ -10,7 +10,7 @@
       <p>Price: <%= number_to_currency(item.price) %></p>
       <% if cart.check_for_discount(item.id) %>
         <%= flash[:notice] = "You received a discount!" %>
-        <p>Subtotal: <%= number_to_currency(cart.discount_item(item.id)) %></p>
+        <p>Subtotal: <%= number_to_currency(cart.subtotal_of(item.id)) %></p>
       <% else %>
         <p>Subtotal: <%= number_to_currency(cart.subtotal_of(item.id)) %></p>
       <% end %>

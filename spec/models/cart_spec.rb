@@ -89,10 +89,5 @@ RSpec.describe Cart do
       expect(@cart_2.best_discount(@ogre.id)).to eq(0.1)
       expect(@cart_2.best_discount(@gnome.id)).to eq(0.1)
     end
-
-    it '.discount_item()' do
-      expect(@cart_2.discount_item(@ogre.id)).to eq(90.0)
-      expect(@cart_2.discount_item(@gnome.id)).to eq(45.0)
-    end
   end
 end
