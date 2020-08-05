@@ -9,9 +9,6 @@
       <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTaLM_vbg2Rh-mZ-B4t-RSU9AmSfEEq_SN9xPP_qrA2I6Ftq_D9Qw">
       <p>Price: <%= number_to_currency(item.price) %></p>
       <p>Quantity: <%= cart.count_of(item.id) %></p>
-      <% if discount_elegible?(item.id) %>
-        <p> Discount of <%= discount.percentage %> % applied </p>
-      <% end %>
       <p>Subtotal: <%= number_to_currency(cart.subtotal_of(item.id)) %></p>
       <p>Sold by: <%= link_to item.merchant.name, "/merchants/#{item.merchant_id}" %>, Inventory: <%= item.inventory %></p>
       <%= button_to 'More of This!', "/cart/more/#{item.id}", method: :patch unless cart.limit_reached?(item.id) %>
