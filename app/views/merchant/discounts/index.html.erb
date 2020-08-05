@@ -10,7 +10,8 @@
   </tr>
   <% @discounts.each do |discount| %>
     <tr id = "discount-row-<%=discount.id%>">
-      <td><%= link_to "Delete", merchant_discount_path(id: discount.id), method: :delete, data: { confirm: "Are you sure you want to delete the discount with ID: #{discount.id}?" }%>
+      <td><%= link_to "Delete", merchant_discount_path(id: discount.id), method: :delete%>
+        <%# , data: { confirm: "Are you sure you want to delete the discount with ID: #{discount.id}?" } %>
       <td><%= link_to "Edit", edit_merchant_discount_path(id: discount.id) %>
       <td><%= discount.id %></td>
       <td><%= discount.percent %>%</td>
