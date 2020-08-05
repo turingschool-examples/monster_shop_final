@@ -49,11 +49,10 @@ class Cart
   end
 
   def check_for_discount(item_id)
-    final_discount = false
-    Merchant.find(Item.find(item_id).merchant_id).discounts.each do |discount|
-      final_discount = true if can_get_discount?(item_id, discount)
+    Item.find(item_id).merchant.discounts.each do |discount|
+      return true if can_get_discount?(item_id, discount)
     end
-    final_discount
+    return false
   end
 
   def can_get_discount?(item_id, discount)
