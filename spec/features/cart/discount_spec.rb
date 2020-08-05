@@ -9,10 +9,6 @@ RSpec.describe 'Item discounts' do
       @giant = @merchant_1.items.create!(name: 'Giant', description: "I'm a Giant!", price: 50, image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTaLM_vbg2Rh-mZ-B4t-RSU9AmSfEEq_SN9xPP_qrA2I6Ftq_D9Qw', active: true, inventory: 5 )
       @discount1 = @merchant_1.discounts.create!(name: "Ogre Discount", percent_off: 10, min_quantity: 5)
       @discount2 = @merchant_1.discounts.create!(name: "Ogre Discount", percent_off: 20, min_quantity: 10)
-      # @order_2 = @m_user.orders.create!(status: "pending")
-      # @order_3 = @m_user.orders.create!(status: "pending")
-      # @order_item_1 = @order_2.order_items.create!(item: @ogre, price: @ogre.price, quantity: 2, fulfilled: false)
-      # @order_item_2 = @order_3.order_items.create!(item: @giant, price: @giant.price, quantity: 2, fulfilled: false)
       @user = User.create!(name: 'Ash', address: '123 Main St', city: 'Denver', state: 'CO', zip: 80218, email: 'ash@example.com', password: 'securepassword')
       allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(@user)
     end
@@ -26,7 +22,7 @@ RSpec.describe 'Item discounts' do
 
       within "#item-#{@ogre.id}" do
         expect(page).to have_content("Subtotal: $25.00")
-save_and_open_page
+
         click_button 'More of This!'
         click_button 'More of This!'
         click_button 'More of This!'
