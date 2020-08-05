@@ -3,7 +3,13 @@ class OrderItem < ApplicationRecord
   belongs_to :item
 
   def subtotal
-    quantity * price
+    ordered_discounts = item.discounts.order(:item_amount)
+    if ordered_discounts.where("item_amount <= #{quantity}").empty?
+      quantity * price
+    else
+      discount = quantity * price * ordered_discounts.where("item_amount <= #{quantity}").last.percentage.to_f / 100
+      quantity * price - discount
+    end
   end
 
   def fulfill

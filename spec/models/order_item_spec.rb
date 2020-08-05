@@ -27,7 +27,7 @@ RSpec.describe OrderItem do
     it '.subtotal' do
       expect(@order_item_1.subtotal).to eq(40.5)
       expect(@order_item_2.subtotal).to eq(150)
-      expect(@order_item_3.subtotal).to eq(1350)
+      expect(@order_item_3.subtotal).to eq(1147.5)
     end
 
     it '.fulfillable?' do
