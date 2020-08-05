@@ -9,14 +9,15 @@ RSpec.describe Cart do
       @giant = @megan.items.create!(name: 'Giant', description: "I'm a Giant!", price: 50, image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTaLM_vbg2Rh-mZ-B4t-RSU9AmSfEEq_SN9xPP_qrA2I6Ftq_D9Qw', active: true, inventory: 2 )
       @hippo = @brian.items.create!(name: 'Hippo', description: "I'm a Hippo!", price: 50, image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTaLM_vbg2Rh-mZ-B4t-RSU9AmSfEEq_SN9xPP_qrA2I6Ftq_D9Qw', active: true, inventory: 3 )
       @cart = Cart.new({
-        @ogre.id.to_s => 1,
+        @ogre.id.to_s => 6,
         @giant.id.to_s => 2
         })
+      @discount1 = @megan.discounts.create!(name: "Ogre Discount", percent_off: 10, min_quantity: 5)
     end
 
     it '.contents' do
       expect(@cart.contents).to eq({
-        @ogre.id.to_s => 1,
+        @ogre.id.to_s => 6,
         @giant.id.to_s => 2
         })
     end
@@ -25,14 +26,14 @@ RSpec.describe Cart do
       @cart.add_item(@hippo.id.to_s)
 
       expect(@cart.contents).to eq({
-        @ogre.id.to_s => 1,
+        @ogre.id.to_s => 6,
         @giant.id.to_s => 2,
         @hippo.id.to_s => 1
         })
     end
 
     it '.count' do
-      expect(@cart.count).to eq(3)
+      expect(@cart.count).to eq(8)
     end
 
     it '.items' do
@@ -40,16 +41,16 @@ RSpec.describe Cart do
     end
 
     it '.grand_total' do
-      expect(@cart.grand_total).to eq(120)
+      expect(@cart.grand_total).to eq(208)
     end
 
     it '.count_of()' do
-      expect(@cart.count_of(@ogre.id)).to eq(1)
+      expect(@cart.count_of(@ogre.id)).to eq(6)
       expect(@cart.count_of(@giant.id)).to eq(2)
     end
 
     it '.subtotal_of()' do
-      expect(@cart.subtotal_of(@ogre.id)).to eq(20)
+      expect(@cart.subtotal_of(@ogre.id)).to eq(108)
       expect(@cart.subtotal_of(@giant.id)).to eq(100)
     end
 
@@ -63,5 +64,14 @@ RSpec.describe Cart do
 
       expect(@cart.count_of(@giant.id)).to eq(1)
     end
+
+    it '.it_discounted()' do
+      expect(@cart.it_discounted(@orge.id)).to eq(true)
+    end
+
+    xit '.can_discount?()' do
+      expect(@cart.can_discount?(@orge.id, @discount1)).to eq(true)
+    end
+
   end
 end
