@@ -27,8 +27,8 @@ RSpec.describe 'New Merchant Discount' do
       click_button 'Create Discount'
 
       expect(current_path).to eq("/merchant/discounts")
-      expect(page).to have_link(name)
-      expect(page).to have_content("Inctive")
+      expect(page).to have_content(name)
+      expect(page).to have_content("Inactive")
     end
 
     it 'I can not create an  discount for a merchant with an incomplete form' do
