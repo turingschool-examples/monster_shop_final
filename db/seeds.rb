@@ -68,6 +68,14 @@ order_1 = tom.orders.create!(status: "pending")
 order_2 = tom.orders.create!(status: "pending")
 order_3 = tom.orders.create!(status: "pending")
 
+discount_1 = morgan.discounts.create!(name: "20% Off", active: true)
+discount_2 = morgan.discounts.create!(name: "50% Off")
+discount_3 = morgan.discounts.create!(name: "75% Off", active: true)
+
+order_1.order_discounts.create!(discount: discount_1)
+order_2.order_discounts.create!(discount: discount_2)
+order_3.order_discounts.create!(discount: discount_3)
+
 #item_orders
 item_order_1 = OrderItem.create(order: order_1, item: item_1, price: item_1.price, quantity: 10)
 item_order_1 = OrderItem.create(order: order_2, item: item_1, price: item_1.price, quantity: 500)
