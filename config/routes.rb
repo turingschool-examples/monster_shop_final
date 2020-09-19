@@ -43,6 +43,7 @@ Rails.application.routes.draw do
     patch '/discounts/:id', to: 'discounts#update'
     delete '/discounts/:id', to: 'discounts#delete'
     get '/discounts/:id/edit', to: 'discounts#edit'
+    post '/discounts/:id/edit', to: 'discounts#edit'
     put '/discounts/:id/change_status', to: 'discounts#change_status'
   end
 
