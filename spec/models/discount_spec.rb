@@ -16,9 +16,9 @@ RSpec.describe Discount do
       @merchant_1 = Merchant.create!(name: 'Megans Marmalades', address: '123 Main St', city: 'Denver', state: 'CO', zip: 80218)
       @merchant_2 = Merchant.create!(name: 'Brians Bagels', address: '125 Main St', city: 'Denver', state: 'CO', zip: 80218)
       @m_user = @merchant_1.users.create(name: 'Ashley', address: '123 Main St', city: 'Denver', state: 'CO', zip: 80218, email: 'ashley@example.com', password: 'securepassword')
-      @discount_1 = @merchant_1.discounts.create!(name: "20% Off")
+      @discount_1 = @merchant_1.discounts.create!(name: "20% Off", active: true)
       @discount_2 = @merchant_1.discounts.create!(name: "50% Off")
-      @discount_3 = @merchant_1.discounts.create!(name: "75% Off")
+      @discount_3 = @merchant_1.discounts.create!(name: "75% Off", active: true)
       @user = User.create!(name: 'Gram', address: '123 Main St', city: 'Denver', state: 'CO', zip: 80218, email: 'gram@example.com', password: 'securepassword')
       @order_1 = @user.orders.create!
       @order_2 = @user.orders.create!
@@ -29,7 +29,7 @@ RSpec.describe Discount do
     end
 
     it '.active_discounts' do
-      expect(Discount.active_discounts).to eq(@discount_1)
+      expect(Discount.active_discounts).to eq([@discount_1, @discount_3])
     end
 
 
