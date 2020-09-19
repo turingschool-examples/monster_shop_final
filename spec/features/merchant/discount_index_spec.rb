@@ -30,7 +30,6 @@ RSpec.describe 'Merchant Discounts Index' do
 
     it 'I see my discounts, including inactive discounts' do
       within "#discount-#{@discount_1.id}" do
-      save_and_open_page
         expect(page).to have_content(@discount_1.name)
         expect(page).to have_content("Active")
         expect(page).to have_button('Inactivate')
