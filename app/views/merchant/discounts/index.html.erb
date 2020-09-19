@@ -1,3 +1,5 @@
+<%= link_to 'New Discount', '/merchant/discounts/new' %></br></br>
+
 <% @discounts.each do |discount| %>
   <section id='discount-<%= discount.id%>'>
     <h2><%= discount.name %></h2>
