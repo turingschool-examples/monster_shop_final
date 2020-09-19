@@ -4,9 +4,9 @@
     <p><%= discount.active ? "Active" : "Inactive" %></p>
     <% if current_merchant_user? %>
       <% if discount.active? %>
-        <%= button_to 'Inactivate', "/merchant/discounts/#{discount.id}/change_status", method: :put %>
-      <% elsif !discount.active? %>
         <%= button_to 'Activate', "/merchant/discounts/#{discount.id}/change_status", method: :put %>
+      <% elsif !discount.active? %>
+        <%= button_to 'Inactivate', "/merchant/discounts/#{discount.id}/change_status", method: :put %>
       <% end %>
       <%= button_to 'Update Discount', "/merchant/discounts/#{discount.id}/edit" %>
       <%= button_to 'Delete', "/merchant/discounts/#{discount.id}", method: :delete if discount.orders.empty? %>
