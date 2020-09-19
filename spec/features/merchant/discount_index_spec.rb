@@ -11,9 +11,9 @@ RSpec.describe 'Merchant Discounts Index' do
       @nessie = @merchant_1.items.create!(name: 'Nessie', description: "I'm a Loch Monster!", price: 20.25, image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTaLM_vbg2Rh-mZ-B4t-RSU9AmSfEEq_SN9xPP_qrA2I6Ftq_D9Qw', active: true, inventory: 5 )
       @giant = @merchant_1.items.create!(name: 'Giant', description: "I'm a Giant!", price: 50, image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTaLM_vbg2Rh-mZ-B4t-RSU9AmSfEEq_SN9xPP_qrA2I6Ftq_D9Qw', active: false, inventory: 3 )
       @hippo = @merchant_2.items.create!(name: 'Hippo', description: "I'm a Hippo!", price: 50, image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTaLM_vbg2Rh-mZ-B4t-RSU9AmSfEEq_SN9xPP_qrA2I6Ftq_D9Qw', active: true, inventory: 1 )
-      @discount_1 = @merchant_1.discounts.create!(name: "20% Off", active: true)
+      # @discount_1 = @merchant_1.discounts.create!(name: "20% Off", active: true)
       @discount_2 = @merchant_1.discounts.create!(name: "50% Off")
-      @discount_3 = @merchant_1.discounts.create!(name: "75% Off", active: true)
+      # @discount_3 = @merchant_1.discounts.create!(name: "75% Off", active: true)
       @order_1 = @m_user.orders.create!(status: "pending")
       @order_2 = @m_user.orders.create!(status: "pending")
       @order_3 = @m_user.orders.create!(status: "pending")
@@ -21,9 +21,9 @@ RSpec.describe 'Merchant Discounts Index' do
       @order_item_2 = @order_2.order_items.create!(item: @hippo, price: @hippo.price, quantity: 2, fulfilled: true)
       @order_item_3 = @order_2.order_items.create!(item: @ogre, price: @ogre.price, quantity: 2, fulfilled: false)
       @order_item_4 = @order_3.order_items.create!(item: @giant, price: @giant.price, quantity: 4, fulfilled: false)
-      @order_1.order_discounts.create!(discount: @discount_1)
+      # @order_1.order_discounts.create!(discount: @discount_1)
       @order_2.order_discounts.create!(discount: @discount_2)
-      @order_3.order_discounts.create!(discount: @discount_3)
+      # @order_3.order_discounts.create!(discount: @discount_3)
       allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(@m_user)
       visit '/merchant/discounts'
     end
@@ -55,40 +55,26 @@ RSpec.describe 'Merchant Discounts Index' do
       expect(current_path).to eq('/merchant/discounts')
       expect(page).to have_content("#{@discount_1.name} is no longer active")
 
-      @m_user.reload
-
       within "#discount-#{@discount_1.id}" do
-        expect(page).to have_content('Inactive')
+        expect(page).to have_button('Inactive')
+        expect(page).to have_button('Activate')
       end
     end
 
     it 'I can activate a discount' do
-
+      require "pry"; binding.pry
       within "#discount-#{@discount_2.id}" do
         click_button 'Activate'
       end
-
+      require "pry"; binding.pry
       expect(current_path).to eq('/merchant/discounts')
       expect(page).to have_content("#{@discount_2.name} is now active")
 
-      @m_user.reload
-
       within "#discount-#{@discount_2.id}" do
-        expect(page).to have_content('Active')
+        require "pry"; binding.pry
+        expect(page).to have_content("Active")
+        expect(page).to have_button('Inactivate')
       end
-    end
-
-    it 'I can delete discounts' do
-
-      within "#discount-#{@discount_3.id}" do
-        click_button 'Delete'
-      end
-
-      expect(current_path).to eq('/merchant/discounts')
-
-      @m_user.reload
-
-      expect(page).to_not have_css("#discount-#{@discount_3.id}")
     end
   end
 end
