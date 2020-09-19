@@ -4,6 +4,8 @@
 
 <%= link_to 'My Items', '/merchant/items' %>
 
+<%= link_to 'Discount Management Dashboard', '/merchant/discounts' %>
+
 <section class="orders">
   <% @merchant.pending_orders.each do |order| %>
     <section id="order-<%= order.id %>">
