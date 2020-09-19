@@ -61,7 +61,7 @@ item_10 = dog_shop.items.create!(name: "Bone", description: "XYZ", price: 6, ima
 tom = User.create(name: "Tom", address: "121 Tomville St.", city: "Tomville", state: "CO", zip: "34565", email: "tombroke@gmail.com", password: "thisismypassword", password_confirmation: "thisismypassword" )
 
 #users - merchant employee
-merchant_employee = bike_shop.users.create(name: "Grant", address: "121 Grantville St.", city: "Granville", state: "CO", zip: "34565", email: "grant@gmail.com", password: "password", password_confirmation: "password", role: 1, merchant_id: bike_shop.id)
+m_user = morgan.users.create(name: 'Morgan', address: '123 Main St', city: 'Denver', state: 'CO', zip: 80218, email: 'morgan@example.com', password: 'securepassword')
 
 #orders
 order_1 = tom.orders.create!(status: "pending")
