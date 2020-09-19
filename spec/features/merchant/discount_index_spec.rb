@@ -30,15 +30,19 @@ RSpec.describe 'Merchant Discounts Index' do
 
     it 'I see my discounts, including inactive discounts' do
       within "#discount-#{@discount_1.id}" do
-        expect(page).to have_link(@discount_1.name)
+        expect(page).to have_content(@discount_1.name)
         expect(page).to have_content("Active")
         expect(page).to have_button('Inactivate')
+        expect(page).to have_button('Update Discount')
+        expect(page).to have_button('Delete')
       end
 
       within "#discount-#{@discount_2.id}" do
         expect(page).to have_link(@discount_2.name)
         expect(page).to have_content("Inactive")
         expect(page).to have_button('Activate')
+        expect(page).to have_button('Update Discount')
+        expect(page).to have_button('Delete')
       end
     end
 
