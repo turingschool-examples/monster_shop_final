@@ -24,7 +24,6 @@ class Merchant::DiscountsController < Merchant::BaseController
   def update
     @discount = Discount.find(params[:id])
     if @discount.update(discount_params)
-      require "pry"; binding.pry
       redirect_to "/merchant/discounts"
     else
       generate_flash(@discount)
@@ -41,6 +40,14 @@ class Merchant::DiscountsController < Merchant::BaseController
     else
       flash[:notice] = "#{discount.name} is no longer active"
     end
+    redirect_to '/merchant/discounts'
+  end
+
+  def destroy
+    discount = Discount.find(params[:id])
+    order_discount = OrderDiscount.where(discount_id: params[:id])
+    order_discount[0].destroy
+    discount.destroy
     redirect_to '/merchant/discounts'
   end
 
