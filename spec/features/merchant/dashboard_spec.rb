@@ -62,5 +62,15 @@ RSpec.describe 'Merchant Dashboard' do
 
       expect(current_path).to eq("/merchant/orders/#{@order_2.id}")
     end
+
+    it 'I can link to discount dashboard' do
+      visit '/merchant'
+
+      expect(page).to have_link("Discount Management Dashboard")
+
+      click_link 'Discount Management Dashboard'
+
+      expect(current_path).to eq("/merchant/discounts")
+    end
   end
 end
