@@ -13,7 +13,7 @@ RSpec.describe 'New Merchant Creation' do
     it 'I can use the new merchant form to create a new merchant' do
       visit '/merchants/new'
 
-      name = 'Megans Marmalades'
+      name = 'Morgans Marmalades'
       address = '123 Main St'
       city = "Denver"
       state = "CO"
@@ -34,7 +34,7 @@ RSpec.describe 'New Merchant Creation' do
     it 'I can not create a merchant with an incomplete form' do
       visit '/merchants/new'
 
-      name = 'Megans Marmalades'
+      name = 'Morgans Marmalades'
 
       fill_in 'Name', with: name
 

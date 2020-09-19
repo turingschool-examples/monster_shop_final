@@ -13,7 +13,7 @@ RSpec.describe Discount do
 
   describe 'Class Methods' do
     before :each do
-      @merchant_1 = Merchant.create!(name: 'Megans Marmalades', address: '123 Main St', city: 'Denver', state: 'CO', zip: 80218)
+      @merchant_1 = Merchant.create!(name: 'Morgans Marmalades', address: '123 Main St', city: 'Denver', state: 'CO', zip: 80218)
       @merchant_2 = Merchant.create!(name: 'Brians Bagels', address: '125 Main St', city: 'Denver', state: 'CO', zip: 80218)
       @m_user = @merchant_1.users.create(name: 'Ashley', address: '123 Main St', city: 'Denver', state: 'CO', zip: 80218, email: 'ashley@example.com', password: 'securepassword')
       @discount_1 = @merchant_1.discounts.create!(name: "20% Off", active: true)

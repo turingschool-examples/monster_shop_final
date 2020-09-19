@@ -3,21 +3,21 @@ require 'rails_helper'
 RSpec.describe 'Existing Merchant Update' do
   describe 'As a Visitor' do
     before :each do
-      @megan = Merchant.create!(name: 'Megans Marmalades', address: '123 Main St', city: 'Denver', state: 'CO', zip: 80218)
+      @morgan = Merchant.create!(name: 'Morgans Marmalades', address: '123 Main St', city: 'Denver', state: 'CO', zip: 80218)
     end
 
     it 'I can link to an edit merchant page from merchant show page' do
-      visit "/merchants/#{@megan.id}"
+      visit "/merchants/#{@morgan.id}"
 
       click_button 'Edit'
 
-      expect(current_path).to eq("/merchants/#{@megan.id}/edit")
+      expect(current_path).to eq("/merchants/#{@morgan.id}/edit")
     end
 
     it 'I can use the edit merchant form to update the merchant information' do
-      visit "/merchants/#{@megan.id}/edit"
+      visit "/merchants/#{@morgan.id}/edit"
 
-      name = 'Megans Monsters'
+      name = 'Morgans Monsters'
       address = '321 Main St'
       city = "Denver"
       state = "CO"
@@ -31,9 +31,9 @@ RSpec.describe 'Existing Merchant Update' do
 
       click_button 'Update Merchant'
 
-      expect(current_path).to eq("/merchants/#{@megan.id}")
+      expect(current_path).to eq("/merchants/#{@morgan.id}")
       expect(page).to have_content(name)
-      expect(page).to_not have_content(@megan.name)
+      expect(page).to_not have_content(@morgan.name)
 
       within '.address' do
         expect(page).to have_content(address)
@@ -43,9 +43,9 @@ RSpec.describe 'Existing Merchant Update' do
 
 
     it 'I can not edit a merchant with an incomplete form' do
-      visit "/merchants/#{@megan.id}/edit"
+      visit "/merchants/#{@morgan.id}/edit"
 
-      name = 'Megans Marmalades'
+      name = 'Morgans Marmalades'
 
       fill_in 'Name', with: name
 

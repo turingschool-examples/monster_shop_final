@@ -3,11 +3,11 @@ require 'rails_helper'
 RSpec.describe 'Destroy Existing Merchant' do
   describe 'As a visitor' do
     before :each do
-      @megan = Merchant.create!(name: 'Megans Marmalades', address: '123 Main St', city: 'Denver', state: 'CO', zip: 80218)
+      @morgan = Merchant.create!(name: 'Morgans Marmalades', address: '123 Main St', city: 'Denver', state: 'CO', zip: 80218)
       @brian = Merchant.create!(name: 'Brians Bagels', address: '125 Main St', city: 'Denver', state: 'CO', zip: 80218)
-      @ogre = @megan.items.create!(name: 'Ogre', description: "I'm an Ogre!", price: 20, image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTaLM_vbg2Rh-mZ-B4t-RSU9AmSfEEq_SN9xPP_qrA2I6Ftq_D9Qw', active: true, inventory: 5 )
+      @ogre = @morgan.items.create!(name: 'Ogre', description: "I'm an Ogre!", price: 20, image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTaLM_vbg2Rh-mZ-B4t-RSU9AmSfEEq_SN9xPP_qrA2I6Ftq_D9Qw', active: true, inventory: 5 )
       @giant = @brian.items.create!(name: 'Giant', description: "I'm a Giant!", price: 20, image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTaLM_vbg2Rh-mZ-B4t-RSU9AmSfEEq_SN9xPP_qrA2I6Ftq_D9Qw', active: true, inventory: 5 )
-      @user = User.create!(name: 'Megan', address: '123 Main St', city: 'Denver', state: 'CO', zip: 80218, email: 'megan@example.com', password: 'securepassword')
+      @user = User.create!(name: 'Morgan', address: '123 Main St', city: 'Denver', state: 'CO', zip: 80218, email: 'morgan@example.com', password: 'securepassword')
       @order = @user.orders.create!
       @order.order_items.create(item: @ogre, quantity: 3, price: @ogre.price)
     end
@@ -31,16 +31,16 @@ RSpec.describe 'Destroy Existing Merchant' do
 
     describe 'If a merchant has items that have been ordered' do
       it 'I do not see a button to delete the merchant' do
-        visit merchant_path(@megan)
+        visit merchant_path(@morgan)
 
         expect(page).to_not have_button('Delete')
       end
 
       it 'I can not delete a merchant' do
-        page.driver.submit :delete, merchant_path(@megan), {}
+        page.driver.submit :delete, merchant_path(@morgan), {}
 
-        expect(page).to have_content(@megan.name)
-        expect(page).to have_content("#{@megan.name} can not be deleted - they have orders!")
+        expect(page).to have_content(@morgan.name)
+        expect(page).to have_content("#{@morgan.name} can not be deleted - they have orders!")
       end
     end
   end
