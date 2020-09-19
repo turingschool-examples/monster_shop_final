@@ -35,9 +35,9 @@ class Merchant::DiscountsController < Merchant::BaseController
     discount = Discount.find(params[:id])
     discount.update(active: !discount.active)
     if discount.active?
-      flash[:notice] = "#{discount.name} is now available"
+      flash[:notice] = "#{discount.name} is now active"
     else
-      flash[:notice] = "#{discount.name} is no longer available"
+      flash[:notice] = "#{discount.name} is no longer active"
     end
     redirect_to '/merchant/discounts'
   end
