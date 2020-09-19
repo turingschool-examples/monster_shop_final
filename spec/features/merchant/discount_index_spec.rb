@@ -38,7 +38,7 @@ RSpec.describe 'Merchant Discounts Index' do
       end
 
       within "#discount-#{@discount_2.id}" do
-        expect(page).to have_link(@discount_2.name)
+        expect(page).to have_content(@discount_2.name)
         expect(page).to have_content("Inactive")
         expect(page).to have_button('Activate')
         expect(page).to have_button('Update Discount')
