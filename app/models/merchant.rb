@@ -1,7 +1,10 @@
 class Merchant < ApplicationRecord
   has_many :items, dependent: :destroy
+  has_many :discounts, dependent: :destroy
   has_many :order_items, through: :items
   has_many :orders, through: :order_items
+  has_many :order_discounts, through: :discounts
+  has_many :orders, through: :order_discounts
   has_many :users
 
   validates_presence_of :name,
