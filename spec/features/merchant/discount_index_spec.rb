@@ -11,9 +11,9 @@ RSpec.describe 'Merchant Discounts Index' do
       @nessie = @merchant_1.items.create!(name: 'Nessie', description: "I'm a Loch Monster!", price: 20.25, image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTaLM_vbg2Rh-mZ-B4t-RSU9AmSfEEq_SN9xPP_qrA2I6Ftq_D9Qw', active: true, inventory: 5 )
       @giant = @merchant_1.items.create!(name: 'Giant', description: "I'm a Giant!", price: 50, image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTaLM_vbg2Rh-mZ-B4t-RSU9AmSfEEq_SN9xPP_qrA2I6Ftq_D9Qw', active: false, inventory: 3 )
       @hippo = @merchant_2.items.create!(name: 'Hippo', description: "I'm a Hippo!", price: 50, image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTaLM_vbg2Rh-mZ-B4t-RSU9AmSfEEq_SN9xPP_qrA2I6Ftq_D9Qw', active: true, inventory: 1 )
-      @discount_1 = @merchant_1.discounts.create!(name: "20% Off", active: true)
-      @discount_2 = @merchant_1.discounts.create!(name: "50% Off")
-      @discount_3 = @merchant_1.discounts.create!(name: "75% Off", active: true)
+      @discount_1 = @merchant_1.discounts.create!(percent: 20, min_items: 5, active: true)
+      @discount_2 = @merchant_1.discounts.create!(percent: 50, min_items: 10)
+      @discount_3 = @merchant_1.discounts.create!(percent: 75, min_items: 20, active: true)
       @order_1 = @m_user.orders.create!(status: "pending")
       @order_2 = @m_user.orders.create!(status: "pending")
       @order_3 = @m_user.orders.create!(status: "pending")
@@ -30,7 +30,8 @@ RSpec.describe 'Merchant Discounts Index' do
 
     it 'I see my discounts, including inactive discounts' do
       within "#discount-#{@discount_1.id}" do
-        expect(page).to have_content(@discount_1.name)
+        expect(page).to have_content(@discount_1.percent)
+        expect(page).to have_content(@discount_1.min_items)
         expect(page).to have_content("Active")
         expect(page).to have_button('Inactivate')
         expect(page).to have_button('Update Discount')
@@ -38,7 +39,8 @@ RSpec.describe 'Merchant Discounts Index' do
       end
 
       within "#discount-#{@discount_2.id}" do
-        expect(page).to have_content(@discount_2.name)
+        expect(page).to have_content(@discount_2.percent)
+        expect(page).to have_content(@discount_2.min_items)
         expect(page).to have_content("Inactive")
         expect(page).to have_button('Activate')
         expect(page).to have_button('Update Discount')
@@ -53,7 +55,7 @@ RSpec.describe 'Merchant Discounts Index' do
       end
 
       expect(current_path).to eq('/merchant/discounts')
-      expect(page).to have_content("#{@discount_1.name} is no longer active")
+      expect(page).to have_content("#{@discount_1.percent}% Off #{@discount_1.min_items} Items or More is no longer active")
     end
 
     it 'I can activate a discount' do
@@ -63,7 +65,7 @@ RSpec.describe 'Merchant Discounts Index' do
       end
 
       expect(current_path).to eq('/merchant/discounts')
-      expect(page).to have_content("#{@discount_2.name} is now active")
+      expect(page).to have_content("#{@discount_2.percent}% Off #{@discount_2.min_items} Items or More is now active")
     end
 
     it 'I can delete discounts' do
