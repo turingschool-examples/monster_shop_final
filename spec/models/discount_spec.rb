@@ -8,7 +8,8 @@ RSpec.describe Discount do
   end
 
   describe 'Validations' do
-    it {should validate_presence_of :name}
+    it {should validate_presence_of :percent}
+    it {should validate_presence_of :min_items}
   end
 
   describe 'Class Methods' do
