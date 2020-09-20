@@ -21,16 +21,16 @@ RSpec.describe "Discount Index Page as a Merchant Employee" do
     click_on "Discounts"
     expect(current_path).to eq("/merchant/discounts")
 
-    within "#discount-#{@discount_1.id}" do
-      expect(page).to have_content(@discount_1.name)
-      expect(page).to have_content(@discount_1.item_amount)
-      expect(page).to have_content(@discount_1.discount_percentage)
+    within "#discount-#{@discount1.id}" do
+      expect(page).to have_content(@discount1.name)
+      expect(page).to have_content(@discount1.item_amount)
+      expect(page).to have_content(@discount1.discount_percentage)
     end
 
-    within "#discount-#{@discount_2.id}" do
-      expect(page).to have_content(@discount_2.name)
-      expect(page).to have_content(@discount_2.item_amount)
-      expect(page).to have_content(@discount_2.discount_percentage)
+    within "#discount-#{@discount2.id}" do
+      expect(page).to have_content(@discount2.name)
+      expect(page).to have_content(@discount2.item_amount)
+      expect(page).to have_content(@discount2.discount_percentage)
     end
   end
 
