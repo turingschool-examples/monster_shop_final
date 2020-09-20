@@ -4,6 +4,58 @@
 
 <%= link_to 'My Items', '/merchant/items' %>
 
+<section class="discounts">
+<center>
+<h2>My Discounts</h2>
+<%= link_to 'Add New Discount', '/merhant/discounts/new' %>
+<%
+=begin%>
+ 
+<table class = "discount-items">
+  <tr>
+    <th>Item</th>
+    <th>Inventory</th>
+    <th>Discount Quantity</th>
+    <th>Discount Percentage</th>
+    <th>Update Discount</th>
+  </tr>
+  <% @discounts.each do |item_id| %>
+    <% item = Item.find(item_id)%>
+    <tr id= "discount-item-<%=item.id%>">
+      <td>
+        <p align = "center">
+          <span>
+            <img align = "center" id="discount-image" src= <%= item.image %>>
+            <%=link_to item.name, "/items/#{item.id}" %>
+          </span>
+        </p>
+      </td>
+      <td>
+        <p align = "center">
+          <%=item.inventory%> Pieces
+        </p>
+      </td>
+      <td>
+        <p><%=item.threshold_quantity%></p>
+      </td>
+      <td>
+        <p><%=item.discount_percentage%></p>
+      </td>
+      <td>
+        <center>
+          <%= button_to "Delete Discount", "/merchant/discounts/#{item.id}",method: :delete  %>
+          <%= button_to "Update Discount", "/merchant/discounts/#{item.id}",method: :patch %>
+        </center>
+      </td>
+    </tr>
+  <% end %>
+</table> 
+<%
+=end%>
+
+</section>
+
+
 <section class="orders">
   <% @merchant.pending_orders.each do |order| %>
     <section id="order-<%= order.id %>">
