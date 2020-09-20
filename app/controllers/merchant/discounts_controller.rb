@@ -54,6 +54,6 @@ class Merchant::DiscountsController < Merchant::BaseController
   private
 
   def discount_params
-    params.permit(:name)
+    params.permit(:percent, :min_items)
   end
 end
