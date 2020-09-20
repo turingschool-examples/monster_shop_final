@@ -36,9 +36,9 @@ class Merchant::DiscountsController < Merchant::BaseController
     discount.update(active: !discount.active)
     if discount.active?
       discount.save
-      flash[:notice] = "#{discount.name} is now active"
+      flash[:notice] = "#{discount.percent}% Off #{discount.min_items} Items or More is now active"
     else
-      flash[:notice] = "#{discount.name} is no longer active"
+      flash[:notice] = "#{discount.percent}% Off #{discount.min_items} Items or More is no longer active"
     end
     redirect_to '/merchant/discounts'
   end
