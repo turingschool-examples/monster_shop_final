@@ -17,7 +17,7 @@ RSpec.describe "Discount Index Page as a Merchant Employee" do
 
     visit "/merchant"
 
-    expect(page).to have_link("All Discounts")
+    expect(page).to have_link("Discounts")
     click_on "Discounts"
     expect(current_path).to eq("/merchant/discounts")
 
