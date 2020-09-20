@@ -2,7 +2,7 @@
 
 <% @discounts.each do |discount| %>
   <section id='discount-<%= discount.id%>'>
-    <h2><%= discount.name %></h2>
+    <h2><%= "#{discount.percent}% Off #{discount.min_items} Items or More"  %></h2>
     <p><%= discount.active ? "Active" : "Inactive" %></p>
     <% if current_merchant_user? %>
       <% if discount.active? %>
