@@ -68,9 +68,9 @@ order_1 = tom.orders.create!(status: "pending")
 order_2 = tom.orders.create!(status: "pending")
 order_3 = tom.orders.create!(status: "pending")
 
-discount_1 = morgan.discounts.create!(name: "20% Off", active: true)
-discount_2 = morgan.discounts.create!(name: "50% Off")
-discount_3 = morgan.discounts.create!(name: "75% Off", active: true)
+discount_1 = morgan.discounts.create!(percent: 20, min_items: 5, active: true)
+discount_2 = morgan.discounts.create!(percent: 50, min_items: 10)
+discount_3 = morgan.discounts.create!(percent: 75, min_items: 20, active: true)
 
 order_1.order_discounts.create!(discount: discount_1)
 order_2.order_discounts.create!(discount: discount_2)
