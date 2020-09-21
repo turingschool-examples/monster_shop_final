@@ -1,0 +1,14 @@
+<h1 align= "center">Create New Discount</h1>
+  <center>
+
+    <%= form_for [:merchant, @discount], url: merchant_discounts_path do |f| %>
+       
+        <%= f.label :threshold_quantity %>
+        <%= f.text_field :threshold_quantity %><br />
+
+        <%= f.label :discount_percentage %>
+        <%= f.text_field :discount_percentage %><br />
+
+        <%= f.submit 'Submit New Discount' %>
+    <% end %>
+  </center>

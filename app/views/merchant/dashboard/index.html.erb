@@ -7,52 +7,32 @@
 <section class="discounts">
 <center>
 <h2>My Discounts</h2>
-<%= link_to 'Add New Discount', '/merhant/discounts/new' %>
-<%
-=begin%>
+<%= link_to 'Add New Discount', '/merchant/discounts/new' %>
  
 <table class = "discount-items">
   <tr>
-    <th>Item</th>
-    <th>Inventory</th>
+    
     <th>Discount Quantity</th>
     <th>Discount Percentage</th>
     <th>Update Discount</th>
   </tr>
-  <% @discounts.each do |item_id| %>
-    <% item = Item.find(item_id)%>
-    <tr id= "discount-item-<%=item.id%>">
+  <% @discounts.each do |discount| %>
+    <tr id= "discount-<%=discount.id%>">
       <td>
-        <p align = "center">
-          <span>
-            <img align = "center" id="discount-image" src= <%= item.image %>>
-            <%=link_to item.name, "/items/#{item.id}" %>
-          </span>
-        </p>
+        <p><%=discount.threshold_quantity%></p>
       </td>
       <td>
-        <p align = "center">
-          <%=item.inventory%> Pieces
-        </p>
-      </td>
-      <td>
-        <p><%=item.threshold_quantity%></p>
-      </td>
-      <td>
-        <p><%=item.discount_percentage%></p>
+        <p><%=discount.discount_percentage%></p>
       </td>
       <td>
         <center>
-          <%= button_to "Delete Discount", "/merchant/discounts/#{item.id}",method: :delete  %>
-          <%= button_to "Update Discount", "/merchant/discounts/#{item.id}",method: :patch %>
+          <%= button_to "Delete Discount", "/merchant/discounts/#{discount.id}",method: :delete  %>
+          <%= button_to "Update Discount", "/merchant/discounts/#{discount.id}",method: :patch %>
         </center>
       </td>
     </tr>
   <% end %>
 </table> 
-<%
-=end%>
-
 </section>
 
 
