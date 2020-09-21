@@ -48,7 +48,7 @@ RSpec.describe 'New discount form' do
         discount_3 = @merchant_1.discounts.create(threshold_quantity: 50, discount_percentage: 25)
 
         visit '/merchant/'
-        save_and_open_page
+    
         expect(page).to have_content("Discount Quantity")
         expect(page).to have_content("Discount Percentage")
 
