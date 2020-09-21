@@ -16,6 +16,14 @@
     <%= link_to(image_tag(item.image), item_path(item), id: 'image') %>
     <p>Price: <%= number_to_currency(item.price) %></p>
     <p>Sold by: <%= link_to item.merchant.name, "/merchants/#{item.merchant_id}" %>, Inventory: <%= item.inventory %></p>
+    <p>Merchant Discounts: </p>
+    <% if item.merchant.discounts.empty? %>
+        <p>None at this time...</p>
+    <% else %>
+      <% item.merchant.discounts.each do |discount|%>
+        <p>Buy <%= discount.threshold_quantity %> Items, Get <%= discount.discount_percentage %> Percent Off!</p>
+      <% end %>
+      <% end %>
     <p><%= item.active ? "Active" : "Inactive" %></p>
     <% if current_merchant_user? %>
       <% if item.active? %>
