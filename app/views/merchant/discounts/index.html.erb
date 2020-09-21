@@ -1,0 +1,15 @@
+<h1> All Discounts </h1>
+
+<% @discounts.each do |discount| %>
+  <section id="discount-<%= discount.id %>">
+    <h3> <%= discount.name %> </h3>
+    <ul>
+      <li> Item quantity: <%= discount.item_amount %> or more </li>
+      <li> Percent off: <%= discount.discount_percentage %>% </li>
+    </ul>
+    <%= link_to "Edit", "/merchant/discounts/#{discount.id}/edit" %>
+    <%= link_to "Delete", "/merchant/discounts/#{discount.id}", method: :delete %>
+  </section>
+<% end %>
+
+<%= link_to "Create a New Discount", "/merchant/discounts/new" %>
