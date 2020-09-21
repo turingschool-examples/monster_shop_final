@@ -26,8 +26,8 @@
       </td>
       <td>
         <center>
-          <%= button_to "Delete Discount", "/merchant/discounts/#{discount.id}",method: :delete  %>
-          <%= button_to "Update Discount", "/merchant/discounts/#{discount.id}",method: :patch %>
+          <%= button_to "Delete Discount", "/merchant/discounts/#{discount.id}", method: :delete  %>
+          <%= button_to "Update Discount", "/merchant/discounts/#{discount.id}/edit", method: :get %>
         </center>
       </td>
     </tr>
