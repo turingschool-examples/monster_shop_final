@@ -10,18 +10,15 @@ RSpec.describe "Discount Edit Page as a Merchant Employee" do
     allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(@dwight)
   end
 
-  it "displays a link where I can edit an existing discount" do
-
+  xit "displays a link where I can edit an existing discount" do
     visit "/merchant/discounts"
 
     within "#discount-#{@discount1.id}" do
-      expect(page).to have_content(@discount1.name)
       expect(page).to have_link("Edit")
       click_on "Edit"
     end
 
     expect(current_path).to eq("/merchant/discounts/#{@discount1.id}/edit")
-
     name = "Cool Stuff"
     item_amount = 15
     discount_percentage = 60
@@ -29,11 +26,32 @@ RSpec.describe "Discount Edit Page as a Merchant Employee" do
     fill_in :name, with: name
     fill_in :item_amount, with: item_amount
     fill_in :discount_percentage, with: discount_percentage
-    click_button "Update Discount"
+
+    click_on "Update Discount"
 
     expect(current_path).to eq("/merchant/discounts")
-    expect(page).to have_content("#{@discount1.name} was successfully updated!")
-    expect(page).to have_content("Cool Stuff")
+    expect(page).to have_content("Discount was successfully updated!")
+
+    within "#discount-#{@discount1.id}" do
+      expect(page).to have_content("Cool Stuff")
+    end
+  end
+
+  it "cannot update a discount when there's missing information" do
+
+    visit "/merchant/discounts/#{@discount1.id}/edit"
+
+    name = ""
+    item_amount = 0
+    discount_percentage = 60
+
+    fill_in :name, with: name
+    fill_in :item_amount, with: item_amount
+    fill_in :discount_percentage, with: discount_percentage
+
+    click_on "Update Discount"
+    expect(current_path).to eq("/merchant/discounts/#{@discount1.id}/edit")
+    expect(page).to have_content("Name can't be blank and Item amount must be greater than 0")
   end
 
 end
