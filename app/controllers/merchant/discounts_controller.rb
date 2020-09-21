@@ -24,6 +24,7 @@ class Merchant::DiscountsController < Merchant::BaseController
     def update
         @discount = Discount.find(params[:id])
         if @discount.update(threshold_quantity: params[:discount][:threshold_quantity], discount_percentage: params[:discount][:discount_percentage])
+            # current_user.merchant.discounts.reload
             flash[:success] = "Discount Updated!"
             redirect_to "/merchant"
         else
@@ -34,10 +35,11 @@ class Merchant::DiscountsController < Merchant::BaseController
 
     def destroy
       discount = Discount.find(params[:id])
-      discount.destroy
+      discount.destroy!
+      # current_user.merchant.discounts.reload
       flash[:success] = "Discount Removed!"
       redirect_to "/merchant"
-    end
+end
 
 
 
