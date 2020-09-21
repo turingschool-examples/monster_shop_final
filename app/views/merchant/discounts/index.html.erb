@@ -7,6 +7,7 @@
       <li> Item quantity: <%= discount.item_amount %> or more </li>
       <li> Percent off: <%= discount.discount_percentage %>% </li>
     </ul>
+    <%= link_to "Edit", "/merchant/discounts/#{discount.id}/edit" %>
   </section>
 <% end %>
 
