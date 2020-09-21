@@ -8,6 +8,7 @@
       <li> Percent off: <%= discount.discount_percentage %>% </li>
     </ul>
     <%= link_to "Edit", "/merchant/discounts/#{discount.id}/edit" %>
+    <%= link_to "Delete", "/merchant/discounts/#{discount.id}", method: :delete %>
   </section>
 <% end %>
 
