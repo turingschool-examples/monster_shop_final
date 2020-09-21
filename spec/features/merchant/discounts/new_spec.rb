@@ -42,4 +42,60 @@ RSpec.describe "Discount New Page as a Merchant Employee" do
     end
   end
 
+  it "cannot make a new discount with negative numbers" do
+    visit "/merchant/discounts"
+
+    expect(page).to have_link("Create a New Discount")
+    click_on "Create a New Discount"
+    expect(current_path).to eq("/merchant/discounts/new")
+
+    name = "60% off 15 or more items!"
+    item_amount = -1
+    discount_percentage = 20
+
+    fill_in :name, with: name
+    fill_in :item_amount, with: item_amount
+    fill_in :discount_percentage, with: discount_percentage
+    click_button "Create Discount"
+
+    expect(current_path).to eq("/merchant/discounts/new")
+    expect(page).to have_content("Item amount must be greater than 0")
+  end
+
+  it "cannot make a new discount with a percentage higher than 99" do
+    visit "/merchant/discounts"
+
+    expect(page).to have_link("Create a New Discount")
+    click_on "Create a New Discount"
+    expect(current_path).to eq("/merchant/discounts/new")
+
+    name = "60% off 15 or more items!"
+    item_amount = 12
+    discount_percentage = 100
+
+    fill_in :name, with: name
+    fill_in :item_amount, with: item_amount
+    fill_in :discount_percentage, with: discount_percentage
+    click_button "Create Discount"
+
+    expect(current_path).to eq("/merchant/discounts/new")
+    expect(page).to have_content("Discount percentage must be 1 - 99")
+  end
+
+  it "cannot make a new discount with blank information" do
+    visit "/merchant/discounts"
+
+    expect(page).to have_link("Create a New Discount")
+    click_on "Create a New Discount"
+    expect(current_path).to eq("/merchant/discounts/new")
+
+    fill_in :name, with: ""
+    fill_in :item_amount, with: ""
+    fill_in :discount_percentage, with: ""
+    click_button "Create Discount"
+
+    expect(current_path).to eq("/merchant/discounts/new")
+    expect(page).to have_content("Name can't be blank, Item amount is not a number, and Discount percentage must be 1 - 99")
+  end
+
 end
