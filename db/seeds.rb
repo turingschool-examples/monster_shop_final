@@ -9,6 +9,7 @@ require 'faker'
 
 megan = Merchant.create!(name: 'Megans Marmalades', address: '123 Main St', city: 'Denver', state: 'CO', zip: 80218)
 brian = Merchant.create!(name: 'Brians Bagels', address: '125 Main St', city: 'Denver', state: 'CO', zip: 80218)
+@m_user = megan.users.create(name: 'merchant', address: '123 Main St', city: 'Denver', state: 'CO', zip: 80218, email: 'merchant@example.com', password: 'password')
 
 10.times do
     description = Faker::Movies::HarryPotter.quote
