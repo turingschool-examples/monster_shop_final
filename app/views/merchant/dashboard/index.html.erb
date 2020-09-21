@@ -4,6 +4,38 @@
 
 <%= link_to 'My Items', '/merchant/items' %>
 
+<section class="discounts">
+<center>
+<h2>My Discounts</h2>
+<%= link_to 'Add New Discount', '/merchant/discounts/new' %>
+ 
+<table class = "discount-items">
+  <tr>
+    
+    <th>Discount Quantity</th>
+    <th>Discount Percentage</th>
+    <th>Update Discount</th>
+  </tr>
+  <% @discounts.each do |discount| %>
+    <tr id= "discount-<%=discount.id%>">
+      <td>
+        <p><%=discount.threshold_quantity%></p>
+      </td>
+      <td>
+        <p><%=discount.discount_percentage%></p>
+      </td>
+      <td>
+        <center>
+          <%= button_to "Delete Discount", "/merchant/discounts/#{discount.id}",method: :delete  %>
+          <%= button_to "Update Discount", "/merchant/discounts/#{discount.id}",method: :patch %>
+        </center>
+      </td>
+    </tr>
+  <% end %>
+</table> 
+</section>
+
+
 <section class="orders">
   <% @merchant.pending_orders.each do |order| %>
     <section id="order-<%= order.id %>">
