@@ -18,7 +18,6 @@ RSpec.describe 'New discount form' do
       click_button "Submit New Discount"
       
       expect(current_path).to eq("/merchant")
-
       expect(page).to have_content("Discount Quantity")
       expect(page).to have_content("10")
       expect(page).to have_content("Discount Percentage")
@@ -42,5 +41,36 @@ RSpec.describe 'New discount form' do
       expect(current_path).to eq("/merchant")
 
     end
+
+    it 'Will show multiple discounts' do
+        discount_1 = @merchant_1.discounts.create(threshold_quantity: 10, discount_percentage: 5)
+        discount_2 = @merchant_1.discounts.create(threshold_quantity: 30, discount_percentage: 15)
+        discount_3 = @merchant_1.discounts.create(threshold_quantity: 50, discount_percentage: 25)
+
+        visit '/merchant/'
+        save_and_open_page
+        expect(page).to have_content("Discount Quantity")
+        expect(page).to have_content("Discount Percentage")
+
+        within "#discount-#{discount_1.id}" do 
+            expect(page).to have_content("#{discount_1.percentage_discount}")
+            expect(page).to have_content("#{discount_1.threshold_quantity}")
+            expect(page).to have_button("Delete Discount")
+            expect(page).to have_button("Update Discount")
+        end
+        within "#discount-#{discount_2.id}" do 
+            expect(page).to have_content("#{discount_2.percentage_discount}")
+            expect(page).to have_content("#{discount_2.threshold_quantity}")
+            expect(page).to have_button("Delete Discount")
+            expect(page).to have_button("Update Discount")
+        end
+        within "#discount-#{discount_3.id}" do 
+            expect(page).to have_content("#{discount_3.percentage_discount}")
+            expect(page).to have_content("#{discount_3.threshold_quantity}")
+            expect(page).to have_button("Delete Discount")
+            expect(page).to have_button("Update Discount")
+        end
+  
+      end
   end
 end
