@@ -53,19 +53,19 @@ RSpec.describe 'New discount form' do
         expect(page).to have_content("Discount Percentage")
 
         within "#discount-#{discount_1.id}" do 
-            expect(page).to have_content("#{discount_1.percentage_discount}")
+            expect(page).to have_content("#{discount_1.discount_percentage}")
             expect(page).to have_content("#{discount_1.threshold_quantity}")
             expect(page).to have_button("Delete Discount")
             expect(page).to have_button("Update Discount")
         end
         within "#discount-#{discount_2.id}" do 
-            expect(page).to have_content("#{discount_2.percentage_discount}")
+            expect(page).to have_content("#{discount_2.discount_percentage}")
             expect(page).to have_content("#{discount_2.threshold_quantity}")
             expect(page).to have_button("Delete Discount")
             expect(page).to have_button("Update Discount")
         end
         within "#discount-#{discount_3.id}" do 
-            expect(page).to have_content("#{discount_3.percentage_discount}")
+            expect(page).to have_content("#{discount_3.discount_percentage}")
             expect(page).to have_content("#{discount_3.threshold_quantity}")
             expect(page).to have_button("Delete Discount")
             expect(page).to have_button("Update Discount")
