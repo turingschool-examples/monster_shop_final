@@ -18,6 +18,7 @@ RSpec.describe 'New discount form' do
       click_button "Submit New Discount"
       
       expect(current_path).to eq("/merchant")
+      expect(page).to have_content("Discount Added")
       expect(page).to have_content("Discount Quantity")
       expect(page).to have_content("10")
       expect(page).to have_content("Discount Percentage")
