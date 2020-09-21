@@ -18,6 +18,7 @@ RSpec.describe 'Item Index Page' do
       @order_1.order_items.create!(item: @hippo, price: @hippo.price, quantity: 3)
       @order_2.order_items.create!(item: @hippo, price: @hippo.price, quantity: 5)
       @order_3.order_items.create!(item: @nessie, price: @nessie.price, quantity: 7)
+      @discount_1 = @megan.discounts.create(threshold_quantity: 10, discount_percentage: 5)
     end
     it 'I can see a list of all active items' do
       visit '/items'
@@ -29,6 +30,7 @@ RSpec.describe 'Item Index Page' do
         expect(page).to have_content("Active")
         expect(page).to have_content("Inventory: #{@ogre.inventory}")
         expect(page).to have_content("Sold by: #{@megan.name}")
+        expect(page).to have_content("Buy 10 Items, Get 5.0 Percent Off!")
         expect(page).to have_css("img[src*='#{@ogre.image}']")
         expect(page).to have_link("image")
         expect(page).to have_link(@megan.name)
@@ -41,6 +43,7 @@ RSpec.describe 'Item Index Page' do
         expect(page).to have_content("Active")
         expect(page).to have_content("Inventory: #{@giant.inventory}")
         expect(page).to have_content("Sold by: #{@megan.name}")
+        expect(page).to have_content("Buy 10 Items, Get 5.0 Percent Off!")
         expect(page).to have_css("img[src*='#{@giant.image}']")
         expect(page).to have_link("image")
         expect(page).to have_link(@megan.name)
@@ -53,11 +56,11 @@ RSpec.describe 'Item Index Page' do
         expect(page).to have_content("Active")
         expect(page).to have_content("Inventory: #{@hippo.inventory}")
         expect(page).to have_content("Sold by: #{@brian.name}")
+        expect(page).to have_content("None at this time...")
         expect(page).to have_css("img[src*='#{@hippo.image}']")
         expect(page).to have_link("image")
         expect(page).to have_link(@brian.name)
       end
-
       expect(page).to_not have_css("#item-#{@nessie.id}")
     end
 
