@@ -29,7 +29,7 @@ RSpec.describe "Discount Edit Page as a Merchant Employee" do
     fill_in :name, with: name
     fill_in :item_amount, with: item_amount
     fill_in :discount_percentage, with: discount_percentage
-    click_button "Create Discount"
+    click_button "Update Discount"
 
     expect(current_path).to eq("/merchant/discounts")
     expect(page).to have_content("#{@discount1.name} was successfully updated!")
