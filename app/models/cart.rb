@@ -59,7 +59,11 @@ class Cart
   end
 
   def discounted_subtotal(item_id)
-    subtotal_of(item_id) * (1 - (maximum_discount(item_id) / 100.0))
+    if available_discount?(item_id)
+      subtotal_of(item_id) * (1 - (maximum_discount(item_id) / 100.0))
+    else
+      0
+    end
   end
 
 end
