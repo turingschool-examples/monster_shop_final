@@ -172,6 +172,7 @@ RSpec.describe 'Cart Show Page' do
         @brian = Merchant.create!(name: 'Brians Bagels', address: '125 Main St', city: 'Denver', state: 'CO', zip: 80218)
         @hippo = @brian.items.create!(name: 'Hippo', description: "I'm a Hippo!", price: 50, image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTaLM_vbg2Rh-mZ-B4t-RSU9AmSfEEq_SN9xPP_qrA2I6Ftq_D9Qw', active: true, inventory: 3 )
         discount_1 = @brian.discounts.create!(threshold_quantity: 10, discount_percentage: 20)
+        discount_2 = @brian.discounts.create!(threshold_quantity: 20, discount_percentage: 35)
         visit item_path(@hippo)
         click_button 'Add to Cart'
 
@@ -179,6 +180,7 @@ RSpec.describe 'Cart Show Page' do
 
         within "#item-#{@hippo.id}" do
           expect(page).to have_content("Buy 10 Items, Get 20.0 Percent Off!")
+          expect(page).to have_content("Buy 20 Items, Get 35.0 Percent Off!")
         end
 
       end
