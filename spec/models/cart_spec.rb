@@ -13,6 +13,7 @@ RSpec.describe Cart do
         @giant.id.to_s => 2
         })
       @discount1 = @megan.discounts.create!(name: "50% off 3 or more items!", item_amount: 3, discount_percentage: 50)
+      @discount2 = @megan.discounts.create!(name: "75% off 5 or more items!", item_amount: 5, discount_percentage: 75)
     end
 
     it '.contents' do
@@ -89,10 +90,10 @@ RSpec.describe Cart do
     it ".discounted_subtotal()" do
       @cart.add_item(@ogre.id.to_s)
       @cart.add_item(@ogre.id.to_s)
-      @cart.add_item(@ogre.id.to_s)
-      # @cart.add_item(@giant.id.to_s)
+      @cart.add_item(@giant.id.to_s)
 
-      expect(@cart.discounted_subtotal(@ogre.id)).to eq(40.0)
+      expect(@cart.discounted_subtotal(@ogre.id)).to eq(30.0)
+      expect(@cart.subtotal_of(@giant.id)).to eq(150.0)
     end
   end
 end

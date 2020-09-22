@@ -8,8 +8,10 @@ RSpec.describe 'Cart Show Page' do
       @brian = Merchant.create!(name: 'Brians Bagels', address: '125 Main St', city: 'Denver', state: 'CO', zip: 80218)
       @ogre = @megan.items.create!(name: 'Ogre', description: "I'm an Ogre!", price: 20, image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTaLM_vbg2Rh-mZ-B4t-RSU9AmSfEEq_SN9xPP_qrA2I6Ftq_D9Qw', active: true, inventory: 5 )
       @giant = @megan.items.create!(name: 'Giant', description: "I'm a Giant!", price: 50, image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTaLM_vbg2Rh-mZ-B4t-RSU9AmSfEEq_SN9xPP_qrA2I6Ftq_D9Qw', active: true, inventory: 3 )
+      @simba = @megan.items.create!(name: 'Simba', description: "I'm Simba!", price: 30, image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTaLM_vbg2Rh-mZ-B4t-RSU9AmSfEEq_SN9xPP_qrA2I6Ftq_D9Qw', active: true, inventory: 10 )
       @hippo = @brian.items.create!(name: 'Hippo', description: "I'm a Hippo!", price: 50, image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTaLM_vbg2Rh-mZ-B4t-RSU9AmSfEEq_SN9xPP_qrA2I6Ftq_D9Qw', active: true, inventory: 3 )
       @discount1 = @megan.discounts.create!(name: "50% off 3 or more items!", item_amount: 3, discount_percentage: 50)
+      @discount2 = @megan.discounts.create!(name: "75% off 5 or more items!", item_amount: 5, discount_percentage: 75)
     end
 
     describe 'I can see my cart' do
@@ -170,7 +172,7 @@ RSpec.describe 'Cart Show Page' do
       end
     end
 
-    it "A discount is displayed on my cart if I add the discount item amount." do
+    it "A discount is displayed on my cart if I add the discount item amount. The discount only applied to the merchant with the discount and not the rest of my items." do
 
       visit item_path(@hippo)
       click_button 'Add to Cart'
@@ -207,6 +209,38 @@ RSpec.describe 'Cart Show Page' do
       end
 
       expect(page).to have_content("Total: $245.00")
+    end
+
+    it "the discount with the greatest value/deal is applied" do
+
+      visit item_path(@ogre)
+      click_button 'Add to Cart'
+
+      visit item_path(@simba)
+      click_button 'Add to Cart'
+
+      visit '/cart'
+      within "#item-#{@ogre.id}" do
+        2.times do
+          click_button('More of This!')
+        end
+      end
+
+      within "#item-#{@simba.id}" do
+        4.times do
+          click_button('More of This!')
+        end
+      end
+
+      within "#item-#{@ogre.id}" do
+         expect(page).to have_content("Discounted Subtotal: $30.00")
+       end
+
+       within "#item-#{@simba.id}" do
+        expect(page).to have_content("Discounted Subtotal: $37.50")
+      end
+
+      expect(page).to have_content("Total: $67.50")
     end
   end
 end
