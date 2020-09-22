@@ -1,5 +1,13 @@
 <h1><%= @merchant.name %></h1>
 
+<section class='discounts'>
+  <h3> Today's Discounts! </h3>
+  <% @merchant.discounts.each do |discount| %>
+    <%= discount.name %>
+  <% end %>
+</section>
+
+
 <section class='address'>
   <p><%= @merchant.address %></p>
   <p><%= @merchant.city %> <%= @merchant.state %> <%= @merchant.zip %></p>
