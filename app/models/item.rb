@@ -31,4 +31,12 @@ class Item < ApplicationRecord
   def average_rating
     reviews.average(:rating)
   end
+
+  def show_discounts
+    self.merchant.discounts.each do |discount|
+      return "Buy #{discount.threshold_quantity} Items, Get #{discount.discount_percentage} Percent Off!"
+    # if !apply_discounts
+    # end
+    end
+  end
 end
