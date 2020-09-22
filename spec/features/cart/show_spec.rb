@@ -9,6 +9,7 @@ RSpec.describe 'Cart Show Page' do
       @ogre = @megan.items.create!(name: 'Ogre', description: "I'm an Ogre!", price: 20, image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTaLM_vbg2Rh-mZ-B4t-RSU9AmSfEEq_SN9xPP_qrA2I6Ftq_D9Qw', active: true, inventory: 5 )
       @giant = @megan.items.create!(name: 'Giant', description: "I'm a Giant!", price: 50, image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTaLM_vbg2Rh-mZ-B4t-RSU9AmSfEEq_SN9xPP_qrA2I6Ftq_D9Qw', active: true, inventory: 3 )
       @hippo = @brian.items.create!(name: 'Hippo', description: "I'm a Hippo!", price: 50, image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTaLM_vbg2Rh-mZ-B4t-RSU9AmSfEEq_SN9xPP_qrA2I6Ftq_D9Qw', active: true, inventory: 3 )
+      @discount1 = @megan.discounts.create!(name: "50% off 3 or more items!", item_amount: 3, discount_percentage: 50)
     end
 
     describe 'I can see my cart' do
@@ -167,6 +168,45 @@ RSpec.describe 'Cart Show Page' do
         expect(page).to_not have_content("#{@hippo.name}")
         expect(page).to have_content("Cart: 0")
       end
+    end
+
+    it "A discount is displayed on my cart if I add the discount item amount." do
+
+      visit item_path(@hippo)
+      click_button 'Add to Cart'
+
+      visit item_path(@ogre)
+      click_button 'Add to Cart'
+
+      visit item_path(@giant)
+      click_button 'Add to Cart'
+
+      visit '/cart'
+      within "#item-#{@hippo.id}" do
+        2.times do
+          click_button('More of This!')
+        end
+      end
+
+      within "#item-#{@giant.id}" do
+        2.times do
+          click_button('More of This!')
+        end
+      end
+
+      within "#item-#{@giant.id}" do
+         expect(page).to have_content("Discounted Subtotal: $75.00")
+       end
+
+       within "#item-#{@ogre.id}" do
+        expect(page).to have_content("Subtotal: $20.00")
+      end
+
+       within "#item-#{@hippo.id}" do
+        expect(page).to have_content("Subtotal: $150.00")
+      end
+
+      expect(page).to have_content("Total: $245.00")
     end
   end
 end
