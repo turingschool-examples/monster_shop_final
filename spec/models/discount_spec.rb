@@ -3,10 +3,8 @@ require 'rails_helper'
 RSpec.describe Discount do
   describe 'Relationships' do
     it {should belong_to :merchant}
-    it {should have_many :discount_order_items}
-    it {should have_many(:order_items).through(:discount_order_items)}
-    it {should have_many(:items).through(:order_items)}
-    it {should have_many(:orders).through(:order_items)}
+    it {should have_many :discount_items}
+    it {should have_many(:items).through(:discount_items)}
   end
 
   describe 'Validations' do
