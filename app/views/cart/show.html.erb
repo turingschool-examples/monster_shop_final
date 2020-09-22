@@ -10,7 +10,7 @@
       <p>Price: <%= number_to_currency(item.price) %></p>
       <p>Quantity: <%= cart.count_of(item.id) %></p>
       <% if cart.available_discount?(item.id) %>
-        <p>Discounted Subtotal: <%= number_to_currency(cart.discounted_subtotal(item.id)) %> </p>
+        <p> **Discounted Subtotal: <%= number_to_currency(cart.discounted_subtotal(item.id))%>** </p>
       <% else %>
         <p>Subtotal: <%= number_to_currency(cart.subtotal_of(item.id)) %></p>
       <% end %>
