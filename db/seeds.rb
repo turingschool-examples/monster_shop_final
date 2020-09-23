@@ -12,8 +12,8 @@ brian = Merchant.create!(name: 'Brians Bagels', address: '125 Main St', city: 'D
 
 m_user = megan.users.create(name: 'merchant', address: '123 Main St', city: 'Denver', state: 'CO', zip: 80218, email: 'merchant@example.com', password: 'password')
 
-discount_1 = megan.discounts.create(threshold_quantity: 10, discount_percentage: 5)
-discount_2 = megan.discounts.create(threshold_quantity: 30, discount_percentage: 15)
+discount_1 = megan.discounts.create(threshold_quantity: 5, discount_percentage: 10)
+discount_2 = megan.discounts.create(threshold_quantity: 10, discount_percentage: 20)
 
 10.times do
     description = Faker::Movies::HarryPotter.quote
