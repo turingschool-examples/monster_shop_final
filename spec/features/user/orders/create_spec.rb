@@ -6,6 +6,11 @@ RSpec.describe 'Create Order' do
     before :each do
       @megan = Merchant.create!(name: 'Megans Marmalades', address: '123 Main St', city: 'Denver', state: 'CO', zip: 80218)
       @brian = Merchant.create!(name: 'Brians Bagels', address: '125 Main St', city: 'Denver', state: 'CO', zip: 80218)
+
+      @discount1 = @megan.discounts.create!(name: "50% off 3 or more items!", item_amount: 3, discount_percentage: 50)
+      @discount2 = @megan.discounts.create!(name: "75% off 5 or more items!", item_amount: 5, discount_percentage: 75)
+
+      @simba = @megan.items.create!(name: 'Simba', description: "I'm Simba!", price: 30, image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTaLM_vbg2Rh-mZ-B4t-RSU9AmSfEEq_SN9xPP_qrA2I6Ftq_D9Qw', active: true, inventory: 10 )
       @ogre = @megan.items.create!(name: 'Ogre', description: "I'm an Ogre!", price: 20, image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTaLM_vbg2Rh-mZ-B4t-RSU9AmSfEEq_SN9xPP_qrA2I6Ftq_D9Qw', active: true, inventory: 5 )
       @giant = @megan.items.create!(name: 'Giant', description: "I'm a Giant!", price: 50, image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTaLM_vbg2Rh-mZ-B4t-RSU9AmSfEEq_SN9xPP_qrA2I6Ftq_D9Qw', active: true, inventory: 3 )
       @hippo = @brian.items.create!(name: 'Hippo', description: "I'm a Hippo!", price: 50, image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTaLM_vbg2Rh-mZ-B4t-RSU9AmSfEEq_SN9xPP_qrA2I6Ftq_D9Qw', active: true, inventory: 3 )
@@ -33,6 +38,27 @@ RSpec.describe 'Create Order' do
 
       within "#order-#{order.id}" do
         expect(page).to have_link(order.id)
+      end
+    end
+
+    it "displays the total with the discounts on the order page" do
+
+      visit item_path(@simba)
+      click_button 'Add to Cart'
+      visit item_path(@simba)
+      click_button 'Add to Cart'
+      visit item_path(@simba)
+      click_button 'Add to Cart'
+
+      visit '/cart'
+      click_button 'Check Out'
+
+      order = Order.last
+
+      expect(current_path).to eq('/profile/orders')
+
+      within "#order-#{order.id}" do
+        expect(page).to have_content("Total: $45.00")
       end
     end
   end
@@ -73,4 +99,5 @@ RSpec.describe 'Create Order' do
       expect(current_path).to eq(login_path)
     end
   end
+
 end
