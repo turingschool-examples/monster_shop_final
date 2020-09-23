@@ -43,6 +43,17 @@ RSpec.describe 'New discount form' do
 
     end
 
+    # it 'Will not allow me to fill in with a string' do
+    #   visit '/merchant/discounts/new'
+
+    #   fill_in "Threshold quantity", with: 10
+    #   fill_in "Discount percentage", with: "seven"
+
+    #   click_button "Submit New Discount"
+    #   sleep 1
+    #   expect(page).to have_content("Discount percentage can't be blank")
+    # end
+
     it 'Will show multiple discounts' do
         discount_1 = @merchant_1.discounts.create(threshold_quantity: 10, discount_percentage: 5)
         discount_2 = @merchant_1.discounts.create(threshold_quantity: 30, discount_percentage: 15)
