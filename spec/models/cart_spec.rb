@@ -84,7 +84,6 @@ RSpec.describe Cart do
       @cart.add_item(@ogre.id.to_s)
       @cart.add_item(@ogre.id.to_s)
       @cart.add_item(@ogre.id.to_s)
-      # @cart.add_item(@giant.id.to_s)
 
       expect(@cart.available_discount?(@ogre.id)).to eq(true)
       expect(@cart.available_discount?(@giant.id)).to eq(false)
