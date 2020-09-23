@@ -8,11 +8,7 @@ RSpec.describe 'Order Show Page' do
       @brian = Merchant.create!(name: 'Brians Bagels', address: '125 Main St', city: 'Denver', state: 'CO', zip: 80218)
       @sal = Merchant.create!(name: 'Sals Salamanders', address: '125 Main St', city: 'Denver', state: 'CO', zip: 80218)
 
-      @discount1 = @megan.discounts.create!(name: "50% off 3 or more items!", item_amount: 3, discount_percentage: 50)
-      @discount2 = @megan.discounts.create!(name: "75% off 5 or more items!", item_amount: 5, discount_percentage: 75)
-
       @ogre = @megan.items.create!(name: 'Ogre', description: "I'm an Ogre!", price: 20.25, image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTaLM_vbg2Rh-mZ-B4t-RSU9AmSfEEq_SN9xPP_qrA2I6Ftq_D9Qw', active: true, inventory: 5 )
-      @simba = @megan.items.create!(name: 'Simba', description: "I'm Simba!", price: 30, image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTaLM_vbg2Rh-mZ-B4t-RSU9AmSfEEq_SN9xPP_qrA2I6Ftq_D9Qw', active: true, inventory: 10 )
       @giant = @megan.items.create!(name: 'Giant', description: "I'm a Giant!", price: 50, image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTaLM_vbg2Rh-mZ-B4t-RSU9AmSfEEq_SN9xPP_qrA2I6Ftq_D9Qw', active: true, inventory: 3 )
       @hippo = @brian.items.create!(name: 'Hippo', description: "I'm a Hippo!", price: 50, image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTaLM_vbg2Rh-mZ-B4t-RSU9AmSfEEq_SN9xPP_qrA2I6Ftq_D9Qw', active: true, inventory: 1 )
 
@@ -21,17 +17,9 @@ RSpec.describe 'Order Show Page' do
       @order_1 = @user.orders.create!(status: "packaged")
       @order_2 = @user.orders.create!(status: "pending")
 
-      @order_3 = @user.orders.create!(status: "pending")
-      @order_4 = @user.orders.create!(status: "pending")
-
       @order_item_1 = @order_1.order_items.create!(item: @ogre, price: @ogre.price, quantity: 2, fulfilled: true)
       @order_item_2 = @order_2.order_items.create!(item: @giant, price: @hippo.price, quantity: 2, fulfilled: true)
       @order_item_3 = @order_2.order_items.create!(item: @ogre, price: @ogre.price, quantity: 2, fulfilled: false)
-
-      @order_item_4 = @order_3.order_items.create!(item: @simba, price: @simba.price, quantity: 6, fulfilled: true)
-      @order_item_6 = @order_4.order_items.create!(item: @simba, price: @simba.price, quantity: 2, fulfilled: false)
-      @order_item_7 = @order_4.order_items.create!(item: @ogre, price: @ogre.price, quantity: 3, fulfilled: false)
-
       allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(@user)
     end
 
@@ -98,17 +86,6 @@ RSpec.describe 'Order Show Page' do
       expect(@giant.inventory).to eq(5)
       expect(@ogre.inventory).to eq(7)
     end
-
-    # it "displays the total with the discounts" do
-    #
-    #   visit "/profile/orders/#{@order_3.id}"
-    #
-    #   expect(page).to have_content("Total: $45.00")
-    #
-    #   within "#order-item-#{@order_item_3.id}" do
-    #     expect(page).to have_content(@order_item_2.subtotal_with_discount)
-    #   end
-    # end
 
   end
 end
