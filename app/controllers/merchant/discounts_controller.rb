@@ -39,9 +39,7 @@ class Merchant::DiscountsController < Merchant::BaseController
       # current_user.merchant.discounts.reload
       flash[:success] = "Discount Removed!"
       redirect_to "/merchant"
-end
-
-
+    end
 
   private
 
