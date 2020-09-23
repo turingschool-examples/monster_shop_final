@@ -90,10 +90,9 @@ RSpec.describe Cart do
     it ".discounted_subtotal()" do
       @cart.add_item(@ogre.id.to_s)
       @cart.add_item(@ogre.id.to_s)
-      @cart.add_item(@giant.id.to_s)
 
       expect(@cart.discounted_subtotal(@ogre.id)).to eq(30.0)
-      expect(@cart.subtotal_of(@giant.id)).to eq(150.0)
+      expect(@cart.discounted_subtotal(@giant.id)).to eq(0)
     end
   end
 end
