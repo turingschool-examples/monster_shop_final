@@ -3,6 +3,8 @@ class Item < ApplicationRecord
   has_many :order_items
   has_many :orders, through: :order_items
   has_many :reviews, dependent: :destroy
+  has_many :discount_items
+  has_many :discounts, through: :discount_items
 
   validates_presence_of :name,
                         :description,
@@ -29,4 +31,5 @@ class Item < ApplicationRecord
   def average_rating
     reviews.average(:rating)
   end
+
 end

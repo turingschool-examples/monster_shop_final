@@ -10,20 +10,16 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_09_20_215133) do
+ActiveRecord::Schema.define(version: 2020_09_22_014201) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
-  create_table "discount_order_items", force: :cascade do |t|
+  create_table "discount_items", force: :cascade do |t|
     t.bigint "discount_id"
-    t.bigint "order_item_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["discount_id", "order_item_id"], name: "index_discount_order_items_on_discount_id_and_order_item_id"
-    t.index ["discount_id"], name: "index_discount_order_items_on_discount_id"
-    t.index ["order_item_id", "discount_id"], name: "index_discount_order_items_on_order_item_id_and_discount_id"
-    t.index ["order_item_id"], name: "index_discount_order_items_on_order_item_id"
+    t.bigint "item_id"
+    t.index ["discount_id"], name: "index_discount_items_on_discount_id"
+    t.index ["item_id"], name: "index_discount_items_on_item_id"
   end
 
   create_table "discounts", force: :cascade do |t|
@@ -104,8 +100,8 @@ ActiveRecord::Schema.define(version: 2020_09_20_215133) do
     t.index ["merchant_id"], name: "index_users_on_merchant_id"
   end
 
-  add_foreign_key "discount_order_items", "discounts"
-  add_foreign_key "discount_order_items", "order_items"
+  add_foreign_key "discount_items", "discounts"
+  add_foreign_key "discount_items", "items"
   add_foreign_key "discounts", "merchants"
   add_foreign_key "items", "merchants"
   add_foreign_key "order_items", "items"

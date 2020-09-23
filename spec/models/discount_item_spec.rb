@@ -1,8 +1,8 @@
 require 'rails_helper'
 
-RSpec.describe DiscountOrderItem do
+RSpec.describe DiscountItem do
   describe 'relationships' do
     it {should belong_to :discount}
-    it {should belong_to :order_item}
+    it {should belong_to :item}
   end
 end
