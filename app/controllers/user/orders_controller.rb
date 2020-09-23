@@ -16,7 +16,8 @@ class User::OrdersController < ApplicationController
         order.order_items.create({
           item: item,
           quantity: cart.count_of(item.id),
-          price: (item.price - cart.discounted_subtotal(item.id))
+          price: cart.discounted_subtotal(item.id) / cart.count_of(item.id) 
+          # price: (item.price - cart.discounted_subtotal(item.id))
           })
       end
     session.delete(:cart)
