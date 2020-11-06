@@ -15,7 +15,7 @@ Merchants add bulk discount rates for all of their inventory. These apply automa
 
 #### Completion Criteria
 
-1. Merchants need full CRUD functionality on bulk discounts, and will be accessed a link on the merchant's dashboard.
+1. Merchant Employees need full CRUD functionality on bulk discounts, and will be accessed a link on the merchant's dashboard.
 1. You will implement a percentage based discount: 
    - 5% discount on 20 or more items
 1. A merchant can have multiple bulk discounts in the system.
