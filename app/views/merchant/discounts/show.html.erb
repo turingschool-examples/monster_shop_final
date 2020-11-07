@@ -4,4 +4,5 @@
   <li><%= "Quantity of minimum items needed for the discount: #{@discount.quantity}" %></li>
   <li><%= "Percent Off: #{@discount.percent}%" %></li>
   <p><%= link_to 'Edit Discount', "/merchant/discounts/#{@discount.id}/edit", method: :get %></p>
+  <p><%= link_to 'Delete Discount', "/merchant/discounts/#{@discount.id}", method: :delete %></p>
 </ul>
