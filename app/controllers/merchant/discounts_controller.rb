@@ -22,6 +22,21 @@ class Merchant::DiscountsController < Merchant::BaseController
     @discount = Discount.find(params[:id])
   end
 
+  def edit
+    @discount = Discount.find(params[:id])
+  end
+
+  def update
+    @discount = Discount.find(params[:id])
+    if @discount.update(discount_params)
+      flash[:success] = 'You successfully updated your discount!'
+      redirect_to "/merchant/discounts/#{@discount.id}"
+    else
+      flash.now[:alert] = 'You cannot leave a field blank. Please fully fill out the form'
+      render :edit
+    end
+  end
+
   private
   def discount_params
     params.permit(:description, :quantity, :percent)

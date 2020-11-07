@@ -24,6 +24,7 @@ RSpec.describe 'Discount Show Page' do
       @brian_discount_3 = @brian.discounts.create!(description: "Buy 10 items, get 45% off ", quantity: 10, percent: 45)
       @brian_discount_4 = @brian.discounts.create!(description: "Buy 5 items, get 10% off ", quantity: 5, percent: 10)
       @brian_discount_5 = @brian.discounts.create!(description: "Buy 6 items, get 30% off ", quantity: 6, percent: 30)
+      allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(@merchant_user)
     end
 
     it 'can the particulars of the unique discount' do
