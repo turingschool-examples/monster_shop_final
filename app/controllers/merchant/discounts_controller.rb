@@ -12,6 +12,9 @@ class Merchant::DiscountsController < Merchant::BaseController
     discount = merchant.discounts.new(discount_params)
     if discount.save
       redirect_to '/merchant/discounts'
+    else
+      flash.now[:alert] = 'You must fill out all fields to create this discount. Try again'
+      render :new
     end
   end
 
