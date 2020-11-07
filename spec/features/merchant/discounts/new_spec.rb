@@ -39,9 +39,9 @@ RSpec.describe 'Discounts Creation' do
       expect(current_path).to eq('/merchant/discounts/new')
 
       expect(page).to have_content('Create A New Discount')
-      fill_in :description, with: 'Buy 5 items, get 5% off'
-      fill_in :quantity, with: 5
-      fill_in :percent, with: 5
+      fill_in :description, with: @megan_discount_1.description
+      fill_in :quantity, with: @megan_discount_1.quantity
+      fill_in :percent, with: @megan_discount_1.percent
 
       click_on 'Submit Discount'
 
@@ -54,6 +54,25 @@ RSpec.describe 'Discounts Creation' do
         expect(page).to have_content("Quantity of minumn items needed for the discount: #{last_discount.quantity}")
         expect(page).to have_content("Percent Off: #{last_discount.percent}%")
       end
+    end
+
+    it 'must fill out the new discount form completely, or the employee will be given a flash message and a renew path' do
+      visit '/merchant/discounts'
+
+      expect(page).to have_link('Create New Discount')
+      click_link 'Create New Discount'
+      expect(current_path).to eq('/merchant/discounts/new')
+
+      expect(page).to have_content('Create A New Discount')
+      fill_in :description, with: @megan_discount_1.description
+      fill_in :quantity, with: ''
+      fill_in :percent, with: @megan_discount_1.percent
+
+      click_on 'Submit Discount'
+
+      expect(current_path).to eq('/merchant/discounts')
+      expect(page).to have_content('You must fill out all fields to create this discount. Try again')
+
     end
   end
 end
