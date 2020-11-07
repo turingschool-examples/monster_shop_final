@@ -27,11 +27,11 @@ varia_suit = metroid_shop.items.create(name: "Varia Suit", description: "Get you
 super_missiles = metroid_shop.items.create(name: "Super Missiles", description: "The boss puncher!", price: 100, image: "https://i.ibb.co/Kbgndr2/SM.jpg", inventory: 21)
 
 #megan items
-megan.items.create!(name: 'Ogre', description: "I'm an Ogre!", price: 20, image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTaLM_vbg2Rh-mZ-B4t-RSU9AmSfEEq_SN9xPP_qrA2I6Ftq_D9Qw', active: true, inventory: 5 )
-megan.items.create!(name: 'Giant', description: "I'm a Giant!", price: 50, image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTaLM_vbg2Rh-mZ-B4t-RSU9AmSfEEq_SN9xPP_qrA2I6Ftq_D9Qw', active: true, inventory: 3 )
+orge = megan.items.create!(name: 'Ogre', description: "I'm an Ogre!", price: 20, image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTaLM_vbg2Rh-mZ-B4t-RSU9AmSfEEq_SN9xPP_qrA2I6Ftq_D9Qw', active: true, inventory: 5 )
+giant = megan.items.create!(name: 'Giant', description: "I'm a Giant!", price: 50, image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTaLM_vbg2Rh-mZ-B4t-RSU9AmSfEEq_SN9xPP_qrA2I6Ftq_D9Qw', active: true, inventory: 3 )
 
 #brian items
-brian.items.create!(name: 'Hippo', description: "I'm a Hippo!", price: 50, image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTaLM_vbg2Rh-mZ-B4t-RSU9AmSfEEq_SN9xPP_qrA2I6Ftq_D9Qw', active: true, inventory: 3 )
+hippo = brian.items.create!(name: 'Hippo', description: "I'm a Hippo!", price: 50, image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTaLM_vbg2Rh-mZ-B4t-RSU9AmSfEEq_SN9xPP_qrA2I6Ftq_D9Qw', active: true, inventory: 3 )
 
 #users
   #default
@@ -40,7 +40,7 @@ user_1 = User.create!(name: "George",
                       city: "Denver",
                       state: "CO",
                       zip: 80111,
-                      email_address: "George@example.com",
+                      email_address: "Georgeexample.com",
                       password: "superEasyPZ")
   #merchant
 user_2 = User.create!(name: "Hope",
@@ -48,7 +48,7 @@ user_2 = User.create!(name: "Hope",
                       city: "Space",
                       state: "CO",
                       zip: 80111,
-                      email_address: "Hope@example.com",
+                      email_address: "Hopeexample.com",
                       password: "superEasyPZ",
                       role: 1,
                       merchant_id: metroid_shop.id)
@@ -58,6 +58,20 @@ user_3 = User.create!(name: "Todd",
                       city: "Denver",
                       state: "CO",
                       zip: 80111,
-                      email_address: "Todd@example.com",
+                      email_address: "Toddexample.com",
                       password: "superEasyPZ",
                       role: 2)
+
+#orders
+order_1 = Order.create!(name: 'Meg', address: '123 Stang Ave', city: 'Hershey', state: 'PA', zip: 17033, user_id: user_1.id)
+
+order_1.item_orders.create!(item: tire, price: tire.price, quantity: 2, status: "fulfilled")
+order_1.item_orders.create!(item: pull_toy, price: pull_toy.price, quantity: 3, status: "fulfilled")
+order_1.item_orders.create!(item: pull_toy, price: pull_toy.price, quantity: 3, status: "fulfilled")
+
+order_2 = Order.create!(name: 'Meg', address: '123 Stang Ave', city: 'Hershey', state: 'PA', zip: 17033, user_id: user_1.id)
+
+order_2.item_orders.create!(item: tire, price: tire.price, quantity: 2, status: "fulfilled")
+order_2.item_orders.create!(item: pull_toy, price: pull_toy.price, quantity: 3, status: "fulfilled")
+
+order_2.item_orders.create!(item: dog_bone, price: dog_bone.price, quantity: 3)
