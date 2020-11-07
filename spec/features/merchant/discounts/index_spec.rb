@@ -52,9 +52,17 @@ RSpec.describe 'Merchant Discounts Index Page' do
     it 'I see a link to create a new discount' do
       visit '/merchant/discounts'
 
-      expect(page).to have_link('New Bulk Discount')
       click_link 'New Bulk Discount'
       expect(current_path).to eq('/merchant/discounts/new')
+    end
+
+    it 'I see a link to edit a discount' do
+      visit '/merchant/discounts'
+
+      within "#discount-#{@discount_1.id}" do
+        click_link 'Edit Discount'
+      end
+      expect(current_path).to eq("/merchant/discounts/#{@discount_1.id}/edit")
     end
   end
 end
