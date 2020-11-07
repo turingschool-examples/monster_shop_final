@@ -54,9 +54,11 @@ RSpec.describe 'Discount Cart Show Page' do
         click_button('More of This!')
       end
 
-      expect(page).to have_content('Total: $277.50')
-      expect(page).to_not have_content('Total: $290.00')
+      expect(page).to have_content('Total: $307.50')
+      expect(page).to_not have_content('Total: $320.00')
+      expect(page).to have_content('Wahoo! You qualify for a bulk discount!')
       expect(page).to have_content('Total Savings: $12.50')
     end
+
   end
 end
