@@ -47,6 +47,8 @@ group :test do
   gem 'launchy'
   gem 'simplecov'
   gem 'shoulda-matchers'
+  gem 'rack_session_access'
+  gem 'factory_bot_rails'
 end
 
 group :development do
