@@ -26,13 +26,55 @@ describe 'As a merchant_employee' do
     fill_in 'email', with: "#{@m_user.email}"
     fill_in 'password', with: "#{@m_user.password}"
     click_button('Log In')
-    click_on('Bulk Discounts')
+    
   end
   describe 'When I visit my discounts page' do
-    it 'I see a button to add a new discount that when clicked directs me to a form to enter a discount' do
-      require 'pry'; binding.pry
+    before :each do
+      visit "merchant/discounts"
     end
-    it 'I see a list of my current discounts' 
-    it 'next to each link i see buttons to delete and edit'
+    it 'I see a list of my merchants current discounts with links to edit and delete the discount next to each' do
+      within ("#discount-#{@m1_discount1.id}") do
+        expect(page).to have_content(@m1_discount1.id)
+        expect(page).to have_content(@m1_discount1.item.name)
+        expect(page).to have_content(@m1_discount1.threshold)
+        expect(page).to have_content(@m1_discount1.discount)
+        expect(page).to have_button("Edit")
+        expect(page).to have_button("Delete")
+      end
+      within ("#discount-#{@m1_discount2.id}") do
+        expect(page).to have_content(@m1_discount2.id)
+        expect(page).to have_content(@m1_discount2.item.name)
+        expect(page).to have_content(@m1_discount2.threshold)
+        expect(page).to have_content(@m1_discount2.discount)
+        expect(page).to have_button("Edit")
+        expect(page).to have_button("Delete")
+      end
+      within ("#discount-#{@m1_discount3.id}") do
+        expect(page).to have_content(@m1_discount3.id)
+        expect(page).to have_content(@m1_discount3.item.name)
+        expect(page).to have_content(@m1_discount3.threshold)
+        expect(page).to have_content(@m1_discount3.discount)
+        expect(page).to have_button("Edit")
+        expect(page).to have_button("Delete")
+      end
+      
+      expect(page).to_not have_content(@m2_discount1.id)
+      
+    end
+
+    it "when I click an edit button I'm directed to a discount edits page" do
+      within ("#discount-#{@m1_discount1.id}") do
+        click_on("Edit")
+        expect(current_path).to eq("/merchant/discounts/#{@m1_discount1.id}/edit")
+      end
+    end
+    it "when I click a delete button, the page is refreshed and I no longer see the discount" do
+      within ("#discount-#{@m1_discount1.id}") do
+        click_on("Delete")
+      end
+      expect(current_path).to eq("/merchant/discounts")
+      expect(page).to_not have_content(@m1_discount1.id)
+    end
+    it 'I see a button to add a new discount that when clicked directs me to a form to enter a discount'
   end
 end
