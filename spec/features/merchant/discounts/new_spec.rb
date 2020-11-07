@@ -29,8 +29,8 @@ RSpec.describe 'Merchant Discounts New Page' do
     it 'I can create a new discount' do
       visit '/merchant/discounts/new'
 
-      fill_in :quantity, with: '25'
       fill_in :amount, with: '30'
+      fill_in :quantity, with: '25'
       click_on 'Submit'
 
       expect(current_path).to eq('/merchant/discounts')
@@ -44,8 +44,8 @@ RSpec.describe 'Merchant Discounts New Page' do
     it 'if I incorrectly fill out the discount form I will see a flash message' do
       visit '/merchant/discounts/new'
 
-      fill_in :quantity, with: ''
       fill_in :amount, with: ''
+      fill_in :quantity, with: ''
       click_on 'Submit'
 
       expect(page).to have_content("Quantity can't be blank, Amount can't be blank, and Amount is not a number")
