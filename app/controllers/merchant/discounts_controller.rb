@@ -13,5 +13,9 @@ class Merchant::DiscountsController < ApplicationController
     redirect_to "/merchant/discounts"
   end
 
+  def new
+    @discount = Discount.new
+  end
+
 end
 
