@@ -19,7 +19,7 @@ Merchants add bulk discount rates for all of their inventory. These apply automa
 1. You will implement a percentage based discount: 
    - 5% discount on 20 or more items
 1. A merchant can have multiple bulk discounts in the system.
-1. When a user adds enough value or quantity of a single item to their cart, the bulk discount will automatically show up on the cart page.
+1. When a user adds enough quantity of a single item to their cart, the bulk discount will automatically show up on the cart page.
 1. A bulk discount from one merchant will only affect items from that merchant in the cart.
 1. A bulk discount will only apply to items which exceed the minimum quantity specified in the bulk discount. (eg, a 5% off 5 items or more does not activate if a user is buying 1 quantity of 5 different items; if they raise the quantity of one item to 5, then the bulk discount is only applied to that one item, not all of the others as well)
 1. When there is a conflict between two discounts, the greater of the two will be applied. 
