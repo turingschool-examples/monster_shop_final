@@ -1,13 +1,5 @@
-<%= form_with model: [:merchant, @discount], local: true do |f| %>
-
-    <%= f.label :item %>
-    <%= f.collection_select(:item_id, @discount.merchant.items, :id, :name)%>
-
-    <%= f.label :threshold %>
-    <%= f.text_field :threshold, value: @discount.threshold %>
-
-    <%= f.label :discount %>
-    <%= f.text_field :discount, value: @discount.discount%>
-
-    <%= f.submit %>
-  <% end %>
+  <%= render partial: 'form', locals: {
+  items: @discount.merchant.items,
+  threshold_value: @discount.threshold,
+  discount_value: @discount.discount
+  } %>

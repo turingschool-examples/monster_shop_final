@@ -1,0 +1,13 @@
+<%= form_with model: [:merchant, @discount], local: true do |f| %>
+
+    <%= f.label :item %>
+    <%= f.collection_select(:item_id, items, :id, :name)%>
+
+    <%= f.label :threshold %>
+    <%= f.text_field :threshold, value: threshold_value %>
+
+    <%= f.label :discount %>
+    <%= f.text_field :discount, value: discount_value %>
+
+    <%= f.submit %>
+  <% end %>
