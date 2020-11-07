@@ -1,11 +1,11 @@
-<h2>Discounts</h2>
+<h2><%= @merchant.name %>'s Discounts</h2>
+<%= link_to 'Create New Discount', '/merchant/discounts/new' %>
 
 <h4>All My Discounts</h4>
-<% @user.merchant.discounts.each do |discount| %>
-  <section id='discounts-<%= discount.id%>'>
-    <%= "Description of Discount: #{discount.description}" %>
-    <%= "Quantity of minumn items needed for the discount: #{discount.quantity}" %>
-    <%= "Percent Off: #{discount.percent}%" %>
+<% @merchant.discounts.each do |discount| %>
+  <section id='discounts-<%= discount.id %>'>
+    <p><%= "Description of Discount: #{discount.description}" %></p>
+    <p><%= "Discount ID: ##{discount.id}" %></p>
+    <p>______________________________________________</p>
   </section>
 <% end %>
-<%= link_to 'Create New Discount', '/merchant/discounts/new' %>

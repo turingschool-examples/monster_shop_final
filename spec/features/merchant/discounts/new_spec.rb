@@ -19,17 +19,25 @@ RSpec.describe 'Discounts Creation' do
       @order_item_4 = @order_4.order_items.create!(item: @hippo, price: @orge.price, quantity: 4, fulfilled: false)
       @order_item_5 = @order_1.order_items.create!(item: @giant, price: @giant.price, quantity: 3, fulfilled: true)
       @order_item_6 = @order_2.order_items.create!(item: @orge, price: @orge.price, quantity: 4, fulfilled: true)
-      @megan_discount_1 = @megan.discounts.create!(description: 'Buy 5 items, get 5% off ', quantity: 5, percent: 5)
-      @megan_discount_2 = @megan.discounts.create!(description: 'Buy 10 items, get 25% off ', quantity: 10, percent: 25)
-      @brian_discount_3 = @brian.discounts.create!(description: 'Buy 10 items, get 45% off ', quantity: 10, percent: 45)
-      @brian_discount_4 = @brian.discounts.create!(description: 'Buy 5 items, get 10% off ', quantity: 5, percent: 10)
-      @brian_discount_5 = @brian.discounts.create!(description: 'Buy 6 items, get 30% off ', quantity: 6, percent: 30)
+      @megan_discount_1 = @megan.discounts.create!(description: 'Buy 5 items, get 5% off', quantity: 5, percent: 5)
+      @megan_discount_2 = @megan.discounts.create!(description: 'Buy 10 items, get 25% off', quantity: 10, percent: 25)
+      @brian_discount_3 = @brian.discounts.create!(description: 'Buy 10 items, get 45% off', quantity: 10, percent: 45)
+      @brian_discount_4 = @brian.discounts.create!(description: 'Buy 5 items, get 10% off', quantity: 5, percent: 10)
+      @brian_discount_5 = @brian.discounts.create!(description: 'Buy 6 items, get 30% off', quantity: 6, percent: 30)
       allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(@merchant_user)
+
+      # visit login_path
+      # visit '/login'
+      #
+      # fill_in 'Email', with: @merchant_user.email
+      # fill_in 'Password', with: @merchant_user.password
+      # click_button 'Log In'
     end
 
     it 'can navigate to a page to create a new discount' do
       visit '/merchant'
 
+      expect(page).to have_content('All My Orders')
       expect(page).to have_link('My Discounts')
       click_link 'My Discounts'
       expect(current_path).to eq('/merchant/discounts')
@@ -50,9 +58,10 @@ RSpec.describe 'Discounts Creation' do
 
       expect(page).to have_content('All My Discounts')
       within "#discounts-#{@megan_discount_1.id}" do
-        expect(page).to have_content("Description of Discount: #{last_discount.description}")
-        expect(page).to have_content("Quantity of minumn items needed for the discount: #{last_discount.quantity}")
-        expect(page).to have_content("Percent Off: #{last_discount.percent}%")
+        expect(page).to have_content("Description of Discount: #{@megan_discount_1.description}")
+        expect(page).to have_content("Discount ID: ##{@megan_discount_1.id}")
+        # expect(page).to have_content("Quantity of minimum items needed for the discount: #{last_discount.quantity}")
+        # expect(page).to have_content("Percent Off: #{last_discount.percent}%")
       end
     end
 
