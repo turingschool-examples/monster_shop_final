@@ -3,6 +3,9 @@
   <p>Your Cart is Empty!</p>
 <% else %>
 <h3>Total: <%= number_to_currency(cart.grand_total) %></h3>
+  <% if !cart.current_discount.nil?%>
+    <h4>Total Savings: <%= number_to_currency(cart.saved_discounts) %></h4>
+  <% end %>
   <% cart.items.each do |item| %>
     <section id='item-<%= item.id%>'>
       <h2><%= link_to item.name, "/items/#{item.id}" %></h2>
