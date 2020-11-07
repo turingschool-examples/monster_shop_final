@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe 'Merchant Discounts Index Page' do
+RSpec.describe 'Merchant Discounts New Page' do
   describe 'As an employee of a merchant' do
     before :each do
       @merchant_1 = Merchant.create!(name: 'Megans Marmalades', address: '123 Main St', city: 'Denver', state: 'CO', zip: 80218)
@@ -26,35 +26,29 @@ RSpec.describe 'Merchant Discounts Index Page' do
       click_button 'Log In'
     end
 
-    it 'I can visit the discounts page' do
-      visit '/merchant'
+    it 'I can create a new discount' do
+      visit '/merchant/discounts/new'
 
-      click_link 'Bulk Discounts'
+      fill_in :quantity, with: '25'
+      fill_in :amount, with: '30'
+      click_on 'Submit'
+
       expect(current_path).to eq('/merchant/discounts')
+
+      new_discount = Discount.last
+
+      expect(new_discount.quantity).to eq(25)
+      expect(new_discount.amount).to eq(30)
     end
 
-    it 'I can see all of the the discounts I offer' do
-      visit '/merchant/discounts'
+    it 'if I incorrectly fill out the discount form I will see a flash message' do
+      visit '/merchant/discounts/new'
 
-      within "#discount-#{@discount_1.id}" do
-        expect(page).to have_content("Discount #{@discount_1.id}")
-        expect(page).to have_content("Discount: #{@discount_1.amount}%")
-        expect(page).to have_content("Quantity at which Discount is Applied: #{@discount_1.quantity}")
-      end
+      fill_in :quantity, with: ''
+      fill_in :amount, with: ''
+      click_on 'Submit'
 
-      within "#discount-#{@discount_2.id}" do
-        expect(page).to have_content("Discount #{@discount_2.id}")
-        expect(page).to have_content("Discount: #{@discount_2.amount}%")
-        expect(page).to have_content("Quantity at which Discount is Applied: #{@discount_2.quantity}")
-      end
-    end
-          
-    it 'I see a link to create a new discount' do
-      visit '/merchant/discounts'
-
-      expect(page).to have_link('New Bulk Discount')
-      click_link 'New Bulk Discount'
-      expect(current_path).to eq('/merchant/discounts/new')
+      expect(page).to have_content("Quantity can't be blank, Amount can't be blank, and Amount is not a number")
     end
   end
 end
