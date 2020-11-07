@@ -75,6 +75,9 @@ describe 'As a merchant_employee' do
       expect(current_path).to eq("/merchant/discounts")
       expect(page).to_not have_content(@m1_discount1.id)
     end
-    it 'I see a button to add a new discount that when clicked directs me to a form to enter a discount'
+    it 'I see a button to add a new discount that when clicked directs me to a form to enter a discount' do
+      click_on("Add New Discount")
+      expect(current_path).to eq("/merchant/discounts/new")
+    end
   end
 end
