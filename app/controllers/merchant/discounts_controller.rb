@@ -21,6 +21,27 @@ class Merchant::DiscountsController < Merchant::BaseController
     end
   end
 
+  def edit
+    @discount = Discount.find(params[:id])
+  end
+
+  def update
+    @discount = Discount.find(params[:id])
+    @discount.update(discount_params)
+    if @discount.save
+      redirect_to merchant_discounts_path
+    else
+      flash.now[:errors] = @discount.errors.full_messages.to_sentence
+      render :edit
+    end
+  end
+
+  def destroy
+    discount = Discount.find(params[:id])
+    discount.destroy
+    redirect_to merchant_discounts_path
+  end
+
   private
   def discount_params
     params.require(:discount).permit(:name, :discount, :items_required)

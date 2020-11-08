@@ -1,5 +1,5 @@
 
-<%= form_with model: @discount, url: '/merchant/discounts', local: true, method: :post do |f| %>
+<%= form_with model: @discount, url: "/merchant/discounts/#{@discount.id}", local: true, method: :patch do |f| %>
   <%= f.label :name %>
   <%= f.text_field :name%> <br>
 
@@ -10,5 +10,5 @@
   <%= f.label "Discount Percentage" %>
   <%= f.text_field :discount%> <br>
 
-  <%= f.submit('Create Discount') %>
+  <%= f.submit('Update Discount') %>
 <% end %>

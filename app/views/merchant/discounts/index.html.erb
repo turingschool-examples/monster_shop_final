@@ -13,6 +13,8 @@
         <td>Applies when <%= discount.items_required %> or more items are ordered</td>
         <td><%= discount.discount %>%</td>
         <td><%= discount.created_at %></td>
+        <td><%= link_to 'Update Discount', edit_merchant_discount_path(discount.id) %>
+        <td><%= link_to 'Delete Discount', "/merchant/discounts/#{discount.id}", method: :delete %>
       </tr>
   <% end %>
 </table>
