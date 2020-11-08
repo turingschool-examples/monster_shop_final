@@ -213,7 +213,7 @@ RSpec.describe 'Cart Show Page' do
           click_on("More of This!")
           click_on("More of This!")
           click_on("More of This!")
-          expect(page).to have_content("Discount: $0.50")
+          expect(page).to have_content("Discount: ($0.50)")
         end
         
         #10 hippo_items should trigger discount of 50%
@@ -227,7 +227,7 @@ RSpec.describe 'Cart Show Page' do
           click_on("More of This!")
           click_on("More of This!")
           click_on("More of This!")
-          expect(page).to have_content("Discount: $500.00")
+          expect(page).to have_content("Discount: ($500.00)")
         end
       end
     end

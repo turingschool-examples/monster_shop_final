@@ -8,14 +8,21 @@ RSpec.describe 'Order Show Page' do
       @brian = Merchant.create!(name: 'Brians Bagels', address: '125 Main St', city: 'Denver', state: 'CO', zip: 80218)
       @sal = Merchant.create!(name: 'Sals Salamanders', address: '125 Main St', city: 'Denver', state: 'CO', zip: 80218)
       @ogre = @megan.items.create!(name: 'Ogre', description: "I'm an Ogre!", price: 20.25, image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTaLM_vbg2Rh-mZ-B4t-RSU9AmSfEEq_SN9xPP_qrA2I6Ftq_D9Qw', active: true, inventory: 5 )
+      @ogre2 = @megan.items.create!(name: 'Ogre2', description: "I'm an Ogre2!", price: 10, image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTaLM_vbg2Rh-mZ-B4t-RSU9AmSfEEq_SN9xPP_qrA2I6Ftq_D9Qw', active: true, inventory: 10 )
       @giant = @megan.items.create!(name: 'Giant', description: "I'm a Giant!", price: 50, image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTaLM_vbg2Rh-mZ-B4t-RSU9AmSfEEq_SN9xPP_qrA2I6Ftq_D9Qw', active: true, inventory: 3 )
       @hippo = @brian.items.create!(name: 'Hippo', description: "I'm a Hippo!", price: 50, image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTaLM_vbg2Rh-mZ-B4t-RSU9AmSfEEq_SN9xPP_qrA2I6Ftq_D9Qw', active: true, inventory: 1 )
       @user = User.create!(name: 'Megan', address: '123 Main St', city: 'Denver', state: 'CO', zip: 80218, email: 'megan_1@example.com', password: 'securepassword')
       @order_1 = @user.orders.create!(status: "packaged")
       @order_2 = @user.orders.create!(status: "pending")
+      @order_3 = @user.orders.create!
       @order_item_1 = @order_1.order_items.create!(item: @ogre, price: @ogre.price, quantity: 2, fulfilled: true)
       @order_item_2 = @order_2.order_items.create!(item: @giant, price: @hippo.price, quantity: 2, fulfilled: true)
       @order_item_3 = @order_2.order_items.create!(item: @ogre, price: @ogre.price, quantity: 2, fulfilled: false)
+      @order_item_4 = @order_2.order_items.create!(item: @ogre2, price: @ogre2.price, quantity: 5)
+
+      
+      @discount = @megan.discounts.create!(item_id: @ogre2.id, threshold: 5, discount: 0.10)
+      
       allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(@user)
     end
 
@@ -42,6 +49,7 @@ RSpec.describe 'Order Show Page' do
         expect(page).to have_content(@order_item_2.item.description)
         expect(page).to have_content(@order_item_2.quantity)
         expect(page).to have_content(@order_item_2.price)
+        expect(page).to_not have_content("Discount: ") #test no discount showing
         expect(page).to have_content(@order_item_2.subtotal)
       end
 
@@ -50,7 +58,17 @@ RSpec.describe 'Order Show Page' do
         expect(page).to have_content(@order_item_3.item.description)
         expect(page).to have_content(@order_item_3.quantity)
         expect(page).to have_content(@order_item_3.price)
+        expect(page).to_not have_content("Discount: ") #test no discount showing
         expect(page).to have_content(@order_item_3.subtotal)
+      end
+      
+      within "#order-item-#{@order_item_4.id}" do
+        expect(page).to have_link(@order_item_4.item.name)
+        expect(page).to have_content(@order_item_4.item.description)
+        expect(page).to have_content(@order_item_4.quantity)
+        expect(page).to have_content(@order_item_4.price)
+        expect(page).to have_content(@order_item_4.discount) #test for discount showing
+        expect(page).to have_content(@order_item_4.subtotal)
       end
     end
 
