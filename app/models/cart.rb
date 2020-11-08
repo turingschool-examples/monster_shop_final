@@ -44,10 +44,8 @@ class Cart
     count_of(item_id) == Item.find(item_id).inventory
   end
 
-  def discounted?(item)
+  def discount(item)
     order_quantity = @contents[item.id.to_s]
-    discount = Discount.find_by(item_id: item.id, merchant_id: item.merchant_id)
-    return false if discount.nil?
-    discount.threshold <= @contents[item.id.to_s] ? true : false
+    Discount.item_discount(item,order_quantity)
   end
 end
