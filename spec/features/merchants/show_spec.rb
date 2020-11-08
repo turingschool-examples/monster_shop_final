@@ -26,8 +26,7 @@ RSpec.describe 'Merchant Show Page' do
       expect(page).to have_content(@megan.name)
 
       within '.address' do
-        expect(page).to have_content(@megan.address)
-        expect(page).to have_content("#{@megan.city} #{@megan.state} #{@megan.zip}")
+        expect(page).to have_content(@megan.full_address)
       end
     end
 
