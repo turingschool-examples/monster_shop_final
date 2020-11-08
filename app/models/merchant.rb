@@ -22,7 +22,7 @@ class Merchant < ApplicationRecord
     orders.joins('JOIN users ON orders.user_id = users.id')
           .order('city_state')
           .distinct
-          .pluck("CONCAT_WS(', ', users.city, users.state) AS city_state")
+          .pluck(Arel.sql("CONCAT_WS(', ', users.city, users.state) AS city_state"))
   end
 
   def pending_orders
