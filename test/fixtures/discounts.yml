@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  name: MyString
+  items_req: 1
+  discount: 1.5
+  merchant: one
+
+two:
+  name: MyString
+  items_req: 1
+  discount: 1.5
+  merchant: two

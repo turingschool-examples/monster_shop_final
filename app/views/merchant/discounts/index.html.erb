@@ -1,0 +1,17 @@
+<table>
+  <th>
+    <td>Discount Name</td>
+    <td>Required Items</td>
+    <td>Total Discount</td>
+  </th>
+  <% @discounts.each do |discount| %>
+    <section id = "discount-<%=discount.id%>"
+      <tr>
+        <td><%= discount.name %></td>
+        <td><%= discount.items_req %></td>
+        <td><%= discount.discount %></td>
+        <td><%= discount.created_at %></td>
+      </tr>
+    </section>
+  <% end %>
+</table>

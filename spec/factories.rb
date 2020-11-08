@@ -5,7 +5,7 @@ FactoryBot.define do
     sequence(:price) {|n| (n + 1) * 1.05 }
     image {"http://lovencaretoys.com/image/cache/dog/tug-toy-dog-pull-9010_2-800x800.jpg"}
     sequence(:inventory) {rand(1..100)}
-    active? {true}
+    active {true}
     merchant
   end
 
@@ -23,12 +23,12 @@ FactoryBot.define do
     sequence(:city) {|n| "City: #{n}"}
     sequence(:state) {|n| "State: #{n}"}
     sequence(:zip) {|n| "Zip: #{n}"}
-    sequence(:email_address) {|n| "email#{n}@email.com"}
+    sequence(:email) {|n| "email#{n}@email.com"}
     sequence(:password) {|n| "123whollysmokes"}
     sequence(:password_confirmation) {|n| "123whollysmokes"}
   end
 
-  factory :item_order do
+  factory :order_item do
     order
     item
     price {item.price}
@@ -36,11 +36,6 @@ FactoryBot.define do
   end
 
   factory :order do
-    sequence(:name) {|n| "Order Name: #{n}" }
-    sequence(:address) {|n| "Order Address: #{n}"}
-    sequence(:city) {|n| "City: #{n}"}
-    sequence(:state) {|n| "State: #{n}"}
-    sequence(:zip) {|n| "Zip: #{n}"}
     user
   end
 end
