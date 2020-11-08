@@ -24,15 +24,15 @@ describe Discount do
       m1_discount2 = megan.discounts.create!(item_id: ogre.id, threshold: 10, discount: 0.25)
 
       order_quantity = 4
-      expect(Discount.item_discount(ogre,order_quantity)).to eq(nil)
+      expect(Discount.item_discount(ogre.id, ogre.merchant_id, ogre.price, order_quantity)).to eq(0)
 
       order_quantity = 5
-      expect(Discount.item_discount(ogre,order_quantity).round(2)).to eq(5)
+      expect(Discount.item_discount(ogre.id, ogre.merchant_id, ogre.price, order_quantity).round(2)).to eq(5)
 
       order_quantity = 12
-      expect(Discount.item_discount(ogre,order_quantity).round(2)).to eq(30)
+      expect(Discount.item_discount(ogre.id, ogre.merchant_id, ogre.price, order_quantity).round(2)).to eq(30)
       
-      expect(Discount.item_discount(giant,order_quantity)).to eq(nil)
+      expect(Discount.item_discount(giant.id, giant.merchant_id, giant.price, order_quantity)).to eq(0)
     end
   end
 end

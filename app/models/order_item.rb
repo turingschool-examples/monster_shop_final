@@ -3,7 +3,7 @@ class OrderItem < ApplicationRecord
   belongs_to :item
 
   def subtotal
-    quantity * price
+    (quantity * price) - Discount.item_discount(item_id, item.merchant_id, item.price, quantity)
   end
 
   def fulfill

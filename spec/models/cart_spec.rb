@@ -31,9 +31,9 @@ RSpec.describe Cart do
       #also if threshold is the same for two discounts, it will apply the greater discount record.
       expect(cart1.discount(@ogre).round(2)).to eq(12)
       #nil when item has no discount record
-      expect(cart1.discount(@giant)).to eq(nil)
+      expect(cart1.discount(@giant)).to eq(0)
       #nil when item quantity does not exceed discount threshold for item
-      expect(cart2.discount(@ogre)).to eq(nil)
+      expect(cart2.discount(@ogre)).to eq(0)
 
     end
 

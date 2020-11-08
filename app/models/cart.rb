@@ -46,6 +46,6 @@ class Cart
 
   def discount(item)
     order_quantity = @contents[item.id.to_s]
-    Discount.item_discount(item,order_quantity)
+    Discount.item_discount(item.id, item.merchant_id, item.price ,order_quantity)
   end
 end

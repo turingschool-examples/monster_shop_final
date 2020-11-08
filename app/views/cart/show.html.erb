@@ -10,7 +10,7 @@
       <p>Price: <%= number_to_currency(item.price) %></p>
       <p>Quantity: <%= cart.count_of(item.id) %></p>
       <p>Subtotal: <%= number_to_currency(cart.subtotal_of(item.id)) %></p>
-      <% if cart.discount(item)%>
+      <% if cart.discount(item) != 0%>
         <p><%= "Discount: #{number_to_currency(cart.discount(item))}" %></p>
       <% end%>
       <p>Sold by: <%= link_to item.merchant.name, "/merchants/#{item.merchant_id}" %>, Inventory: <%= item.inventory %></p>
