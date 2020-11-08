@@ -13,6 +13,10 @@
     <p><%= order_item.item.description %></p>
     <p>Quantity: <%= order_item.quantity %></p>
     <p>Price: <%= number_to_currency(order_item.price) %></p>
+    <% if order_item.discount != 0%>
+        <p><%= "Discount: (#{number_to_currency(order_item.discount)})" %></p>
+      <% end%>
     <p>Subtotal: <%= number_to_currency(order_item.subtotal) %></p>
+
   </section>
 <% end %>

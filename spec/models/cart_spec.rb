@@ -8,10 +8,33 @@ RSpec.describe Cart do
       @ogre = @megan.items.create!(name: 'Ogre', description: "I'm an Ogre!", price: 20, image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTaLM_vbg2Rh-mZ-B4t-RSU9AmSfEEq_SN9xPP_qrA2I6Ftq_D9Qw', active: true, inventory: 5 )
       @giant = @megan.items.create!(name: 'Giant', description: "I'm a Giant!", price: 50, image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTaLM_vbg2Rh-mZ-B4t-RSU9AmSfEEq_SN9xPP_qrA2I6Ftq_D9Qw', active: true, inventory: 2 )
       @hippo = @brian.items.create!(name: 'Hippo', description: "I'm a Hippo!", price: 50, image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTaLM_vbg2Rh-mZ-B4t-RSU9AmSfEEq_SN9xPP_qrA2I6Ftq_D9Qw', active: true, inventory: 3 )
+            
       @cart = Cart.new({
         @ogre.id.to_s => 1,
         @giant.id.to_s => 2
         })
+    end
+
+    it '.discount(item)' do
+      m1_discount1 = @megan.discounts.create!(item_id: @ogre.id, threshold: 5, discount: 0.1)
+      m1_discount1 = @megan.discounts.create!(item_id: @ogre.id, threshold: 5, discount: 0.05)
+      m1_discount2 = @megan.discounts.create!(item_id: @ogre.id, threshold: 10, discount: 0.25)
+
+      cart1 = Cart.new({
+        @ogre.id.to_s => 6,
+        @giant.id.to_s => 10
+        })
+      cart2 = Cart.new({
+        @ogre.id.to_s => 4,
+        })
+      #ogre price is 20, six ogres is $120, qualifies for 10% discount of $12
+      #also if threshold is the same for two discounts, it will apply the greater discount record.
+      expect(cart1.discount(@ogre).round(2)).to eq(12)
+      #nil when item has no discount record
+      expect(cart1.discount(@giant)).to eq(0)
+      #nil when item quantity does not exceed discount threshold for item
+      expect(cart2.discount(@ogre)).to eq(0)
+
     end
 
     it '.contents' do
