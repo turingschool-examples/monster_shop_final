@@ -12,3 +12,8 @@ brian = Merchant.create!(name: 'Brians Bagels', address: '125 Main St', city: 'D
 megan.items.create!(name: 'Ogre', description: "I'm an Ogre!", price: 20, image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTaLM_vbg2Rh-mZ-B4t-RSU9AmSfEEq_SN9xPP_qrA2I6Ftq_D9Qw', active: true, inventory: 5 )
 megan.items.create!(name: 'Giant', description: "I'm a Giant!", price: 50, image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTaLM_vbg2Rh-mZ-B4t-RSU9AmSfEEq_SN9xPP_qrA2I6Ftq_D9Qw', active: true, inventory: 3 )
 brian.items.create!(name: 'Hippo', description: "I'm a Hippo!", price: 50, image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTaLM_vbg2Rh-mZ-B4t-RSU9AmSfEEq_SN9xPP_qrA2I6Ftq_D9Qw', active: true, inventory: 3 )
+
+user1 = User.create!(name: 'Alex', address: '123 Main St', city: 'Denver', state: 'CO', zip: 80218, email: 'user1@example.com', password: 'password')
+user2 = User.create!(name: 'Tim', address: '123 Main St', city: 'Denver', state: 'CO', zip: 80218, email: 'user2@example.com', password: 'password')
+merchant_user = User.create!(name: 'Brian', address: '126 Main St', city: 'Denver', state: 'CO', zip: 80218, email: 'merchant@example.com', password: 'password', role: :merchant_admin, merchant: brian)
+admin = User.create!(name: 'Curtis', address: '126 Main St', city: 'Denver', state: 'CO', zip: 80218, email: 'admin@example.com', password: 'password', role: :admin)
