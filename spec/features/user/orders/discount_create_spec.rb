@@ -19,5 +19,6 @@ RSpec.describe 'Discount Order Creation' do
       @user = User.create!(name: 'Holly', address: '123 Main St.', city: 'Denver', state: 'CO', zip: 80111)
       allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(@user)
     end
-  end 
+
+  end
 end
