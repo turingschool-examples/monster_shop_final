@@ -6,18 +6,6 @@ feature 'As a Merchant' do
     @merchant1 = create(:merchant)
     @merchant1.users << @merchant_admin
     page.set_rack_session(user_id: @merchant_admin.id)
-    @customer1 = create(:user)
-    @customer2 = create(:user)
-    @order1 = create(:order, user_id: @customer1.id)
-    @order2 = create(:order, user_id: @customer2.id, status: "shipped")
-    @order3 = create(:order, user_id: @customer2.id)
-    @item1 = create(:item, merchant_id: @merchant1.id)
-    @item2 = create(:item, merchant_id: @merchant1.id)
-    @item3 = create(:item, merchant_id: @merchant1.id)
-    create(:order_item, order_id: @order1.id, item_id: @item1.id)
-    create(:order_item, order_id: @order1.id, item_id: @item3.id)
-    create(:order_item, order_id: @order2.id, item_id: @item2.id)
-    create(:order_item, order_id: @order3.id, item_id: @item1.id)
   end
     describe 'I see on the page a link to discounts' do
       it 'I click this link and I end up on discounts index' do
@@ -29,29 +17,41 @@ feature 'As a Merchant' do
     end
     describe 'when i am on the index page' do
       it 'i see a list of all my discounts' do
-        @discount1 = @merchant1.discounts.create!(name: 'Super Sale 3',
+        @merchant2 = create(:merchant)
+
+        discount1 = @merchant1.discounts.create!(name: 'Super Sale 3',
                                                  items_req: 15,
                                                  discount: 20)
-        @discount2 = @merchant1.discounts.create!(name: 'Super Sale 1',
+        discount2 = @merchant1.discounts.create!(name: 'Super Sale 1',
                                                  items_req: 10,
                                                  discount: 15)
-        @discount3 = @merchant1.discounts.create!(name: 'Super Sale 2',
+        discount3 = @merchant1.discounts.create!(name: 'Super Sale 2',
+                                                 items_req: 20,
+                                                 discount: 30)
+        discount4 = @merchant2.discounts.create!(name: 'Super Sale 2',
                                                  items_req: 20,
                                                  discount: 30)
         visit '/merchant/discounts'
-        expext(page).to have_content('Super Sale 1')
-        expext(page).to have_content('applies when 10 or more items are ordered')
-        expext(page).to have_content('15%')
-        expext(page).to have_content('Super Sale 3')
-        expext(page).to have_content('applies when 15 or more items are ordered')
-        expext(page).to have_content('20%')
-        expext(page).to have_content('Super Sale 2')
-        expext(page).to have_content('applies when 20 or more items are ordered')
-        expext(page).to have_content('30%')
-      end
-      it 'I see a link to create a new discount' do
-        visit '/merchant/discounts'
+        save_and_open_page
+        within("#discount-#{discount1.id}") do
+          expect(page).to have_content('Super Sale 3')
+          expect(page).to have_content('Applies when 15 or more items are ordered')
+          expect(page).to have_content('20.0%')
+        end
 
+        within("#discount-#{discount2.id}") do
+          expect(page).to have_content('Super Sale 1')
+          expect(page).to have_content('Applies when 10 or more items are ordered')
+          expect(page).to have_content('15.0%')
+        end
+
+        within("#discount-#{discount3.id}") do
+          expect(page).to have_content('Super Sale 2')
+          expect(page).to have_content('Applies when 20 or more items are ordered')
+          expect(page).to have_content('30.0%')
+        end
+
+        expect(page).to_not have_css("discount-#{discount4.id}")
       end
     end
   end

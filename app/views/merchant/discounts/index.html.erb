@@ -1,17 +1,18 @@
-<table>
-  <th>
+<% link_to 'Create New Discount', new_merchant_discount_path(@merchant) %>
+
+<table align = "CENTER">
+  <tr align = "center">
     <td>Discount Name</td>
     <td>Required Items</td>
     <td>Total Discount</td>
-  </th>
+    <td>Date Created</td>
+  </tr>
   <% @discounts.each do |discount| %>
-    <section id = "discount-<%=discount.id%>"
-      <tr>
+    <tr id = "discount-<%=discount.id%>" align = 'center'>
         <td><%= discount.name %></td>
-        <td><%= discount.items_req %></td>
-        <td><%= discount.discount %></td>
+        <td>Applies when <%= discount.items_req %> or more items are ordered</td>
+        <td><%= discount.discount %>%</td>
         <td><%= discount.created_at %></td>
       </tr>
-    </section>
   <% end %>
 </table>
