@@ -6,7 +6,7 @@ RSpec.describe Discount do
   end
 
   describe 'Validations' do
-    it {should validate_presence_of :items_req}
+    it {should validate_presence_of :items_required}
     it {should validate_presence_of :discount}
   end
 end

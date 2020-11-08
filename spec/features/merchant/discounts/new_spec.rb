@@ -17,30 +17,45 @@ feature 'As a Merchant' do
         visit '/merchant/discounts'
         click_link("Create New Discount")
         expect(current_path).to eq('/merchant/discounts/new')
-        expect(page).to have_field('name')
-        expect(page).to have_field('percent')
-        expect(page).to have_field('quantity_req')
+        expect(page).to have_field('discount[name]')
+        expect(page).to have_field('discount[discount]')
+        expect(page).to have_field('discount[items_required]')
       end
     end
+
     describe 'when I fill in the form data and click the submit button' do
       it 'I am brought back to the index page where i can see the new discount showing' do
         visit '/merchant/discounts/new'
-        fill_in :name, with: 'Super Discount'
-        fill_in :items_req, with: 5
-        fill_in :discount, with: 10
+        fill_in 'discount[name]', with: 'Super Discount'
+        fill_in 'discount[discount]', with: 5
+        fill_in 'discount[items_required]', with: 10
         click_button 'Create Discount'
         expect(current_path).to eq('/merchant/discounts')
         expect(page).to have_content('Super Discount')
-        expect(page).to have_content('10.0%')
-        expect(page).to have_content('Applies when 5 or more items are ordered')
+        expect(page).to have_content('5.0%')
+        expect(page).to have_content('Applies when 10 or more items are ordered')
       end
     end
-  end
-end
 
+    describe 'when I fill in the form data with incorrect data or missing' do
+      it 'no name' do
+        visit '/merchant/discounts/new'
+        fill_in 'discount[discount]', with: 5
+        fill_in 'discount[items_required]', with: 10
+        click_button 'Create Discount'
+        expect(current_path).to eq('/merchant/discounts')
+        expect(page).to have_content('Discount')
+        expect(page).to have_content('5.0%')
+        expect(page).to have_content('Applies when 10 or more items are ordered')
+      end
 
-
-
+      it 'no items_required' do
+        visit '/merchant/discounts/new'
+        fill_in 'discount[name]', with: 'Super Discount'
+        fill_in 'discount[discount]', with: 5
+        click_button 'Create Discount'
+        expect(page).to have_content("Items required can't be blank and Items required is not a number")
+      end
 
     end
   end

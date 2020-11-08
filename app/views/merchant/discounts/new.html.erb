@@ -1,0 +1,14 @@
+
+<%= form_with model: @discount, url: '/merchant/discounts', local: true, method: :post do |f| %>
+  <%= f.label :name %>
+  <%= f.text_field :name%>
+
+
+  <%= f.label "Items Required for Discount" %>
+  <%= f.text_field :items_required %>
+
+  <%= f.label "Discount Percentage" %>
+  <%= f.text_field :discount%>
+
+  <%= f.submit('Create Discount') %>
+<% end %>
