@@ -20,19 +20,18 @@ feature 'As a Merchant' do
         @merchant2 = create(:merchant)
 
         discount1 = @merchant1.discounts.create!(name: 'Super Sale 3',
-                                                 items_req: 15,
+                                                 items_required: 15,
                                                  discount: 20)
         discount2 = @merchant1.discounts.create!(name: 'Super Sale 1',
-                                                 items_req: 10,
+                                                 items_required: 10,
                                                  discount: 15)
         discount3 = @merchant1.discounts.create!(name: 'Super Sale 2',
-                                                 items_req: 20,
+                                                 items_required: 20,
                                                  discount: 30)
         discount4 = @merchant2.discounts.create!(name: 'Super Sale 2',
-                                                 items_req: 20,
+                                                 items_required: 20,
                                                  discount: 30)
         visit '/merchant/discounts'
-        save_and_open_page
         within("#discount-#{discount1.id}") do
           expect(page).to have_content('Super Sale 3')
           expect(page).to have_content('Applies when 15 or more items are ordered')
