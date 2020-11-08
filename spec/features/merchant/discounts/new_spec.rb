@@ -54,7 +54,69 @@ feature 'As a Merchant' do
         fill_in 'discount[name]', with: 'Super Discount'
         fill_in 'discount[discount]', with: 5
         click_button 'Create Discount'
+        expect(page).to have_field 'discount[name]', with: 'Super Discount'
+        expect(page).to have_field 'discount[discount]', with: 5
+        expect(page).to have_field 'discount[items_required]', with: ''
         expect(page).to have_content("Items required can't be blank and Items required is not a number")
+      end
+
+      it 'no discount' do
+        visit '/merchant/discounts/new'
+        fill_in 'discount[name]', with: 'Super Discount'
+        fill_in 'discount[items_required]', with: 10
+        click_button 'Create Discount'
+        expect(page).to have_field 'discount[name]', with: 'Super Discount'
+        expect(page).to have_field 'discount[discount]', with: ''
+        expect(page).to have_field 'discount[items_required]', with: 10
+        expect(page).to have_content("Discount can't be blank and Discount is not a number")
+      end
+
+      it 'discount less than 0' do
+        visit '/merchant/discounts/new'
+        fill_in 'discount[name]', with: 'Super Discount'
+        fill_in 'discount[discount]', with: -5
+        fill_in 'discount[items_required]', with: 10
+        click_button 'Create Discount'
+        expect(page).to have_field 'discount[name]', with: 'Super Discount'
+        expect(page).to have_field 'discount[discount]', with: -5
+        expect(page).to have_field 'discount[items_required]', with: 10
+        expect(page).to have_content("Discount must be greater than 0")
+      end
+
+      it 'discount is a string' do
+        visit '/merchant/discounts/new'
+        fill_in 'discount[name]', with: 'Super Discount'
+        fill_in 'discount[discount]', with: 'a'
+        fill_in 'discount[items_required]', with: 10
+        click_button 'Create Discount'
+        expect(page).to have_field 'discount[name]', with: 'Super Discount'
+        expect(page).to have_field 'discount[discount]', with: 'a'
+        expect(page).to have_field 'discount[items_required]', with: 10
+        expect(page).to have_content("Discount is not a number")
+      end
+
+      it 'items require is less than 0' do
+        visit '/merchant/discounts/new'
+        fill_in 'discount[name]', with: 'Super Discount'
+        fill_in 'discount[discount]', with: 5
+        fill_in 'discount[items_required]', with: -10
+        click_button 'Create Discount'
+        expect(page).to have_field 'discount[name]', with: 'Super Discount'
+        expect(page).to have_field 'discount[discount]', with: 5
+        expect(page).to have_field 'discount[items_required]', with: -10
+        expect(page).to have_content("Items required must be greater than 0")
+      end
+
+      it 'items require is a string' do
+        visit '/merchant/discounts/new'
+        fill_in 'discount[name]', with: 'Super Discount'
+        fill_in 'discount[discount]', with: 5
+        fill_in 'discount[items_required]', with: 'a'
+        click_button 'Create Discount'
+        expect(page).to have_field 'discount[name]', with: 'Super Discount'
+        expect(page).to have_field 'discount[discount]', with: 5
+        expect(page).to have_field 'discount[items_required]', with: 'a'
+        expect(page).to have_content("Items required is not a number")
       end
 
     end
