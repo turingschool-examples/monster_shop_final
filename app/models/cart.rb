@@ -43,4 +43,11 @@ class Cart
   def limit_reached?(item_id)
     count_of(item_id) == Item.find(item_id).inventory
   end
+
+  def discounted?(item)
+    order_quantity = @contents[item.id.to_s]
+    discount = Discount.find_by(item_id: item.id, merchant_id: item.merchant_id)
+    return false if discount.nil?
+    discount.threshold <= @contents[item.id.to_s] ? true : false
+  end
 end
