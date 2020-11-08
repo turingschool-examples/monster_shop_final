@@ -11,7 +11,7 @@
       <p>Quantity: <%= cart.count_of(item.id) %></p>
       <p>Subtotal: <%= number_to_currency(cart.subtotal_of(item.id)) %></p>
       <% if cart.discount(item) != 0%>
-        <p><%= "Discount: #{number_to_currency(cart.discount(item))}" %></p>
+        <p><%= "Discount: (#{number_to_currency(cart.discount(item))})" %></p>
       <% end%>
       <p>Sold by: <%= link_to item.merchant.name, "/merchants/#{item.merchant_id}" %>, Inventory: <%= item.inventory %></p>
       <%= button_to 'More of This!', "/cart/more/#{item.id}", method: :patch unless cart.limit_reached?(item.id) %>
