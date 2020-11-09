@@ -1,4 +1,6 @@
 class Cart
+  include ::CartConcern
+
   attr_reader :contents, :saved_discounts, :current_discount
 
   def initialize(contents)
@@ -6,14 +8,14 @@ class Cart
     @contents.default = 0
   end
 
-  def find_merchant(item_id)
-    item = Item.find(item_id)
-    merchant = Merchant.find(item.merchant_id)
-  end
-
-  def find_item(item_id)
-    item = Item.find(item_id)
-  end
+  # def find_merchant(item_id)
+  #   item = Item.find(item_id)
+  #   merchant = Merchant.find(item.merchant_id)
+  # end
+  #
+  # def find_item(item_id)
+  #   item = Item.find(item_id)
+  # end
 
   def add_item(item_id)
     @contents[item_id] += 1
@@ -29,6 +31,7 @@ class Cart
 
   def items
     @contents.map do |item_id, _|
+      # binding.pry
       find_item(item_id)
     end
   end
