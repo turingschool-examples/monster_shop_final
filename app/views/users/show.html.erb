@@ -1,5 +1,7 @@
+<h4><%= @user.full_address %></h4>
 <%= render 'address' %>
-<%= link_to 'Edit', '/profile/edit' %>
-<%= link_to 'Change Password', '/profile/edit_password' %>
-
-<%= link_to 'My Orders', '/profile/orders' %>
+<section id='navigation-links-individual'>
+  <%= link_to 'Edit', '/profile/edit' %>
+  <%= link_to 'Change Password', '/profile/edit_password' %>
+  <%= link_to 'My Orders', '/profile/orders' %>
+</section>

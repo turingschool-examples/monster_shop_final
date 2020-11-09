@@ -26,21 +26,21 @@ RSpec.describe 'Admin Dashboard' do
       within "#order-#{@order_1.id}" do
         expect(page).to have_content(@m_user.name)
         expect(page).to have_content("#{@order_1.id}: #{@order_1.status}")
-        expect(page).to have_content("Created: #{@order_1.created_at}")
+        expect(page).to have_content("Created: #{@order_1.created_at.localtime.strftime('%m/%d/%y')}")
         expect(page).to have_link('Ship')
       end
 
       within "#order-#{@order_2.id}" do
         expect(page).to have_content(@m_user.name)
         expect(page).to have_content("#{@order_2.id}: #{@order_2.status}")
-        expect(page).to have_content("Created: #{@order_2.created_at}")
+        expect(page).to have_content("Created: #{@order_2.created_at.localtime.strftime('%m/%d/%y')}")
         expect(page).to_not have_link('Ship')
       end
 
       within "#order-#{@order_3.id}" do
         expect(page).to have_content(@m_user.name)
         expect(page).to have_content("#{@order_3.id}: #{@order_3.status}")
-        expect(page).to have_content("Created: #{@order_3.created_at}")
+        expect(page).to have_content("Created: #{@order_3.created_at.localtime.strftime('%m/%d/%y')}")
         expect(page).to_not have_link('Ship')
       end
     end

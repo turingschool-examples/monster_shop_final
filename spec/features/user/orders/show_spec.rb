@@ -31,8 +31,8 @@ RSpec.describe 'Order Show Page' do
       visit "/profile/orders/#{@order_2.id}"
 
       expect(page).to have_content(@order_2.id)
-      expect(page).to have_content("Created On: #{@order_2.created_at}")
-      expect(page).to have_content("Updated On: #{@order_2.updated_at}")
+      expect(page).to have_content("Created On: #{@order_2.created_at.localtime.strftime('%m/%d/%y')}")
+      expect(page).to have_content("Updated On: #{@order_2.created_at.localtime.strftime('%m/%d/%y')}")
       expect(page).to have_content("Status: #{@order_2.status}")
       expect(page).to have_content("#{@order_2.count_of_items} items")
       expect(page).to have_content("Total: #{number_to_currency(@order_2.grand_total)}")

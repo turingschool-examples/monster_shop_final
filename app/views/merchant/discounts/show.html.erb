@@ -1,8 +1,15 @@
 <h2>Discount: <%= @discount.id %></h2>
+
+<section id='navigation-links-individual'>
+  <%= link_to 'My Discounts', '/merchant/discounts' %>
+</section>
+
+<section id='navigation-links-individual'>
+  <%= link_to 'Edit Discount', "/merchant/discounts/#{@discount.id}/edit", method: :get %>
+  <%= link_to 'Delete Discount', "/merchant/discounts/#{@discount.id}", method: :delete %>
+</section>
 <ul>
-  <li><%= "Description of Discount: #{@discount.description}" %></li>
-  <li><%= "Quantity of minimum items needed for the discount: #{@discount.quantity}" %></li>
-  <li><%= "Percent Off: #{@discount.percent}%" %></li>
+  <li>Description of Discount: <strong><%=  @discount.description %></strong></li>
+  <li>Quantity of minimum items needed for the discount: <strong><%= @discount.quantity %></strong></li>
+  <li>Percent Off: <strong><%= @discount.percent %>%</strong></li>
 </ul>
-<%= link_to 'Edit Discount', "/merchant/discounts/#{@discount.id}/edit", method: :get %>
-<%= link_to 'Delete Discount', "/merchant/discounts/#{@discount.id}", method: :delete %>

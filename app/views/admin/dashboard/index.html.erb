@@ -2,7 +2,7 @@
   <section class='order' id='order-<%= order.id %>'>
     <h3><%= link_to order.user.name, "/admin/users/#{order.user.id}" %></h3>
     <p><%= order.id %>: <%= order.status %></p>
-    <p>Created: <%= order.created_at %></p>
+    <p>Created: <%= order.created_at.localtime.strftime('%m/%d/%y') %></p>
     <%= link_to 'Ship', "/admin/orders/#{order.id}/ship", method: :patch if order.packaged? %>
   </section>
 <% end %>

@@ -72,14 +72,6 @@ RSpec.describe Cart do
       expect(@cart_2.new_cart_discounts(@discount, 250)).to eq(237.5)
     end
 
-    xit 'find_merchant()' do
-      expect(find_merchant(@ogre.id)).to eq(@megan)
-    end
-
-    xit '#find_item()' do
-      expect(find_item(@giant.id)).to eq(@giant)
-    end
-
     xit '.empty_merchant_discount?()' do
       expect().to eq()
     end

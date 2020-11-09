@@ -25,13 +25,6 @@ RSpec.describe 'Discounts Creation' do
       @brian_discount_4 = @brian.discounts.create!(description: 'Buy 5 items, get 10% off', quantity: 5, percent: 10)
       @brian_discount_5 = @brian.discounts.create!(description: 'Buy 6 items, get 30% off', quantity: 6, percent: 30)
       allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(@merchant_user)
-
-      # visit login_path
-      # visit '/login'
-      #
-      # fill_in 'Email', with: @merchant_user.email
-      # fill_in 'Password', with: @merchant_user.password
-      # click_button 'Log In'
     end
 
     it 'can navigate to a page to create a new discount' do
@@ -54,14 +47,14 @@ RSpec.describe 'Discounts Creation' do
       click_on 'Submit Discount'
 
       expect(current_path).to eq('/merchant/discounts')
+      expect(page).to have_content('Hooray! You created a new discount!')
       last_discount = Discount.last
 
       expect(page).to have_content('All My Discounts')
       within "#discounts-#{@megan_discount_1.id}" do
         expect(page).to have_content("Description of Discount: #{@megan_discount_1.description}")
         expect(page).to have_content("Discount ID: ##{@megan_discount_1.id}")
-        # expect(page).to have_content("Quantity of minimum items needed for the discount: #{last_discount.quantity}")
-        # expect(page).to have_content("Percent Off: #{last_discount.percent}%")
+        expect(page).to have_link("#{@megan_discount_1.id}")
       end
     end
 
@@ -82,6 +75,44 @@ RSpec.describe 'Discounts Creation' do
       expect(current_path).to eq('/merchant/discounts')
       expect(page).to have_content('You must fill out all fields to create this discount. Try again')
 
+    end
+
+    it 'can have more than one discount enabled' do
+      visit '/merchant/discounts'
+
+      click_link 'Create New Discount'
+      expect(current_path).to eq('/merchant/discounts/new')
+
+      expect(page).to have_content('Create A New Discount')
+      fill_in :description, with: @megan_discount_1.description
+      fill_in :quantity, with: @megan_discount_1.quantity
+      fill_in :percent, with: @megan_discount_1.percent
+
+      click_on 'Submit Discount'
+      expect(current_path).to eq('/merchant/discounts')
+
+      within "#discounts-#{@megan_discount_1.id}" do
+        expect(page).to have_content("Description of Discount: #{@megan_discount_1.description}")
+        expect(page).to have_content("Discount ID: ##{@megan_discount_1.id}")
+        expect(page).to have_link("#{@megan_discount_1.id}")
+      end
+
+      click_link 'Create New Discount'
+      expect(current_path).to eq('/merchant/discounts/new')
+
+      expect(page).to have_content('Create A New Discount')
+      fill_in :description, with: @megan_discount_2.description
+      fill_in :quantity, with: @megan_discount_2.quantity
+      fill_in :percent, with: @megan_discount_2.percent
+
+      click_on 'Submit Discount'
+      expect(current_path).to eq('/merchant/discounts')
+
+      within "#discounts-#{@megan_discount_2.id}" do
+        expect(page).to have_content("Description of Discount: #{@megan_discount_2.description}")
+        expect(page).to have_content("Discount ID: ##{@megan_discount_2.id}")
+        expect(page).to have_link("#{@megan_discount_2.id}")
+      end
     end
   end
 end

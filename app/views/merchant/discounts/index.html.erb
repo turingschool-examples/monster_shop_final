@@ -1,11 +1,13 @@
 <h2><%= @merchant.name %>'s Discounts</h2>
-<%= link_to 'Create New Discount', '/merchant/discounts/new' %>
+<section id='navigation-links-individual'>
+  <%= link_to 'Create New Discount', '/merchant/discounts/new' %>
+</section>
 
 <h4>All My Discounts</h4>
 <% @merchant.discounts.each do |discount| %>
   <section id='discounts-<%= discount.id %>'>
-    <p><%= "Description of Discount: #{discount.description}" %></p>
-    <p><%= "Discount ID: ##{discount.id}" %></p>
+    <p>Description of Discount: <strong><%= discount.description %></strong></p>
+    <p>Discount ID: #<%= link_to "#{discount.id}", "/merchant/discounts/#{discount.id}" %></p>
     <p>______________________________________________</p>
   </section>
 <% end %>

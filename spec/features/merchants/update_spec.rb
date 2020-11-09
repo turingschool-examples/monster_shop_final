@@ -35,9 +35,9 @@ RSpec.describe 'Existing Merchant Update' do
       expect(page).to have_content(name)
       expect(page).to_not have_content(@megan.name)
 
+      @megan.reload
       within '.address' do
-        expect(page).to have_content(address)
-        expect(page).to have_content("#{city} #{state} #{zip}")
+        expect(page).to have_content(@megan.full_address)
       end
     end
 

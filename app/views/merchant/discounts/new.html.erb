@@ -5,10 +5,10 @@
   <%= text_field_tag :description %>
 
   <%= label_tag 'Quantity of minimum items needed for the discount: '%>
-  <%= text_field_tag :quantity %>
+  <%= number_field_tag :quantity %>
 
   <%= label_tag 'Percent Off: '%>
-  <%= text_field_tag :percent %>
+  <%= number_field_tag :percent %>
 
   <%= submit_tag 'Submit Discount' %>
 <% end %>
