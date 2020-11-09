@@ -9,7 +9,7 @@
   </head>
 
   <body>
-    <nav>
+    <nav class = 'topnav'>
       <%= link_to 'Home', root_path %>
       <%= link_to 'Register', registration_path unless current_user %>
       <%= link_to 'Log In', login_path unless current_user %>
@@ -29,7 +29,7 @@
       <%= link_to "Cart: #{cart.count}", cart_path unless current_user && current_admin?%>
     </nav>
     <% flash.each do |type, message| %>
-    <p><%= message %></p>
+      <p><%= message %></p>
     <% end %>
     <%= yield %>
   </body>
