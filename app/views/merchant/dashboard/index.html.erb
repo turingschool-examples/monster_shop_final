@@ -1,9 +1,9 @@
 <h2><%= link_to @merchant.name %></h2>
-<p><%= @merchant.address %></p>
-<p><%= @merchant.city %> <%= @merchant.state %> <%= @merchant.zip %></p>
-
-<%= link_to 'My Items', '/merchant/items' %>
-<%= link_to 'My Discounts', '/merchant/discounts' %>
+<h4><%= @merchant.full_address %></h4>
+<section id='navigation-links-individual'>
+  <%= link_to 'My Items', '/merchant/items' %>
+  <%= link_to 'My Discounts', '/merchant/discounts' %>
+</section>  
 
 <h3>All My Orders</h3>
 <section class="orders">
@@ -12,7 +12,7 @@
       <%= link_to order.id, "/merchant/orders/#{order.id}" %>
       <p>Potential Revenue: <%= order.merchant_subtotal(@merchant.id) %></p>
       <p>Quantity of Items: <%= order.merchant_quantity(@merchant.id) %></p>
-      <p>Created: <%= order.created_at %></p>
+      <p>Created: <%= order.created_at.localtime.strftime('%m/%d/%y') %></p>
       <p>----------------------------------------------------</p>
     </section>
   <% end %>

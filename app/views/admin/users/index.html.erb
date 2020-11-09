@@ -2,6 +2,6 @@
   <section id="user-<%= user.id %>">
     <h2><%= link_to user.name, "/admin/users/#{user.id}" %></h2>
     <p>Role: <%= user.role %></p>
-    <p>Registered: <%= user.created_at %></p>
+    <p>Registered: <%= user.created_at.localtime.strftime('%m/%d/%y') %></p>
   </section>
 <% end %>
