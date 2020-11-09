@@ -72,10 +72,6 @@ RSpec.describe Cart do
       expect(@cart_2.new_cart_discounts(@discount, 250)).to eq(237.5)
     end
 
-    xit '.empty_merchant_discount?()' do
-      expect().to eq()
-    end
-
     # updated
     it '.grand_total' do
       expect(@cart_2.contents).to eq({@hippo.id.to_s => 3})
@@ -96,16 +92,6 @@ RSpec.describe Cart do
 
     it '.discount_criteria_met?()' do
       expect(@cart_2.discount_criteria_met?(@hippo, 7)).to eq(true)
-    end
-
-    xit '.all_available_discounts()' do
-      expect().to eq()
-    end
-
-    xit 'percentage()' do
-      # binding.pry
-      expect(percentage(@discount)).to eq(0.05)
-      # expect(((100 - @discount.percent).to_f )/ 100).to eq(0.05)
     end
   end
 end
