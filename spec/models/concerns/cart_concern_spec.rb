@@ -29,9 +29,13 @@ RSpec.describe CartConcern do
       expect(@cart.percentage(@megan_discount_1)).to eq(0.95)
     end
 
-    it 'calculates the largest discount' do
+    it 'calculates all the discounts' do
       expect(@cart.all_available_discounts(@ogre, @quantity_1)).to eq(@megan_discount_1)
       expect(@cart.all_available_discounts(@ogre, @quantity_2)).to eq(@megan_discount_2)
+    end
+
+    it 'finds all discounts' do
+      expect(@cart.find_all_discounts(@ogre.id)).to eq([@megan_discount_1, @megan_discount_2])
     end
   end
 end
