@@ -1,21 +1,22 @@
 <h1><%= @merchant.name %></h1>
 
 <section class='address'>
-  <p><%= @merchant.address %></p>
-  <p><%= @merchant.city %> <%= @merchant.state %> <%= @merchant.zip %></p>
+  <h4><%= @merchant.full_address %></h4>
 </section>
 
 <section class='statistics'>
   <% if @merchant.items.empty? %>
     <p>This Merchant has no Items, or Orders!</p>
   <% else%>
-    <p>Item Count: <%= @merchant.item_count %></p>
-    <p>Average Item Price: <%= number_to_currency(@merchant.average_item_price) %></p>
+    <section id='average-price-total'>
+    <p><strong>Item Count:</strong> <%= @merchant.item_count %>
+    <strong>Average Item Price:</strong> <%= number_to_currency(@merchant.average_item_price) %></p>
+    </section>
     <% if @merchant.order_items.empty? %>
       <p>This Merchant has no Orders!</p>
     <% else %>
-      <p>Cities Served:</p>
       <ul>
+        <h5>Cities Served:</h5>
         <% @merchant.distinct_cities.each do |city_state| %>
           <p><%= city_state %></p>
         <% end %>
