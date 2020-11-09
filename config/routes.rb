@@ -12,8 +12,6 @@ Rails.application.routes.draw do
 
   resources :reviews, only: [:edit, :update, :destroy]
 
-  get '/discounts/new', to: 'discounts#new'
-
   get '/cart', to: 'cart#show'
   post '/cart/:item_id', to: 'cart#add_item'
   delete '/cart', to: 'cart#empty'
@@ -41,6 +39,10 @@ Rails.application.routes.draw do
     resources :items, only: [:index, :new, :create, :edit, :update, :destroy]
     put '/items/:id/change_status', to: 'items#change_status'
     get '/orders/:id/fulfill/:order_item_id', to: 'orders#fulfill'
+    get '/discounts/new', to: 'discounts#new'
+    post '/discounts', to: 'discounts#create'
+    get '/:merchant_id/discounts/index', to: 'discounts#index'
+
   end
 
   namespace :admin do
