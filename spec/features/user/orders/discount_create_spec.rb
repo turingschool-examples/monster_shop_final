@@ -25,15 +25,13 @@ RSpec.describe 'Discount Order Creation' do
         visit "/items/#{@hippo.id}"
         click_button 'Add to Cart'
       end
-      # visit "/items/#{@orge.id}"
-      # click_button 'Add to Cart'
 
       visit '/cart'
 
       within "#item-#{@hippo.id}" do
         expect(page).to have_content("Quantity: 10")
       end
-# save_and_open_page
+
       expect(page).to have_content('Total: $275.00')
       expect(page).to_not have_content('Total: $500.00')
       expect(page).to have_content('Total Savings: $225.00')
@@ -43,16 +41,15 @@ RSpec.describe 'Discount Order Creation' do
       expect(current_path).to eq('/profile/orders')
       expect(page).to have_content('Order created successfully!')
       expect(page).to have_link('Cart: 0')
-# save_and_open_page
-        # binding.pry
+
       within "#order-#{order.id}" do
         expect(page).to have_link(order.id)
-        expect(page).to have_content('Price: $275.00')
-        expect(page).to_not have_content('Price: $500.00')
+        expect(page).to have_content('Total: $275.00')
+        expect(page).to_not have_content('Total: $500.00')
         click_link order.id
       end
-        # expect(current_path).to eq(item_path(order_item.item))
-      expect(page).to have_content('Price: $275.00')
+        
+      expect(page).to have_content('Total: $275.00')
     end
   end
 end
