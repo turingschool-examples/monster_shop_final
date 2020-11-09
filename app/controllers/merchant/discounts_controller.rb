@@ -11,6 +11,7 @@ class Merchant::DiscountsController < Merchant::BaseController
     merchant = current_user.merchant
     discount = merchant.discounts.new(discount_params)
     if discount.save
+      flash[:success] = 'Hooray! You created a new discount!'
       redirect_to '/merchant/discounts'
     else
       flash.now[:alert] = 'You must fill out all fields to create this discount. Try again'
