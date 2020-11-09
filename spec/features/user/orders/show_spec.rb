@@ -22,7 +22,7 @@ RSpec.describe 'Order Show Page' do
     it 'I can link from my orders to an order show page' do
       visit '/profile/orders'
 
-      click_link @order_1.id
+      click_link("#{@order_1.id}")
 
       expect(current_path).to eq("/profile/orders/#{@order_1.id}")
     end
@@ -38,7 +38,7 @@ RSpec.describe 'Order Show Page' do
       expect(page).to have_content("Total: #{number_to_currency(@order_2.grand_total)}")
 
       within "#order-item-#{@order_item_2.id}" do
-        expect(page).to have_link(@order_item_2.item.name)
+        expect(page).to have_link("#{@order_item_2.item.name}")
         expect(page).to have_content(@order_item_2.item.description)
         expect(page).to have_content(@order_item_2.quantity)
         expect(page).to have_content(@order_item_2.price)
@@ -46,7 +46,7 @@ RSpec.describe 'Order Show Page' do
       end
 
       within "#order-item-#{@order_item_3.id}" do
-        expect(page).to have_link(@order_item_3.item.name)
+        expect(page).to have_link("#{@order_item_3.item.name}")
         expect(page).to have_content(@order_item_3.item.description)
         expect(page).to have_content(@order_item_3.quantity)
         expect(page).to have_content(@order_item_3.price)

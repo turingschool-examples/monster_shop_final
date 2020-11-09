@@ -9,7 +9,7 @@ RSpec.describe "Admin Merchant Show Page" do
     end
     it 'I can link to an admin merchant show from merchants index' do
       visit '/merchants'
-
+      
       click_link @megan.name
 
       expect(current_path).to eq("/admin/merchants/#{@megan.id}")
