@@ -23,7 +23,7 @@ RSpec.describe "Admin Users Index" do
       within "#user-#{@m_user.id}" do
         expect(page).to have_link(@m_user.name)
         expect(page).to have_content("Role: #{@m_user.role}")
-        expect(page).to have_content("Registered: #{@m_user.created_at}")
+        expect(page).to have_content("Registered: #{@m_user.created_at.localtime.strftime('%m/%d/%y')}")
       end
     end
   end
