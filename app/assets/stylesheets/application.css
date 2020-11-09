@@ -13,3 +13,192 @@
  *= require_tree .
  *= require_self
  */
+ body {
+  background-color: white;
+  }
+
+  h1 {
+   text-align: center;
+  	font-size: 40px;
+  	color: #002244;
+  	font-family: "Marker Felt", fantasy;
+  }
+
+  h2 {
+   text-align: center;
+  	font-size: 30px;
+  	color: #002244;
+  	font-family: "Marker Felt", fantasy;
+  }
+
+  h3 {
+   text-align: center;
+  	font-size: 20px;
+  	color: #002244;
+  	font-family: "Marker Felt", fantasy;
+  }
+
+  h4 {
+   text-align: center;
+  	font-size: 17px;
+  	color: #002244;
+  	font-family: "Marker Felt", fantasy;
+  }
+ ul{
+   padding: 0px;
+   text-align: center;
+ }
+ img{
+   width: 50%;
+ }
+
+ #cart-image{
+   width:50px;
+ }
+
+ section[id*='review'] {
+   background-color: #DCDCDC;
+ }
+ .list-reviews {
+   display: grid;
+   width: 50%;
+   grid-template-columns: 1fr;
+   grid-template-rows: auto;
+   grid-gap: 30px;
+ }
+
+  .grid-container{
+  	display: grid;
+  	grid-template-columns: repeat(5,1fr);
+  	grid-template-rows: auto;
+  	grid-gap: 30px;
+  }
+
+  .grid-item{
+  	background-color: #17BEBB;
+  	padding: 20px;
+   border: solid;
+  	border-radius: 12px;
+   border-color: #002244;
+  	text-align: center
+  }
+  .item-show-grid{
+   width: 60%;
+  	display: grid;
+   border: solid;
+   border-radius: 12px;
+  	grid-template-columns: repeat(2,1fr);
+  }
+
+  .item-show-item{
+  	padding: 20px;
+  	text-align: right;
+  }
+
+  .topnav {
+    overflow: hidden;
+    background-color: #002244;
+  }
+
+  .topnav a {
+    float: left;
+    color: #f2f2f2;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+    font-size: 17px;
+  }
+
+  .topnav a:hover {
+    background-color: #17BEBB;
+    color: coral;
+  }
+
+  .address{
+    text-align: center;
+  }
+
+  #average-price-total{
+    text-align: center;
+    color: coral;
+  }
+
+  #navigation-links-individual{
+    text-align: center;
+    font-family: "Marker Felt", fantasy
+  }
+
+  .orders{
+    display: grid;
+    width: 50%;
+    grid-template-columns: 1fr;
+    grid-template-rows: auto;
+    grid-gap: 30px;
+  }
+  input[type=text], select {
+   width: 100%;
+   padding: 12px 20px;
+   margin: 8px 0;
+   display: inline-block;
+   border: 1px solid #ccc;
+   border-radius: 4px;
+   box-sizing: border-box;
+ }
+
+ input[type=submit] {
+   width: 100%;
+   background-color: #17BEBB;
+   color: white;
+   padding: 14px 20px;
+   margin: 8px 0;
+   border: none;
+   border-radius: 4px;
+   cursor: pointer;
+ }
+
+ input[type=submit]:hover {
+   background-color: #45a049;
+ }
+ form {
+   align-content: center;
+   background-color: #f2f2f2;
+   padding: 20px;
+   width: 60%;
+ }
+
+ .error-flash {
+   padding: 10px;
+   background-color: red;
+   color: white;
+ }
+ .success-flash {
+   padding: 10px;
+   background-color: green;
+   color: white;
+ }
+ .alert-flash {
+   padding: 10px;
+   background-color: blue;
+   color: white;
+ }
+ .notice-flash {
+   padding: 10px;
+   background-color: orange;
+   color: white;
+ }
+
+ table {
+   font-family: arial, sans-serif;
+   border-collapse: collapse;
+   width: 100%;
+ }
+
+ td, th {
+   border: 1px solid #f2f2f2;
+   text-align: center;
+   padding: 8px;
+ }
+
+ tr:nth-child(even) {
+   background-color: #F0F8FF;
+ }
