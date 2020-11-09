@@ -29,7 +29,6 @@ class Cart
   def grand_total
     grand_total = 0.0
     @saved_discounts = 0.0
-
     @contents.each do |item_id, quantity|
       if empty_merchant_discount?(item_id) && discount_criteria_met?(find_item(item_id), quantity)
         new_item_total = find_item(item_id).price * quantity
