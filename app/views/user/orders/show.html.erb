@@ -7,8 +7,8 @@
 <p>Status: <%= @order.status %></p>
 <p><%= @order.count_of_items %> items</p>
 <%# <% if !cart.current_discount.nil?%>
-  <strong>Total Savings: <%= number_to_currency(cart.saved_discounts) %></strong>
-<% end %> %>
+  <!-- <strong>Total Savings: <%= number_to_currency(cart.saved_discounts) %></strong> -->
+<%# <% end %> %> %>
 <p>Total: <%= number_to_currency(@order.grand_total) %></p>
 <%= button_to 'Cancel Order', "/profile/orders/#{@order.id}", method: :delete if @order.pending? %>
 
