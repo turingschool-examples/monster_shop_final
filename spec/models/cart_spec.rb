@@ -7,7 +7,7 @@ RSpec.describe Cart do
       @brian = Merchant.create!(name: 'Brians Bagels', address: '125 Main St', city: 'Denver', state: 'CO', zip: 80218)
       @ogre = @megan.items.create!(name: 'Ogre', description: "I'm an Ogre!", price: 20, image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTaLM_vbg2Rh-mZ-B4t-RSU9AmSfEEq_SN9xPP_qrA2I6Ftq_D9Qw', active: true, inventory: 5 )
       @giant = @megan.items.create!(name: 'Giant', description: "I'm a Giant!", price: 50, image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTaLM_vbg2Rh-mZ-B4t-RSU9AmSfEEq_SN9xPP_qrA2I6Ftq_D9Qw', active: true, inventory: 2 )
-      @hippo = @brian.items.create!(name: 'Hippo', description: "I'm a Hippo!", price: 50, image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTaLM_vbg2Rh-mZ-B4t-RSU9AmSfEEq_SN9xPP_qrA2I6Ftq_D9Qw', active: true, inventory: 3 )
+      @hippo = @brian.items.create!(name: 'Hippo', description: "I'm a Hippo!", price: 50, image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTaLM_vbg2Rh-mZ-B4t-RSU9AmSfEEq_SN9xPP_qrA2I6Ftq_D9Qw', active: true, inventory: 12 )
       @discount = @brian.discounts.create!(description: 'Buy 5 items, get 5% off', quantity: 5, percent: 5)
       @cart_1 = Cart.new({
         @ogre.id.to_s => 1,
@@ -16,6 +16,10 @@ RSpec.describe Cart do
       @cart_2 = Cart.new({
         @hippo.id.to_s => 3
         })
+      @cart_3 = Cart.new({
+        @hippo.id.to_s => 6
+        })
+      @saved_discounts = 0.0
     end
 
     it '.contents' do
@@ -68,12 +72,9 @@ RSpec.describe Cart do
       expect(@cart_1.count_of(@giant.id)).to eq(1)
     end
 
-    xit '.new_cart_discounts()' do
-      expect(@cart_2.new_cart_discounts(@discount, 250)).to eq(237.5)
-    end
-
-    xit '.empty_merchant_discount?()' do
-      expect().to eq()
+    it '.new_cart_discounts()' do
+      expect(@saved_discounts).to eq(0.0)
+      expect(@cart_3.new_cart_discounts(@discount, 250)).to eq(237.5)
     end
 
     # updated
@@ -96,16 +97,6 @@ RSpec.describe Cart do
 
     it '.discount_criteria_met?()' do
       expect(@cart_2.discount_criteria_met?(@hippo, 7)).to eq(true)
-    end
-
-    xit '.all_available_discounts()' do
-      expect().to eq()
-    end
-
-    xit 'percentage()' do
-      # binding.pry
-      expect(percentage(@discount)).to eq(0.05)
-      # expect(((100 - @discount.percent).to_f )/ 100).to eq(0.05)
     end
   end
 end

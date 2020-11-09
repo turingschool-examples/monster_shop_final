@@ -8,15 +8,6 @@ class Cart
     @contents.default = 0
   end
 
-  # def find_merchant(item_id)
-  #   item = Item.find(item_id)
-  #   merchant = Merchant.find(item.merchant_id)
-  # end
-  #
-  # def find_item(item_id)
-  #   item = Item.find(item_id)
-  # end
-
   def add_item(item_id)
     @contents[item_id] += 1
   end
@@ -31,19 +22,13 @@ class Cart
 
   def items
     @contents.map do |item_id, _|
-      # binding.pry
       find_item(item_id)
     end
-  end
-
-  def empty_merchant_discount?(item_id)
-    !find_merchant(item_id).discounts.empty?
   end
 
   def grand_total
     grand_total = 0.0
     @saved_discounts = 0.0
-
     @contents.each do |item_id, quantity|
       if empty_merchant_discount?(item_id) && discount_criteria_met?(find_item(item_id), quantity)
         new_item_total = find_item(item_id).price * quantity
@@ -94,24 +79,6 @@ class Cart
       end
     end
   end
-
-  def percentage(discount)
-    (100 - discount.percent).to_f / 100
-  end
-
-  def all_available_discounts(item, quantity)
-    discounted_totals = {}
-    find_merchant(item.id).discounts.order(:quantity).each do |discount|
-      if quantity >= discount.quantity
-        percentage(discount)
-        new_total = item.price * quantity
-        discount_total = new_total * percentage(discount)
-        discounted_totals[discount.id] = new_total - discount_total
-      end
-    end
-    @current_discount = Discount.find(discounted_totals.key(discounted_totals.values.max))
-  end
-
 
   def new_cart_discounts(discount, sub_total)
     percentage(discount)
