@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  references: 
+  percent_off: 1.5
+  item_requirement: 1
+  active: false
+
+two:
+  references: 
+  percent_off: 1.5
+  item_requirement: 1
+  active: false
