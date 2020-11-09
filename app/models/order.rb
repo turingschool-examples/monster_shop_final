@@ -7,11 +7,18 @@ class Order < ApplicationRecord
 
   def grand_total
     grand_total = 0.0
-    discounted_totals = {}
-    order_items.pluck(:item_id)
-
-    # order_items.sum('price * quantity')
-
+    total = 0.0
+    order_items.pluck(:item_id).each do |item_id|
+      item = find_item(item_id)
+      quantity = order_items.where(item: item).pluck(:quantity)[0]
+      if empty_merchant_discount?(item_id)
+        total += (item.price) * (percentage(all_available_discounts(item, quantity)))
+        grand_total = total * quantity
+      else
+        grand_total += order_items.sum('price * quantity')
+      end
+    end
+    grand_total
   end
 
   def count_of_items
