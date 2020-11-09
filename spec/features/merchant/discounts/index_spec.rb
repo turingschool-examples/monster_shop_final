@@ -5,6 +5,15 @@ RSpec.describe 'Merchant Dashboard' do
     before :each do
       @merchant_1 = Merchant.create!(name: 'Megans Marmalades', address: '123 Main St', city: 'Denver', state: 'CO', zip: 80218)
       @user = @merchant_1.users.create(name: 'Megan', address: '123 Main St', city: 'Denver', state: 'CO', zip: 80218, email: 'megan@example.com', password: 'securepassword', role: 1)
+      
+      visit root_path
+      within "nav" do
+        click_link "Log In"
+      end
+      
+      fill_in :email, with: @user.email
+      fill_in :password, with: @user.password
+      click_button "Log In"
     end 
 
     it 'I see a link to add a new discount' do
