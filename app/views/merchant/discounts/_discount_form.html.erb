@@ -1,0 +1,14 @@
+<form>
+
+  <%= form_for [@merchant, @discount] do |f| %>
+
+    <%= f.label "Select percentage for discount applied" %>
+    <%= f.number_field :percent_off, step: 0.01, placeholder: "0.00" %><br>
+    <p>Please enter discount percentage as a decimal.</p>
+
+    <%= f.label "Select minimun quanity for discount" %>
+    <%= f.text_field :item_requirement %><br>
+
+    <%= f.submit %>
+  <% end %>
+</form>
