@@ -10,18 +10,16 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_11_07_172502) do
+ActiveRecord::Schema.define(version: 2020_11_09_034103) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "discounts", force: :cascade do |t|
-    t.bigint "merchant_id"
     t.bigint "item_id"
     t.integer "threshold"
     t.float "discount"
     t.index ["item_id"], name: "index_discounts_on_item_id"
-    t.index ["merchant_id"], name: "index_discounts_on_merchant_id"
   end
 
   create_table "items", force: :cascade do |t|
@@ -94,7 +92,6 @@ ActiveRecord::Schema.define(version: 2020_11_07_172502) do
   end
 
   add_foreign_key "discounts", "items"
-  add_foreign_key "discounts", "merchants"
   add_foreign_key "items", "merchants"
   add_foreign_key "order_items", "items"
   add_foreign_key "order_items", "orders"

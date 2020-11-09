@@ -16,9 +16,9 @@ RSpec.describe Cart do
     end
 
     it '.discount(item)' do
-      m1_discount1 = @megan.discounts.create!(item_id: @ogre.id, threshold: 5, discount: 0.1)
-      m1_discount1 = @megan.discounts.create!(item_id: @ogre.id, threshold: 5, discount: 0.05)
-      m1_discount2 = @megan.discounts.create!(item_id: @ogre.id, threshold: 10, discount: 0.25)
+      m1_discount1 = @ogre.discounts.create!(threshold: 5, discount: 0.1)
+      m1_discount1 = @ogre.discounts.create!(threshold: 5, discount: 0.05)
+      m1_discount2 = @ogre.discounts.create!(threshold: 10, discount: 0.25)
 
       cart1 = Cart.new({
         @ogre.id.to_s => 6,

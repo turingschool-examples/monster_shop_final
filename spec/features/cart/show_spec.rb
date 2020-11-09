@@ -187,9 +187,9 @@ RSpec.describe 'Cart Show Page' do
       # @order_item_4 = @order_3.order_items.create!(item: @giant_item, price: @giant_item.price, quantity: 2, fulfilled: false)
 
       #discounts
-      @m1_discount1 = @merchant_1.discounts.create!(item_id: @ogre_item.id, threshold: 5, discount: 0.1)
-      @m2_discount1 = @merchant_2.discounts.create!(item_id: @hippo_item.id, threshold: 5, discount: 0.25)
-      @m2_discount2 = @merchant_2.discounts.create!(item_id: @hippo_item.id, threshold: 10, discount: 0.50)
+      @m1_discount1 = @ogre_item.discounts.create!(threshold: 5, discount: 0.1)
+      @m2_discount1 = @hippo_item.discounts.create!(threshold: 5, discount: 0.25)
+      @m2_discount2 = @hippo_item.discounts.create!(threshold: 10, discount: 0.50)
 
       visit '/login'
       fill_in 'email', with: "#{@m_user.email}"

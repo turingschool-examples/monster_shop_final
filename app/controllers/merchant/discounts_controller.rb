@@ -30,7 +30,7 @@ class Merchant::DiscountsController < ApplicationController
 
   def create
     @merchant = Merchant.find(current_user.merchant_id)
-    @discount = current_user.merchant.discounts.create(discount_params)
+    @discount = Item.find(discount_params[:item_id]).discounts.create(discount_params)
     if @discount.save
       redirect_to "/merchant/discounts"
     else
