@@ -43,4 +43,10 @@ FactoryBot.define do
     password { "password" }
     role { 0 }
   end
+
+  factory :bulk_discount, aliases: [:discount] do
+    merchant
+    bulk_quantity { 20 }
+    percentage_discount { 5 }
+  end
 end
