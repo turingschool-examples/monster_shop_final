@@ -18,9 +18,13 @@ module CartConcern
     (100 - discount.percent).to_f / 100
   end
 
+  def find_all_discounts(item_id)
+    find_merchant(item_id).discounts.order(:quantity)
+  end
+
   def all_available_discounts(item, quantity)
     discounted_totals = {}
-    find_merchant(item.id).discounts.order(:quantity).each do |discount|
+    find_all_discounts(item.id).each do |discount|
       if quantity >= discount.quantity
         percentage(discount)
         new_total = item.price * quantity

@@ -57,7 +57,7 @@ class Cart
     if find_merchant(item_id).discounts.empty?
       return_message = 'There are no discounts available at this moment'
     else
-      find_merchant(item_id).discounts.order(:quantity).each do |discount|
+      find_all_discounts(item_id).each do |discount|
         quantity = @contents[find_item(item_id).id.to_s] # this needs to be a string because the keys are strings
         if discount_criteria_met?(find_item(item_id), quantity)
           return_message = 'Wahoo! You qualify for a bulk discount!'
@@ -70,7 +70,7 @@ class Cart
   end
 
   def discount_criteria_met?(item, quantity)
-    find_merchant(item.id).discounts.order(:quantity).each do |discount|
+    find_all_discounts(item.id).each do |discount|
       if quantity >= discount.quantity
         all_available_discounts(item, quantity)
         return true
