@@ -15,6 +15,13 @@ RSpec.describe 'Merchant Order Show Page' do
       @order_item_2 = @order_2.order_items.create!(item: @hippo, price: @hippo.price, quantity: 2, fulfilled: true)
       @order_item_3 = @order_2.order_items.create!(item: @ogre, price: @ogre.price, quantity: 2, fulfilled: false)
       @order_item_4 = @order_2.order_items.create!(item: @giant, price: @giant.price, quantity: 2, fulfilled: false)
+
+      @merchant_1_discount_1 = @merchant_1.discounts.create!(description: "Buy 5 items, get 5% off", quantity: 5, percent: 5)
+      @merchant_1_discount_2 = @merchant_1.discounts.create!(description: "Buy 10 items, get 25% off", quantity: 10, percent: 25)
+
+      @merchant_2_discount_3 = @merchant_2.discounts.create!(description: "Buy 10 items, get 45% off", quantity: 10, percent: 45)
+      @merchant_2_discount_4 = @merchant_2.discounts.create!(description: "Buy 5 items, get 10% off", quantity: 5, percent: 10)
+      @merchant_2_discount_5 = @merchant_2.discounts.create!(description: "Buy 6 items, get 30% off", quantity: 6, percent: 30)
       allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(@m_user)
     end
 
@@ -79,7 +86,6 @@ RSpec.describe 'Merchant Order Show Page' do
       within "#order-item-#{@order_item_3.id}" do
         click_link('Fulfill')
       end
-
       expect(page).to have_content("Status: pending")
 
       within "#order-item-#{@order_item_4.id}" do
@@ -87,6 +93,6 @@ RSpec.describe 'Merchant Order Show Page' do
       end
 
       expect(page).to have_content("Status: packaged")
-    end
+    end 
   end
 end
