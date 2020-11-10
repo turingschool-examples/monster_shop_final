@@ -108,5 +108,9 @@ RSpec.describe Cart do
     it '.discount_criteria_met?()' do
       expect(@cart_2.discount_criteria_met?(@hippo, 7)).to eq(true)
     end
+
+    it '#find_merchant' do
+      expect(@cart_3.find_merchant(@ogre.id)).to eq(@megan)
+    end
   end
 end
