@@ -48,6 +48,16 @@ class Merchant::DiscountsController < Merchant::BaseController
     end
   end
 
+  def update_status
+    discount = Discount.find(params[:id])
+    if params[:status] == 'disable'
+      discount.update(enable:false)
+    elsif params[:status] == 'enable'
+      discount.update(enable:true)
+    end
+    redirect_to "/merchant/discounts/#{discount.id}"
+  end
+
   private
   def discount_params
     params.permit(:description, :quantity, :percent)
