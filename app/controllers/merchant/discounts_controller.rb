@@ -28,6 +28,9 @@ class Merchant::DiscountsController < Merchant::BaseController
     end
   end
 
+  def edit
+  end
+
   private
 
   def discount_params
