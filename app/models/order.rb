@@ -15,7 +15,8 @@ class Order < ApplicationRecord
         total += (item.price) * (percentage(all_available_discounts(item, quantity)))
         grand_total = total * quantity
       else
-        grand_total += order_items.sum('price * quantity')
+        grand_total += item.price * quantity
+         # grand_total += Item.find(item_id).price * quantity
       end
     end
     grand_total
