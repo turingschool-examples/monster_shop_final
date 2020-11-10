@@ -9,11 +9,6 @@ class Order < ApplicationRecord
     order_items.sum('price * quantity')
   end
 
-  # def grand_discount
-  #   require 'pry'; binding.pry
-  #   order_items.joins(:discounts)
-  # end
-
   def count_of_items
     order_items.sum(:quantity)
   end

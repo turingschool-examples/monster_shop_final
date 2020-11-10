@@ -28,14 +28,8 @@ RSpec.describe Order do
       @order_item_1 = @order_3.order_items.create!(item: @ogre2, price: @ogre2.price, quantity: 5, fulfilled: true)
       @order_item_2 = @order_3.order_items.create!(item: @hippo2, price: @hippo2.price, quantity: 2, fulfilled: true)
       @order_item_3 = @order_3.order_items.create!(item: @ogre2, price: @ogre2.price, quantity: 2, fulfilled: false)
-    
-      #@discount1 = @ogre2.discount.create()
-    
+        
     end
-
-    # it '.grand_discount' do
-    #   expect(@order_3.grand_discount).to eq(200)
-    # end
 
     it '.grand_total' do
       expect(@order_1.grand_total).to eq(101.25)
