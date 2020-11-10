@@ -16,7 +16,7 @@ RSpec.describe 'Merchant Discount Index Page' do
       allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(@m_user)
     end
 
-    it 'I see a list of my discounts including their names' do
+    it "I see a list of my discounts including their names" do
       visit '/merchant/discounts'
 
         within "#discount-#{@ogre_twenty_percent.id}" do
@@ -53,6 +53,14 @@ RSpec.describe 'Merchant Discount Index Page' do
           click_link(@giant_twenty_percent.name)
         end
       expect(current_path).to eq("/merchant/discounts/#{@giant_twenty_percent.id}")
+    end
+
+    it "I can click a link to a new discount form page" do
+      visit "/merchant/discounts"
+
+      click_link 'New Discount'
+
+      expect(current_path).to eq("/merchant/discounts/new")
     end
   end
 end
