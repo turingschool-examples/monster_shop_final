@@ -49,8 +49,8 @@ describe 'As an employee of a merchant' do
 
       expect(current_path).to eq("/merchant/discounts/#{@discount_1.id}/edit")
     end
-    
-    xit "I see a link to add a new discount and am taken to the new discount form" do
+
+    it "I see a link to add a new discount and am taken to the new discount form" do
       visit '/merchant/discounts'
 
       expect(page).to have_link("New Discount")
