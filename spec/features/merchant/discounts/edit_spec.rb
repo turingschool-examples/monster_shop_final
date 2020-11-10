@@ -73,6 +73,7 @@ RSpec.describe 'Discount Show Page' do
 
       expect(current_path).to eq("/merchant/discounts/#{@megan_discount_2.id}")
       expect(page).to have_content('You cannot leave a field blank. Please fully fill out the form')
+      expect(page).to have_content("#{@megan_discount_2.id}'s Edit Page")
     end
   end
 end
