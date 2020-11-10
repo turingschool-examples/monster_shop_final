@@ -31,5 +31,28 @@ RSpec.describe 'Merchant Discount Index Page' do
           expect(page).to have_content(@giant_twenty_percent.name)
         end
     end
+
+    it "I can click on discount name and go to that discount's show page" do
+      visit '/merchant/discounts'
+
+        within "#discount-#{@ogre_twenty_percent.id}" do
+          click_link(@ogre_twenty_percent.name)
+        end
+      expect(current_path).to eq("/merchant/discounts/#{@ogre_twenty_percent.id}")
+
+      visit '/merchant/discounts'
+
+        within "#discount-#{@ogre_thirty_percent.id}" do
+          click_link(@ogre_thirty_percent.name)
+        end
+      expect(current_path).to eq("/merchant/discounts/#{@ogre_thirty_percent.id}")
+
+      visit '/merchant/discounts'
+
+        within "#discount-#{@giant_twenty_percent.id}" do
+          click_link(@giant_twenty_percent.name)
+        end
+      expect(current_path).to eq("/merchant/discounts/#{@giant_twenty_percent.id}")
+    end
   end
 end
