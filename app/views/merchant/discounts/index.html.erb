@@ -1,1 +1,11 @@
 <%= link_to "Create a Bulk Discount", "/merchant/discounts/new" %>
+
+
+<h5>All My Discounts: </h5>
+<% @discounts.each do |discount| %>
+  <section id="discount-<%= discount.id %>">
+  <p>Get <%= discount.percent_off %>% off of orders of <%= discount.item_requirement%> items or more
+  <%= button_to "Edit Discount", "/merchant/#{discount.merchant.id}/discounts/#{discount.id}/edit", method: :get %></p>
+  <%= button_to "Delete Discount", "/merchant/discounts/#{discount.id}/delete", method: :delete %></p>
+  </section>
+<% end %>
