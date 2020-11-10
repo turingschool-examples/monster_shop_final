@@ -25,5 +25,14 @@ describe 'As an employee of a merchant' do
         expect(page).to_not have_content("5.0%")
       end
     end
+    it "I get an error message if I fill out form incorrectly" do
+      visit "/merchant/discounts/#{@discount_1.id}/edit"
+      fill_in :rate, with: 500
+      fill_in :quantity, with: -100
+
+      click_on "Update Discount"
+      expect(page).to have_content("rate: [\"must be less than or equal to 100\"]")
+      expect(page).to have_content("quantity: [\"must be greater than 0\"]")
+    end
   end
 end

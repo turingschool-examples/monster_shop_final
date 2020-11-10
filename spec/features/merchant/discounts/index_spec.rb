@@ -57,5 +57,20 @@ describe 'As an employee of a merchant' do
       click_link("New Discount")
       expect(current_path).to eq("/merchant/discounts/new")
     end
+
+    it "I see a link to delete each discount" do
+      visit '/merchant/discounts'
+
+      within "#discount-#{@discount_1.id}" do
+        expect(page).to have_link("Delete Discount")
+      end
+
+      within "#discount-#{@discount_2.id}" do
+        expect(page).to have_link("Delete Discount")
+        click_link("Delete Discount")
+      end
+
+      expect(current_path).to eq("/merchant/discounts")
+    end
   end
 end
