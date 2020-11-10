@@ -42,6 +42,7 @@ Rails.application.routes.draw do
     get '/discounts/new', to: 'discounts#new'
     get '/discounts', to: 'discounts#index'
     get '/discounts/:id', to: 'discounts#show'
+    post '/discounts', to: 'discounts#create'
   end
 
   namespace :admin do
