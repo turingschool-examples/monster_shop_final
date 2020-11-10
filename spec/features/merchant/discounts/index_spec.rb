@@ -17,7 +17,7 @@ describe 'As an employee of a merchant' do
     it "I see a list of all my discounts" do
       visit '/merchant/discounts'
 
-      expect(page).to have_content("#{@merchant_1.name}'s Discounts")
+      expect(page).to have_content("#{@merchant_1.name} Discounts")
 
       within "#discount-#{@discount_1.id}" do
         expect(page).to have_content("Discount #{@discount_1.id}:")
@@ -37,6 +37,25 @@ describe 'As an employee of a merchant' do
 
       click_link("Discount #{@discount_1.id}:")
       expect(current_path).to eq("/merchant/discounts/#{@discount_1.id}")
+    end
+
+    it "I see a link to edit each discount and am taken to the edit discount form" do
+      visit '/merchant/discounts'
+
+      within "#discount-#{@discount_1.id}" do
+        expect(page).to have_link("Edit Discount")
+        click_link("Edit Discount")
+      end
+
+      expect(current_path).to eq("/merchant/discounts/#{@discount_1.id}/edit")
+    end
+    
+    xit "I see a link to add a new discount and am taken to the new discount form" do
+      visit '/merchant/discounts'
+
+      expect(page).to have_link("New Discount")
+      click_link("New Discount")
+      expect(current_path).to eq("/merchant/discounts/new")
     end
   end
 end

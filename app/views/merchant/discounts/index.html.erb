@@ -1,8 +1,9 @@
-<h1><%= @merchant.name %>'s Discounts</h1>
+<h1><%= @merchant.name %> Discounts</h1>
 
 <% @merchant.discounts.each do |discount| %>
   <section id= "discount-<%= discount.id %>">
-    <h4><%= link_to "Discount #{discount.id}:", "/merchant/discounts/#{discount.id}"%></h4>
+    <h4><%= link_to "Discount #{discount.id}:", merchant_discount_path(discount)%></h4>
       <p> Get <%= number_to_percentage(discount.rate, precision: 1)%> off when you purchase <%= discount.quantity %> or more items</p>
+      <%= link_to "Edit Discount", "/merchant/discounts/#{discount.id}/edit" %>
   </section>
 <% end %>
