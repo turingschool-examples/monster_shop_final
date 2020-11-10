@@ -39,6 +39,7 @@ Rails.application.routes.draw do
     resources :items, only: [:index, :new, :create, :edit, :update, :destroy]
     put '/items/:id/change_status', to: 'items#change_status'
     get '/orders/:id/fulfill/:order_item_id', to: 'orders#fulfill'
+    get '/discounts/new', to: 'discounts#new'
     get '/discounts', to: 'discounts#index'
     get '/discounts/:id', to: 'discounts#show'
   end
