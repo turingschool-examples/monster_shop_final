@@ -20,12 +20,12 @@ RSpec.describe 'Merchant Discount Show Page' do
       visit "/merchant/discounts/#{@giant_twenty_percent.id}"
 
       expect(page).to have_content(@giant_twenty_percent.name)
-      expect(page).to have_content(@giant_twenty_percent.percentage)
-      expect(page).to have_content(@giant_twenty_percent.minimum_quantity)
+      expect(page).to have_content("Discounted percentage: #{@giant_twenty_percent.percentage}")
+      expect(page).to have_content("Minimum number of items to qualify: #{@giant_twenty_percent.minimum_quantity}")
 
-      expect(page).to_not have_content(@ogre_twenty_percent.name)
-      expect(page).to_not have_content(@ogre_twenty_percent.percentage)
-      expect(page).to_not have_content(@ogre_twenty_percent.minimum_quantity)
+      expect(page).to_not have_content(@ogre_thirty_percent.name)
+      expect(page).to_not have_content(@ogre_thirty_percent.percentage)
+      expect(page).to_not have_content(@ogre_thirty_percent.minimum_quantity)
     end
   end
 end
