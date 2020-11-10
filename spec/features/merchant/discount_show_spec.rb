@@ -35,5 +35,16 @@ RSpec.describe 'Merchant Discount Show Page' do
 
       expect(current_path).to eq("/merchant/discounts/#{@giant_twenty_percent.id}/edit")
     end
+
+    it "I can click a link to delete discount" do
+      visit "/merchant/discounts/#{@giant_twenty_percent.id}"
+
+      click_link 'Delete Discount'
+
+      expect(current_path).to eq("/merchant/discounts")
+      expect(page).to_not have_content(@giant_twenty_percent.name)
+      expect(page).to_not have_content(@giant_twenty_percent.percentage)
+      expect(page).to_not have_content(@giant_twenty_percent.minimum_quantity)
+    end
   end
 end
