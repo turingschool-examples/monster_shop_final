@@ -1,0 +1,8 @@
+
+<h1>My Discounts</h1>
+
+<% @discounts.each do |discount| %>
+  <section id="discount-<%= discount.id%>">
+    <p><%= link_to discount.name, "/merchant/discounts/#{discount.id}", method: :get %></p>
+  </section>
+<% end %>
