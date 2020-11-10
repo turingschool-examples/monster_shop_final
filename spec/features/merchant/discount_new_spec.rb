@@ -27,5 +27,23 @@ RSpec.describe 'Merchant Discount New Page' do
       expect(current_path).to eq("/merchant/discounts")
       expect(page).to have_link(name)
     end
+
+    it 'I cannot create a discount with an incomplete form' do
+      name = '50% off 15 giants'
+      item_name = 'Giant'
+
+      visit "/merchant/discounts/new"
+
+      fill_in 'Name', with: name
+      fill_in 'Item Name', with: item_name
+      click_button 'Create Discount'
+
+      expect(page).to have_content("percentage: [\"can't be blank\"]")
+      expect(page).to have_content("minimum_quantity: [\"can't be blank\"]")
+      expect(page).to have_button('Create Discount')
+    end
+
+    it "I cannot create a discount if the item doesn't exist" do
+    end
   end
 end
