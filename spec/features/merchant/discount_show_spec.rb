@@ -27,5 +27,13 @@ RSpec.describe 'Merchant Discount Show Page' do
       expect(page).to_not have_content(@ogre_thirty_percent.percentage)
       expect(page).to_not have_content(@ogre_thirty_percent.minimum_quantity)
     end
+
+    it "I can click a link to an edit discount form page" do
+      visit "/merchant/discounts/#{@giant_twenty_percent.id}"
+
+      click_link 'Update Discount'
+
+      expect(current_path).to eq("/merchant/discounts/#{@giant_twenty_percent.id}/edit")
+    end
   end
 end
