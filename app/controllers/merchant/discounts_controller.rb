@@ -38,6 +38,12 @@ class Merchant::DiscountsController < Merchant::BaseController
     redirect_to "/merchant/discounts/#{@discount.id}"
   end
 
+  def destroy
+    discount = Discount.find(params[:id])
+    discount.destroy
+    redirect_to "/merchant/discounts"
+  end
+
   private
 
   def discount_params
