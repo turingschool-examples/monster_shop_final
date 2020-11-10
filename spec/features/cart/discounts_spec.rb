@@ -8,12 +8,10 @@ RSpec.describe 'Cart Discounts' do
       @merchant_2 = Merchant.create!(name: 'Brians Bagels', address: '125 Main St', city: 'Denver', state: 'CO', zip: 80218)
       @ogre = @merchant_1.items.create!(name: 'Ogre', description: "I'm an Ogre!", price: 20, image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTaLM_vbg2Rh-mZ-B4t-RSU9AmSfEEq_SN9xPP_qrA2I6Ftq_D9Qw', active: true, inventory: 5 )
       @giant = @merchant_1.items.create!(name: 'Giant', description: "I'm a Giant!", price: 50, image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTaLM_vbg2Rh-mZ-B4t-RSU9AmSfEEq_SN9xPP_qrA2I6Ftq_D9Qw', active: true, inventory: 3 )
-      @hippo = @brian.items.create!(name: 'Hippo', description: "I'm a Hippo!", price: 50, image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTaLM_vbg2Rh-mZ-B4t-RSU9AmSfEEq_SN9xPP_qrA2I6Ftq_D9Qw', active: true, inventory: 3 )
-      # @user_1 = @merchant_1.users.create(name: 'Megan', address: '123 Main St', city: 'Denver', state: 'CO', zip: 80218, email: 'megan@example.com', password: 'securepassword')
-      @discount_1 = @merchant_1.discounts.create!(rate: 5, quantity: 4)
-
-      # allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(@user_1)
+      @hippo = @merchant_2.items.create!(name: 'Hippo', description: "I'm a Hippo!", price: 50, image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTaLM_vbg2Rh-mZ-B4t-RSU9AmSfEEq_SN9xPP_qrA2I6Ftq_D9Qw', active: true, inventory: 3 )
+      @discount_1 = @merchant_1.discounts.create!(rate: 5, quantity: 2)
     end
+
     describe "When I add enough of a single item" do
       before :each do
         4.times do
@@ -33,18 +31,24 @@ RSpec.describe 'Cart Discounts' do
         visit '/cart'
 
         within "#item-#{@ogre.id}" do
-          expect(page).to have_content()
+          expect(page).to have_content("#{number_to_percentage(@discount_1.rate, precision: 1)} Discount Applied to #{@ogre.name}")
         end
       end
 
-      xit "I don't see a discount applied to other items from that merchant" do
+      it "I don't see a discount applied to other items from that merchant" do
         visit '/cart'
 
+        within "#item-#{@giant.id}" do
+          expect(page).to_not have_content("#{number_to_percentage(@discount_1.rate, precision: 1)} Discount Applied")
+        end
       end
 
-      xit "I don't see a discount applied to items from other merchants" do
+      it "I don't see a discount applied to items from other merchants" do
         visit '/cart'
 
+        within "#item-#{@hippo.id}" do
+          expect(page).to_not have_content("#{number_to_percentage(@discount_1.rate, precision: 1)} Discount Applied")
+        end
       end
     end
   end
