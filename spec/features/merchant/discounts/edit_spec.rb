@@ -29,7 +29,7 @@ RSpec.describe 'Merchant Discounts Edit Page' do
     it 'I see the form is already prefilled with the current values' do
       visit "/merchant/discounts/#{@discount_1.id}/edit"
 
-      expect(find_field(:amount).value).to eq '5'
+      expect(find_field(:amount).value).to eq '5.0'
       expect(find_field(:quantity).value).to eq '2'
     end 
 
