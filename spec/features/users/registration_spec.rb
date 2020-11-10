@@ -3,7 +3,7 @@ require 'rails_helper'
 RSpec.describe 'User Registration' do
   describe 'As a Visitor' do
     it 'I see a link to register as a user' do
-      visit root_path
+      visit '/'
 
       click_link 'Register'
 
