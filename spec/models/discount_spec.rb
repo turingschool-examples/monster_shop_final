@@ -5,7 +5,8 @@ RSpec.describe Discount, type: :model do
     it { should validate_presence_of :description }
     it { should validate_presence_of :quantity }
     it { should validate_presence_of :percent }
-    it { should validate_presence_of :enable }
+    it { is_expected.to validate_inclusion_of(:enable).in_array([true, false]) }
+    # it { should validate_presence_of :enable }
   end
 
   describe 'relationships' do
