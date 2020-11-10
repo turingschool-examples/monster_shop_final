@@ -21,7 +21,7 @@ RSpec.describe 'Discount Show Page' do
       @order_item_6 = @order_2.order_items.create!(item: @orge, price: @orge.price, quantity: 4, fulfilled: true)
       @megan_discount_1 = @megan.discounts.create!(description: "Buy 5 items, get 5% off ", quantity: 5, percent: 5)
       @megan_discount_2 = @megan.discounts.create!(description: "Buy 10 items, get 25% off ", quantity: 10, percent: 25)
-      @brian_discount_3 = @brian.discounts.create!(description: "Buy 10 items, get 45% off ", quantity: 10, percent: 45)
+      @brian_discount_3 = @brian.discounts.create!(description: "Buy 10 items, get 45% off ", quantity: 10, percent: 45, enable: false)
       @brian_discount_4 = @brian.discounts.create!(description: "Buy 5 items, get 10% off ", quantity: 5, percent: 10)
       @brian_discount_5 = @brian.discounts.create!(description: "Buy 6 items, get 30% off ", quantity: 6, percent: 30)
       allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(@merchant_user)
@@ -33,6 +33,27 @@ RSpec.describe 'Discount Show Page' do
       expect(page).to have_content("Description of Discount: #{@megan_discount_1.description}")
       expect(page).to have_content("Quantity of minimum items needed for the discount: #{@megan_discount_1.quantity}")
       expect(page).to have_content("Percent Off: #{@megan_discount_1.percent}%")
+    end
+
+    it 'can enable a discount from the show page' do
+      visit "/merchant/discounts/#{@brian_discount_3.id}"
+
+      expect(page).to have_content('Status: Disabled')
+      expect(page).to have_button('Enable Discount')
+      click_button 'Enable Discount'
+
+      expect(page).to have_content('Status: Enabled')
+      expect(page).to have_button('Disable Discount')
+    end
+
+    it 'can disable a discount from the show page' do
+      visit "/merchant/discounts/#{@brian_discount_4.id}"
+      expect(page).to have_content('Status: Enabled')
+      expect(page).to have_button('Disable Discount')
+      click_button 'Disable Discount'
+save_and_open_page
+      expect(page).to have_content('Status: Disabled')
+      expect(page).to have_button('Enable Discount')
     end
   end
 end
