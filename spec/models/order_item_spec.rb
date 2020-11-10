@@ -23,7 +23,7 @@ RSpec.describe OrderItem do
       @order_item_3 = @order_2.order_items.create!(item: @hippo, price: @hippo.price, quantity: 27)
       @order_item_4 = @order_3.order_items.create!(item: @ogre2, price: @ogre2.price, quantity: 5)
 
-      @discount = @megan.discounts.create!(item_id: @ogre2.id, threshold: 5, discount: 0.10)
+      @discount = @ogre2.discounts.create!(threshold: 5, discount: 0.10)
     end
 
     it '.discount' do

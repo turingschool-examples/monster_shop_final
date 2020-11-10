@@ -21,7 +21,7 @@ RSpec.describe 'Order Show Page' do
       @order_item_4 = @order_2.order_items.create!(item: @ogre2, price: @ogre2.price, quantity: 5)
 
       
-      @discount = @megan.discounts.create!(item_id: @ogre2.id, threshold: 5, discount: 0.10)
+      @discount = @ogre2.discounts.create!(threshold: 5, discount: 0.10)
       
       allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(@user)
     end
