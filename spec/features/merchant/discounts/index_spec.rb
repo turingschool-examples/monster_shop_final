@@ -64,5 +64,14 @@ RSpec.describe 'Merchant Discounts Index Page' do
       end
       expect(current_path).to eq("/merchant/discounts/#{@discount_1.id}/edit")
     end
+
+    it 'I see a link to delete a discount' do
+      visit '/merchant/discounts'
+
+      within "#discount-#{@discount_1.id}" do
+        click_link 'Delete Discount'
+      end
+      expect(current_path).to eq("/merchant/discounts")
+    end
   end
 end
