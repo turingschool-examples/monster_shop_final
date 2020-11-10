@@ -1,0 +1,8 @@
+<h1><%= @merchant.name %>'s Discounts</h1>
+
+<% @merchant.discounts.each do |discount| %>
+  <section id= "discount-<%= discount.id %>">
+    <h4><%= link_to "Discount #{discount.id}:", "/merchant/discounts/#{discount.id}"%></h4>
+      <p> Get <%= discount.rate %>% off when you purchase <%= discount.quantity %> or more items</p>
+  </section>
+<% end %>
