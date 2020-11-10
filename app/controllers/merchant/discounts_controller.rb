@@ -4,6 +4,10 @@ class Merchant::DiscountsController < Merchant::BaseController
   end
 
   def show
+    @discount = Discount.find(params[:id])
+  end
 
+  def edit
+    
   end
 end

@@ -3,6 +3,6 @@
 <% @merchant.discounts.each do |discount| %>
   <section id= "discount-<%= discount.id %>">
     <h4><%= link_to "Discount #{discount.id}:", "/merchant/discounts/#{discount.id}"%></h4>
-      <p> Get <%= discount.rate %>% off when you purchase <%= discount.quantity %> or more items</p>
+      <p> Get <%= number_to_percentage(discount.rate, precision: 1)%> off when you purchase <%= discount.quantity %> or more items</p>
   </section>
 <% end %>

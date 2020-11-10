@@ -1,0 +1,7 @@
+<h1>Discount ID: <%= @discount.id %></h1>
+
+<h3>Percentage Off: <%= number_to_percentage(@discount.rate, precision: 1) %></h3> <br>
+<h3>Minimum Quantity: <%= @discount.quantity %></h3><br>
+<h3>Sold By: <%= @discount.merchant.name %></h3><br>
+
+<%= link_to "Edit Discount", "/merchant/discounts/#{@discount.id}/edit" %>
