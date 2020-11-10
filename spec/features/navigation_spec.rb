@@ -10,11 +10,11 @@ RSpec.describe 'Site Navigation' do
           click_link 'Home'
         end
 
-        expect(current_path).to eq(root_path)
+        expect(current_path).to eq('/')
       end
 
       it 'all items' do
-        visit root_path
+        visit '/'
 
         within 'nav' do
           click_link 'Items'
@@ -24,7 +24,7 @@ RSpec.describe 'Site Navigation' do
       end
 
       it 'all merchants' do
-        visit root_path
+        visit '/'
 
         within 'nav' do
           click_link 'Merchants'
@@ -34,7 +34,7 @@ RSpec.describe 'Site Navigation' do
       end
 
       it 'my cart' do
-        visit root_path
+        visit '/'
 
         within 'nav' do
           click_link 'Cart: 0'
@@ -44,7 +44,7 @@ RSpec.describe 'Site Navigation' do
       end
 
       it 'the login page' do
-        visit root_path
+        visit '/'
 
         within 'nav' do
           click_link 'Log In'
@@ -54,7 +54,7 @@ RSpec.describe 'Site Navigation' do
       end
 
       it 'the registraton page' do
-        visit root_path
+        visit '/'
 
         within 'nav' do
           click_link 'Register'
@@ -72,7 +72,7 @@ RSpec.describe 'Site Navigation' do
     end
 
     it 'I see who I am logged in as' do
-      visit root_path
+      visit '/'
 
       within 'nav' do
         expect(page).to have_content("Logged in as #{@user.name}")
@@ -87,11 +87,11 @@ RSpec.describe 'Site Navigation' do
           click_link 'Home'
         end
 
-        expect(current_path).to eq(root_path)
+        expect(current_path).to eq('/')
       end
 
       it 'all items' do
-        visit root_path
+        visit '/'
 
         within 'nav' do
           click_link 'Items'
@@ -101,7 +101,7 @@ RSpec.describe 'Site Navigation' do
       end
 
       it 'all merchants' do
-        visit root_path
+        visit '/'
 
         within 'nav' do
           click_link 'Merchants'
@@ -111,7 +111,7 @@ RSpec.describe 'Site Navigation' do
       end
 
       it 'my cart' do
-        visit root_path
+        visit '/'
 
         within 'nav' do
           click_link 'Cart: 0'
@@ -121,17 +121,17 @@ RSpec.describe 'Site Navigation' do
       end
 
       it 'the logout page' do
-        visit root_path
+        visit '/'
 
         within 'nav' do
           click_link 'Log Out'
         end
 
-        expect(current_path).to eq(root_path)
+        expect(current_path).to eq('/')
       end
 
       it 'my profile page' do
-        visit root_path
+        visit '/'
 
         within 'nav' do
           click_link 'Profile'
@@ -143,13 +143,13 @@ RSpec.describe 'Site Navigation' do
 
     describe 'I do not see in my nav bar' do
       it 'the login link' do
-        visit root_path
+        visit '/'
 
         expect(page).to_not have_link('Log In')
       end
 
       it 'the registration link' do
-        visit root_path
+        visit '/'
 
         expect(page).to_not have_link('Register')
       end
@@ -164,7 +164,7 @@ RSpec.describe 'Site Navigation' do
     end
 
     it 'I see who I am logged in as' do
-      visit root_path
+      visit '/'
 
       within 'nav' do
         expect(page).to have_content("Logged in as #{@m_user.name}")
@@ -179,11 +179,11 @@ RSpec.describe 'Site Navigation' do
           click_link 'Home'
         end
 
-        expect(current_path).to eq(root_path)
+        expect(current_path).to eq('/')
       end
 
       it 'all items' do
-        visit root_path
+        visit '/'
 
         within 'nav' do
           click_link 'Items'
@@ -193,7 +193,7 @@ RSpec.describe 'Site Navigation' do
       end
 
       it 'all merchants' do
-        visit root_path
+        visit '/'
 
         within 'nav' do
           click_link 'Merchants'
@@ -203,7 +203,7 @@ RSpec.describe 'Site Navigation' do
       end
 
       it 'my cart' do
-        visit root_path
+        visit '/'
 
         within 'nav' do
           click_link 'Cart: 0'
@@ -213,17 +213,17 @@ RSpec.describe 'Site Navigation' do
       end
 
       it 'the logout page' do
-        visit root_path
+        visit '/'
 
         within 'nav' do
           click_link 'Log Out'
         end
 
-        expect(current_path).to eq(root_path)
+        expect(current_path).to eq('/')
       end
 
       it 'my profile page' do
-        visit root_path
+        visit '/'
 
         within 'nav' do
           click_link 'Profile'
@@ -233,7 +233,7 @@ RSpec.describe 'Site Navigation' do
       end
 
       it 'my merchant page' do
-        visit root_path
+        visit '/'
 
         within 'nav' do
           click_link 'Merchant Dashboard'
@@ -245,13 +245,13 @@ RSpec.describe 'Site Navigation' do
 
     describe 'I do not see in my nav bar' do
       it 'the login link' do
-        visit root_path
+        visit '/'
 
         expect(page).to_not have_link('Log In')
       end
 
       it 'the registration link' do
-        visit root_path
+        visit '/'
 
         expect(page).to_not have_link('Register')
       end
@@ -265,7 +265,7 @@ RSpec.describe 'Site Navigation' do
     end
 
     it 'I see who I am logged in as' do
-      visit root_path
+      visit '/'
 
       within 'nav' do
         expect(page).to have_content("Logged in as #{@admin.name}")
@@ -280,11 +280,11 @@ RSpec.describe 'Site Navigation' do
           click_link 'Home'
         end
 
-        expect(current_path).to eq(root_path)
+        expect(current_path).to eq('/')
       end
 
       it 'all items' do
-        visit root_path
+        visit '/'
 
         within 'nav' do
           click_link 'Items'
@@ -294,7 +294,7 @@ RSpec.describe 'Site Navigation' do
       end
 
       it 'all merchants' do
-        visit root_path
+        visit '/'
 
         within 'nav' do
           click_link 'Merchants'
@@ -304,17 +304,17 @@ RSpec.describe 'Site Navigation' do
       end
 
       it 'the logout page' do
-        visit root_path
+        visit '/'
 
         within 'nav' do
           click_link 'Log Out'
         end
 
-        expect(current_path).to eq(root_path)
+        expect(current_path).to eq('/')
       end
 
       it 'my profile page' do
-        visit root_path
+        visit '/'
 
         within 'nav' do
           click_link 'Profile'
@@ -324,7 +324,7 @@ RSpec.describe 'Site Navigation' do
       end
 
       it 'my merchant page' do
-        visit root_path
+        visit '/'
 
         within 'nav' do
           click_link 'Admin Dashboard'
@@ -336,19 +336,19 @@ RSpec.describe 'Site Navigation' do
 
     describe 'I do not see in my nav bar' do
       it 'the login link' do
-        visit root_path
+        visit '/'
 
         expect(page).to_not have_link('Log In')
       end
 
       it 'the registration link' do
-        visit root_path
+        visit '/'
 
         expect(page).to_not have_link('Register')
       end
 
       it 'a cart link' do
-        visit root_path
+        visit '/'
 
         expect(page).to_not have_link('Cart')
       end

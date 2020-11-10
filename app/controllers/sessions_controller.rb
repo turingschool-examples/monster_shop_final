@@ -20,7 +20,7 @@ class SessionsController < ApplicationController
     session.delete(:user_id)
     session.delete(:cart)
     flash[:notice] = 'You have been logged out!'
-    redirect_to root_path
+    redirect_to '/'
   end
 
   private
