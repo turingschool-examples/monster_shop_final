@@ -32,7 +32,6 @@ RSpec.describe 'Merchant Discount Edit Discount Page' do
       expect(page).to have_content(name)
       expect(page).to have_content(percentage)
       expect(page).to have_content(minimum_quantity)
-      expect(page).to have_content(item_name)
     end
   end
 end
