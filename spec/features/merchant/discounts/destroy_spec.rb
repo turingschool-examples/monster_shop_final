@@ -1,4 +1,5 @@
 require 'rails_helper'
+include ActionView::Helpers::NumberHelper
 
 describe 'As an employee of a merchant' do
   describe "When I delete an existing discount" do
