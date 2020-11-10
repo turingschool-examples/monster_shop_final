@@ -9,7 +9,7 @@ RSpec.describe 'Order Show Page' do
       @sal = Merchant.create!(name: 'Sals Salamanders', address: '125 Main St', city: 'Denver', state: 'CO', zip: 80218)
       @ogre = @megan.items.create!(name: 'Ogre', description: "I'm an Ogre!", price: 20.25, image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTaLM_vbg2Rh-mZ-B4t-RSU9AmSfEEq_SN9xPP_qrA2I6Ftq_D9Qw', active: true, inventory: 5 )
       @giant = @megan.items.create!(name: 'Giant', description: "I'm a Giant!", price: 50, image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTaLM_vbg2Rh-mZ-B4t-RSU9AmSfEEq_SN9xPP_qrA2I6Ftq_D9Qw', active: true, inventory: 3 )
-      @hippo = @brian.items.create!(name: 'Hippo', description: "I'm a Hippo!", price: 50, image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTaLM_vbg2Rh-mZ-B4t-RSU9AmSfEEq_SN9xPP_qrA2I6Ftq_D9Qw', active: true, inventory: 1 )
+      @hippo = @brian.items.create!(name: 'Hippo', description: "I'm a Hippo!", price: 50, image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTaLM_vbg2Rh-mZ-B4t-RSU9AmSfEEq_SN9xPP_qrA2I6Ftq_D9Qw', active: true, inventory: 2 )
       @user = User.create!(name: 'Megan', address: '123 Main St', city: 'Denver', state: 'CO', zip: 80218, email: 'megan_1@example.com', password: 'securepassword')
       @order_1 = @user.orders.create!(status: "packaged")
       @order_2 = @user.orders.create!(status: "pending")
@@ -81,6 +81,31 @@ RSpec.describe 'Order Show Page' do
       expect(@order_item_3.fulfilled).to eq(false)
       expect(@giant.inventory).to eq(5)
       expect(@ogre.inventory).to eq(7)
+    end
+
+    it 'I can see the subtotal including the discount, for item in my order' do
+      discount_1 = Discount.create!(quantity: 2, amount: 5, merchant_id: @megan.id)
+      discount_2 = Discount.create!(quantity: 3, amount: 10, merchant_id: @megan.id)
+      visit item_path(@ogre)
+      click_button 'Add to Cart'
+
+      visit '/cart'
+      within "#item-#{@ogre.id}" do
+        click_button('More of This!')
+        click_button('More of This!')
+        expect(page).to have_content("Discount: #{discount_2.amount}% off!")
+        expect(page).to have_content('Subtotal: $54.68')
+      end
+
+      click_button 'Check Out'
+
+      order = Order.last
+      visit "/profile/orders/#{order.id}"
+
+        expect(page).to have_link(@ogre.name)
+        expect(page).to have_content("Quantity: 3")
+        expect(page).to have_content("Price: $54.00")
+      end
     end
   end
 end
