@@ -35,6 +35,13 @@ class Merchant::DiscountsController < Merchant::BaseController
     end
   end
 
+  def destroy
+    discount = Discount.find(params[:discount_id])
+    discount.destroy
+    flash[:success] = "#{discount.amount}% off #{discount.quantity} items was deleted."
+    redirect_to '/merchant/discounts'
+  end
+
   private
 
   def discount_params
