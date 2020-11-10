@@ -12,4 +12,11 @@
   <li>Description of Discount: <strong><%=  @discount.description %></strong></li>
   <li>Quantity of minimum items needed for the discount: <strong><%= @discount.quantity %></strong></li>
   <li>Percent Off: <strong><%= @discount.percent %>%</strong></li>
+  <li>Status: <strong><%= @discount.enabled_status %></strong></li>
 </ul>
+
+<% if @discount.enable? %>
+  <p><%= button_to 'Disable Discount', "/merchant/discounts/disable/#{@discount.id}", method: :patch %></p>
+<% else %>
+  <p><%= button_to 'Enable Discount', "/merchant/discounts/enable/#{@discount.id}", method: :patch %></p>
+<% end %>
