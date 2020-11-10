@@ -44,6 +44,21 @@ RSpec.describe 'Merchant Discount New Page' do
     end
 
     it "I cannot create a discount if the item doesn't exist" do
+      name = '50% off 15 centaurs'
+      percentage = 50
+      minimum_quantity = 15
+      item_name = 'Centaur'
+
+      visit "/merchant/discounts/new"
+
+      fill_in 'Name', with: name
+      fill_in 'Percentage', with: percentage
+      fill_in :minimum_quantity, with: minimum_quantity
+      fill_in 'Item Name', with: item_name
+      click_button 'Create Discount'
+
+      expect(page).to have_content("Item could not be found")
+      expect(current_path).to eq("/merchant/discounts/new")
     end
   end
 end

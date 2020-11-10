@@ -13,16 +13,20 @@ class Merchant::DiscountsController < Merchant::BaseController
 
   def create
     item = Item.find_by(name: params["Item Name"])
-    discount = item.discounts.new(discount_params)
-    if discount.save
-      redirect_to "/merchant/discounts"
+    discount = Discount.new(discount_params)
+    if item
+      discount.item_id = item.id
+      if discount.save
+        redirect_to "/merchant/discounts"
+      else
+        generate_flash(discount)
+        render :new
+      end
     else
-      generate_flash(discount)
-      render :new
+      flash[:notice] = "Item could not be found"
+      redirect_to "/merchant/discounts/new"
     end
   end
-
-
 
   private
 
