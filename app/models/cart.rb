@@ -27,7 +27,7 @@ class Cart
   def grand_total
     grand_total = 0.0
     @contents.each do |item_id, quantity|
-      grand_total += Item.find(item_id).price * quantity
+      grand_total += subtotal_of(item_id)
     end
     grand_total
   end
@@ -37,10 +37,30 @@ class Cart
   end
 
   def subtotal_of(item_id)
-    @contents[item_id.to_s] * Item.find(item_id).price
+    subtotal = @contents[item_id.to_s] * Item.find(item_id).price * (1 - (merchant_discounts(item_id)/ 100))
   end
 
   def limit_reached?(item_id)
     count_of(item_id) == Item.find(item_id).inventory
+  end
+
+  def merchant_discounts(item_id)
+    item = Item.find(item_id)
+    if Discount.where(merchant_id: item.merchant.id)
+      applicable_discounts(item_id)
+    else
+      return 0
+    end
+  end
+
+  def applicable_discounts(item_id)
+    item = Item.find(item_id)
+    discounts = Discount.where(merchant_id: item.merchant.id)
+    eligable_discounts = discounts.where("quantity <= ?", @contents[item_id.to_s])
+    if eligable_discounts.empty?
+      return 0
+    else  
+      eligable_discounts.order(amount: :desc).first.amount
+    end
   end
 end
