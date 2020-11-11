@@ -51,10 +51,10 @@ RSpec.describe Item do
       expect(@ogre.discount_eligible(4)).to eq(@discount_2)
     end
 
-    it ".discounted_price" do
-      expect(@ogre.discount_eligible(3)).to eq(@discount_1)
-      expect(@ogre.discounted_price).to eq(19)
-    end
+    # it ".discounted_price" do
+    #   expect(@ogre.discount_eligible(3)).to eq(@discount_1)
+    #   expect(@ogre.discounted_price).to eq(19)
+    # end
   end
 
   describe 'Class Methods' do
