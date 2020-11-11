@@ -18,7 +18,7 @@ describe Discount do
       giant = megan.items.create!(name: 'Giant', description: "I'm a Giant!", price: 50, image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTaLM_vbg2Rh-mZ-B4t-RSU9AmSfEEq_SN9xPP_qrA2I6Ftq_D9Qw', active: true, inventory: 2 )
            
       m1_discount1 = ogre.discounts.create!(threshold: 5, discount: 0.1)
-      m1_discount1 = ogre.discounts.create!(threshold: 5, discount: 0.05)
+      m1_discount2 = ogre.discounts.create!(threshold: 5, discount: 0.05)
       m1_discount2 = ogre.discounts.create!(threshold: 10, discount: 0.25)
 
       order_quantity = 4

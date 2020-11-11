@@ -9,6 +9,38 @@ class Order < ApplicationRecord
     order_items.sum('price * quantity')
   end
 
+  def grand_discount
+    #iteration 3,492
+    # order_discounts = order_items
+    #                       .joins(:discounts)
+    #                       .select("items.id, items.price, order_items.quantity, max(discount) as max_discount")
+    #                       .where("order_items.quantity >= discounts.threshold")
+    #                       .group("items.id, items.price, order_items.quantity")
+    #                       .pluck("items.price * order_items.quantity * max(discount)")
+    #iteration 3,493
+    # order_discounts = order_items
+    #                       .joins(:discounts)
+    #                       .select("items.id, items.price, order_items.quantity")
+    #                       .where("order_items.quantity >= discounts.threshold")
+    #                       .group("items.id, items.price, order_items.quantity")
+    #                       .pluck("items.price * order_items.quantity * max(discount)")
+    
+    #iteration 3,494
+    # order_discounts = order_items
+    #                       .joins(:discounts)
+    #                       .where("order_items.quantity >= discounts.threshold")
+    #                       .group("items.id, items.price, order_items.quantity")
+    #                       .pluck("items.price * order_items.quantity * max(discount)")
+    
+    #iteration 3,495
+    order_items
+        .joins(:discounts)
+        .where("order_items.quantity >= discounts.threshold")
+        .group("items.id, items.price, order_items.quantity")
+        .pluck("items.price * order_items.quantity * max(discount)")
+        .sum
+  end
+
   def count_of_items
     order_items.sum(:quantity)
   end
