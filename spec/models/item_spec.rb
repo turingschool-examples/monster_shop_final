@@ -5,6 +5,7 @@ RSpec.describe Item do
     it {should belong_to :merchant}
     it {should have_many :order_items}
     it {should have_many(:orders).through(:order_items)}
+    it {should have_many(:discounts).through(:merchant)}
     it {should have_many :reviews}
   end
 
@@ -26,6 +27,10 @@ RSpec.describe Item do
       @review_3 = @ogre.reviews.create(title: 'EW', description: 'This Ogre is Ew', rating: 1)
       @review_4 = @ogre.reviews.create(title: 'So So', description: 'This Ogre is So so', rating: 2)
       @review_5 = @ogre.reviews.create(title: 'Okay', description: 'This Ogre is Okay', rating: 4)
+
+      @discount_1 = @megan.discounts.create!(rate: 5, quantity: 2)
+      @discount_2 = @megan.discounts.create!(rate: 10, quantity: 4)
+
     end
 
     it '.sorted_reviews()' do
@@ -37,6 +42,19 @@ RSpec.describe Item do
     it '.average_rating' do
       expect(@ogre.average_rating.round(2)).to eq(3.00)
     end
+
+    it ".discount_eligible()" do
+
+      expect(@ogre.discount_eligible(1)).to eq(nil)
+      expect(@ogre.discount_eligible(2)).to eq(@discount_1)
+      expect(@ogre.discount_eligible(3)).to eq(@discount_1)
+      expect(@ogre.discount_eligible(4)).to eq(@discount_2)
+    end
+
+    # it ".discounted_price" do
+    #   expect(@ogre.discount_eligible(3)).to eq(@discount_1)
+    #   expect(@ogre.discounted_price).to eq(19)
+    # end
   end
 
   describe 'Class Methods' do

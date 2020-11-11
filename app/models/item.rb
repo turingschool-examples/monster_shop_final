@@ -1,7 +1,10 @@
 class Item < ApplicationRecord
+  attr_reader :discount
+
   belongs_to :merchant
   has_many :order_items
   has_many :orders, through: :order_items
+  has_many :discounts, through: :merchant
   has_many :reviews, dependent: :destroy
 
   validates_presence_of :name,
@@ -28,5 +31,9 @@ class Item < ApplicationRecord
 
   def average_rating
     reviews.average(:rating)
+  end
+
+  def discount_eligible(item_quantity)
+    @discount = discounts.where('quantity <= ?', item_quantity).order(rate: :desc).first
   end
 end
