@@ -53,6 +53,11 @@ RSpec.describe Cart do
       expect(@cart.subtotal_of(@giant.id)).to eq(100)
     end
 
+    it '.price_of()' do
+      expect(@cart.price_of(@ogre.id)).to eq(20)
+      expect(@cart.price_of(@giant.id)).to eq(50)
+    end
+
     it '.limit_reached?()' do
       expect(@cart.limit_reached?(@ogre.id)).to eq(false)
       expect(@cart.limit_reached?(@giant.id)).to eq(true)
@@ -62,6 +67,19 @@ RSpec.describe Cart do
       @cart.less_item(@giant.id.to_s)
 
       expect(@cart.count_of(@giant.id)).to eq(1)
+    end
+
+    it '.merchant_discounts()' do
+      Discount.create!(quantity: 2, amount: 5, merchant_id: @brian.id)
+
+      expect(@cart.merchant_discounts(@hippo.id)).to eq(0)
+    end
+
+    it '.applicable_discounts()' do
+      discount_1 = Discount.create!(quantity: 1, amount: 5, merchant_id: @megan.id)
+      discount_2 = Discount.create!(quantity: 2, amount: 10, merchant_id: @megan.id)
+
+      expect(@cart.applicable_discounts(@ogre.id)).to eq(5)
     end
   end
 end

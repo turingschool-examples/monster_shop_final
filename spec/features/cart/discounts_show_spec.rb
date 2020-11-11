@@ -121,6 +121,22 @@ RSpec.describe 'Cart Show Page' do
       expect(page).to have_content('Total: $207.00')
     end
 
+    it 'a merchant has a discount, but you dont have any of their items in your cart' do
+      visit item_path(@hippo)
+      click_button 'Add to Cart'
+
+      visit '/cart' 
+      
+      within "#item-#{@hippo.id}" do
+        click_button('More of This!')
+        click_button('More of This!')
+        expect(page).to have_content("Discount: 0% off!")
+        expect(page).to have_content('Subtotal: $150.00')
+      end
+
+      expect(page).to have_content('Total: $150.00')
+    end
+
     it 'the order_item subtotal is updated in the db' do
       discount_1 = Discount.create!(quantity: 2, amount: 2, merchant_id: @megan.id)
       discount_2 = Discount.create!(quantity: 3, amount: 5, merchant_id: @megan.id)

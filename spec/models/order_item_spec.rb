@@ -21,12 +21,6 @@ RSpec.describe OrderItem do
       @order_item_3 = @order_2.order_items.create!(item: @hippo, price: @hippo.price, quantity: 27, subtotal: 1350)
     end
 
-    it '.calculate_price' do
-      expect(@order_item_1.subtotal).to eq(40.5)
-      expect(@order_item_2.subtotal).to eq(150)
-      expect(@order_item_3.subtotal).to eq(1350)
-    end
-
     it '.fulfillable?' do
       expect(@order_item_1.fulfillable?).to eq(true)
       expect(@order_item_3.fulfillable?).to eq(false)

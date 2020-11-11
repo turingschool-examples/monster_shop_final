@@ -64,7 +64,17 @@ RSpec.describe 'Merchant Discounts Edit Page' do
       fill_in :amount, with: ''
       click_on 'Submit'
 
-      expect(page).to have_content("Amount can't be blank, and Amount is not a number")
+      expect(page).to have_content("Amount can't be blank and Amount is not a number")
+    end
+
+    it 'if I incorrectly fill out the discount form I will see a flash message' do
+      visit '/merchant/discounts/new'
+
+      fill_in :quantity, with: ''
+      fill_in :amount, with: '5'
+      click_on 'Submit'
+
+      expect(page).to have_content("Quantity can't be blank")
     end
   end
 end

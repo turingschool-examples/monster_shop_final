@@ -7,7 +7,7 @@
     <section id='item-<%= item.id%>'>
       <h2><%= link_to item.name, "/items/#{item.id}" %></h2>
       <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTaLM_vbg2Rh-mZ-B4t-RSU9AmSfEEq_SN9xPP_qrA2I6Ftq_D9Qw">
-      <p>Price: <%= number_to_currency(item.price) %></p>
+      <p>Price: <%= number_to_currency(cart.price_of(item.id)) %></p>
       <p>Quantity: <%= cart.count_of(item.id) %></p>
       <p>Discount: <%= cart.merchant_discounts(item.id) %>% off!</p>
       <p>Subtotal: <%= number_to_currency(cart.subtotal_of(item.id)) %></p>
