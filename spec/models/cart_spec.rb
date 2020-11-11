@@ -51,6 +51,11 @@ RSpec.describe Cart do
     it '.subtotal_of()' do
       expect(@cart.subtotal_of(@ogre.id)).to eq(20)
       expect(@cart.subtotal_of(@giant.id)).to eq(100)
+
+      Discount.create!(name: '50% off 50 BANANA', item_id: @ogre.id, percentage: 50, minimum_quantity: 50)
+      cart = Cart.new({@ogre.id.to_s => 50})
+
+      expect(cart.subtotal_of(@ogre.id)).to eq(500)
     end
 
     it '.limit_reached?()' do
