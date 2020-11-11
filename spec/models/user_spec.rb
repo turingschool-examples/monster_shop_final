@@ -4,6 +4,7 @@ RSpec.describe User do
   describe 'Relationships' do
     it {should belong_to(:merchant).optional}
     it {should have_many :orders}
+    it {should have_many(:discounts).through(:merchant)}
   end
 
   describe 'Validations' do

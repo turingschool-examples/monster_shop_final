@@ -36,8 +36,4 @@ class Item < ApplicationRecord
   def discount_eligible(item_quantity)
     @discount = discounts.where('quantity <= ?', item_quantity).order(rate: :desc).first
   end
-
-  def discounted_price
-    price * (1 - (@discount.rate / 100))
-  end
 end

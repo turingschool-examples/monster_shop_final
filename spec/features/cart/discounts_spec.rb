@@ -29,9 +29,9 @@ RSpec.describe 'Cart Discounts' do
       end
       it "I see the discount automatically shows up in my cart" do
         visit '/cart'
-
         within "#item-#{@ogre.id}" do
           expect(page).to have_content("#{number_to_percentage(@discount_1.rate, precision: 1)} Discount Applied to #{@ogre.name}")
+          expect(page).to have_content("Discounted Subtotal: #{number_to_currency(@ogre.price * (1 - (@discount_1.rate / 100)) * 4)}")
         end
       end
 
@@ -48,6 +48,19 @@ RSpec.describe 'Cart Discounts' do
 
         within "#item-#{@hippo.id}" do
           expect(page).to_not have_content("#{number_to_percentage(@discount_1.rate, precision: 1)} Discount Applied")
+        end
+      end
+
+      describe "When I have multiple discounts from a merchant" do
+        before :each do
+          @discount_2 = @merchant_1.discounts.create!(rate: 10, quantity: 4)
+        end
+        it "I see the greater of the discounts applied" do
+          visit '/cart'
+
+          within "#item-#{@ogre.id}" do
+            expect(page).to have_content("#{number_to_percentage(@discount_2.rate, precision: 1)} Discount Applied to #{@ogre.name}")
+          end
         end
       end
     end
