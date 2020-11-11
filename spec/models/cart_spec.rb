@@ -63,5 +63,9 @@ RSpec.describe Cart do
 
       expect(@cart.count_of(@giant.id)).to eq(1)
     end
+
+    it '.discount_price()' do
+      expect(@cart.discount_price(100.00, 20)).to eq(80.00)
+    end
   end
 end
