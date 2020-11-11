@@ -6,7 +6,7 @@ RSpec.describe 'Cart Show Page' do
     before :each do
       @megan = Merchant.create!(name: 'Megans Marmalades', address: '123 Main St', city: 'Denver', state: 'CO', zip: 80218)
       @brian = Merchant.create!(name: 'Brians Bagels', address: '125 Main St', city: 'Denver', state: 'CO', zip: 80218)
-      @ogre = @megan.items.create!(name: 'Ogre', description: "I'm an Ogre!", price: 20, image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTaLM_vbg2Rh-mZ-B4t-RSU9AmSfEEq_SN9xPP_qrA2I6Ftq_D9Qw', active: true, inventory: 5 )
+      @ogre = @megan.items.create!(name: 'Ogre', description: "I'm an Ogre!", price: 20, image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTaLM_vbg2Rh-mZ-B4t-RSU9AmSfEEq_SN9xPP_qrA2I6Ftq_D9Qw', active: true, inventory: 10 )
       @giant = @megan.items.create!(name: 'Giant', description: "I'm a Giant!", price: 50, image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTaLM_vbg2Rh-mZ-B4t-RSU9AmSfEEq_SN9xPP_qrA2I6Ftq_D9Qw', active: true, inventory: 3 )
       @hippo = @brian.items.create!(name: 'Hippo', description: "I'm a Hippo!", price: 50, image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTaLM_vbg2Rh-mZ-B4t-RSU9AmSfEEq_SN9xPP_qrA2I6Ftq_D9Qw', active: true, inventory: 3 )
     end
@@ -166,6 +166,80 @@ RSpec.describe 'Cart Show Page' do
         expect(current_path).to eq('/cart')
         expect(page).to_not have_content("#{@hippo.name}")
         expect(page).to have_content("Cart: 0")
+      end
+    
+      it 'I see the discounts reflected in my cart total' do
+        discount1 = @megan.discounts.create!(percent_off: 0.05, item_requirement: 2)
+        discount2 = @megan.discounts.create!(percent_off: 0.15, item_requirement: 5)
+        discount3 = @megan.discounts.create!(percent_off: 0.25, item_requirement: 10)
+
+        visit item_path(@ogre)
+        click_button 'Add to Cart'
+
+        visit '/cart'
+        
+        expect(page).to have_content("Total: $#{@ogre.price.round(2)}")  
+        expect(page).to have_content("Subtotal: $#{@ogre.price.round(2)}") 
+        expect(page).to_not have_content("Price with Discount: $#{@ogre.price.round(2)}")
+        
+        within "#item-#{@ogre.id}" do 
+          click_button "More of This!"
+        end
+        
+        expect(page).to have_content("Total: $#{(@ogre.price.round(2) * 2 * (1 - discount1.percent_off))}")  
+        expect(page).to have_content("Subtotal: $#{(@ogre.price.round(2) * 2 * (1 - discount1.percent_off))}")  
+        expect(page).to have_content("Price with Discount: $#{(@ogre.price.round(2) * (1 - discount1.percent_off))}")
+      end 
+
+      it 'A larger discount will take precedent if item requirement is met' do
+        discount1 = @megan.discounts.create!(percent_off: 0.05, item_requirement: 2)
+        discount2 = @megan.discounts.create!(percent_off: 0.15, item_requirement: 5)
+        discount3 = @megan.discounts.create!(percent_off: 0.25, item_requirement: 10)
+
+        visit item_path(@ogre)
+        click_button 'Add to Cart'
+
+        visit '/cart'
+
+        within "#item-#{@ogre.id}" do 
+          4.times do click_button "More of This!"
+          end 
+        end
+
+        expect(page).to have_content("Total: $#{(@ogre.price.round(2) * 5 * (1 - discount2.percent_off))}")  
+        expect(page).to have_content("Subtotal: $#{(@ogre.price.round(2) * 5 * (1 - discount2.percent_off))}")  
+        expect(page).to have_content("Price with Discount: $#{(@ogre.price.round(2) * (1 - discount2.percent_off))}")  
+
+        within "#item-#{@ogre.id}" do 
+          5.times do click_button "More of This!"
+          end 
+        end
+     
+        expect(page).to have_content("Total: $#{(@ogre.price.round(2) * 10 * (1 - discount3.percent_off))}")  
+        expect(page).to have_content("Subtotal: $#{(@ogre.price.round(2) * 10 * (1 - discount3.percent_off))}")  
+        expect(page).to have_content("Price with Discount: $#{(@ogre.price.round(2) * (1 - discount3.percent_off))}")  
+      end
+
+      it 'The discount only applies to the items that meet the item requirements' do
+        discount1 = @megan.discounts.create!(percent_off: 0.05, item_requirement: 2)
+        discount2 = @megan.discounts.create!(percent_off: 0.15, item_requirement: 5)
+        discount3 = @megan.discounts.create!(percent_off: 0.25, item_requirement: 10)
+
+        visit item_path(@ogre)
+        click_button 'Add to Cart'
+        visit item_path(@hippo)
+        click_button 'Add to Cart'
+
+        visit '/cart'
+
+        within "#item-#{@ogre.id}" do 
+          click_button "More of This!"
+        end
+    
+        expect(page).to have_content("Subtotal: $#{(@ogre.price.round(2) * 2 * (1 - discount1.percent_off))}")  
+        expect(page).to have_content("Subtotal: $#{@hippo.price.round(2)}")  
+        expect(page).to have_content("Price with Discount: $#{(@ogre.price.round(2) * (1 - discount1.percent_off))}")
+        expect(page).to have_content("Total: $#{(@ogre.price.round(2) * 2 * (1 - discount1.percent_off)) + @hippo.price.round(2)}")  
       end
     end
   end
