@@ -51,7 +51,6 @@ RSpec.describe 'Discount Show Page' do
       expect(page).to have_content('Status: Enabled')
       expect(page).to have_button('Disable Discount')
       click_button 'Disable Discount'
-save_and_open_page
       expect(page).to have_content('Status: Disabled')
       expect(page).to have_button('Enable Discount')
     end

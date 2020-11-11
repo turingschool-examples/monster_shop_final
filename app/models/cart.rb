@@ -81,7 +81,7 @@ class Cart
   end
 
   def new_cart_discounts(discount, sub_total)
-    percentage(discount)
+    # percentage(discount)
     new_total = sub_total * percentage(discount)
     @saved_discounts += sub_total - new_total
     new_total

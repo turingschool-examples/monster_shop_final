@@ -5,8 +5,20 @@ RSpec.describe ApplicationRecord, type: :model do
       @megan = Merchant.create!(name: 'Megans Marmalades', address: '123 Main St', city: 'Denver', state: 'CO', zip: 80218)
       @megan_discount_1 = @megan.discounts.create!(description: "Buy 5 items, get 5% off", quantity: 5, percent: 5)
       @megan_discount_2 = @megan.discounts.create!(description: "Buy 10 items, get 25% off", quantity: 10, percent: 25)
-      @ogre = @megan.items.create!(name: 'Ogre', description: "I'm an Ogre!", price: 20, image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTaLM_vbg2Rh-mZ-B4t-RSU9AmSfEEq_SN9xPP_qrA2I6Ftq_D9Qw', active: true, inventory: 5 )
+      @ogre = @megan.items.create!(name: 'Ogre', description: "I'm an Ogre!", price: 20, image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTaLM_vbg2Rh-mZ-B4t-RSU9AmSfEEq_SN9xPP_qrA2I6Ftq_D9Qw', active: true, inventory: 100 )
+      @giant = @megan.items.create!(name: 'Giant', description: "I'm a Giant!", price: 50, image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTaLM_vbg2Rh-mZ-B4t-RSU9AmSfEEq_SN9xPP_qrA2I6Ftq_D9Qw', active: true, inventory: 100 )
+      @hippo = @megan.items.create!(name: 'Hippo', description: "I'm a Hippo!", price: 50, image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTaLM_vbg2Rh-mZ-B4t-RSU9AmSfEEq_SN9xPP_qrA2I6Ftq_D9Qw', active: true, inventory: 100 )
       @cart = Cart.new(Hash.new)
+      @cart_1 = Cart.new({
+        @ogre.id.to_s => 5,
+        @giant.id.to_s => 10
+        })
+      @cart_2 = Cart.new({
+        @hippo.id.to_s => 3
+        })
+      @cart_3 = Cart.new({
+        @hippo.id.to_s => 6
+        })
       @quantity_1 = @megan_discount_1.quantity
       @quantity_2 = @megan_discount_2.quantity
     end
@@ -22,7 +34,7 @@ RSpec.describe ApplicationRecord, type: :model do
       expect(@cart.find_item(@ogre.id)).to eq(@ogre)
     end
 
-    it '.find_all_discounts' do
+    it '.empty_merchant_discount?' do
       expect(@cart.empty_merchant_discount?(@ogre.id)).to eq(true)
     end
 
@@ -36,7 +48,7 @@ RSpec.describe ApplicationRecord, type: :model do
     end
 
     it '.find_all_discounts' do
-      expect(@cart.find_all_discounts(@ogre.id)).to eq([@megan_discount_1, @megan_discount_2])
+      expect(@cart_1.find_all_discounts(@ogre.id)).to eq([@megan_discount_1, @megan_discount_2])
     end
   end
 end

@@ -11,7 +11,8 @@ class Order < ApplicationRecord
     order_items.pluck(:item_id).each do |item_id|
       item = find_item(item_id)
       quantity = order_items.where(item: item).pluck(:quantity)[0]
-      if empty_merchant_discount?(item_id)
+      # discounts = item.merchant.discounts
+      if empty_merchant_discount?(item_id) && discount_criteria_met?(find_item(item_id), quantity)
         total += (item.price) * (percentage(all_available_discounts(item, quantity)))
         grand_total = total * quantity
       else
