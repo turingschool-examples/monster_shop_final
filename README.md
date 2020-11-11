@@ -9,7 +9,7 @@ Kiera Allen - [GitHub](https://github.com/KieraAllen)
 __Monster Shop Final__ was the project assigned to the 2008 Back End cohort during [Module 2](https://backend.turing.io/module2/). A [starter repo](https://github.com/turingschool-examples/monster_shop_final) was provided which included premade files or students could choose to build off their [group project repos](https://github.com/turingschool-examples/monster_shop_2005/network/members). Students were tasked with creating full CRUD functionality for a merchant employee to manipulate discounts on their merchant's items.
 
 ### Setup
-For this final solo project, I chose to build off the provided repo, and followed these steps to set it up:
+For this final solo project, I chose to build off the provided repo and followed these steps to set it up:
 
 1. Forked [project](https://github.com/turingschool-examples/monster_shop_final)
 2. Cloned fork
