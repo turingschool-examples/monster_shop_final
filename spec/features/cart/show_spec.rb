@@ -70,8 +70,7 @@ RSpec.describe 'Cart Show Page' do
           click_button('More of This!')
           click_button('More of This!')
           expect(page).to have_content('Quantity: 5')
-          expect(page).to have_content(80)
-          expect(page).to have_content("Discount applied!")
+          expect(page).to have_content("Subtotal: $80.00")
         end
       end
     end
