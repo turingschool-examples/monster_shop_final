@@ -29,7 +29,7 @@ RSpec.describe 'Discount Index Page' do
 
     it 'can see all the discounts that a merchant has' do
       visit '/merchant/discounts'
-    
+
       expect(page).to have_content("#{@megan.name}'s Discounts")
       expect(page).to have_link('Create New Discount')
 
@@ -38,6 +38,7 @@ RSpec.describe 'Discount Index Page' do
         within "#discounts-#{discount.id}" do
           expect(page).to have_content("Description of Discount: #{discount.description}")
           expect(page).to have_content("Discount ID: ##{discount.id}")
+          expect(page).to have_content("Discount Status: #{discount.enabled_status}")
         end
       end
 
