@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe 'Merchant Dashboard' do
+RSpec.describe 'Merchant Discounts Index Page' do
   describe 'As an employee of a merchant' do
     before :each do
       @merchant_1 = Merchant.create!(name: 'Megans Marmalades', address: '123 Main St', city: 'Denver', state: 'CO', zip: 80218)
@@ -16,57 +16,62 @@ RSpec.describe 'Merchant Dashboard' do
       @order_item_2 = @order_2.order_items.create!(item: @hippo, price: @hippo.price, quantity: 2, fulfilled: true)
       @order_item_3 = @order_2.order_items.create!(item: @ogre, price: @ogre.price, quantity: 2, fulfilled: false)
       @order_item_4 = @order_3.order_items.create!(item: @giant, price: @giant.price, quantity: 2, fulfilled: false)
-      allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(@m_user)
+      @discount_1 = @merchant_1.discounts.create!(quantity: 2, amount: 5)
+      @discount_2 = @merchant_1.discounts.create!(quantity: 5, amount: 10)
+      @discount_2 = @merchant_1.discounts.create!(quantity: 5, amount: 10)
+      
+      visit '/login'
+      fill_in 'Email', with: @m_user.email  
+      fill_in 'Password', with: @m_user.password
+      click_button 'Log In'
     end
 
-    it 'I can see my merchants information on the merchant dashboard' do
+    it 'I can visit the discounts page' do
       visit '/merchant'
 
-      expect(page).to have_link(@merchant_1.name)
-      expect(page).to have_content(@merchant_1.address)
-      expect(page).to have_content("#{@merchant_1.city} #{@merchant_1.state} #{@merchant_1.zip}")
+      click_link 'Bulk Discounts'
+      expect(current_path).to eq('/merchant/discounts')
     end
 
-    it 'I do not have a link to edit the merchant information' do
-      visit '/merchant'
+    it 'I can see all of the the discounts I offer' do
+      visit '/merchant/discounts'
 
-      expect(page).to_not have_link('Edit')
-    end
+      within "#discount-#{@discount_1.id}" do
+        expect(page).to have_content("Discount #{@discount_1.id}")
+        expect(page).to have_content("Discount: #{@discount_1.amount}%")
+        expect(page).to have_content("Quantity at which Discount is Applied: #{@discount_1.quantity}")
+      end
 
-    it 'I see a list of pending orders containing my items' do
-      visit '/merchant'
-
-      within '.orders' do
-        expect(page).to_not have_css("#order-#{@order_1.id}")
-
-        within "#order-#{@order_2.id}" do
-          expect(page).to have_link(@order_2.id)
-          expect(page).to have_content("Potential Revenue: #{@order_2.merchant_subtotal(@merchant_1.id)}")
-          expect(page).to have_content("Quantity of Items: #{@order_2.merchant_quantity(@merchant_1.id)}")
-          expect(page).to have_content("Created: #{@order_2.created_at}")
-        end
-
-        within "#order-#{@order_3.id}" do
-          expect(page).to have_link(@order_3.id)
-          expect(page).to have_content("Potential Revenue: #{@order_3.merchant_subtotal(@merchant_1.id)}")
-          expect(page).to have_content("Quantity of Items: #{@order_3.merchant_quantity(@merchant_1.id)}")
-          expect(page).to have_content("Created: #{@order_3.created_at}")
-        end
+      within "#discount-#{@discount_2.id}" do
+        expect(page).to have_content("Discount #{@discount_2.id}")
+        expect(page).to have_content("Discount: #{@discount_2.amount}%")
+        expect(page).to have_content("Quantity at which Discount is Applied: #{@discount_2.quantity}")
       end
     end
+          
+    it 'I see a link to create a new discount' do
+      visit '/merchant/discounts'
 
-    it 'I can link to an order show page' do
-      visit '/merchant'
-
-      click_link @order_2.id
-
-      expect(current_path).to eq("/merchant/orders/#{@order_2.id}")
+      click_link 'New Bulk Discount'
+      expect(current_path).to eq('/merchant/discounts/new')
     end
 
-    it 'I can see bulk discounts' do
-      visit '/merchant'
+    it 'I see a link to edit a discount' do
+      visit '/merchant/discounts'
 
-      expect(page).to have_link('Bulk Discounts')
+      within "#discount-#{@discount_1.id}" do
+        click_link 'Edit Discount'
+      end
+      expect(current_path).to eq("/merchant/discounts/#{@discount_1.id}/edit")
+    end
+
+    it 'I see a link to delete a discount' do
+      visit '/merchant/discounts'
+
+      within "#discount-#{@discount_1.id}" do
+        click_link 'Delete Discount'
+      end
+      expect(current_path).to eq("/merchant/discounts")
     end
   end
 end

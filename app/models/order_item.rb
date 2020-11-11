@@ -2,8 +2,8 @@ class OrderItem < ApplicationRecord
   belongs_to :order
   belongs_to :item
 
-  def subtotal
-    quantity * price
+  def calculate_price
+    self.subtotal / self.quantity
   end
 
   def fulfill

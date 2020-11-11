@@ -16,12 +16,12 @@ RSpec.describe OrderItem do
       @user = User.create!(name: 'Megan', address: '123 Main St', city: 'Denver', state: 'CO', zip: 80218, email: 'megan@example.com', password: 'securepassword')
       @order_1 = @user.orders.create!
       @order_2 = @user.orders.create!
-      @order_item_1 = @order_1.order_items.create!(item: @ogre, price: @ogre.price, quantity: 2)
-      @order_item_2 = @order_1.order_items.create!(item: @hippo, price: @hippo.price, quantity: 3)
-      @order_item_3 = @order_2.order_items.create!(item: @hippo, price: @hippo.price, quantity: 27)
+      @order_item_1 = @order_1.order_items.create!(item: @ogre, price: 38.48, quantity: 2, subtotal: 40.50)
+      @order_item_2 = @order_1.order_items.create!(item: @hippo, price: @hippo.price, quantity: 3, subtotal: 150)
+      @order_item_3 = @order_2.order_items.create!(item: @hippo, price: @hippo.price, quantity: 27, subtotal: 1350)
     end
 
-    it '.subtotal' do
+    it '.calculate_price' do
       expect(@order_item_1.subtotal).to eq(40.5)
       expect(@order_item_2.subtotal).to eq(150)
       expect(@order_item_3.subtotal).to eq(1350)

@@ -1,0 +1,12 @@
+<h1>Add a New Bulk Discount</h1>
+<%= form_tag "/merchant/discounts/#{@discount.id}", method: :post do %>
+
+<%= label_tag :amount, 'Percent Off Item:' %>
+<%= text_field_tag :amount, "#{@discount.amount}" %><br>
+
+<%= label_tag :quantity, 'Quantity at which Discount is Applied:' %>
+<%= text_field_tag :quantity, "#{@discount.quantity}" %><br>
+
+<%= submit_tag 'Submit' %>
+
+<% end %>

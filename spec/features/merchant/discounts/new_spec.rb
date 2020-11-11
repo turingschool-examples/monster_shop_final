@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe 'Merchant Dashboard' do
+RSpec.describe 'Merchant Discounts New Page' do
   describe 'As an employee of a merchant' do
     before :each do
       @merchant_1 = Merchant.create!(name: 'Megans Marmalades', address: '123 Main St', city: 'Denver', state: 'CO', zip: 80218)
@@ -16,57 +16,39 @@ RSpec.describe 'Merchant Dashboard' do
       @order_item_2 = @order_2.order_items.create!(item: @hippo, price: @hippo.price, quantity: 2, fulfilled: true)
       @order_item_3 = @order_2.order_items.create!(item: @ogre, price: @ogre.price, quantity: 2, fulfilled: false)
       @order_item_4 = @order_3.order_items.create!(item: @giant, price: @giant.price, quantity: 2, fulfilled: false)
-      allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(@m_user)
+      @discount_1 = @merchant_1.discounts.create!(quantity: 2, amount: 5)
+      @discount_2 = @merchant_1.discounts.create!(quantity: 5, amount: 10)
+      @discount_2 = @merchant_1.discounts.create!(quantity: 5, amount: 10)
+      
+      visit '/login'
+      fill_in 'Email', with: @m_user.email  
+      fill_in 'Password', with: @m_user.password
+      click_button 'Log In'
     end
 
-    it 'I can see my merchants information on the merchant dashboard' do
-      visit '/merchant'
+    it 'I can create a new discount' do
+      visit '/merchant/discounts/new'
 
-      expect(page).to have_link(@merchant_1.name)
-      expect(page).to have_content(@merchant_1.address)
-      expect(page).to have_content("#{@merchant_1.city} #{@merchant_1.state} #{@merchant_1.zip}")
+      fill_in :amount, with: '30'
+      fill_in :quantity, with: '25'
+      click_on 'Submit'
+
+      expect(current_path).to eq('/merchant/discounts')
+
+      new_discount = Discount.last
+
+      expect(new_discount.quantity).to eq(25)
+      expect(new_discount.amount).to eq(30)
     end
 
-    it 'I do not have a link to edit the merchant information' do
-      visit '/merchant'
+    it 'if I incorrectly fill out the discount form I will see a flash message' do
+      visit '/merchant/discounts/new'
 
-      expect(page).to_not have_link('Edit')
-    end
+      fill_in :amount, with: ''
+      fill_in :quantity, with: ''
+      click_on 'Submit'
 
-    it 'I see a list of pending orders containing my items' do
-      visit '/merchant'
-
-      within '.orders' do
-        expect(page).to_not have_css("#order-#{@order_1.id}")
-
-        within "#order-#{@order_2.id}" do
-          expect(page).to have_link(@order_2.id)
-          expect(page).to have_content("Potential Revenue: #{@order_2.merchant_subtotal(@merchant_1.id)}")
-          expect(page).to have_content("Quantity of Items: #{@order_2.merchant_quantity(@merchant_1.id)}")
-          expect(page).to have_content("Created: #{@order_2.created_at}")
-        end
-
-        within "#order-#{@order_3.id}" do
-          expect(page).to have_link(@order_3.id)
-          expect(page).to have_content("Potential Revenue: #{@order_3.merchant_subtotal(@merchant_1.id)}")
-          expect(page).to have_content("Quantity of Items: #{@order_3.merchant_quantity(@merchant_1.id)}")
-          expect(page).to have_content("Created: #{@order_3.created_at}")
-        end
-      end
-    end
-
-    it 'I can link to an order show page' do
-      visit '/merchant'
-
-      click_link @order_2.id
-
-      expect(current_path).to eq("/merchant/orders/#{@order_2.id}")
-    end
-
-    it 'I can see bulk discounts' do
-      visit '/merchant'
-
-      expect(page).to have_link('Bulk Discounts')
+      expect(page).to have_content("Quantity can't be blank, Amount can't be blank, and Amount is not a number")
     end
   end
 end
