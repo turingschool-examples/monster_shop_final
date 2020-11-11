@@ -20,21 +20,23 @@ RSpec.describe 'Merchant Order Show Page' do
       allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(@m_user)
     end
     it "has a 5% discount on an order with quantity between 5 - 9 on my orders index, orders show, cart and checkout" do
-      order_item_1_regular_price = (@order_item_1.price * @order_item_1.quantity)
-      order_item_1_discounted_price = 200
 
-      @giant.bulk_discount?
+      visit '/profile/orders'
+      order_item_1_regular_price = (@order_item_1.price * @order_item_1.quantity)
+      order_item_1_discounted_price = 237.5
 
       expect(order_item_1_regular_price).to_not eq(order_item_1_discounted_price)
       expect(order_item_1_regular_price).to eq(250)
-      expect(order_item_1_discounted_price).to eq(200)
+      expect(order_item_1_discounted_price).to eq(237.5)
 
       within "#order-#{@order_1.id}" do
-        expect(page).to have_content("Subtotal: $75")
+        expect(page).to have_content("Total: $237.50")
       end
 
       visit "/profile/orders/#{@order_1.id}"
-        within "#order-item-#{@order_item_1.id}"
+        within "#order-item-#{@order_item_1.id}" do
+        expect(page).to have_content("Total: $237.50")
+      end
     end
   end
 end
