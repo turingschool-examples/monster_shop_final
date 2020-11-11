@@ -9,7 +9,7 @@ RSpec.describe 'Order Show Page' do
       @sal = Merchant.create!(name: 'Sals Salamanders', address: '125 Main St', city: 'Denver', state: 'CO', zip: 80218)
       @ogre = @megan.items.create!(name: 'Ogre', description: "I'm an Ogre!", price: 20.25, image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTaLM_vbg2Rh-mZ-B4t-RSU9AmSfEEq_SN9xPP_qrA2I6Ftq_D9Qw', active: true, inventory: 5 )
       @giant = @megan.items.create!(name: 'Giant', description: "I'm a Giant!", price: 50, image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTaLM_vbg2Rh-mZ-B4t-RSU9AmSfEEq_SN9xPP_qrA2I6Ftq_D9Qw', active: true, inventory: 3 )
-      @hippo = @brian.items.create!(name: 'Hippo', description: "I'm a Hippo!", price: 50, image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTaLM_vbg2Rh-mZ-B4t-RSU9AmSfEEq_SN9xPP_qrA2I6Ftq_D9Qw', active: true, inventory: 1 )
+      @hippo = @brian.items.create!(name: 'Hippo', description: "I'm a Hippo!", price: 50, image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTaLM_vbg2Rh-mZ-B4t-RSU9AmSfEEq_SN9xPP_qrA2I6Ftq_D9Qw', active: true, inventory: 10 )
       @user = User.create!(name: 'Megan', address: '123 Main St', city: 'Denver', state: 'CO', zip: 80218, email: 'megan_1@example.com', password: 'securepassword')
       @order_1 = @user.orders.create!(status: "packaged")
       @order_2 = @user.orders.create!(status: "pending")
@@ -81,6 +81,32 @@ RSpec.describe 'Order Show Page' do
       expect(@order_item_3.fulfilled).to eq(false)
       expect(@giant.inventory).to eq(5)
       expect(@ogre.inventory).to eq(7)
+    end
+    describe 'If an order has discounts' do
+      before :each do
+        @discount = @brian.discounts.create!(rate: 25, quantity: 3)
+        @order_3 = @user.orders.create!
+        @order_item_4 = @order_3.order_items.create!(item: @hippo, price: @hippo.price, quantity: 3)
+        @order_item_5 = @order_3.order_items.create!(item: @giant, price: @giant.price, quantity: 1)
+
+      end
+      it "I see the discounted order total" do
+        visit "/profile/orders/#{@order_3.id}"
+
+        expect(page).to have_content("Congrats! You Saved Today")
+        expect(page).to have_content("Total: $162.5")
+        expect(page).to_not have_content("Total: $200")
+      end
+      it "I see the discounted order_items subtotals" do
+        visit "/profile/orders/#{@order_3.id}"
+
+        within "#order-item-#{@order_item_4.id}" do
+          expect(page).to have_content("Discounted Subtotal")
+        end
+        within "#order-item-#{@order_item_5.id}" do
+          expect(page).to_not have_content("Discounted Subtotal")
+        end
+      end
     end
   end
 end

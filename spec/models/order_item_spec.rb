@@ -11,7 +11,7 @@ RSpec.describe OrderItem do
       @megan = Merchant.create!(name: 'Megans Marmalades', address: '123 Main St', city: 'Denver', state: 'CO', zip: 80218)
       @brian = Merchant.create!(name: 'Brians Bagels', address: '125 Main St', city: 'Denver', state: 'CO', zip: 80218)
       @ogre = @megan.items.create!(name: 'Ogre', description: "I'm an Ogre!", price: 20.25, image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTaLM_vbg2Rh-mZ-B4t-RSU9AmSfEEq_SN9xPP_qrA2I6Ftq_D9Qw', active: true, inventory: 5 )
-      @giant = @megan.items.create!(name: 'Giant', description: "I'm a Giant!", price: 50, image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTaLM_vbg2Rh-mZ-B4t-RSU9AmSfEEq_SN9xPP_qrA2I6Ftq_D9Qw', active: true, inventory: 3 )
+      @giant = @megan.items.create!(name: 'Giant', description: "I'm a Giant!", price: 50, image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTaLM_vbg2Rh-mZ-B4t-RSU9AmSfEEq_SN9xPP_qrA2I6Ftq_D9Qw', active: true, inventory: 30 )
       @hippo = @brian.items.create!(name: 'Hippo', description: "I'm a Hippo!", price: 50, image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTaLM_vbg2Rh-mZ-B4t-RSU9AmSfEEq_SN9xPP_qrA2I6Ftq_D9Qw', active: true, inventory: 3 )
       @user = User.create!(name: 'Megan', address: '123 Main St', city: 'Denver', state: 'CO', zip: 80218, email: 'megan@example.com', password: 'securepassword')
       @order_1 = @user.orders.create!
@@ -39,6 +39,23 @@ RSpec.describe OrderItem do
       @ogre.reload
       expect(@order_item_1.fulfilled).to eq(true)
       expect(@ogre.inventory).to eq(3)
+    end
+
+    it ".item_discount_amount" do
+      @order_3 = @user.orders.create!
+      @order_item_4 = @order_3.order_items.create!(item: @giant, price: @giant.price, quantity: 10)
+      expect(@order_item_4.price).to eq(50)
+
+      discount = @megan.discounts.create!(rate: 25, quantity: 10)
+      expect(@order_item_4.discounted_price).to eq(true)
+      expect(@order_item_4.price).to eq(37.5)
+    end
+
+    it ".discounted_subtotal" do
+      discount = @megan.discounts.create!(rate: 25, quantity: 10)
+      @order_3 = @user.orders.create!
+      @order_item_4 = @order_3.order_items.create!(item: @giant, price: @giant.price, quantity: 10)
+      expect(@order_item_4.discounted_subtotal).to eq(375)
     end
   end
 end
