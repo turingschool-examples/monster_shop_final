@@ -35,6 +35,7 @@ RSpec.describe 'Merchant Discounts Edit Page' do
 
       expect(current_path).to eq("/merchant/discounts")
       expect(page).to have_content('4.0% off 2 items was deleted.')
+      
       expect { @discount_1.reload }.to raise_error ActiveRecord::RecordNotFound
     end
   end
