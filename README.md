@@ -14,8 +14,9 @@ For this final solo project, I chose to build off the provided repo and followed
 1. Fork [project](https://github.com/turingschool-examples/monster_shop_final)
 2. Clone fork
 3. In terminal: `rails db:{drop,create,migrate,seed}`
-4. Inspect schema, routes, tests
-5. In terminal: `bundle exec rspec`
+4. In terminal: `bundle exec rspec`
+5. Inspect schema, routes, tests
+6. View schema diagram
 7. [Deploy](https://devcenter.heroku.com/articles/git) to Heroku
      1. `heroku create`
      2. `git remote -v`
@@ -25,7 +26,5 @@ For this final solo project, I chose to build off the provided repo and followed
 10. Get to work!
 
 ### Demo
-The app can be viewed on Heroku [here](https://gentle-temple-14305.herokuapp.com/)
-- Notes:
-    - append `/home` to the web address to view completed site
-    - use `seeds` info to login as merchant employee to view discount functionality
+The app can be viewed on Heroku [here](https://infinite-oasis-00803.herokuapp.com/root)
+- use `seeds` file info to login as merchant employee and view discount functionality
