@@ -37,7 +37,18 @@ class Cart
   end
 
   def subtotal_of(item_id)
-    @contents[item_id.to_s] * Item.find(item_id).price
+    discounts = Discount.where(item_id: item_id)
+    discount = discounts.first
+    full_price = @contents[item_id.to_s] * Item.find(item_id).price
+    if discount && @contents[item_id.to_s] >= discount.minimum_quantity
+      discount_price(full_price, discount.percentage)
+    else
+      full_price
+    end
+  end
+
+  def discount_price(full_price, percentage_off)
+    full_price - (full_price * (percentage_off.to_f/100))
   end
 
   def limit_reached?(item_id)
