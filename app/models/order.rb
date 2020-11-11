@@ -22,7 +22,6 @@ class Order < ApplicationRecord
   end
 
   def merchant_subtotal(merchant_id)
-    binding.pry
     order_items
       .joins("JOIN items ON order_items.item_id = items.id")
       .where("items.merchant_id = #{merchant_id}")
