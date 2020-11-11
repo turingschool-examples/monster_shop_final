@@ -31,7 +31,7 @@ RSpec.describe 'Merchant Dashboard' do
       expect(current_path).to eq("/merchant/#{@merchant_1.id}/discounts/index")
 
       within "#discount-#{@discount1.id}" do
-        expect(page).to have_content("Get 0.15% off of orders of 15 items or more")
+        expect(page).to have_content("Get 15% off of orders of 15 items or more")
       end 
     end
   end 
