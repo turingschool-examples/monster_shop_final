@@ -18,6 +18,10 @@ Merchant.delete_all
 megan = Merchant.create!(name: 'Megans Marmalades', address: '123 Main St', city: 'Denver', state: 'CO', zip: 80218)
 brian = Merchant.create!(name: 'Brians Bagels', address: '125 Main St', city: 'Denver', state: 'CO', zip: 80218)
 
+#discounts
+discount_5_percent = megan.discounts.create(name: '5 Percent', percentage: 0.05, limit: 5)
+discount_10_percent = megan.discounts.create(name: '10 Percent', percentage: 0.1, limit: 10)
+
 #employees ------------------
 
 m_user = megan.users.create(name: 'Megan', address: '123 Main St', city: 'Denver', state: 'CO', zip: 80218, email: 'megan@example.com', password: 'securepassword')
