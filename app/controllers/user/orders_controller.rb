@@ -16,7 +16,7 @@ class User::OrdersController < ApplicationController
         order.order_items.create({
           item: item,
           quantity: cart.count_of(item.id),
-          price: item.price,
+          price: cart.price_of(item.id),
           subtotal: cart.subtotal_of(item.id)
           })
       end
