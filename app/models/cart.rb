@@ -24,15 +24,6 @@ class Cart
     end
   end
 
-#  def bulk_discount?
-#    limits = []
-#    @contents.each do |item_id, quantity|
-#      item = Item.find(item_id)
-#      limits << item.merchant.discounts.pluck(:limit)
-#    end
-#    limits.empty? == false
-#  end
-
   def grand_total
     grand_total = 0.0
     @contents.each { |item_id, quantity| grand_total += subtotal_of(item_id)}
