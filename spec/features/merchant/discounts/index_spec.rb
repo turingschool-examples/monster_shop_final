@@ -30,8 +30,8 @@ RSpec.describe 'Merchant Dashboard' do
     it 'I see each of my discounts with a button to edit that discount' do
       visit "/merchant/#{@merchant_1.id}/discounts/index"
     
-      expect(page).to have_content("Get #{@discount1.percent_off}% off of orders of #{@discount1.item_requirement} items or more")
-      expect(page).to have_content("Get #{@discount2.percent_off}% off of orders of #{@discount2.item_requirement} items or more")
+      expect(page).to have_content("Get #{@discount1.percentage_display}% off of orders of #{@discount1.item_requirement} items or more")
+      expect(page).to have_content("Get #{@discount2.percentage_display}% off of orders of #{@discount2.item_requirement} items or more")
       within "#discount-#{@discount1.id}" do
         click_button("Edit Discount")
       end 
@@ -47,7 +47,7 @@ RSpec.describe 'Merchant Dashboard' do
       end 
     
       expect(current_path).to eq("/merchant/#{@merchant_1.id}/discounts/index")
-      expect(page).to_not have_content("Get 0.10% off of orders of 5 items or more")
+      expect(page).to_not have_content("Get #{@discount1.percentage_display}% off of orders of #{@discount1.item_requirement} items or more")
     end
   end 
 end
