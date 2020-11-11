@@ -11,10 +11,10 @@ __Monster Shop Final__ was the project assigned to the 2008 Back End cohort duri
 ### Setup
 For this final solo project, I chose to build off the provided repo and followed these steps to set it up:
 
-1. Forked [project](https://github.com/turingschool-examples/monster_shop_final)
-2. Cloned fork
+1. Fork [project](https://github.com/turingschool-examples/monster_shop_final)
+2. Clone fork
 3. In terminal: `rails db:{drop,create,migrate,seed}`
-4. Inspected schema, routes, tests
+4. Inspect schema, routes, tests
 5. In terminal: `bundle exec rspec`
 7. [Deploy](https://devcenter.heroku.com/articles/git) to Heroku
      1. `heroku create`
