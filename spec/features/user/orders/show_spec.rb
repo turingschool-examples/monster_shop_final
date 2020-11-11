@@ -107,56 +107,5 @@ RSpec.describe 'Order Show Page' do
       expect(@giant.inventory).to eq(5)
       expect(@ogre.inventory).to eq(7)
     end
-
-    it 'I can see the subtotal including the discount, for item in my order' do
-      discount_1 = Discount.create!(quantity: 2, amount: 5, merchant_id: @megan.id)
-      discount_2 = Discount.create!(quantity: 3, amount: 10, merchant_id: @megan.id)
-      visit item_path(@ogre)
-      click_button 'Add to Cart'
-
-      visit '/cart'
-      within "#item-#{@ogre.id}" do
-        click_button('More of This!')
-        click_button('More of This!')
-        expect(page).to have_content("Discount: #{discount_2.amount}% off!")
-        expect(page).to have_content('Subtotal: $54.68')
-      end
-
-      click_button 'Check Out'
-
-      order = Order.last
-      visit "/profile/orders/#{order.id}"
-
-      expect(page).to have_link(@ogre.name)
-      expect(page).to have_content("Quantity: 3")
-      expect(page).to have_content("Price: $18.23")
-      expect(page).to have_content("Total: $54.68")
-    end
-
-    it 'if I add multiple items to my order it will calculate the total cost' do
-      discount_1 = Discount.create!(quantity: 2, amount: 5, merchant_id: @megan.id)
-      discount_2 = Discount.create!(quantity: 3, amount: 10, merchant_id: @megan.id)
-      visit item_path(@ogre)
-      click_button 'Add to Cart'
-
-      visit item_path(@giant)
-      click_button 'Add to Cart'
-
-      visit '/cart'
-      within "#item-#{@ogre.id}" do
-        click_button('More of This!')
-        click_button('More of This!')
-      end
-
-      click_button 'Check Out'
-
-      order = Order.last
-      visit "/profile/orders/#{order.id}"
-
-      expect(page).to have_content("Total: $104.68")
-      expect(page).to have_link(@ogre.name)
-      expect(page).to have_content("Quantity: 3")
-      expect(page).to have_content("Price: $18.23")
-    end
   end
 end

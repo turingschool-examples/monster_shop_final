@@ -6,7 +6,8 @@
 <% @merchant.order_items_by_order(@order.id).each do |order_item| %>
   <section id="order-item-<%= order_item.id %>">
     <%= link_to order_item.item.name, "/merchant/items/#{order_item.item.id}" %>
-    <p>Price: <%= number_to_currency(order_item.price) %></p>
+    <p>Price: <%= order_item.price %></p>
+    <p>Subtotal: <%= number_to_currency(order_item.subtotal) %></p>
     <p>Quantity: <%= order_item.quantity %></p>
     <% if order_item.fulfilled? %>
       <p>Fulfilled</p>

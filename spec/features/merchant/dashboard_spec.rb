@@ -16,7 +16,11 @@ RSpec.describe 'Merchant Dashboard' do
       @order_item_2 = @order_2.order_items.create!(item: @hippo, price: @hippo.price, quantity: 2, fulfilled: true)
       @order_item_3 = @order_2.order_items.create!(item: @ogre, price: @ogre.price, quantity: 2, fulfilled: false)
       @order_item_4 = @order_3.order_items.create!(item: @giant, price: @giant.price, quantity: 2, fulfilled: false)
-      allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(@m_user)
+
+      visit '/login'
+      fill_in 'Email', with: @m_user.email  
+      fill_in 'Password', with: @m_user.password
+      click_button 'Log In'
     end
 
     it 'I can see my merchants information on the merchant dashboard' do
@@ -41,21 +45,21 @@ RSpec.describe 'Merchant Dashboard' do
 
         within "#order-#{@order_2.id}" do
           expect(page).to have_link(@order_2.id)
-          expect(page).to have_content("Potential Revenue: #{@order_2.merchant_subtotal(@merchant_1.id)}")
+          expect(page).to have_content("Potential Revenue: $0.00")
           expect(page).to have_content("Quantity of Items: #{@order_2.merchant_quantity(@merchant_1.id)}")
           expect(page).to have_content("Created: #{@order_2.created_at}")
         end
 
         within "#order-#{@order_3.id}" do
           expect(page).to have_link(@order_3.id)
-          expect(page).to have_content("Potential Revenue: #{@order_3.merchant_subtotal(@merchant_1.id)}")
+          expect(page).to have_content("Potential Revenue: $0.00")
           expect(page).to have_content("Quantity of Items: #{@order_3.merchant_quantity(@merchant_1.id)}")
           expect(page).to have_content("Created: #{@order_3.created_at}")
         end
       end
     end
 
-    it 'I can link to an order show page' do
+    it 'I can link to an order show page' do      
       visit '/merchant'
 
       click_link @order_2.id
@@ -68,5 +72,32 @@ RSpec.describe 'Merchant Dashboard' do
 
       expect(page).to have_link('Bulk Discounts')
     end
+
+    it 'I can see a new discounted order with discounted potential revenue' do
+      visit '/merchant/discounts'
+      click_link 'New Bulk Discount'
+      fill_in :amount, with: '5'
+      fill_in :quantity, with: '2'
+      click_on 'Submit'
+
+      visit item_path(@ogre)
+      click_button 'Add to Cart'
+      visit '/cart'
+      within "#item-#{@ogre.id}" do
+        click_button('More of This!')
+        expect(page).to have_content('Discount: 5.0% off!')
+        expect(page).to have_content('Subtotal: $38.48')
+      end
+      click_button 'Check Out'
+      order_4 = Order.last
+      
+      visit '/merchant'
+      
+      within "#order-#{order_4.id}" do
+        expect(page).to have_link(order_4.id)
+        expect(page).to have_content("Potential Revenue: $38.48")
+        expect(page).to have_content("Quantity of Items: 2")
+      end
+    end 
   end
 end

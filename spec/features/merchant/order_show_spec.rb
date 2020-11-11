@@ -15,7 +15,11 @@ RSpec.describe 'Merchant Order Show Page' do
       @order_item_2 = @order_2.order_items.create!(item: @hippo, price: @hippo.price, quantity: 2, fulfilled: true)
       @order_item_3 = @order_2.order_items.create!(item: @ogre, price: @ogre.price, quantity: 2, fulfilled: false)
       @order_item_4 = @order_2.order_items.create!(item: @giant, price: @giant.price, quantity: 2, fulfilled: false)
-      allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(@m_user)
+      
+      visit '/login'
+      fill_in 'Email', with: @m_user.email  
+      fill_in 'Password', with: @m_user.password
+      click_button 'Log In'
     end
 
     it 'I can see order information with only my order items' do
@@ -88,5 +92,28 @@ RSpec.describe 'Merchant Order Show Page' do
 
       expect(page).to have_content("Status: packaged")
     end
+
+    it 'I can see a new discounted order with the discounted price' do
+      visit '/merchant/discounts'
+      click_link 'New Bulk Discount'
+      fill_in :amount, with: '5'
+      fill_in :quantity, with: '2'
+      click_on 'Submit'
+
+      visit item_path(@ogre)
+      click_button 'Add to Cart'
+      visit '/cart'
+      within "#item-#{@ogre.id}" do
+        click_button('More of This!')
+        expect(page).to have_content('Discount: 5.0% off!')
+        expect(page).to have_content('Subtotal: $38.48')
+      end
+      click_button 'Check Out'
+      order_4 = Order.last
+      
+      visit "/merchant/orders/#{order_4.id}"
+      
+      expect(page).to have_content("Subtotal: $38.48")
+    end 
   end
 end
