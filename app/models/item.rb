@@ -30,8 +30,7 @@ class Item < ApplicationRecord
     reviews.average(:rating)
   end
 
-  def bulk_discount?
-    limits = merchant.discounts.pluck(:limit)
-    limits.empty?
+  def available_discounts
+      self.merchant.discounts
   end
 end
