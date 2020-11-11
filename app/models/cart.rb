@@ -24,12 +24,27 @@ class Cart
     end
   end
 
-  def grand_total
-    grand_total = 0.0
+  def bulk_discount?
+    limits = []
     @contents.each do |item_id, quantity|
-      grand_total += Item.find(item_id).price * quantity
+      item = Item.find(item_id)
+      limits << item.merchant.discounts.pluck(:limit)
     end
-    grand_total
+    limits.empty? == false
+  end
+
+  def grand_total
+    savings = 0.0
+    grand_total = 0.0
+    if bulk_discount?
+      @contents.each do |item_id, quantity|
+        item = Item.find(item_id)
+        discount = item.merchant.discounts.where("discounts.limit <= ?", quantity).order(limit: :desc).first
+        (savings += ((item.price * quantity) * discount[:percentage])) if discount != nil
+        grand_total += (item.price * quantity)
+      end
+    end
+    grand_total - savings
   end
 
   def count_of(item_id)
