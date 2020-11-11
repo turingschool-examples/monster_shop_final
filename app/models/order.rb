@@ -22,6 +22,7 @@ class Order < ApplicationRecord
   end
 
   def merchant_subtotal(merchant_id)
+    binding.pry
     order_items
       .joins("JOIN items ON order_items.item_id = items.id")
       .where("items.merchant_id = #{merchant_id}")
@@ -41,5 +42,14 @@ class Order < ApplicationRecord
 
   def self.by_status
     order(:status)
+  end
+
+  def discount?
+    merchant = user.merchant
+    minimum_discount = merchant.discounts.order(:limit).first
+    merchant_item_orders = order_items
+      .joins("JOIN items ON order_items.item_id = items.id")
+      .where("items.merchant_id = ? AND order_items.quantity >= ?", merchant.id, minimum_discount.limit)
+      merchant_item_orders.empty? == false
   end
 end
