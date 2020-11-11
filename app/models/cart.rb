@@ -37,7 +37,11 @@ class Cart
   end
 
   def subtotal_of(item_id)
-    discount = Discount.where(item_id: item_id).where("discounts.minimum_quantity <= ?", @contents[item_id.to_s]).order(percentage: :desc).first
+    discount = Discount.where(item_id: item_id)
+                       .where("discounts.minimum_quantity <= ?", @contents[item_id.to_s])
+                       .order(percentage: :desc)
+                       .first
+
     full_price = @contents[item_id.to_s] * Item.find(item_id).price
     if discount
       discount_price(full_price, discount.percentage)
