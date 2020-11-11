@@ -82,7 +82,7 @@ RSpec.describe 'Item Index Page' do
       end
 
       within "#item-#{@giant.id}" do
-        expect(page).to have_content(@ogre_twenty_percent.name)
+        expect(page).to have_content(@giant_thirty_percent.name)
       end
 
       within "#item-#{@hippo.id}" do
