@@ -73,6 +73,29 @@ RSpec.describe 'Cart Show Page' do
           expect(page).to have_content("Subtotal: $80.00")
         end
       end
+
+      it "I can add items with multiple discounts and the larger discount is applied" do
+        @ogre = @megan.items.create!(name: 'Ogre', description: "I'm an Ogre!", price: 20, image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTaLM_vbg2Rh-mZ-B4t-RSU9AmSfEEq_SN9xPP_qrA2I6Ftq_D9Qw', active: true, inventory: 25)
+        @ogre_ten_percent = Discount.create!(name: '10% off 3 ogres', percentage: 10, minimum_quantity: 3, item_id: @ogre.id)
+        @ogre_twenty_percent = Discount.create!(name: '20% off 5 ogres', percentage: 20, minimum_quantity: 5, item_id: @ogre.id)
+
+        visit item_path(@ogre)
+        click_button 'Add to Cart'
+        visit item_path(@hippo)
+        click_button 'Add to Cart'
+        visit item_path(@ogre)
+        click_button 'Add to Cart'
+
+        visit '/cart'
+
+        within "#item-#{@ogre.id}" do
+          click_button('More of This!')
+          click_button('More of This!')
+          click_button('More of This!')
+          expect(page).to have_content('Quantity: 5')
+          expect(page).to have_content("Subtotal: $80.00")
+        end
+      end
     end
 
     describe 'I can manipulate my cart' do
