@@ -82,5 +82,36 @@ RSpec.describe 'Order Show Page' do
       expect(@giant.inventory).to eq(5)
       expect(@ogre.inventory).to eq(7)
     end
+
+    it "I can see the discounted price for orders with a discount" do
+      @megan = Merchant.create!(name: 'Megans Marmalades', address: '123 Main St', city: 'Denver', state: 'CO', zip: 80218)
+
+      @ogre = @megan.items.create!(name: 'Ogre', description: "I'm an Ogre!", price: 20, image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTaLM_vbg2Rh-mZ-B4t-RSU9AmSfEEq_SN9xPP_qrA2I6Ftq_D9Qw', active: true, inventory: 20 )
+      @giant = @megan.items.create!(name: 'Giant', description: "I'm a Giant!", price: 50, image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTaLM_vbg2Rh-mZ-B4t-RSU9AmSfEEq_SN9xPP_qrA2I6Ftq_D9Qw', active: true, inventory: 3 )
+
+      @ogre_twenty_percent = Discount.create!(name: '20% off 5 ogres', percentage: 20, minimum_quantity: 5, item_id: @ogre.id)
+
+      visit item_path(@ogre)
+      click_button 'Add to Cart'
+      visit item_path(@giant)
+      click_button 'Add to Cart'
+
+      visit '/cart'
+
+      within "#item-#{@ogre.id}" do
+        click_button('More of This!')
+        click_button('More of This!')
+        click_button('More of This!')
+        click_button('More of This!')
+      end
+
+      click_button 'Check Out'
+
+      order = Order.last
+
+      visit "/profile/orders/#{order.id}"
+
+      expect(page).to have_content("Total: $130.00")
+    end
   end
 end
