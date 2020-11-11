@@ -44,8 +44,8 @@ RSpec.describe Item do
       expect(@ogre.average_rating.round(2)).to eq(3.00)
     end
 
-    it '.my_discounts' do
-      expect(@ogre.my_discounts).to eq([@ogre_twenty_percent, @ogre_fifty_percent])
+    it '.item_discounts' do
+      expect(@ogre.item_discounts).to eq([@ogre_twenty_percent.name, @ogre_fifty_percent.name])
     end
 
   end

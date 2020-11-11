@@ -30,4 +30,8 @@ class Item < ApplicationRecord
   def average_rating
     reviews.average(:rating)
   end
+
+  def item_discounts
+    discounts.pluck(:name)
+  end
 end
