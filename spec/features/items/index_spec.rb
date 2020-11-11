@@ -18,7 +18,11 @@ RSpec.describe 'Item Index Page' do
       @order_1.order_items.create!(item: @hippo, price: @hippo.price, quantity: 3)
       @order_2.order_items.create!(item: @hippo, price: @hippo.price, quantity: 5)
       @order_3.order_items.create!(item: @nessie, price: @nessie.price, quantity: 7)
+
+      @ogre_twenty_percent = Discount.create!(name: '20% off 5 ogres', percentage: 20, minimum_quantity: 5, item_id: @ogre.id)
+      @giant_thirty_percent = Discount.create!(name: '30% off 10 giants', percentage: 30, minimum_quantity: 10, item_id: @giant.id)
     end
+
     it 'I can see a list of all active items' do
       visit '/items'
 
@@ -67,6 +71,22 @@ RSpec.describe 'Item Index Page' do
       within '.statistics' do
         expect(page).to have_content("Most Popular Items:\n#{@hippo.name}: 8 sold #{@ogre.name}: 2 sold #{@giant.name}: 0 sold")
         expect(page).to have_content("Least Popular Items:\n#{@giant.name}: 0 sold #{@ogre.name}: 2 sold #{@hippo.name}: 8 sold")
+      end
+    end
+
+    it 'I can see the discounted items' do
+      visit '/items'
+
+      within "#item-#{@ogre.id}" do
+        expect(page).to have_content(@ogre_twenty_percent.name)
+      end
+
+      within "#item-#{@giant.id}" do
+        expect(page).to have_content(@giant_thirty_percent.name)
+      end
+
+      within "#item-#{@hippo.id}" do
+        expect(page).to_not have_content("off")
       end
     end
   end

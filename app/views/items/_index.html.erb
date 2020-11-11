@@ -12,6 +12,9 @@
 <% @items.each do |item| %>
   <section id='item-<%= item.id%>'>
     <h2><%= link_to item.name, "/items/#{item.id}" %></h2>
+      <% item.item_discounts.each do |discount| %>
+        <p><%= discount %></p>
+      <% end %>
     <p><%= item.description %></p>
     <%= link_to(image_tag(item.image), item_path(item), id: 'image') %>
     <p>Price: <%= number_to_currency(item.price) %></p>

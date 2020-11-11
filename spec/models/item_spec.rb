@@ -27,6 +27,11 @@ RSpec.describe Item do
       @review_3 = @ogre.reviews.create(title: 'EW', description: 'This Ogre is Ew', rating: 1)
       @review_4 = @ogre.reviews.create(title: 'So So', description: 'This Ogre is So so', rating: 2)
       @review_5 = @ogre.reviews.create(title: 'Okay', description: 'This Ogre is Okay', rating: 4)
+
+      @ogre_twenty_percent = Discount.create!(name: '20% off 5 ogres', percentage: 20, minimum_quantity: 5, item_id: @ogre.id)
+      @ogre_fifty_percent = Discount.create!(name: '50% off 20 ogres', percentage: 50, minimum_quantity: 20, item_id: @ogre.id)
+      @giant_twenty_percent = Discount.create!(name: '20% off 5 giants', percentage: 20, minimum_quantity: 5, item_id: @giant.id)
+
     end
 
     it '.sorted_reviews()' do
@@ -38,6 +43,11 @@ RSpec.describe Item do
     it '.average_rating' do
       expect(@ogre.average_rating.round(2)).to eq(3.00)
     end
+
+    it '.item_discounts' do
+      expect(@ogre.item_discounts).to eq([@ogre_twenty_percent.name, @ogre_fifty_percent.name])
+    end
+
   end
 
   describe 'Class Methods' do
