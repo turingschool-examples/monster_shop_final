@@ -27,6 +27,7 @@ class Cart
   def grand_total
     grand_total = 0.0
     @contents.each { |item_id, quantity| grand_total += subtotal_of(item_id)}
+    grand_total
   end
 
   def count_of(item_id)
