@@ -41,11 +41,13 @@ RSpec.describe 'Merchant Dashboard' do
 
     it 'I see each of my discounts with a button to delete that discount' do
       visit "/merchant/#{@merchant_1.id}/discounts/index"
+
       within "#discount-#{@discount1.id}" do
         click_button("Delete Discount")
       end 
-      
+    
       expect(current_path).to eq("/merchant/#{@merchant_1.id}/discounts/index")
+      expect(page).to_not have_content("Get 0.10% off of orders of 5 items or more")
     end
   end 
 end
