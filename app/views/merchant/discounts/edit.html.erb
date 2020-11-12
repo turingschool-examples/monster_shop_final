@@ -1,13 +1,13 @@
 <%= form_tag "/merchant/discounts/#{@discount.id}", method: :patch do %>
 
   <%= label_tag :name %>
-  <%= text_field_tag :name,  @discount.name%>
+  <%= text_field_tag :name,  "#{@discount.name}"%>
 
   <%= label_tag :percentage %>
-  <%= number_field_tag :percentage, @discount.percentage, input_html: { step: 0.0 } %>
+  <%= number_field_tag :percentage, "#{@discount.percentage}", input_html: { step: 0.0 } %>
 
   <%= label_tag :limit %>
-  <%= number_field_tag :limit, @discount.limit %>
+  <%= number_field_tag :limit, "#{@discount.limit}" %>
 
   <%= submit_tag "Update Discount" %>
 <% end  %>
