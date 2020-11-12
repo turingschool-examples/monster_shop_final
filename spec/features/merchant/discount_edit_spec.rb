@@ -46,7 +46,7 @@ RSpec.describe 'Merchant Update Discounts' do
 
       click_button "Create Discount"
       expect(current_path).to eq('/merchant/discounts')
-      expect(page).to have_content("Name can't be blank and Percentage can't be blank")
+      expect(page).to have_content("Name can't be blank")
     end
   end
 end
