@@ -24,14 +24,14 @@ RSpec.describe 'Merchant Update Discounts' do
       expect(find_field('Percentage').value).to eq "0.07"
       expect(find_field('Limit').value).to eq "14"
 
-      fill_in :name, with: "7 %"
+      fill_in :name, with: "7%"
 
       click_button "Update Discount"
       expect(current_path).to eq('/merchant/discounts')
 
       within "#discount-#{@discount.id}" do
         expect(page).to have_content("#{@discount.name} Discount")
-        expect(@discount.name).to eq("7 %")
+        expect(@discount.name).to eq("7%")
       end
     end
 
