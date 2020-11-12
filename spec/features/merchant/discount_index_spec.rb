@@ -33,32 +33,14 @@ RSpec.describe 'Merchant Order Show Page' do
         expect(page).to have_content("#{@discount_1_5.name} Discount")
         expect(page).to have_content("Limit: #{@discount_1_5.limit}")
         expect(page).to have_link("Update")
+        expect(page).to have_button("Delete")
       end
 
       within "#discount-#{@discount_1_10.id}" do
         expect(page).to have_content("#{@discount_1_10.name} Discount")
         expect(page).to have_content("Limit: #{@discount_1_10.limit}")
         expect(page).to have_link("Update")
-      end
-    end
-
-    xit "has a 5% discount on an order with quantity between 5 - 9 on my orders index, orders show, cart and checkout" do
-
-      visit '/profile/orders'
-      order_item_1_regular_price = (@order_item_1.price * @order_item_1.quantity)
-      order_item_1_discounted_price = 237.5
-
-      expect(order_item_1_regular_price).to_not eq(order_item_1_discounted_price)
-      expect(order_item_1_regular_price).to eq(250)
-      expect(order_item_1_discounted_price).to eq(237.5)
-
-      within "#order-#{@order_1.id}" do
-        expect(page).to have_content("Total: $237.50")
-      end
-
-      visit "/profile/orders/#{@order_1.id}"
-        within "#order-item-#{@order_item_1.id}" do
-        expect(page).to have_content("Total: $237.50")
+        expect(page).to have_button("Delete")
       end
     end
   end
