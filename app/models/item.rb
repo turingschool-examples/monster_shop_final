@@ -29,4 +29,8 @@ class Item < ApplicationRecord
   def average_rating
     reviews.average(:rating)
   end
+
+  def available_discounts
+      self.merchant.discounts
+  end
 end

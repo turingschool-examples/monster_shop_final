@@ -167,6 +167,9 @@ RSpec.describe 'Cart Show Page' do
         expect(page).to_not have_content("#{@hippo.name}")
         expect(page).to have_content("Cart: 0")
       end
+      it 'has a grand total and sub total with discounts implimented' do
+        
+      end
     end
   end
 end
