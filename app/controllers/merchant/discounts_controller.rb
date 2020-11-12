@@ -26,7 +26,6 @@ class Merchant::DiscountsController < Merchant::BaseController
   def update
     merchant = current_user.merchant
     @discount = merchant.discounts.find(params[:id])
-    binding.pry
     if @discount.update!(discount_params)
       redirect_to '/merchant/discounts'
     else
