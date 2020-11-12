@@ -26,8 +26,8 @@ class Merchant::DiscountsController < Merchant::BaseController
   def update
     merchant = current_user.merchant
     @discount = merchant.discounts.find(params[:id])
+    binding.pry
     if @discount.update!(discount_params)
-      @discount.save
       redirect_to '/merchant/discounts'
     else
       flash[:alert] = discount.errors.full_messages.to_sentence
