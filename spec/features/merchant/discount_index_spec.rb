@@ -32,11 +32,13 @@ RSpec.describe 'Merchant Order Show Page' do
       within "#discount-#{@discount_1_5.id}" do
         expect(page).to have_content("#{@discount_1_5.name} Discount")
         expect(page).to have_content("Limit: #{@discount_1_5.limit}")
+        expect(page).to have_link("Update")
       end
 
       within "#discount-#{@discount_1_10.id}" do
         expect(page).to have_content("#{@discount_1_10.name} Discount")
         expect(page).to have_content("Limit: #{@discount_1_10.limit}")
+        expect(page).to have_link("Update")
       end
     end
 
