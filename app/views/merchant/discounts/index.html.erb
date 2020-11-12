@@ -5,6 +5,7 @@
       <%= discount.name %> Discount <br>
       Limit: <%= discount.limit %>
     </ul>
-    <%= link_to "Update", "/merchant/discounts/#{discount.id}/edit" %>
+    <%= link_to "Update", "/merchant/discounts/#{discount.id}/edit" %> <br>
+    <%= button_to "Delete", "/merchant/discounts/#{discount.id}", method: :delete %>
     <% end %>
   </section>
