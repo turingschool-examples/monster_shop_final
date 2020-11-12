@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe 'Merchant Order Show Page' do
+RSpec.describe 'Merchant New Discount' do
   describe 'As a Merchant' do
     before :each do
       @merchant_1 = Merchant.create!(name: 'Megans Marmalades', address: '123 Main St', city: 'Denver', state: 'CO', zip: 80218)
@@ -39,11 +39,10 @@ RSpec.describe 'Merchant Order Show Page' do
 
       fill_in "Name", with: ""
       fill_in "Percentage", with: nil
-      fill_in "Limit", with: "Not A Number"
+      fill_in "Limit", with: 12
 
       click_button "Create Discount"
       expect(current_path).to eq('/merchant/discounts')
-      save_and_open_page
       expect(page).to have_content("Name can't be blank and Percentage can't be blank")
     end
   end
