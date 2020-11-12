@@ -69,7 +69,8 @@ RSpec.describe Cart do
       expect(@cart.count_of(@giant.id)).to eq(1)
     end
 
-    it '.bulk_discount?' do
+    it '.grand_total' do
+      #discounts
       # 5%
       5.times {@cart.add_item(@skunk.id.to_s)}
       expect(@cart.grand_total).to eq(357.50)
@@ -77,7 +78,6 @@ RSpec.describe Cart do
       # 5% added one more skunk
       @cart.add_item(@skunk.id.to_s)
       expect(@cart.grand_total).to eq(405)
-
       #10%
       4.times {@cart.add_item(@skunk.id.to_s)}
       expect(@cart.grand_total).to eq(570)
