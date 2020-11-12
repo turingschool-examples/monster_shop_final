@@ -1,0 +1,9 @@
+<%= link_to "Create Discount", '/merchant/discounts/new' %>
+<% @discounts.each do |discount| %>
+  <section id="discount-<%=discount.id %>">
+    <ul>
+      <%= discount.name %> Discount <br>
+      Limit: <%= discount.limit %>
+    </ul>
+    <% end %>
+  </section>
