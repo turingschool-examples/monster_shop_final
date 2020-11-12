@@ -29,9 +29,11 @@ RSpec.describe 'Merchant Update Discounts' do
       click_button "Update Discount"
       expect(current_path).to eq('/merchant/discounts')
 
+      @discount.reload
+
       within "#discount-#{@discount.id}" do
-        expect(page).to have_content("#{@discount.name} Discount")
         expect(@discount.name).to eq("7%")
+        expect(page).to have_content("#{@discount.name} Discount")
       end
     end
 
