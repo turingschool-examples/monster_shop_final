@@ -16,21 +16,31 @@ Rails.application.routes.draw do
     get '/merchants/:merchant_id/items', to: 'items#index'
   # end
 
-  resources :items, only: [:index, :show] do
-    resources :reviews, only: [:new, :create]
-  end
+  # resources :items, only: [:index, :show] do
+  get '/items', to: 'items#index'
+  get '/items/:id', to: 'items#show'
+    # resources :reviews, only: [:new, :create]
+    get '/items/:item_id/reviews/new', to: 'reviews#new'
+    post '/items/:item_id/reviews', to: 'reviews#create'
+  # end
 
-  resources :reviews, only: [:edit, :update, :destroy]
+  # resources :reviews, only: [:edit, :update, :destroy]
+  get 'reviews/:id/edit', to: 'reviews#edit'
+  patch '/reviews/:id', to: 'reviews#update'
+  delete '/merchants:id', to: 'reviews#destroy'
 
-  get '/cart', to: 'cart#show'
-  post '/cart/:item_id', to: 'cart#add_item'
-  delete '/cart', to: 'cart#empty'
+  resources :cart, only: [:show, :add_item, :empty]
+  # get '/cart', to: 'cart#show'
+  # post '/cart/:item_id', to: 'cart#add_item'
+  # delete '/cart', to: 'cart#empty'
   patch '/cart/:change/:item_id', to: 'cart#update_quantity'
   delete '/cart/:item_id', to: 'cart#remove_item'
 
   get '/registration', to: 'users#new', as: :registration
+
   resources :users, only: [:create, :update]
   patch '/user/:id', to: 'users#update'
+
   get '/profile', to: 'users#show'
   get '/profile/edit', to: 'users#edit'
   get '/profile/edit_password', to: 'users#edit_password'
@@ -50,13 +60,14 @@ Rails.application.routes.draw do
     put '/items/:id/change_status', to: 'items#change_status'
     get '/orders/:id/fulfill/:order_item_id', to: 'orders#fulfill'
 
-    get '/discounts/new', to: 'discounts#new'
-    get '/discounts', to: 'discounts#index'
-    get '/discounts/:id', to: 'discounts#show'
-    post '/discounts', to: 'discounts#create'
-    get '/discounts/:id/edit', to: 'discounts#edit'
-    patch '/discounts/:id', to: 'discounts#update'
-    delete '/discounts/:id', to: 'discounts#destroy'
+      resources :discounts
+      # get '/discounts/new', to: 'discounts#new'
+      # get '/discounts', to: 'discounts#index'
+      # get '/discounts/:id', to: 'discounts#show'
+      # post '/discounts', to: 'discounts#create'
+      # get '/discounts/:id/edit', to: 'discounts#edit'
+      # patch '/discounts/:id', to: 'discounts#update'
+      # delete '/discounts/:id', to: 'discounts#destroy'
   end
 
   namespace :admin do
