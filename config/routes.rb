@@ -2,9 +2,19 @@ Rails.application.routes.draw do
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
   get :root, to: 'welcome#index'
 
-  resources :merchants do
-    resources :items, only: [:index]
-  end
+  # comments are original code
+
+  # resources :merchants do
+  get '/merchants', to: 'merchants#index'
+  post '/merchants', to: 'merchants#create'
+  get '/merchants/new', to: 'merchants#new'
+  get '/merchants/:id/edit', to: 'merchants#edit'
+  get '/merchants/:id', to: 'merchants#show'
+  patch '/merchants/:id', to: 'merchants#update'
+  delete '/merchants/:id', to: 'merchants#destroy'
+    #resources :items, only: [:index]
+    get '/merchants/:merchant_id/items', to: 'items#index'
+  # end
 
   resources :items, only: [:index, :show] do
     resources :reviews, only: [:new, :create]
